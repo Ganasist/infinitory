@@ -44,13 +44,14 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'bootstrap-sass'
 gem 'cancan'
-gem 'devise'
-gem 'devise_invitable'
+gem 'devise', '3.0.0.rc'
+# gem 'devise_invitable'
 gem 'figaro'
 gem 'pg'
 gem 'rolify'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
+gem 'high_voltage'
 
 group :development do
   gem 'better_errors'
