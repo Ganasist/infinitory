@@ -1,12 +1,10 @@
 <h1>Listing institutes</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
+      <th>Country</th>
       <th>City</th>
       <th>Address</th>
       <th></th>
@@ -19,9 +17,7 @@
     <% @institutes.each do |institute| %>
       <tr>
         <td><%= institute.name %></td>
-        <td><%= institute.description %></td>
-        <td><%= institute.latitude %></td>
-        <td><%= institute.longitude %></td>
+        <td><%= institute.country %></td>
         <td><%= institute.city %></td>
         <td><%= institute.address %></td>
         <td><%= link_to 'Show', institute %></td>
