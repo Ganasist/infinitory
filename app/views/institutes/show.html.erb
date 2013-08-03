@@ -12,29 +12,60 @@
   <dd><%= @institute.address %></dd>
 </dl>
 
-<p>
-  <%= link_to "Register a department at #{@institute.name}", new_institute_department_path(@institute) %>
-</p>
+  <div class="container-fluid">
+    <div class="span12">
+      <div class="span5">
+        <p>
+          <%= link_to "Register a department at #{@institute.name}", new_institute_department_path(@institute) %>
+        </p>
 
-<div class="page-header">
-  <h3><%= "Departments" %></h3>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:address) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @departments.each do |department| %>
-      <tr>
-        <td><%= link_to department.name, institute_department_path(@institute, department) %></td>
-        <td><%= department.address %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <div class="page-header">
+          <h3><%= "Departments" %></h3>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= model_class.human_attribute_name(:name) %></th>
+              <th><%= model_class.human_attribute_name(:address) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @departments.each do |department| %>
+              <tr>
+                <td><%= link_to department.name, institute_department_path(@institute, department) %></td>
+                <td><%= department.address %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="span5">
+        <p>
+          <%= link_to "Register a lab at #{@institute.name}", new_institute_department_path(@institute) %>
+        </p>
+
+        <div class="page-header">
+          <h3><%= "Departments" %></h3>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= model_class.human_attribute_name(:name) %></th>
+              <th><%= model_class.human_attribute_name(:address) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @departments.each do |department| %>
+              <tr>
+                <td><%= link_to department.name, institute_department_path(@institute, department) %></td>
+                <td><%= department.address %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
 
 <div class="form-actions">

@@ -33,7 +33,7 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to institute_department_path(@institute, @department), notice: 'Department was successfully created.' }
+        format.html { redirect_to institute_department_path(@department.institute, @department), notice: 'Department was successfully created.' }
         format.json { render action: 'show', status: :created, location: @department }
       else
         format.html { render action: 'new' }
@@ -45,9 +45,11 @@ class DepartmentsController < ApplicationController
   # PATCH/PUT /departments/1
   # PATCH/PUT /departments/1.json
   def update
+    @institute = Institute.find(params[:institute_id])    
+
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
+        format.html { redirect_to institute_department_path(@department.institute, @department), notice: 'Department was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
