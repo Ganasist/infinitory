@@ -4,12 +4,14 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    @institute = Institute.find(params[:institute_id]) 
+    @departments = Department.where(institute_id: params[:institute_id])
   end
 
   # GET /departments/1
   # GET /departments/1.json
   def show
+    @institute = Institute.find(params[:institute_id]) 
   end
 
   # GET /departments/new
@@ -21,7 +23,6 @@ class DepartmentsController < ApplicationController
   # GET /departments/1/edit
   def edit
     @institute = Institute.find(params[:institute_id])
-    @department = Department.find(params[:id])
   end
 
   # POST /departments
@@ -32,7 +33,7 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to @department, notice: 'Department was successfully created.' }
+        format.html { redirect_to institute_department_path(@institute, @department), notice: 'Department was successfully created.' }
         format.json { render action: 'show', status: :created, location: @department }
       else
         format.html { render action: 'new' }
@@ -73,6 +74,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :institute_id, :address, :longitude, :latitude)
+      params.require(:department).permit(:name, :address)
     end
 end

@@ -4,12 +4,13 @@ class InstitutesController < ApplicationController
   # GET /institutes
   # GET /institutes.json
   def index
-    @institutes = Institute.all
+    @institutes = Institute.order(country: :asc)
   end
 
   # GET /institutes/1
   # GET /institutes/1.json
   def show
+    @departments = Department.where(institute_id: params[:id])
   end
 
   # GET /institutes/new
