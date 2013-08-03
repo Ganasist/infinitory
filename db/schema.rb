@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20130802202902) do
     t.datetime "updated_at"
   end
 
+  add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
+
   create_table "institutes", force: true do |t|
     t.string   "name"
     t.float    "latitude"

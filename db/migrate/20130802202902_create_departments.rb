@@ -9,5 +9,8 @@ class CreateDepartments < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :departments, :institute_id
+
   end
 end

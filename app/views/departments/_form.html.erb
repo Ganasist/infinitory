@@ -1,12 +1,9 @@
-<%= simple_form_for @department, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :name %>
-  <%= f.input :institute_id %>
-  <%= f.input :address %>
-  <%= f.input :longitude %>
-  <%= f.input :latitude %>
+<%= simple_form_for [@institute, @department], :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name, label: "Department name" %>
+  <%= f.input :address, label: "Department address" %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                departments_path, :class => 'btn' %>
+                institute_departments_path, :class => 'btn' %>
   </div>
 <% end %>

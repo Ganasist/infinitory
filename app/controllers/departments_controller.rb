@@ -14,17 +14,21 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/new
   def new
+    @institute = Institute.find(params[:institute_id])
     @department = Department.new
   end
 
   # GET /departments/1/edit
   def edit
+    @institute = Institute.find(params[:institute_id])
+    @department = Department.find(params[:id])
   end
 
   # POST /departments
   # POST /departments.json
   def create
-    @department = Department.new(department_params)
+    @institute = Institute.find(params[:institute_id])
+    @department = @institute.departments.new(department_params)
 
     respond_to do |format|
       if @department.save
