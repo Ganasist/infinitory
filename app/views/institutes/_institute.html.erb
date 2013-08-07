@@ -1,0 +1,12 @@
+<div class="institute">
+<p><%= link_to institute.name, institute %></p>
+
+<% if institute.departments.present? %>
+<%= link_to "#{pluralize institute.departments.count, "department"}", institute_departments_path(institute) %>
+<% end %>
+
+<% if institute.labs.present? %>
+<%= pluralize institute.labs.count, "lab" %>
+<% end %>
+
+</div>
