@@ -4,7 +4,7 @@ class InstitutesController < ApplicationController
   # GET /institutes
   # GET /institutes.json
   def index
-    @institutes = Institute.order(country: :asc)
+    @institutes = Institute.order(country: :asc).includes(:departments, :labs)
   end
 
   # GET /institutes/1

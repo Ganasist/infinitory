@@ -1,6 +1,7 @@
 class Institute < ActiveRecord::Base
 
 	has_many :departments, dependent: :destroy
+	has_many :labs, dependent: :destroy
 
 	geocoded_by :address   # can also be an IP address
 	after_validation :geocode          # auto-fetch coordinates

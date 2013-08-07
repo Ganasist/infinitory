@@ -4,7 +4,7 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @institute = Institute.find(params[:institute_id]) 
+    @institute = Institute.find(params[:institute_id])
     @departments = Department.where(institute_id: params[:institute_id])
   end
 

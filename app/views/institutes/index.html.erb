@@ -2,26 +2,8 @@
 <div class="page-header">
   <h3 class="text-muted"><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h3>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:city) %></th>
-      <th><%= model_class.human_attribute_name(:address) %></th>
-      <th><%= model_class.human_attribute_name(:country) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @institutes.each do |institute| %>
-      <tr>
-        <td><%= link_to institute.name, institute_path(institute) %></td>
-        <td><%= institute.city %></td>
-        <td><%= institute.address %></td>
-        <td><%= institute.country %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<%= render @institutes %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_institute_path,

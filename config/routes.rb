@@ -1,7 +1,14 @@
 Infinitory::Application.routes.draw do
 
+
   resources :institutes do
-    resources :departments
+    resources :labs
+  end
+
+  resources :institutes do
+    resources :departments do
+      resources :labs
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

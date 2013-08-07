@@ -57,8 +57,10 @@ gem 'thin'
 gem 'high_voltage'
 
 gem 'geocoder'
+gem 'rack-mini-profiler'
 
 group :development do
+  gem 'bullet', group: :development
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
   gem 'guard-bundler'
