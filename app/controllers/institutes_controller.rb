@@ -6,6 +6,7 @@ class InstitutesController < ApplicationController
   def index
     if params[:search].present? 
       @institutes = Institute.near(params[:search], 30).includes(:departments, :labs)
+      @mapped = @institutes.to_gmaps4rails
     else
       @institutes = Institute.order(updated_at: :desc).includes(:departments, :labs)
     end

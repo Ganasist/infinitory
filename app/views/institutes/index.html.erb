@@ -1,7 +1,11 @@
 <%- model_class = Institute -%>
 <div class="page-header">
 	<% if params[:search].present? %>
-		<h3><%= pluralize @institutes.count, "institute" %> around <%= params[:search].titleize %></h3>
+		<h3><%= pluralize @institutes.count, "institute" %> register near <%= params[:search].titleize %></h3>
+
+		<%= gmaps(map_options: { auto_zoom: true, disableDefaultUI: true, mapTypeControl: true, maxZoom: 16, minZoom: 2},
+          markers: { "data" => @mapped }) %>
+
   <% else %>
 	  <h3><%= pluralize @institutes.count, "institute" %></h3>
   <% end %>
