@@ -10,8 +10,7 @@ class InstitutesController < ApplicationController
         marker.title "#{institute.name}"
       end
     else
-      @city = request.location.city
-      @institutes = Institute.near("@city").includes(:departments, :labs)
+      @institutes = Institute.order(updated_at: :desc).includes(:departments, :labs)
     end
   end
 
