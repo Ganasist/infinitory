@@ -1,12 +1,20 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
 
+
+
+  def gmaps4rails_infowindow
+    "#{self.name}"
+  end
+
   # GET /institutes
   # GET /institutes.json
   def index
     if params[:search].present? 
       @institutes = Institute.near(params[:search], 30).includes(:departments, :labs)
-      @mapped = @institutes.to_gmaps4rails
+      @mapped = @institutes.to_gmaps4rails do |institute, marker|
+        marker.title "#{institute.name}"
+      end
     else
       @institutes = Institute.order(updated_at: :desc).includes(:departments, :labs)
     end

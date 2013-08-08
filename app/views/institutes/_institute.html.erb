@@ -1,5 +1,11 @@
 <div class="institute">
-<p><%= link_to institute.name, institute %></p>
+
+<% if params[:search].present? %>
+	<p><%= link_to institute.name, institute,'data-no-turbolink' => true %></p>
+<% else %>
+		<p><%= link_to institute.name, institute %></p>
+<% end %>
+
 
 <% if institute.departments.present? %>
 	<%= link_to "#{pluralize institute.departments.count, "department"}", institute_departments_path(institute) %>
@@ -10,3 +16,4 @@
 <% end %>
 
 </div>
+

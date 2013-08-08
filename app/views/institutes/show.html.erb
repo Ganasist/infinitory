@@ -3,7 +3,7 @@
   <h2 class="text-muted"><%= "#{@institute.name}" %></h2>
 </div>
 
-<%= gmaps(map_options: { auto_zoom: true, disableDefaultUI: true, mapTypeControl: true, maxZoom: 16, minZoom: 2},
+<%= gmaps(map_options: { auto_zoom: true, disableDefaultUI: true, mapTypeControl: true, maxZoom: 16, minZoom: 3},
           markers: { "data" => @mapped }) %>
 
 <dl class="dl-vertical">
@@ -24,7 +24,7 @@
 <h4>Nearby Institutes</h4>
 <ul>
 <% for institute in @institute.nearbys(50) %>
- <li><%= link_to institute.name, institute %> (<%= institute.distance.round(1) %> km)</li>
+ <li><%= link_to institute.name, institute, 'data-no-turbolink' => true %> (<%= institute.distance.round(1) %> km)</li>
 <% end %>
 </ul>
 
