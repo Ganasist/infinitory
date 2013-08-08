@@ -15,6 +15,7 @@ class InstitutesController < ApplicationController
   # GET /institutes/1.json
   def show
     @departments = Department.where(institute_id: params[:id])
+    @mapped = @institute.to_gmaps4rails
   end
 
   # GET /institutes/new
