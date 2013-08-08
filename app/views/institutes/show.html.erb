@@ -3,8 +3,7 @@
   <h2 class="text-muted"><%= "#{@institute.name}" %></h2>
 </div>
 
-<%= gmaps(map_options: { auto_zoom: true, disableDefaultUI: true, mapTypeControl: true, maxZoom: 16, minZoom: 3},
-          markers: { "data" => @mapped }) %>
+<%= render 'gmap' %>
 
 <dl class="dl-vertical">
   <% if @institute.alternate_name? %>
