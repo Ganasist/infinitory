@@ -18,6 +18,13 @@
   </div>
 <% end %>
 
+<h4>Nearby Institutes</h4>
+<ul>
+<% for institute in @institute.nearbys(50) %>
+ <li><%= link_to institute.name, institute %> (<%= institute.distance.round(1) %> km)</li>
+<% end %>
+</ul>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               institutes_path, :class => 'btn'  %>

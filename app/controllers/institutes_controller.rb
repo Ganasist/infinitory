@@ -4,7 +4,11 @@ class InstitutesController < ApplicationController
   # GET /institutes
   # GET /institutes.json
   def index
-    @institutes = Institute.order(updated_at: :desc).includes(:departments, :labs)
+    if params[:search].present? 
+      @institutes = Institute.near(params[:search], 30).includes(:departments, :labs)
+    else
+      @institutes = Institute.order(updated_at: :desc).includes(:departments, :labs)
+    end
   end
 
   # GET /institutes/1

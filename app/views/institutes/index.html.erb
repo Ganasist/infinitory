@@ -1,12 +1,21 @@
 <%- model_class = Institute -%>
 <div class="page-header">
-  <h3><%= pluralize @institutes.count, "institute" %></h3>
+	<% if params[:search].present? %>
+		<h3><%= pluralize @institutes.count, "institute" %> around <%= params[:search].titleize %></h3>
+  <% else %>
+	  <h3><%= pluralize @institutes.count, "institute" %></h3>
+  <% end %>
 
   <%= link_to "Add new institute",
             new_institute_path,
             :class => 'btn' %>
 </div>
 
+<%= form_tag institutes_path, method: :get do %>
+	<p>
+			<%= text_field_tag :search, params[:search], placeholder: "Search locations" %>
+	</p>
+<% end %>
 
 <%= render @institutes %>
 
