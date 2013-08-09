@@ -10,7 +10,7 @@ class InstitutesController < ApplicationController
         marker.title "#{institute.name}"
       end
     else
-      @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(10)
+      @institutes = Institute.all.page(params[:page]).per_page(20)
     end
   end
 

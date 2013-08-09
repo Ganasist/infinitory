@@ -2,9 +2,7 @@
 <div class="page-header">
 	<% if params[:search].present? %>
 		<h3><%= pluralize @institutes.count, "institute".titleize %>  Registered Around <%= params[:search].titleize %></h3>
-
-		<%= render 'gmap' %>
-
+		<%= render 'gmap' %><br>
   <% else %>
 	  <h3><%= pluralize @institutes.count, "institute" %></h3>
   <% end %>
@@ -16,7 +14,7 @@
 
 <%= form_tag institutes_path, method: :get do %>
 	<p>
-			<%= text_field_tag :search, params[:search], placeholder: "Search locations" %>
+			<%= text_field_tag :search, params[:search], placeholder: "Search cities" %>
 	</p>
 <% end %>
 
