@@ -36,19 +36,18 @@
   </head>
   <body>
     <div id="push">
-      <div class="navbar navbar-fluid-top">
-        <div class="navbar-inner">
-          <div class="container-fluid">
-            
-            <a class="brand" href="/">Infinitory</a>
-              <ul class="nav">
-                <li><%= link_to "Link1", "/path1"  %></li>
-                <li><%= link_to "Link2", "/path2"  %></li>
-                <li><%= link_to "Link3", "/path3"  %></li>
-              </ul>
-          </div>
-        </div>
-      </div>
+      <%= nav_bar :static => :top, :brand => "Infinitory", :responsive => false do %>
+          <%= menu_group do %>
+              <%= menu_item "Institutes", institutes_path %>
+              <%= menu_divider %>              
+              <%= menu_item "Link 2", page_path('about')  %>
+              <%= menu_divider %>
+              <%= menu_item "Link 3", page_path('privacy')  %>
+          <% end %>
+          <%= form_tag institutes_path, method: :get do %>
+            <p><%= text_field_tag :search, params[:search], class: "navbar-search span3 pull-right", placeholder: "Search cities" %></p>
+          <% end %>
+      <% end %>
       <div class="container-fluid">
           <div class="span12">
             <%= bootstrap_flash %>
