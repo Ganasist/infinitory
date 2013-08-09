@@ -14,6 +14,10 @@
   <dd><%= @institute.address %></dd>
 </dl>
 
+  <%= link_to "Add new department",
+            new_institute_department_path(@institute),
+            :class => 'btn' %>
+
 <% @departments.each do |department| %>
   <div class="department">
   <p><%= link_to department.name, institute_department_path(@institute, department) %></p>

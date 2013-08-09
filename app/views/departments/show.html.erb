@@ -11,6 +11,10 @@
   <dd><%= @department.address %></dd>
 </dl>
 
+<%= link_to "Add new lab",
+            new_institute_department_lab_path(@institute, @department),
+            :class => 'btn' %>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               institute_path(@institute), :class => 'btn'  %>
