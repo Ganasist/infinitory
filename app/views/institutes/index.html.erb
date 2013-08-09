@@ -22,3 +22,12 @@
 
 <%= render @institutes %>
 
+<% unless params[:search].present? %>
+	<% if @institutes.previous_page %>
+	  <%= link_to "< Previous", params.merge(page: @institutes.previous_page) %>
+	<% end %>
+	Page <%= @institutes.current_page %> of <%= @institutes.total_pages %>
+	<% if @institutes.next_page %>
+	  <%= link_to "Next >", params.merge(page: @institutes.next_page) %>
+	<% end %>
+<% end %>
