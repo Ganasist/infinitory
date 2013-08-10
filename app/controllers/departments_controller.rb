@@ -11,7 +11,8 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   # GET /departments/1.json
   def show
-    @institute = Institute.find(params[:institute_id]) 
+    @institute = Institute.find(params[:institute_id])
+    @mapped = @department.to_gmaps4rails
   end
 
   # GET /departments/new
@@ -76,6 +77,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :address)
+      params.require(:department).permit(:name, :address, :url, :acronym)
     end
 end
