@@ -1,12 +1,21 @@
 <%- model_class = Institute -%>
 <div class="page-header">
-  <h2 class="text-muted"><%= "#{@institute.name}" %></h2>
+  <h2 class="text-muted">
+    <%= "#{@institute.name}" %>
+    <% if @institute.acronym.present? %>
+      (<%= "#{@institute.acronym}" %>)
+    <% end %>
+  </h2>
 </div>
 
 <%= render 'gmap' %>
 
 <dl class="dl-vertical">
-  <% if @institute.alternate_name? %>
+  <% if @institute.url? %>
+    <dt><strong>URL</strong></dt>
+    <dd><%= link_to "#{@institute.url}", @institute.url  %></dd>
+  <% end %>
+  <% if @institute.alternate_name.present? %>
     <dt><strong><%= model_class.human_attribute_name(:alternate_name) %>:</strong></dt>
     <dd><%= @institute.alternate_name %></dd>
   <% end %>

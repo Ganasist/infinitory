@@ -1,4 +1,8 @@
 <div class="institute">
-<p><%= link_to institute.name, institute, 'data-no-turbolink' => true %></p>
+	<% if institute.acronym.present? %>
+		<p><%= link_to "#{institute.name}" " " "(#{institute.acronym})" , institute, 'data-no-turbolink' => true %><p> 
+	<% else %>
+		<p><%= link_to institute.name, institute, 'data-no-turbolink' => true %><p> 
+	<% end %>
 </div>
 

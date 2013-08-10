@@ -78,6 +78,6 @@ class InstitutesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institute_params
-      params.require(:institute).permit(:name, :alternate_name, :address)
+      params.require(:institute).permit(:name, :alternate_name, :address, :url, :acronym)
     end
 end
