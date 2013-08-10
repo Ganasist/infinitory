@@ -1,5 +1,7 @@
 class Institute < ActiveRecord::Base
 
+	include UrlHelper
+
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
 	has_many :labs, through: :departments
@@ -19,7 +21,7 @@ class Institute < ActiveRecord::Base
 	  end
 	end
 	after_validation :reverse_geocode
-	
+
 	acts_as_gmappable validation: false
 
 	def gmaps4rails_address

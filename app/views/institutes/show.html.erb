@@ -12,8 +12,8 @@
 
 <dl class="dl-vertical">
   <% if @institute.url? %>
-    <dt><strong>URL</strong></dt>
-    <dd><%= link_to "#{@institute.url}", @institute.url  %></dd>
+    <dt><strong>Website</strong></dt>
+    <dd><%= link_to "#{@institute.url}", url_with_protocol(@institute.url) %></dd>
   <% end %>
   <% if @institute.alternate_name.present? %>
     <dt><strong><%= model_class.human_attribute_name(:alternate_name) %>:</strong></dt>
