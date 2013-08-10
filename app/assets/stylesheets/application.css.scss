@@ -27,15 +27,30 @@ top: 0;
 }
 
 .footer {
+border-top-style: solid;
+border-width: 1px;
+border-color: grey;
 position: fixed;
 bottom: 0;
 left: 0;
 right: 0;
-height: 40px;
+height: 30px;
 background-color: white;
+	p {
+	text-decoration: none;
+	font-size: 1.2em;	
+	padding: 5px;
+	a:hover {
+		text-decoration: none;
+	}
+	}
 }
 
-.footer p {
-padding: 10px;
+.jumbotron {
+	background-image:url('dandelion.jpg');
+	background-size: cover;
 }
 
+#jumbotext {
+	color: green;
+}
