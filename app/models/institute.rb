@@ -3,7 +3,7 @@ class Institute < ActiveRecord::Base
 	has_many :labs, dependent: :destroy
 	has_many :labs, through: :departments, dependent: :destroy
 
-	before_validation :smart_add_url_protocol
+	after_validation :smart_add_url_protocol
 	after_validation :geocode   # auto-fetch coordinates
 	after_validation :reverse_geocode
 
