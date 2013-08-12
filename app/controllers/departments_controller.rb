@@ -27,6 +27,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/1/edit
   def edit
     @institute = Institute.find(params[:institute_id])
+    @mapped = @department.to_gmaps4rails
   end
 
   # POST /departments

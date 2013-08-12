@@ -10,14 +10,14 @@ class InstitutesController < ApplicationController
         marker.title "#{institute.name}"
       end
     else
-      @institutes = Institute.all.page(params[:page]).per_page(15)
+      @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
     end
   end
 
   # GET /institutes/1
   # GET /institutes/1.json
   def show
-    @departments = Department.where(institute_id: params[:id])
+    @departments = Department.where(institute_id: params[:id]).order(name: :asc)
     @mapped = @institute.to_gmaps4rails
   end
 
@@ -28,6 +28,7 @@ class InstitutesController < ApplicationController
 
   # GET /institutes/1/edit
   def edit
+      @mapped = @institute.to_gmaps4rails
   end
 
   # POST /institutes

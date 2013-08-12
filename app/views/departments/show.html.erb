@@ -9,9 +9,6 @@
      <% end %>
   </h3>
   
-
-<%= render 'gmap' %>
-
 <dl class="dl-vertical">
   <% if @department.url? %>
     <dt><strong>Website</strong></dt>
@@ -22,31 +19,36 @@
 </dl>
 
 <% if @department.labs.present? %>
+<h4>Labs</h4>
   <% @labs.each do |lab| %>
     <div class="department">
-    <p><%= link_to lab.name, institute_department_lab_path(@lab, department) %></p>
+    <p><%= link_to lab.name, institute_department_lab_path(@lab, department), 'data-no-turbolink' => true %></p>
     </div>
   <% end %>
 <% end %>
 
-<h4>Nearby Institutes</h4>
-<ul>
-<% for department in @department.nearbys(50) %>
- <li><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true %> (<%= department.distance.round(1) %> km)</li>
-<% end %>
-</ul>
-
-<%= link_to "Add new lab",
-            new_institute_department_lab_path(@institute, @department),
-            :class => 'btn' %>
-
-<div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               institute_path(@institute), :class => 'btn',
               'data-no-turbolink' => true   %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_institute_department_path(@institute, @department), :class => 'btn' %>
-</div>
+              edit_institute_department_path(@institute, @department), :class => 'btn', 'data-no-turbolink' => true %>
+
+   <br>
+   <br>
+
+  <%= link_to "Add new lab",
+              new_institute_department_lab_path(@institute, @department),
+              :class => 'btn' %>
+
+<h4>Nearby Departments</h4>
+<ul>
+<% for department in @department.nearbys(50) %>
+ <li><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true %> (<%= department.distance.round(2) %> km)</li>
+<% end %>
+</ul>
+
+<%= render 'gmap' %>
+
 
 
 
