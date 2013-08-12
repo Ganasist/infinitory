@@ -1,5 +1,5 @@
 <%- model_class = Institute -%>
 <div class="page-header">
-  <h3><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h3>
+  <h3><%=t '.title', :default => "Register new institute", :model => model_class.model_name.human.titleize %></h3>
 </div>
 <%= render :partial => 'form' %>

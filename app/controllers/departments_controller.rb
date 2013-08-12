@@ -5,7 +5,10 @@ class DepartmentsController < ApplicationController
   # GET /departments.json
   def index
     @institute = Institute.find(params[:institute_id])
-    @departments = Department.where(institute_id: params[:institute_id])
+    @departments = Department.where(institute_id: params[:institute_id])  
+    @mapped = @departments.to_gmaps4rails do |department, marker|
+        marker.title "#{department.name}"
+    end
   end
 
   # GET /departments/1
@@ -34,7 +37,8 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to institute_department_path(@department.institute, @department), notice: 'Department was successfully created.' }
+        format.html { redirect_to institute_department_path(@department.institute, @department), 
+                      notice: 'Department was successfully created.' }
         format.json { render action: 'show', status: :created, location: @department }
       else
         format.html { render action: 'new' }
@@ -50,7 +54,8 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to institute_department_path(@department.institute, @department), notice: 'Department was successfully updated.' }
+        format.html { redirect_to institute_department_path(@department.institute, @department), 
+                      notice: 'Department was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -77,6 +82,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :address, :url, :acronym)
+      params.require(:department).permit(:name, :address, :url, :acronym, :room)
     end
 end

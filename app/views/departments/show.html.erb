@@ -1,21 +1,16 @@
 <%- model_class = Department -%>
 <div class="page-header">
   <div class="page-header">
-  <h2 class="text-muted">
-     <%= "#{@department.name}" %><br><br>
-     <%= "#{@institute.name}" %>
-       <% if @institute.acronym.present? %>
-         (<%= "#{@institute.acronym}" %>)
-       <% end %>
-  </h2>
+  <h2 class="text-muted"><%= "#{@department.name}" %></h2>
+  <h3 class="text-muted">
+    <%= "#{@institute.name}" %>
+     <% if @institute.acronym.present? %>
+       (<%= "#{@institute.acronym}" %>)
+     <% end %>
+  </h3>
+  
 
 <%= render 'gmap' %>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
-  <dd><%= @department.address %></dd>
-</dl>
-
 
 <dl class="dl-vertical">
   <% if @department.url? %>
@@ -37,7 +32,7 @@
 <h4>Nearby Institutes</h4>
 <ul>
 <% for department in @department.nearbys(50) %>
- <li><%= link_to department.name, institute_department_path(department, @institute), 'data-no-turbolink' => true %> (<%= department.distance.round(1) %> km)</li>
+ <li><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true %> (<%= department.distance.round(1) %> km)</li>
 <% end %>
 </ul>
 

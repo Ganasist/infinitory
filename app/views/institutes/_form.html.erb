@@ -1,9 +1,9 @@
 <%= simple_form_for @institute, :html => { :class => 'form-inline' } do |f| %>
-  <%= f.input :name %>
+  <%= f.input :name, label: "Institute name" %>
   <%= f.input :address %>
-  <%= f.input :alternate_name, placeholder: "Optional" %>
+  <%= f.input :url, label: 'Website', placeholder: "Optional" %>
   <%= f.input :acronym, placeholder: "Optional" %>
-  <%= f.input :url, placeholder: "Optional" %>
+  <%= f.input :alternate_name, placeholder: "Optional" %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
