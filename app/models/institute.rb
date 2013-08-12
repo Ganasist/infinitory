@@ -10,8 +10,9 @@ class Institute < ActiveRecord::Base
 	validates :name, :address, presence: true
 	validates :name, uniqueness: { scope: :address,
     													 	 message: "This institute is already registered at that address" }
-  validates :url, :format =>{ :with => /((http|https):\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+).[a-z]{2,5}(:[0-9]{1,5})?(\/.)?/ix,
-  														:message => " is not valid" }
+    													 	 
+  validates :url, :format =>{ :with => /\A^((http|https):\/\/)(([a-z0-9-\.]*)\.)?([a-z0-9-]+)\.([a-z]{2,5})(:[0-9]{1,5})?(\/)?$\z/ix,
+  														:message => "is not valid" }
 
 	
 	geocoded_by :address   			# can also be an IP address
