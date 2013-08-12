@@ -8,8 +8,6 @@
   </h2>
 </div>
 
-<%= render 'gmap' %>
-
 <dl class="dl-vertical">
   <% if @institute.url? %>
     <dt><strong>Website</strong></dt>
@@ -29,9 +27,16 @@
 
 <% @departments.each do |department| %>
   <div class="department">
-  <p><%= link_to department.name, institute_department_path(@institute, department) %></p>
+  <p><%= link_to department.name, institute_department_path(@institute, department),'data-no-turbolink' => true %></p>
   </div>
 <% end %>
+
+<br>
+
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              institutes_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_institute_path(@institute), :class => 'btn' %>
 
 <h4>Nearby Institutes</h4>
 <ul>
@@ -40,9 +45,5 @@
 <% end %>
 </ul>
 
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              institutes_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_institute_path(@institute), :class => 'btn' %>
-</div>
+<%= render 'gmap' %>
+
