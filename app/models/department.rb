@@ -2,7 +2,7 @@ class Department < ActiveRecord::Base
 	belongs_to :institute
 	has_many :labs, dependent: :destroy
 
-	# before_validation :smart_add_url_protocol
+	before_validation :smart_add_url_protocol
 	after_validation :reverse_geocode
 	after_validation :geocode     # auto-fetch coordinates
 
@@ -32,10 +32,10 @@ class Department < ActiveRecord::Base
 	  "#{self.latitude}, #{self.longitude}" 
 	end
 
-	# def smart_add_url_protocol
-	#   unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
-	#     self.url = 'http://' + self.url
-	#   end
-	# end
+	def smart_add_url_protocol
+	  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
+	    self.url = 'http://' + self.url
+	  end
+	end
 
 end
