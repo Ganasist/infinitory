@@ -32,10 +32,13 @@ class Department < ActiveRecord::Base
 	  "#{self.latitude}, #{self.longitude}" 
 	end
 
+
 	def smart_add_url_protocol
-	  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
-	    self.url = 'http://' + self.url
-	  end
+		if self.url.present?
+		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
+		    self.url = 'http://' + self.url
+		  end
+		end
 	end
 
 end
