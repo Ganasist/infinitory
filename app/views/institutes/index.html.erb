@@ -3,24 +3,18 @@
 	<% if params[:search].present? %>
 		<h3><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
   <% else %>
-	  <h3><%= pluralize @institutes.count, "institute" %></h3>	  
+	  <h3 class="text-muted"><%= pluralize @institutes.count, "institute" %>, 
+	  		<%= pluralize @departments, "department"%>, 
+	  		<%= pluralize @labs, "lab"%> and 
+	  		ZERO MEMBERS</h3>	  
   <% end %>
 </div>
 
 <%= render @institutes %>
 
-<% unless params[:search].present? %>
-	<% if @institutes.previous_page %>
-	  <%= link_to "< Previous", params.merge(page: @institutes.previous_page) %>
-	<% end %>
-	Page <%= @institutes.current_page %> of <%= @institutes.total_pages %>
-	<% if @institutes.next_page %>
-	  <%= link_to "Next >", params.merge(page: @institutes.next_page) %> <br><br>
-	<% end %>
-<% end %>
+
 	
 	<br>
-	
 	  <%= link_to "Add new institute",
 	            new_institute_path,
 	            :class => 'btn' %>
