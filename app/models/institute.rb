@@ -9,7 +9,7 @@ class Institute < ActiveRecord::Base
 
 	validates :name, :address, presence: true
 	validates :name, uniqueness: { scope: :address,
-    													 message: "This institute is already registered at that address" }
+    													 	 message: "This institute is already registered at that address" }
   validates :url, :format =>{ :with => /((http|https):\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+).[a-z]{2,5}(:[0-9]{1,5})?(\/.)?/ix,
   														:message => " is not valid" }
 
@@ -32,8 +32,10 @@ class Institute < ActiveRecord::Base
 		end
 
 		def smart_add_url_protocol
-		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
-		    self.url = 'http://' + self.url
-		  end
+			if self.url.present?
+			  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
+			    self.url = 'http://' + self.url
+			  end
+			end
 		end
 end
