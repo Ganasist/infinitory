@@ -28,7 +28,7 @@ class InstitutesController < ApplicationController
 
   # GET /institutes/1/edit
   def edit
-      @mapped = @institute.to_gmaps4rails
+    @mapped = @institute.to_gmaps4rails
   end
 
   # POST /institutes

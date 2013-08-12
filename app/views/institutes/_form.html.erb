@@ -1,32 +1,12 @@
-<<<<<<< HEAD
-<div class="container-fluid">
-  <div class="span12">
-    <%= simple_form_for @institute, :html => { :class => 'form-inline' } do |f| %>
-      <%= f.input :name, input_html: {:style=> 'width: 350px'}, label: "Institute name" %>
-      <%= f.input :address, :input_html => { columns: 10, rows: 5 }, input_html: {:style=> 'width: 350px'} %>
-      <%= f.input :url, input_html: {:style=> 'width: 350px'}, label: 'Website', placeholder: "Optional" %>
-      <%= f.input :acronym, input_html: {:style=> 'width: 350px'}, placeholder: "Optional" %>
-      <%= f.input :alternate_name, input_html: {:style=> 'width: 350px'}, placeholder: "Optional" %>
-       
-        <%= f.button :submit, :class => 'btn-primary' %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                    institutes_path, :class => 'btn' %>
-    
-    <% end %>
-    <%= render 'gmap' %>
-  </div>
-</div>
-=======
 <%= simple_form_for @institute, :html => { :class => 'form-inline' } do |f| %>
-  <%= f.input :name, label: "Institute name" %>
-  <%= f.input :address, :input_html => { :cols => 50, :rows => 5 } %>
-  <%= f.input :url, label: 'Website', placeholder: "Optional" %>
-  <%= f.input :acronym, placeholder: "Optional" %>
-  <%= f.input :alternate_name, placeholder: "Optional" %>
-
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-              institutes_path, :class => 'btn' %>
+  <%= f.input :name, input_html: {:style=> 'width: 350px'}, label: "Institute name" %>
+  <%= f.input :address, :input_html => { cols: 50, rows: 6 }, input_html: {style: 'width: 350px'} %>
+  <%= f.input :url, input_html: {:style=> 'width: 350px'}, label: 'Website', placeholder: "Optional" %>
+  <%= f.input :acronym, input_html: {:style=> 'width: 350px'}, placeholder: "Optional" %>
+  <%= f.input :alternate_name, input_html: {:style=> 'width: 350px'}, placeholder: "Optional" %>
+   
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                institutes_path, :class => 'btn' %>
 
 <% end %>
->>>>>>> 45474e3bb72486569a51a9a2dd1e666be5f5e797

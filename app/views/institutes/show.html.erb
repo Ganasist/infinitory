@@ -21,7 +21,6 @@
   <dd><%= @institute.address %></dd>
 </dl>
 
-<<<<<<< HEAD
   <%= link_to t('.back', :default => t("helpers.links.back")),
                 institutes_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -46,24 +45,6 @@
 <%= render 'gmap' %>
 
   <br>
-=======
-  <%= link_to "Add new department",
-            new_institute_department_path(@institute),
-            :class => 'btn' %>
-
-<% @departments.each do |department| %>
-  <div class="department">
-  <p><%= link_to department.name, institute_department_path(@institute, department),'data-no-turbolink' => true %></p>
-  </div>
-<% end %>
-
-<br>
-
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              institutes_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_institute_path(@institute), :class => 'btn', 'data-no-turbolink' => true %>
->>>>>>> 45474e3bb72486569a51a9a2dd1e666be5f5e797
 
 <h4>Nearby Institutes</h4>
 <ul>
@@ -72,8 +53,4 @@
 <% end %>
 </ul>
 
-<<<<<<< HEAD
-=======
-<%= render 'gmap' %>
->>>>>>> 45474e3bb72486569a51a9a2dd1e666be5f5e797
 
