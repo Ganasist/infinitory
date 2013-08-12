@@ -60,6 +60,7 @@ gem 'geocoder'
 gem 'gmaps4rails'
 
 gem 'will_paginate'
+gem 'seed_dump'
 
 group :development do
   gem 'rack-mini-profiler'
