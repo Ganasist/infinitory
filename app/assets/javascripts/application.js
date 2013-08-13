@@ -19,9 +19,16 @@
 //= require_tree .
 
 
-$(document).ready(function() { 
-	var longitude = gon.longitude,
-			latitude = gon.latitude;
+$(document).ready(function() {
+
+	if (gon)  {
+		var longitude = gon.longitude,
+		latitude = gon.latitude;
+	} else {
+		var longitude = null,
+				latitude = null;
+	}
+	
 	defaultOptions = {
 	  mapElem: "#gmaps-canvas", 
 	  zoomLevel: 17, 
