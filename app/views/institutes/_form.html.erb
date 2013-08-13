@@ -1,11 +1,9 @@
 <%= simple_form_for @institute, :html => { :class => 'form-inline' } do |f| %>
-  <%= f.input :name, input_html: {:style=> 'width: 300px'}, label: "Institute name" %>
-  <%= f.input :address, :input_html => { id: 'gmaps-input-address', rows: 5, columns: 10} %>
-  <%= f.input :url, input_html: {:style=> 'width: 300px'}, label: 'Website', placeholder: "Optional" %>
-  <%= f.input :acronym, input_html: {:style=> 'width: 300px'}, placeholder: "Optional" %>
-  <%= f.input :alternate_name, input_html: {:style=> 'width: 300px'}, placeholder: "Optional" %>
-
-  <div id='gmaps-error'></div>
+  <%= f.input :name, input_html: { style: 'width: 350px'}, label: "Institute name" %>
+  <%= f.input :address, :input_html => { style: 'width: 350px', rows: 4 }, as: :text %>
+  <%= f.input :url, input_html: {:style=> 'width: 350px'}, label: 'Website', placeholder: "Optional" %>
+  <%= f.input :acronym, input_html: {:style=> 'width: 350px'}, placeholder: "Optional" %>
+  <%= f.input :alternate_name, input_html: {:style=> 'width: 350px'}, placeholder: "Optional" %>
  
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

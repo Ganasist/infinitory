@@ -1,12 +1,11 @@
 <%- model_class = Institute -%>
 <div class="page-header">
   <h3 class="text-muted">
-  	<%= "Update info for #{@institute.name}" %>
+  	<%= "Update the #{@institute.name}" %>
   	<% if @institute.acronym.present? %>
       (<%= "#{@institute.acronym}" %>)
     <% end %>
   </h3>
 </div>
  	
-<%= render :partial => 'form' %>	
-<div class="span6" id='gmaps-canvas'></div>
+<%= render :partial => 'form' %>
