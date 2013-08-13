@@ -8,6 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require jquery.ui.all
  *= require bootstrap_and_overrides
  *= require gmaps4rails
  *= require_self
@@ -54,4 +55,27 @@ background-color: white;
 #jumbotext {
 	color: green;
 }
+
+#gmaps-canvas {
+  height: 400px;
+
+  border: 1px solid #999;
+  -moz-box-shadow:    0px 0px 5px #ccc;
+  -webkit-box-shadow: 0px 0px 5px #ccc;
+  box-shadow:         0px 0px 5px #ccc;
+}
+
+#gmaps-error {
+  color: #cc0000;
+}
+
+#results {
+  color: #555;
+  padding-top: 10px;
+}
+
+#input #gmaps-output-latitude, #input #gmaps-output-longitude {
+  color: green;
+}
+
 

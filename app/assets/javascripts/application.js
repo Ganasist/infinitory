@@ -11,6 +11,16 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
+//= require jquery.ui.all
+//= require gmaps-autocomplete 
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+
+$(document).ready(function() { 
+	
+  GmapsAutoComplete.init();
+  GmapsAutoComplete.autoCompleteInit();
+});
