@@ -20,7 +20,17 @@
 
 
 $(document).ready(function() { 
-	
-  GmapsAutoComplete.init();
+	var longitude = gon.longitude,
+			latitude = gon.latitude;
+	defaultOptions = {
+	  mapElem: "#gmaps-canvas", 
+	  zoomLevel: 17, 
+	  mapType: google.maps.MapTypeId.ROADMAP,
+	  pos: [latitude, longitude],
+	  inputField: '#gmaps-input-address',
+	  errorField: '#gmaps-error',
+	  debugOn: false
+	};
+  GmapsAutoComplete.init(defaultOptions);
   GmapsAutoComplete.autoCompleteInit();
 });

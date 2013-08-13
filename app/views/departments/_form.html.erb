@@ -1,12 +1,14 @@
 <%= simple_form_for [@institute, @department], :html => { :class => 'form-inline' } do |f| %>
-  <%= f.input :name, input_html: {:style=> 'width: 350px'}, label: "Department name" %>
-  <%= f.input :address, :input_html => { columns: 10, rows: 5 }, input_html: {:style=> 'width: 350px'} %>
-  <%= f.input :url, input_html: {:style=> 'width: 350px'}, 
+  <%= f.input :name, input_html: {:style=> 'width: 300px'}, label: "Department name" %>
+  <%= f.input :address, :input_html => { id: 'gmaps-input-address', rows: 5, columns: 10} %>
+  <%= f.input :url, input_html: {:style=> 'width: 300px'}, 
   						label: 'Website', placeholder: "Optional" %>
 
-    <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                institute_departments_path, :class => 'btn' %>
+  <div id='gmaps-error'></div>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              institute_departments_path, :class => 'btn' %>
 
 <% end %>
 

@@ -30,7 +30,10 @@ class InstitutesController < ApplicationController
 
   # GET /institutes/1/edit
   def edit
-    @mapped = @institute.to_gmaps4rails
+    gon.push({
+      longitude: @institute.longitude,
+      latitude: @institute.latitude
+    })
   end
 
   # POST /institutes
