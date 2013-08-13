@@ -9,8 +9,9 @@ class Department < ActiveRecord::Base
   validates_associated :institute
   validates :name, :address, presence: true
 
-  validates :url, :format =>{ :with => /\A^((http|https):\/\/)(([a-z0-9-\.]*)\.)?([a-z0-9-]+)\.([a-z]{2,5})(:[0-9]{1,5})?(\/)?$\z/ix,
-  														:message => "is not valid" }
+   validates :url, format:  { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+  														multiline: true,
+  														message: "is not valid" }
 
   validates :name, uniqueness: { scope: :institute_id, 
   													  	 message: "That department has already been registered at this institute." }

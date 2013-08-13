@@ -1,14 +1,14 @@
 <%- model_class = Department -%>
 <div class="page-header">
   <div class="page-header">
-  <h2 class="text-muted"><%= "#{@department.name}" %></h2>
-  <h4 class="text-muted">
+  <h2><%= "#{@department.name}" %></h2>
+  <h4>
     <%= "#{@institute.name}" %>
      <% if @institute.acronym.present? %>
        (<%= "#{@institute.acronym}" %>)
      <% end %>
   </h4>
-  <h3 class="text-muted">
+  <h3>
     <%= "#{ pluralize @institute.labs.count, "lab" } registered" %>
   </h3>
   

@@ -14,3 +14,7 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+	$( "h3, h4, h5, h6" ).addClass( "text-muted" );
+});
