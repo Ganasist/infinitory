@@ -20,7 +20,6 @@
 
 
 $(document).ready(function() {
-
 	if (gon)  {
 		var longitude = gon.longitude,
 		latitude = gon.latitude;
@@ -38,6 +37,7 @@ $(document).ready(function() {
 	  errorField: '#gmaps-error',
 	  debugOn: false
 	};
+
   GmapsAutoComplete.init(defaultOptions);
   GmapsAutoComplete.autoCompleteInit();
 });

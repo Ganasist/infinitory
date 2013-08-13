@@ -2,11 +2,14 @@
 <div class="page-header">
   <div class="page-header">
   <h2 class="text-muted"><%= "#{@department.name}" %></h2>
-  <h3 class="text-muted">
+  <h4 class="text-muted">
     <%= "#{@institute.name}" %>
      <% if @institute.acronym.present? %>
        (<%= "#{@institute.acronym}" %>)
      <% end %>
+  </h4>
+  <h3 class="text-muted">
+    <%= "#{ pluralize @institute.labs.count, "lab" } registered" %>
   </h3>
   
 <dl class="dl-vertical">

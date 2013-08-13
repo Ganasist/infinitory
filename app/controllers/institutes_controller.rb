@@ -8,7 +8,7 @@ class InstitutesController < ApplicationController
       @institutes = Institute.near(params[:search], 30)
       @mapped = @institutes.to_gmaps4rails do |institute, marker|
         marker.title "#{institute.name}"
-      end      
+      end   
     else
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
       @departments = Department.count
