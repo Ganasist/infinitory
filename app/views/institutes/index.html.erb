@@ -2,8 +2,9 @@
 <div class="page-header">
 
 	<%= simple_form_for search_suggestions_path, :method => :get do |f| %>
-	  <%= f.input :search, required: false, label: false, placeholder: "Search Infinitory" %>
+	  <%= f.input :search, required: false, label: false, placeholder: "Search Infinitory" %>	  
 	<% end %>
+
 
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
