@@ -22,11 +22,8 @@
 		<% end %>
 		<br><br>
 	<% end %>
-
 	  <%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
-	
 	<br>
-
 <% if params[:search].present? %>
 	<br>
 	<%= render 'gmap' %>
