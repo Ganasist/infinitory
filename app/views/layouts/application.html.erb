@@ -41,9 +41,9 @@
           <%= menu_group do %>
               <%= menu_item "Register Institute", new_institute_path %>
               <%= menu_divider %>              
-              <%= menu_item "Register Department", new_department_path  %>
+              <%= menu_item "Register Department", "#"  %>
               <%= menu_divider %>
-              <%= menu_item "Register Lab", new_lab_path  %>
+              <%= menu_item "Register Lab", "#"  %>
           <% end %>
           <%= form_tag institutes_path, method: :get do %>
             <p><%= text_field_tag :search, params[:search], class: "navbar-search span3 pull-right", placeholder: "Search cities" %></p>

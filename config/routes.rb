@@ -1,8 +1,5 @@
 Infinitory::Application.routes.draw do
 
-  resources :labs
-  resources :departments
-
   resources :institutes do
     resources :labs
   end

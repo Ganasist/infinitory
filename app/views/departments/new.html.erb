@@ -1,5 +1,9 @@
 <%- model_class = Department -%>
 <div class="page-header">
-  <h3><%=t '.title', :default => "New department at #{@institute.name}", :model => model_class.model_name.human.titleize %></h3>
+	<% if params[:institute_id].present? %>
+	  <h3><%=t '.title', :default => "New department at #{@institute.name}", :model => model_class.model_name.human.titleize %></h3>
+  <% else %>
+	  <h3><%=t '.title', :default => "New department", :model => model_class.model_name.human.titleize %></h3>
+  <% end %>
 </div>
 <%= render :partial => 'form' %>

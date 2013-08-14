@@ -20,7 +20,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/new
   def new
-    @institute = Institute.find(params[:institute_id])
+    @institute = Institute.find(params[:institute_id]
     @department = Department.new
   end
 
@@ -36,7 +36,7 @@ class DepartmentsController < ApplicationController
   # POST /departments
   # POST /departments.json
   def create
-    @institute = Institute.find(params[:institute_id])
+    @institute = Institute.find(params[:institute_id])   
     @department = @institute.departments.new(department_params)
 
     respond_to do |format|
@@ -86,6 +86,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :address, :url, :acronym)
+      params.require(:department).permit(:name, :address, :url, :acronym, :institute_id)
     end
 end

@@ -6,6 +6,5 @@
 
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-              institute_departments_path, :class => 'btn' %>
+              institute_departments_path(@institute), :class => 'btn' %>
 <% end %>
-
