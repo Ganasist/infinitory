@@ -45,7 +45,7 @@
               :class => 'btn' %>
 
 <% if @department.nearbys.present? %>
-  <h4>Nearby Departments</h4>
+  <h4><%= link_to "Nearby Departments", "#{root_url}institutes/#{@institute.id}/?utf8=✓&search=#{@department.institute.city}", 'data-no-turbolink' => true  %></h4>
   <% for department in @department.nearbys(50) %>
    <p><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true %> (<%= department.distance.round(2) %> km)</p>
   <% end %>
