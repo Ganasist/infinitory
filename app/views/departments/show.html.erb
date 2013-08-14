@@ -16,6 +16,7 @@
   <% if @department.url? %>
     <dt><strong>Website</strong></dt>
     <dd><%= link_to "#{@department.url}", @department.url, :only_path => false  %></dd>
+    <br>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
   <dd><%= @department.address %></dd>
@@ -43,15 +44,14 @@
               new_institute_department_lab_path(@institute, @department),
               :class => 'btn' %>
 
-<h4>Nearby Departments</h4>
-<ul>
-<% for department in @department.nearbys(50) %>
- <li><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true %> (<%= department.distance.round(2) %> km)</li>
+<% if @department.nearbys.present? %>
+  <h4>Nearby Departments</h4>
+  <% for department in @department.nearbys(50) %>
+   <p><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true %> (<%= department.distance.round(2) %> km)</p>
+  <% end %>
+  </ul>
+  <%= render 'gmap' %>
 <% end %>
-</ul>
-
-<%= render 'gmap' %>
-
 
 
 
