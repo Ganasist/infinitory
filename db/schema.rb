@@ -11,31 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130811182617) do
+ActiveRecord::Schema.define(version: 20130814140850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "institutes", force: true do |t|
-    t.string   "name"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "city"
-    t.string   "address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "alternate_name"
-    t.string   "country"
-    t.integer  "rank"
-    t.boolean  "gmaps"
-    t.string   "url"
-    t.string   "acronym"
-  end
-
   create_table "departments", force: true do |t|
     t.string   "name"
     t.integer  "institute_id"
-    t.string   "address"
+    t.text     "address"
     t.float    "longitude"
     t.float    "latitude"
     t.datetime "created_at"
@@ -48,6 +32,21 @@ ActiveRecord::Schema.define(version: 20130811182617) do
 
   add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
 
+  create_table "institutes", force: true do |t|
+    t.string   "name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "city"
+    t.text     "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "alternate_name"
+    t.string   "country"
+    t.integer  "rank"
+    t.boolean  "gmaps"
+    t.string   "url"
+    t.string   "acronym"
+  end
 
   create_table "labs", force: true do |t|
     t.integer  "department_id"
@@ -61,5 +60,12 @@ ActiveRecord::Schema.define(version: 20130811182617) do
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
   add_index "labs", ["institute_id"], name: "index_labs_on_institute_id", using: :btree
+
+  create_table "search_suggestions", force: true do |t|
+    t.string   "term"
+    t.integer  "popularity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
