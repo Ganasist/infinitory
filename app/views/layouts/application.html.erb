@@ -37,7 +37,7 @@
   </head>
   <body>
     <div id="push">
-      <%= nav_bar static: :top, brand: "Infinitory", brand_link: page_path('splash'), responsive: false do %>
+      <%= nav_bar static: :top, brand: "Infinitory", brand_link: institutes_path, responsive: false do %>
           <%= menu_group do %>
               <%= menu_item "Register Institute", new_institute_path %>
               <%= menu_divider %>              
@@ -57,7 +57,7 @@
       </div>
       <hr>
       <footer class="footer">
-        <p>&copy;<%= Time.now.year %> <%= link_to 'Infinitory', page_path('about') %> - <%= link_to "Privacy Policy", page_path('privacy') %></p>
+        <p>&copy;<%= Time.now.year %> <%= link_to 'Infinitory', page_path('splash') %> - <%= link_to "Privacy Policy", page_path('privacy') %></p>
       </footer>
 
     </div> <!-- /container -->
