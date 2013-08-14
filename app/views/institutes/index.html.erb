@@ -1,5 +1,10 @@
 <%- model_class = Institute -%>
 <div class="page-header">
+
+	<%= simple_form_for search_suggestions_path, :method => :get do |f| %>
+	  <%= f.input :search, required: false, label: false, placeholder: "Search Infinitory" %>
+	<% end %>
+
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
   <% else %>
@@ -9,11 +14,6 @@
 	  <h6 class="text-muted">ZERO MEMBERS</h6>	  
   <% end %>
 </div>
-
-<%= simple_form_for rules_path, :method => :get do |f| %>
-  <%= f.input :search %>
-  <%= f.button :submit %>
-<% end %>
 
 <%= render @institutes %>
 
@@ -27,7 +27,7 @@
 		<% end %>
 		<br><br>
 	<% end %>
-	  <%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
+	<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
 	<br>
 <% if params[:search].present? %>
 	<br>
