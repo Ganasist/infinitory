@@ -2,6 +2,9 @@
 <div class="page-header">
   <h3 class="text-muted"><%= "Departments at #{@institute.name}" %></h3>
 </div>
+
+  <%= render 'gmap' %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -20,7 +23,7 @@
 </table>
 
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              institute_path(@institute), :class => 'btn'  %>
-   <%= link_to t('.new', :default => t("helpers.links.new")),
+              institute_path(@institute), :class => 'btn', 'data-no-turbolink' => true  %>
+   <%= link_to t('.new', :default => "New department"),
               new_institute_department_path(@institute),
-              :class => 'btn btn-primary' %>
+              :class => 'btn' %>

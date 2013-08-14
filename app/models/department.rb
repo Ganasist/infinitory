@@ -7,9 +7,10 @@ class Department < ActiveRecord::Base
 	after_validation :geocode     # auto-fetch coordinates
 
   validates_associated :institute
-  validates :name, :address, presence: true
 
-   validates :url, format:  { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+  validates :name, :address, :institute_id, presence: true
+
+  validates :url, format:  { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   														multiline: true,
   														message: "is not valid" }
 
