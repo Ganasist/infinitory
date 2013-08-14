@@ -10,6 +10,11 @@
   <% end %>
 </div>
 
+<%= simple_form_for rules_path, :method => :get do |f| %>
+  <%= f.input :search %>
+  <%= f.button :submit %>
+<% end %>
+
 <%= render @institutes %>
 
 	<% unless params[:search].present? %>
