@@ -16,6 +16,22 @@ ActiveRecord::Schema.define(version: 20130811182617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "institutes", force: true do |t|
+    t.string   "name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "city"
+    t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "alternate_name"
+    t.string   "country"
+    t.integer  "rank"
+    t.boolean  "gmaps"
+    t.string   "url"
+    t.string   "acronym"
+  end
+
   create_table "departments", force: true do |t|
     t.string   "name"
     t.integer  "institute_id"
@@ -32,21 +48,6 @@ ActiveRecord::Schema.define(version: 20130811182617) do
 
   add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
 
-  create_table "institutes", force: true do |t|
-    t.string   "name"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "city"
-    t.string   "address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "alternate_name"
-    t.string   "country"
-    t.integer  "rank"
-    t.boolean  "gmaps"
-    t.string   "url"
-    t.string   "acronym"
-  end
 
   create_table "labs", force: true do |t|
     t.integer  "department_id"

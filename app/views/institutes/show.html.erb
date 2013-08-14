@@ -53,11 +53,9 @@
 
 <% if @institute.nearbys.present? %>
   <h4>Nearby Institutes</h4>
-  <ul>
   <% for institute in @institute.nearbys(50) %>
-   <li><%= link_to institute.name, institute, 'data-no-turbolink' => true %> (<%= institute.distance.round(2) %> km)</li>
+   <p><%= link_to institute.name, institute, 'data-no-turbolink' => true %> (<%= institute.distance.round(2) %> km)</p>
   <% end %>
-  </ul>
 <% end %>
 
 
