@@ -19,7 +19,7 @@ class InstitutesController < ApplicationController
   # GET /institutes/1
   # GET /institutes/1.json
   def show
-    @departments = Department.where(institute_id: params[:id]).order(name: :asc)
+    @departments = Department.where(institute_id: @institute).order(name: :asc)
     @mapped = @institute.to_gmaps4rails
   end
 

@@ -4,8 +4,8 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @institute = Institute.find(params[:institute_id])
-    @departments = Department.where(institute_id: params[:institute_id])  
+    @institute = Institute.friendly.find(params[:institute_id])
+    @departments = Department.where(institute_id: @institute)  
     @mapped = @departments.to_gmaps4rails do |department, marker|
         marker.title "#{department.name}"
     end
