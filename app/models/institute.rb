@@ -51,7 +51,7 @@ class Institute < ActiveRecord::Base
 	    		[:acronym, :city]
 	    	]
 	    else
-		    [ :name ]
+		    "#{name}"
 	    end
 	  end
 end
