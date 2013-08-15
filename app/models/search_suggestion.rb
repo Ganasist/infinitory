@@ -15,7 +15,7 @@ class SearchSuggestion
   def self.index_term(term)
     1.upto(term.length - 1) do |n|
       prefix = term[0, n]
-      $redis.zincrby "search-suggestions:#{prefix.downcase}", 1, term.downcase
+      $redis.zincrby "search-suggestions:#{prefix.downcase}", 1, term
     end
   end
 end
