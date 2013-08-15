@@ -75,11 +75,11 @@ class InstitutesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_institute
-      @institute = Institute.find(params[:id])
+      @institute = Institute.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institute_params
-      params.require(:institute).permit(:name, :alternate_name, :address, :url, :acronym)
+      params.require(:institute).permit(:name, :alternate_name, :address, :url, :acronym, :slug)
     end
 end

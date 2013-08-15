@@ -79,6 +79,7 @@ GEM
       bundler (~> 1.0)
       rails (>= 3, < 5)
     formatador (0.2.4)
+    friendly_id (5.0.0.beta1)
     geocoder (1.1.8)
     gmaps4rails (1.5.6)
     gon (4.1.1)
@@ -254,6 +255,7 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   figaro
+  friendly_id (= 5.0.0.beta1)
   geocoder
   gmaps4rails
   gon

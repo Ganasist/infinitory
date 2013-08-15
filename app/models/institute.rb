@@ -1,4 +1,8 @@
 class Institute < ActiveRecord::Base
+
+	extend FriendlyId
+	friendly_id :acronym_and_name, use: :slugged
+
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
 	has_many :labs, through: :departments, dependent: :destroy
@@ -15,7 +19,6 @@ class Institute < ActiveRecord::Base
   														multiline: true,
   														message: "is not valid" }
 
-	
 	geocoded_by :address   			# can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
 	  if geo = results.first
@@ -40,4 +43,15 @@ class Institute < ActiveRecord::Base
 			  end
 			end
 		end
+
+		def acronym_and_name
+	    if self.acronym.present?
+	    	[
+	    		:acronym,
+	    		[:acronym, :city]
+	    	]
+	    else
+		    [ :name ]
+	    end
+	  end
 end
