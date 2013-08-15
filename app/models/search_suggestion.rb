@@ -7,7 +7,6 @@ class SearchSuggestion
   def self.index_institutes
     Institute.find_each do |institute|
       index_term(institute.name)
-      institute.name.split.each { |t| index_term(t) }
       index_term(institute.alternate_name) if institute.alternate_name.present?
       index_term(institute.acronym) if institute.acronym.present?
     end
