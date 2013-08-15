@@ -7,6 +7,7 @@ class SearchSuggestion
     Institute.find_each do |institute|
       index_term(institute.name)
       index_term(institute.city)
+      index_term(institute.alternate_name) if institute.alternate_name.present?
       index_term(institute.acronym) if institute.acronym.present?
     end
   end
