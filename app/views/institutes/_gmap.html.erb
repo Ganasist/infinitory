@@ -1,7 +1,8 @@
-<%= gmaps(map_options: { auto_zoom: true,
-												 disableDefaultUI: true,
-												 mapTypeControl: true,
-												 maxZoom: 18,
-												 minZoom: 2 },
-          markers: { "data" => @mapped,
-          options: { randomize: true, max_random_distance: 10 } }) %>
+	<%= gmaps(map_options: { auto_zoom: true,
+													 disableDefaultUI: true,
+													 mapTypeControl: true,
+													 maxZoom: 18,
+													 minZoom: 2 },
+	          markers: { "data" => @mapped,
+	          options: { randomize: true, max_random_distance: 10 } }) %>
+
