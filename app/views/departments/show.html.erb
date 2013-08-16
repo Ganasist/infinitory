@@ -1,57 +1,13 @@
-<%- model_class = Department -%>
-<div class="page-header">
-  <div class="page-header">
-  <h2><%= "#{@department.name}" %></h2>
-  <h4 class="text-muted">
-    <%= "#{@institute.name}" %>
-     <% if @institute.acronym.present? %>
-       (<%= "#{@institute.acronym}" %>)
-     <% end %>
-  </h4>
-  <h3 class="text-muted">
-    <%= "#{ pluralize @institute.labs.count, "lab" } registered" %>
-  </h3>
-  
-<dl class="dl-vertical">
-  <% if @department.url? %>
-    <dt><strong>Website</strong></dt>
-    <dd><%= link_to "#{@department.url}", @department.url, :only_path => false  %></dd>
-    <br>
-  <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
-  <dd><%= @department.address %></dd>
-</dl>
-
-<% if @department.labs.present? %>
-<h4>Labs</h4>
-  <% @labs.each do |lab| %>
-    <div class="department">
-    <p><%= link_to lab.name, institute_department_lab_path(@lab, department), 'data-no-turbolink' => true %></p>
-    </div>
-  <% end %>
-<% end %>
-
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              institute_path(@institute), :class => 'btn',
-              'data-no-turbolink' => true   %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_institute_department_path(@institute, @department), :class => 'btn', 'data-no-turbolink' => true %>
-
-   <br>
-   <br>
-
-  <%= link_to "Add new lab",
-              new_institute_department_lab_path(@institute, @department),
-              :class => 'btn' %>
-
-<% if @department.nearbys.present? %>
-  <h4><%= link_to "Nearby Departments", "#{root_url}institutes/#{@institute.id}/?utf8=✓&search=#{@institute.city}", 'data-no-turbolink' => true  %></h4>
-  <% for department in @department.nearbys(50) %>
-   <p><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true %> (<%= department.distance.round(2) %> km)</p>
-  <% end %>
-  </ul>
-  <%= render 'gmap' %>
-<% end %>
-
+<%= render 'header' %>
+  <div class="span3">
+     <%= render 'info' %>
+     <%= render 'lab' %>
+     <%= render 'nearby' %>
+  </div>
+  <div class="span8">  
+      <br>
+      <%= render 'gmap' %>
+      <br>
+  </div>
 
 

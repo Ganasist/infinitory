@@ -1,0 +1,9 @@
+<% if @department.labs.present? %>
+<h4>Labs</h4>
+  <% @labs.each do |lab| %>
+    <div class="department">
+    <p><%= link_to lab.name, institute_department_lab_path(@lab, department), 'data-no-turbolink' => true %></p>
+    </div>
+  <% end %>
+  <hr>
+<% end %>
