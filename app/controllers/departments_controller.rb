@@ -30,13 +30,13 @@ class DepartmentsController < ApplicationController
       longitude: @department.longitude,
       latitude: @department.latitude
     })
-    @institute = Institute.find(params[:institute_id])
+    @institute = Institute.friendly.find(params[:institute_id])
   end
 
   # POST /departments
   # POST /departments.json
   def create
-    @institute = Institute.find(params[:institute_id])   
+    @institute = Institute.friendly.find(params[:institute_id])   
     @department = @institute.departments.new(department_params)
 
     respond_to do |format|
@@ -54,7 +54,7 @@ class DepartmentsController < ApplicationController
   # PATCH/PUT /departments/1
   # PATCH/PUT /departments/1.json
   def update
-    @institute = Institute.find(params[:institute_id])    
+    @institute = Institute.friendly.find(params[:institute_id])    
 
     respond_to do |format|
       if @department.update(department_params)

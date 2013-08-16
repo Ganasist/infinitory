@@ -15,7 +15,8 @@ class Institute < ActiveRecord::Base
 	validates :name, uniqueness: { scope: :address,
     													 	 message: "This institute is already registered at that address" }
 
-  validates :url, :format =>{ with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+  validates :url, allow_blank: true,
+  								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   														multiline: true,
   														message: "is not valid" }
 

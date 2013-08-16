@@ -1,8 +1,10 @@
 class Department < ActiveRecord::Base
-	belongs_to :institute
+	belongs_to :institute, touch: true
 	has_many :labs, dependent: :destroy
 
 	before_validation :smart_add_url_protocol
+	before_validation :default_address
+
 	after_validation :reverse_geocode, :if => :address_changed?
 	after_validation :geocode, :if => :address_changed?     # auto-fetch coordinates
 
@@ -10,9 +12,10 @@ class Department < ActiveRecord::Base
 
   validates :name, :address, :institute_id, presence: true
 
-  validates :url, format:  { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
-  														multiline: true,
-  														message: "is not valid" }
+  validates :url, allow_blank: true,
+  								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+  													multiline: true,
+  													message: "is not valid" }
 
   validates :name, uniqueness: { scope: :institute_id, 
   													  	 message: "That department has already been registered at this institute." }
@@ -43,4 +46,9 @@ class Department < ActiveRecord::Base
 			end
 		end
 
+		def default_address
+			unless self.address.present?
+				self.address = self.institute.address
+			end
+		end
 end
