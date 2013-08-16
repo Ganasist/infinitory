@@ -1,14 +1,16 @@
-<%- model_class = Department -%>
-<div class="page-header">
-  <h2>
-    <%= "#{@department.name}" %>
-    <div class="btn-group">
-      <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_institute_path(@institute), :class => 'btn-small btn-success', 'data-no-turbolink' => true %>
-    </div>
-  </h2>
-  <br>
-    <div class="btn-group">
-      <%= link_to "Add new lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
-    </div>
-</div>
+<% cache @department do %>
+  <%- model_class = Department -%>
+    <div class="page-header">
+      <h2>
+        <%= "#{@department.name}" %>
+        <div class="btn-group">
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_institute_path(@institute), :class => 'btn-small btn-success', 'data-no-turbolink' => true %>
+        </div>
+      </h2>
+      <br>
+        <div class="btn-group">
+          <%= link_to "Add new lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
+        </div>
+      </div>
+<% end %>
