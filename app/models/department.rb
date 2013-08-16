@@ -3,8 +3,8 @@ class Department < ActiveRecord::Base
 	has_many :labs, dependent: :destroy
 
 	before_validation :smart_add_url_protocol
-	after_validation :reverse_geocode
-	after_validation :geocode     # auto-fetch coordinates
+	after_validation :reverse_geocode, :if => :address_changed?
+	after_validation :geocode, :if => :address_changed?     # auto-fetch coordinates
 
   validates_associated :institute
 
@@ -18,7 +18,7 @@ class Department < ActiveRecord::Base
   													  	 message: "That department has already been registered at this institute." }
 
 
-	geocoded_by :address   				# can also be an IP address
+	geocoded_by :address  				# can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
 	  if geo = results.first
 	    obj.city    = geo.city
@@ -42,4 +42,5 @@ class Department < ActiveRecord::Base
 			  end
 			end
 		end
+
 end
