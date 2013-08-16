@@ -19,6 +19,10 @@ class InstitutesController < ApplicationController
   # GET /institutes/1
   # GET /institutes/1.json
   def show
+    @institute = Institute.friendly.find(params[:id])
+    if request.path != institute_path(@institute)
+      redirect_to @institute, status: :moved_permanently
+    end
     @departments = Department.where(institute_id: @institute).order(name: :asc)
     @mapped = @institute.to_gmaps4rails
   end

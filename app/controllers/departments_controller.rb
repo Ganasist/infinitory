@@ -14,7 +14,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   # GET /departments/1.json
   def show
-    @institute = Institute.find(params[:institute_id])
+    @institute = Institute.friendly.find(params[:institute_id])
     @mapped = @department.to_gmaps4rails
   end
 
