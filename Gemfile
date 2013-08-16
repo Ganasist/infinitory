@@ -24,6 +24,7 @@ gem 'jquery-ui-rails'
 gem 'gon'
 
 gem 'redis'
+gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
 

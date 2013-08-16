@@ -1,9 +1,11 @@
-<% if @institute.departments.present? %>           
-  <h4><%= link_to "Departments", institute_departments_path(@institute), 'data-no-turbolink' => true %></h4>
-    <% @departments.each do |department| %>
-    <div class="department">
-    <p><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true  %></p>
-    </div>
-  <% end %>
-  <hr>
+<% cache do %>
+	<% if @institute.departments.present? %>           
+	  <h4><%= link_to "Departments", institute_departments_path(@institute), 'data-no-turbolink' => true %></h4>
+	    <% @departments.each do |department| %>
+	    <div class="department">
+	    <p><%= link_to department.name, institute_department_path(@institute, department), 'data-no-turbolink' => true  %></p>
+	    </div>
+	  <% end %>
+	  <hr>
+	<% end %>
 <% end %>
