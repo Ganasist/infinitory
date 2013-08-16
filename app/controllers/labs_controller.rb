@@ -15,7 +15,7 @@ class LabsController < ApplicationController
   # GET /labs/new
   def new
     @lab = Lab.new
-    @institute = Institute.find(params[:institute_id])
+    @institute = Institute.friendly.find(params[:institute_id])
     if params[:department_id].present?
       @department = Department.find(params[:department_id])
     end

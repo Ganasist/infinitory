@@ -1,13 +1,13 @@
 <%- model_class = Lab -%>
 
-<% if params[:department_id].present? %>
-	<div class="page-header">
-	  <h3>New <%= @department.name %> lab</h3>
-	</div>
-	<%= render :partial => 'form' %>
-<% else %>
-	<div class="page-header">
-	  <h3>New <%= @institute.name %> lab</h3>
-	</div>
-	<%= render :partial => 'form' %>
-<% end %>
+	<% if params[:department_id].present? %>
+		<div class="page-header">
+		  <h3>New lab at <%= @department.name %></h3>
+		</div>
+		<%= render :partial => 'form' %>
+	<% else %>
+		<div class="page-header">
+		  <h3>New lab at <%= @institute.name %></h3>
+		</div>
+		<%= render :partial => 'form' %>
+	<% end %>

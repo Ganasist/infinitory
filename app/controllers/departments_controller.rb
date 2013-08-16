@@ -20,7 +20,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/new
   def new
-    @institute = Institute.find(params[:institute_id])
+    @institute = Institute.friendly.find(params[:institute_id])
     @department = Department.new
   end
 

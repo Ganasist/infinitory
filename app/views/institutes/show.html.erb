@@ -1,47 +1,29 @@
-<%- model_class = Institute -%>
-<div class="page-header">
-  <h2>
-    <%= "#{@institute.name}" %>
-    <% if @institute.acronym.present? %>
-      (<%= "#{@institute.acronym}" %>)
-    <% end %>
-  </h2>
-  <h3 class="text-muted">
-    <%= "#{ pluralize @institute.departments.count, "department" }" " and " "#{ pluralize @institute.labs.count, "lab" } registered" %>
-  </h3>
-</div>
+  <div class="span8">  
+    <div class="page-header">
+      <h2>
+        <%= "#{@institute.name}" %>
+        <% if @institute.acronym.present? %>
+          (<%= "#{@institute.acronym}" %>)
+        <% end %>
 
-<dl class="dl-vertical">
-  <% if @institute.url? %>
-    <dt><strong>Website</strong></dt>
-    <dd><%= link_to "#{@institute.url}", @institute.url, :only_path => false  %></dd>
-    <br>
-  <% end %>
-  <% if @institute.alternate_name.present? %>
-    <dt><strong><%= model_class.human_attribute_name(:alternate_name) %></strong></dt>
-    <dd><%= @institute.alternate_name %></dd>
-    <br>
-  <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
-  <dd><%= @institute.address %></dd>
-</dl>
-
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-                institutes_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_institute_path(@institute), :class => 'btn', 'data-no-turbolink' => true %>
-  <br>
-  <br>
- 
- <%= render 'department' %>
+                edit_institute_path(@institute), :class => 'btn-small btn-success', 'data-no-turbolink' => true %>
+      </h2>
+      <h3 class="text-muted">
+        <%= "#{ pluralize @institute.departments.count, "department" }" " and " "#{ pluralize @institute.labs.count, "lab" } registered" %>
+      </h3>
+    </div>
+        <%= link_to "Add new department", new_institute_department_path(@institute), :class => 'btn' %>
+        <%= link_to "Add new lab", new_institute_lab_path(@institute), :class => 'btn' %>
 
-  <br>
-  <br>
+        <br>
+        <br>
+    <%= render 'gmap' %>
+      <br>
+  </div>
 
-<%= render 'gmap' %>
-
-  <br>
-
-<%= render 'nearby' %>
-
-
+<div class="span3">
+   <%= render 'info' %>
+   <%= render 'department' %>
+   <%= render 'nearby' %>
+</div>
