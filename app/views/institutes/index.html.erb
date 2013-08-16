@@ -1,10 +1,6 @@
 <%- model_class = Institute -%>
 <div class="page-header">
 
-	<%= simple_form_for search_suggestions_path, :method => :get do |f| %>
-	  <%= f.input :search, required: false, label: false, placeholder: "Search Infinitory" %>	  
-	<% end %>
-
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
   <% else %>
@@ -15,10 +11,8 @@
   <% end %>
 </div>
 
-
-	<% unless params[:search].present? %>
+<% unless params[:search].present? %>
 	<%= render @institutes %>
-
 		<% if @institutes.previous_page %>
 		  <%= link_to "< Previous", params.merge(page: @institutes.previous_page) %>
 		<% end %>
@@ -28,14 +22,15 @@
 		<% end %>
 		<br><br>
 		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
-	<% end %>
+<% end %>
 	
 <% if params[:search].present? %>
-	<div class="span8"><%= render 'gmap' %></div>
 	<div class="span3">
 		<%= render @institutes %>
 		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
 	</div>
+	<br>
+	<div class="span8"><%= render 'gmap' %></div>
 <% end %>
 
 

@@ -1,29 +1,14 @@
-<div class="span8">  
-  <div class="page-header">
-    <h2>
-      <%= "#{@institute.name}" %>
-      <% if @institute.acronym.present? %>
-        (<%= "#{@institute.acronym}" %>)
-      <% end %>
 
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_institute_path(@institute), :class => 'btn-small btn-success', 'data-no-turbolink' => true %>
-    </h2>
-    <h3 class="text-muted">
-      <%= "#{ pluralize @institute.departments.count, "department" }" " and " "#{ pluralize @institute.labs.count, "lab" } registered" %>
-    </h3>
-  </div>
-      <%= link_to "Add new department", new_institute_department_path(@institute), :class => 'btn' %>
-      <%= link_to "Add new lab", new_institute_lab_path(@institute), :class => 'btn' %>
-
-      <br>
-      <br>
-  <%= render 'gmap' %>
-    <br>
-</div>
+<%= render 'header' %>
 
 <div class="span3">
    <%= render 'info' %>
    <%= render 'department' %>
    <%= render 'nearby' %>
+</div>
+
+<div class="span8">  
+    <br>
+    <%= render 'gmap' %>
+    <br>
 </div>
