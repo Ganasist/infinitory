@@ -77,11 +77,4 @@ ActiveRecord::Schema.define(version: 20130815115343) do
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
   add_index "labs", ["institute_id"], name: "index_labs_on_institute_id", using: :btree
 
-  create_table "search_suggestions", force: true do |t|
-    t.string   "term"
-    t.integer  "popularity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 end
