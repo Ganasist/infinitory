@@ -6,6 +6,16 @@ class InstitutesController < ApplicationController
   def index
     if params[:search].present? 
       @institutes = Institute.near(params[:search], 30)
+      @circles_json = @institutes.to_gmaps4rails do |institute|
+                       {lng: "#{institute.longitude}",
+                        lat: "#{institute.latitude}",
+                        radius: 100,
+                        strokeColor: "#FF0000",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 1,
+                        fillColor: "#000",
+                        fillOpacity: 0.35}
+       end
       @mapped = @institutes.to_gmaps4rails do |institute, marker|
         marker.infowindow "<h4>#{institute.name}<h4>
                           <h5>Labs: #{institute.labs.count}</h5>"
