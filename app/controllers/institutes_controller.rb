@@ -24,7 +24,7 @@ class InstitutesController < ApplicationController
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
       @departments = Department.count
       @labs = Lab.count
-      if request.location.country == !"Reserved"
+      unless request.location.country.nil?
         @global = Institute.where(country: "#{request.location.country}")
         @mapped = @global.to_gmaps4rails do |institute, marker|
           marker.infowindow "<h4>#{institute.name}<h4>
