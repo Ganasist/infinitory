@@ -7,15 +7,17 @@ class InstitutesController < ApplicationController
     if params[:search].present? 
       @institutes = Institute.near(params[:search], 30)
       @mapped = @institutes.to_gmaps4rails do |institute, marker|
-        marker.title "#{institute.name}"
+        marker.infowindow "<h4>#{institute.name}<h4>
+                          <h5>Labs: #{institute.labs.count}</h5>"
       end
     else  
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
       @departments = Department.count
       @labs = Lab.count
-      @global = Institute.where(country: "#{request.location.country}")
+      @global = Institute.all
       @mapped = @global.to_gmaps4rails do |institute, marker|
-        marker.title "#{institute.name}"
+        marker.infowindow "<h4>#{institute.name}<h4>
+                          <h5>Labs: #{institute.labs.count}</h5>"
       end
     end
   end
