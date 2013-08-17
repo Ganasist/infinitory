@@ -24,10 +24,18 @@ class InstitutesController < ApplicationController
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
       @departments = Department.count
       @labs = Lab.count
-      @global = Institute.all
-      @mapped = @global.to_gmaps4rails do |institute, marker|
-        marker.infowindow "<h4>#{institute.name}<h4>
-                          <h5>Labs: #{institute.labs.count}</h5>"
+      if request.location.country == !"Reserved"
+        @global = Institute.where(country: "#{request.location.country}")
+        @mapped = @global.to_gmaps4rails do |institute, marker|
+          marker.infowindow "<h4>#{institute.name}<h4>
+                            <h5>Labs: #{institute.labs.count}</h5>"
+          end
+      else
+        @global = Institute.all
+        @mapped = @global.to_gmaps4rails do |institute, marker|
+          marker.infowindow "<h4>#{institute.name}<h4>
+                            <h5>Labs: #{institute.labs.count}</h5>"
+        end
       end
     end
   end
