@@ -17,8 +17,8 @@ class Institute < ActiveRecord::Base
 
   validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
-  														multiline: true,
-  														message: "is not valid" }
+  													multiline: true,
+  													message: "is not valid" }
 
 	geocoded_by :address   			# can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|

@@ -1,7 +1,5 @@
 Infinitory::Application.routes.draw do
 
-  resources :search_suggestions
-
   resources :institutes do
     resources :labs
   end
