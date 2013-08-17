@@ -1,5 +1,6 @@
 <% cache @institute do %>
-	<% if @institute.departments.present? %>           
+	<% if @institute.departments.present? %>
+	  <hr>           
 	  <h4><%= link_to "Departments", institute_departments_path(@institute), 'data-no-turbolink' => true %></h4>
 	    <% cache @departments do %>
 		    <% @departments.each do |department| %>
