@@ -45,6 +45,10 @@ class Institute < ActiveRecord::Base
 			end
 		end
 
+		def location
+			request.location.country
+		end
+
 		def acronym_and_name
 	    if self.acronym.present?
 	    	[

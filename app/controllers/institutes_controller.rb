@@ -13,7 +13,7 @@ class InstitutesController < ApplicationController
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
       @departments = Department.count
       @labs = Lab.count
-      @global = Institute.all
+      @global = Institute.near(self.location)
       @mapped = @global.to_gmaps4rails do |institute, marker|
         marker.title "#{institute.name}"
       end
