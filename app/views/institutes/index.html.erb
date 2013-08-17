@@ -29,9 +29,11 @@
 		<br><br>
 		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
 	</div>
-	<div class="span8">
-		<%= render 'gmap' %>
-	</div>
+	<% if @mapped.present? %>
+		<div class="span8">
+			<%= render 'gmap' %>
+		</div>
+	<% end %>
 <% end %>
 
 
