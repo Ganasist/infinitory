@@ -1,8 +1,12 @@
 <%= render 'header' %>
 <div class="span3">
    <%= render 'info' %>
-   <%= render 'department' %>
-   <%= render 'nearby' %>
+   <% if @institute.departments.present? %>
+			<%= render 'department' %>
+   <% end %>
+   <% if @institute.nearbys.present? %>
+	   <%= render 'nearby' %>
+	 <% end %>
 </div>
 <div class="span8">  
     <br>

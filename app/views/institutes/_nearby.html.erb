@@ -1,9 +1,7 @@
 <% cache @institute do %>
-	<% if @institute.nearbys.present? %>
 	  <hr>
 	  <h4><%= link_to "Nearby Institutes", "#{root_url}institutes/?utf8=✓&search=#{@institute.city}", 'data-no-turbolink' => true  %></h4>
 	  <% for institute in @institute.nearbys(50) %>
 	   <p><%= link_to institute.name, institute, 'data-no-turbolink' => true %> (<%= institute.distance.round(2) %> km)</p>
 	  <% end %>
-	<% end %>
 <% end %>

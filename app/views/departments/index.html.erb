@@ -8,6 +8,9 @@
         <%= link_to t('.new', :default => "Add department"),
                   new_institute_department_path(@institute),
                   :class => 'btn-large' %>
+        <%= link_to t('.new', :default => "Back"),
+                  institute_path(@institute),
+                  :class => 'btn-large' %>
       </div>
   </div>
 <% end %>
