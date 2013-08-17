@@ -61,12 +61,15 @@ gem 'rolify'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
 gem 'high_voltage'
-gem 'rails_12factor'
 gem 'geocoder'
 gem 'gmaps4rails'
 
 gem 'will_paginate'
 gem 'seed_dump'
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development do
   gem 'rack-mini-profiler'
