@@ -3,6 +3,7 @@
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
   <% else %>
+  	<h2><%= request.location.country %></h2>
 	  <h3 class="text-muted"><%= pluralize @institutes.count, "institute" %></h3>
 	  <h4 class="text-muted"><%= pluralize @departments, "department"%></h4> 
 	  <h5 class="text-muted"><%= pluralize @labs, "lab"%> </h5>		

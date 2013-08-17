@@ -13,7 +13,7 @@ class InstitutesController < ApplicationController
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
       @departments = Department.count
       @labs = Lab.count
-      @global = Institute.near("#{user_location}")
+      @global = Institute.near("#{request.location.city}")
       @mapped = @global.to_gmaps4rails do |institute, marker|
         marker.title "#{institute.name}"
       end
@@ -84,10 +84,6 @@ class InstitutesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_institute
       @institute = Institute.friendly.find(params[:id])
-    end
-
-    def user_location
-      request.location.country
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
