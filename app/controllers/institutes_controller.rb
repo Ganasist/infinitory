@@ -14,9 +14,9 @@ class InstitutesController < ApplicationController
       @departments = Department.count
       @labs = Lab.count
       @location = request.location.country
-      if @country.present?
-        @institutes = Institute.near(request.location.country)
-        @mapped = @location.to_gmaps4rails do |institute, marker|
+      if @location.present?
+        @institutes = Institute.near(@location).page(params[:page]).per_page(15)
+        @mapped = @institutes.to_gmaps4rails do |institute, marker|
           marker.title "#{institute.name}"
         end
       end
