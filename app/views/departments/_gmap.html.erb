@@ -1,7 +1,19 @@
-<%= gmaps(map_options: { auto_zoom: true,
-												 disableDefaultUI: true,
-												 mapTypeControl: true,
-												 maxZoom: 18,
-												 minZoom: 2 },												 
-          markers: { "data" => @mapped,
-          options: { randomize: true, max_random_distance: 10 } }) %>
+<% if @circles_json.present? %>	
+	<%= gmaps(map_options: { auto_zoom: true,
+													 disableDefaultUI: true,
+													 mapTypeControl: true,
+													 maxZoom: 18,
+													 minZoom: 2 },												 
+	          circles: { data: @circles_json },												 
+	          markers: { "data" => @mapped,
+	          options: { randomize: true, max_random_distance: 20 } }) %>
+<% else %>
+	<%= gmaps(map_options: { auto_zoom: true,
+													 disableDefaultUI: true,
+													 mapTypeControl: true,
+													 maxZoom: 18,
+													 minZoom: 2 },												 
+	          markers: { "data" => @mapped,
+	          options: { randomize: true, max_random_distance: 20 } }) %>
+
+<% end %>

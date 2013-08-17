@@ -10,7 +10,8 @@
                   :class => 'btn-large' %>
         <%= link_to t('.new', :default => "Back"),
                   institute_path(@institute),
-                  :class => 'btn-large' %>
+                  :class => 'btn-large',
+                  'data-no-turbolink' => true %>
       </div>
   </div>
 <% end %>
