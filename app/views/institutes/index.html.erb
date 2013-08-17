@@ -9,7 +9,15 @@
   <% end %>
 </div>
 
-<% unless params[:search].present? %>
+<% if params[:search].present? %>
+	<div class="span3">
+		<%= render @institutes %>
+		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
+	</div>
+	<br>
+	<div class="span8"><%= render 'gmap' %></div>
+<% else %>
+	<div class="span3">
 	<%= render @institutes %>
 		<% if @institutes.previous_page %>
 		  <%= link_to "< Previous", params.merge(page: @institutes.previous_page) %>
@@ -20,15 +28,10 @@
 		<% end %>
 		<br><br>
 		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
-<% end %>
-	
-<% if params[:search].present? %>
-	<div class="span3">
-		<%= render @institutes %>
-		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
 	</div>
-	<br>
-	<div class="span8"><%= render 'gmap' %></div>
+	<div class="span8">
+		<%= render 'gmap' %>
+	</div>
 <% end %>
 
 
