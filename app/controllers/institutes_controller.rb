@@ -13,12 +13,9 @@ class InstitutesController < ApplicationController
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(15)
       @departments = Department.count
       @labs = Lab.count
-      @location = request.location.country
-      if @location.present?
-        @institutes = Institute.near(@location).page(params[:page]).per_page(15)
-        @mapped = @institutes.to_gmaps4rails do |institute, marker|
-          marker.title "#{institute.name}"
-        end
+      @global = Institute.all
+      @mapped = @global.to_gmaps4rails do |institute, marker|
+        marker.title "#{institute.name}"
       end
     end
   end
