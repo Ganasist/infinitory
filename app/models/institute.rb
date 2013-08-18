@@ -1,7 +1,7 @@
 class Institute < ActiveRecord::Base
 
 	extend FriendlyId
-	friendly_id :acronym_and_name, use: :slugged
+	friendly_id :acronym_and_name, use: [:slugged, :history]
 
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
@@ -20,7 +20,7 @@ class Institute < ActiveRecord::Base
   													multiline: true,
   													message: "is not valid" }
 
-	geocoded_by :address   			# can also be an IP address
+	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
 	  if geo = results.first
 	    obj.city    = geo.city
@@ -46,13 +46,17 @@ class Institute < ActiveRecord::Base
 		end
 
 		def acronym_and_name
-	    if self.acronym.present?
-	    	[
+	    if self.acronym.blank?
+	    	"#{name}"
+	    else
+		    [
 	    		:acronym,
 	    		[:acronym, :city]
 	    	]
-	    else
-		    "#{name}"
 	    end
 	  end
+
+	  def should_generate_new_friendly_id?
+		  new_record? || slug.blank?
+		end
 end

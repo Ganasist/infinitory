@@ -1,5 +1,6 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
+  before_action :find_institute, only: [:show]
 
   # GET /institutes
   # GET /institutes.json
@@ -34,12 +35,11 @@ class InstitutesController < ApplicationController
   # GET /institutes/1
   # GET /institutes/1.json
   def show
-    @institute = Institute.friendly.find(params[:id])
-    if request.path != institute_path(@institute)
-      redirect_to @institute, status: :moved_permanently
-    end
     @departments = Department.where(institute_id: @institute).order(name: :asc)
-    @mapped = @institute.to_gmaps4rails
+    @mapped = @institute.to_gmaps4rails  do |institute, marker|
+        marker.infowindow "<h4>#{institute.name}<h4>
+                          <h5>Labs: #{institute.labs.count}</h5>"
+        end
   end
 
   # GET /institutes/new
@@ -100,5 +100,12 @@ class InstitutesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def institute_params
       params.require(:institute).permit(:name, :alternate_name, :address, :url, :acronym, :slug)
+    end
+
+    def find_institute
+      @institute = Institute.friendly.find(params[:id])
+      if request.path != institute_path(@institute)
+        return redirect_to @institute, :status => :moved_permanently
+      end
     end
 end
