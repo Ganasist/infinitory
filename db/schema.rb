@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130815115343) do
+ActiveRecord::Schema.define(version: 20130818062638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20130815115343) do
     t.string   "slug"
   end
 
+  add_index "institutes", ["latitude"], name: "index_institutes_on_latitude", using: :btree
+  add_index "institutes", ["longitude"], name: "index_institutes_on_longitude", using: :btree
   add_index "institutes", ["slug"], name: "index_institutes_on_slug", unique: true, using: :btree
 
   create_table "labs", force: true do |t|
@@ -76,5 +78,12 @@ ActiveRecord::Schema.define(version: 20130815115343) do
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
   add_index "labs", ["institute_id"], name: "index_labs_on_institute_id", using: :btree
+
+  create_table "search_suggestions", force: true do |t|
+    t.string   "term"
+    t.integer  "popularity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

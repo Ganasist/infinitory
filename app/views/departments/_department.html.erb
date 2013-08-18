@@ -1,8 +1,7 @@
 <% cache @departments do %>
 	<% @departments.each do |department| %>
 		<p>
-			<%= link_to department.name, institute_department_path(@institute, department), 
-				'data-no-turbolink' => true %>
+			<%= link_to department.name, institute_department_path(@institute, department) %>
 		</p>
 	<% end %>
 <% end %>
