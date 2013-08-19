@@ -1,7 +1,9 @@
-<% if @department.nearbys.present? %>
-  <h4><%= link_to "Nearby Departments", institute_departments_path(@institute) %></h4>
-  <% for department in @department.nearbys(50) %>
-   <p><%= link_to department.name, institute_department_path(@institute, department) %> (<%= department.distance.round(2) %> km)</p>
-  <% end %>
-  </ul>
+<% cache @department do %>
+	<% if @department.nearbys.present? %>
+	  <h4><%= link_to "Nearby Departments", institute_departments_path(@institute) %></h4>
+	  <% for department in @department.nearbys(50) %>
+	   <p><%= link_to department.name, institute_department_path(@institute, department) %> (<%= department.distance.round(2) %> km)</p>
+	  <% end %>
+	  </ul>
+	<% end %>
 <% end %>

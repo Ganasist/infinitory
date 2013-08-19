@@ -1,9 +1,9 @@
 <% cache institute do %>
 	<div class="institute">
 		<% if institute.acronym.present? %>
-			<p><%= link_to "#{institute.name}" " " "(#{institute.acronym})" , institute_path(institute) %><p> 
+			<p><%= link_to "#{institute.name}" " " "(#{institute.acronym})" , institute %><p> 
 		<% else %>
-			<p><%= link_to institute.name, institute_path(institute) %><p> 
+			<p><%= link_to institute.name, institute %><p> 
 		<% end %>
 	</div>
 <% end %>

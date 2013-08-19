@@ -6,14 +6,7 @@
       <dd><%= link_to "#{@institute.url}", @institute.url, :only_path => false  %></dd>
       <br>
     <% end %>
-    <% if @institute.alternate_name.present? %>
-      <dt><strong><%= model_class.human_attribute_name(:alternate_name) %></strong></dt>
-      <dd><%= @institute.alternate_name %></dd>
-      <br>
-    <% end %>
     <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
     <dd><%= @institute.address %></dd>
   </dl>
 <% end %>
-  
-

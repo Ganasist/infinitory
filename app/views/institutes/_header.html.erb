@@ -11,10 +11,16 @@
                       edit_institute_path(@institute), :class => 'btn-small btn-success' %>
       </div>
       </h2>
+      <% if @institute.alternate_name.present? %>
+        <h3 class="text-muted">
+          <%= "#{@institute.alternate_name}" %></dd>
+        <br>
+        </h3>
+      <% end %>
       <br>
       <div class="btn-toolbar">
-          <%= link_to "Add new department", new_institute_department_path(@institute), :class => 'btn-large' %>
-          <%= link_to "Add new lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
+          <%= link_to "Add department", new_institute_department_path(@institute), :class => 'btn-large' %>      
+          <%= link_to "Add lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
       </div>
   </div>
 <% end %>

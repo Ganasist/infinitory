@@ -1,9 +1,11 @@
 <% if @department.labs.present? %>
-<h4>Labs</h4>
-  <% @labs.each do |lab| %>
-    <div class="department">
-    <p><%= link_to lab.name, institute_department_lab_path(@lab, department) %></p>
-    </div>
-  <% end %>
-  <hr>
+	<% cache @labs do %>
+		<h4>Labs</h4>
+		  <% @labs.each do |lab| %>
+		    <div class="department">
+		    <p><%= link_to lab.name, institute_department_lab_path(@lab, department) %></p>
+		    </div>
+		  <% end %>
+		  <hr>
+	<% end %>
 <% end %>

@@ -50,8 +50,8 @@ class Institute < ActiveRecord::Base
 	    	"#{name}"
 	    else
 		    [
-	    		:acronym,
-	    		[:acronym, :city]
+	    		"#{acronym}",
+	    		["#{acronym}", "#{city}"]
 	    	]
 	    end
 	  end

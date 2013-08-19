@@ -2,11 +2,11 @@
 <div class="page-header">
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
-  <% else %>
-		  <h3 class="text-muted"><%= pluralize @institutes.count, "institute" %></h3>
-		  <h4 class="text-muted"><%= pluralize @departments, "department"%></h4> 
-		  <h5 class="text-muted"><%= pluralize @labs, "lab"%></h5>		
   <% end %>
+  <br>
+  <div class="btn-group">
+		<%= link_to "Register your lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
+	</div>
 </div>
 
 <% if params[:search].present? %>
@@ -15,7 +15,9 @@
 		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
 	</div>
 	<br>
-	<div class="span8"><%= render 'gmap' %></div>
+	<div class="span8">
+		<%= render 'gmap' %>
+	</div>
 <% else %>
 	<div class="span3">
 	<%= render @institutes %>
@@ -26,10 +28,6 @@
 		<% if @institutes.next_page %>
 		  <%= link_to "Next >", params.merge(page: @institutes.next_page) %>
 		<% end %>
-		<br><br>
-		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
-		<br>
-		<br>
 	</div>
 	<% if @mapped.present? %>
 		<div class="span8">
