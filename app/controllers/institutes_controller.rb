@@ -22,10 +22,10 @@ class InstitutesController < ApplicationController
                           <h5>Labs: #{institute.labs.count}</h5>"
         end
     else  
-      @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(20)
+      @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(10)
       @departments = Department.all.count
       @labs  = Lab.all.count
-      @mapped = Institute.order(updated_at: :desc).page(params[:page]).per_page(20).to_gmaps4rails do |institute, marker|
+      @mapped = Institute.order(updated_at: :desc).page(params[:page]).per_page(10).to_gmaps4rails do |institute, marker|
         marker.infowindow "<h4>#{institute.name}<h4>
                           <h5>Labs: #{institute.labs.count}</h5>"
       end

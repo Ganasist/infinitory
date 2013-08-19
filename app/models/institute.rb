@@ -4,7 +4,7 @@ class Institute < ActiveRecord::Base
 	friendly_id :acronym_and_name, use: [:slugged, :history]
 
 	include PgSearch
-  pg_search_scope :search, against: [:name, :address, :acronym ]
+  pg_search_scope :search, against: [:name, :city, :country, :acronym ]
 
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
@@ -63,7 +63,7 @@ class Institute < ActiveRecord::Base
 		  new_record? || slug.blank?
 		end
 
-		def self.text_search(query)
+		def self.global_search(query)
 	    if query.present?
 	      search(query)
 	    else
