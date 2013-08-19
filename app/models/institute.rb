@@ -6,8 +6,7 @@ class Institute < ActiveRecord::Base
 	include PgSearch
   pg_search_scope :search, against: [:name, :acronym, :alternate_name],
                   using: { tsearch: { prefix: true,
-                  										dictionary: "english",
-                  										any_word: true }}
+                  										dictionary: "english" }}
 
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
