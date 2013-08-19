@@ -6,7 +6,7 @@ class InstitutesController < ApplicationController
   # GET /institutes.json
   def index
     if params[:search].present? 
-      @institutes = Institute.near(params[:search], 30)
+      @institutes = Institute.near(params[:search], 30).page(params[:page]).per_page(20)
       @circles_json = @institutes.to_gmaps4rails do |institute|
                        {lng: "#{institute.longitude}",
                         lat: "#{institute.latitude}",
