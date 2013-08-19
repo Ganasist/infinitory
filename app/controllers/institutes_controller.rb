@@ -5,8 +5,8 @@ class InstitutesController < ApplicationController
   # GET /institutes
   # GET /institutes.json
   def index
-    if params[:search].present? 
-      @institutes = Institute.near(params[:search], 30).page(params[:page]).per_page(20)
+    if params[:query].present?
+      @institutes = Institute.global_search(params[:query]).page(params[:page]).per_page(10)
       @circles_json = @institutes.to_gmaps4rails do |institute|
                        {lng: "#{institute.longitude}",
                         lat: "#{institute.latitude}",
@@ -20,7 +20,7 @@ class InstitutesController < ApplicationController
       @mapped = @institutes.to_gmaps4rails do |institute, marker|
         marker.infowindow "<h4>#{institute.name}<h4>
                           <h5>Labs: #{institute.labs.count}</h5>"
-      end
+        end
     else  
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(20)
       @departments = Department.all.count

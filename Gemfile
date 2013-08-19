@@ -27,6 +27,7 @@ gem 'redis'
 gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
+gem 'thinking-sphinx', '~> 3.0.2'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'

@@ -59,4 +59,12 @@ class Institute < ActiveRecord::Base
 	  def should_generate_new_friendly_id?
 		  new_record? || slug.blank?
 		end
+
+		def self.global_search(query)
+			if query.present?
+				where("name @@ :q or city @@ :q or country @@ :q", q: query)
+			else
+				scoped
+			end
+		end
 end

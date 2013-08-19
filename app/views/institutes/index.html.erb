@@ -2,11 +2,17 @@
 <div class="page-header">
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
+		<br>
   <% end %>
-  <br>
+  <%= form_tag institutes_path, method: :get do %>
+	    <%= text_field_tag :query, params[:query] %>
+	    <%= submit_tag "Search", name: nil, class: "btn-small btn-success" %>
+	<% end %>
+
   <div class="btn-group">
 		<%= link_to "Register your lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
 	</div>
+
 </div>
 
 <% if params[:search].present? %>
