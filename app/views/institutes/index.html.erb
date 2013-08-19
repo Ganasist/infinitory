@@ -1,13 +1,9 @@
 <%- model_class = Institute -%>
 <div class="page-header">
-	<% if params[:query].present? %>
-		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:query].titleize %></h3>
+	<% if params[:search].present? %>
+		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
 		<br>
   <% end %>
-
-  <%= form_tag institutes_path, method: :get do %>
-	    <%= text_field_tag :query, params[:query], class: "search", placeholder: "Search Infinitory"  %>
-	<% end %>
 
   <div class="btn-group">
 		<%= link_to "Register your lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
