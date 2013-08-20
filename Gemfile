@@ -67,6 +67,7 @@ gem 'geocoder'
 gem 'gmaps4rails'
 
 gem 'carrierwave'
+gem "rmagick"
 
 gem 'will_paginate'
 gem 'seed_dump'

@@ -1,8 +1,7 @@
 <% cache @institute do %>
-  <div class="page-header">
-        
-        <%= image_tag @institute.icon_url %>
+  <div class="page-header">         
       <h2>
+        <%= image_tag @institute.icon_url(:thumb).to_s %>
         <%= "#{@institute.name}" %>
         <% if @institute.acronym.present? %>
           (<%= "#{@institute.acronym}" %>)
