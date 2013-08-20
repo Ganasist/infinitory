@@ -15,9 +15,3 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
-
-
-$(document).ready(function() {
-  $('input.typeahead').typeahead({name: 'planets',
-  																local: [ "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" ]});
-});
