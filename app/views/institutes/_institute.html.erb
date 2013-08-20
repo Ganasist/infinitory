@@ -1,9 +1,17 @@
 <% cache institute do %>
 	<div class="institute">
-		<% if institute.acronym.present? %>
-			<p><%= link_to "#{institute.name}" " " "(#{institute.acronym})" , institute %><p> 
-		<% else %>
-			<p><%= link_to institute.name, institute %><p> 
-		<% end %>
+		<table>
+		  <tbody>
+		      <tr>
+		      	<% if institute.icon.present? %>
+			        <td><%= link_to image_tag(institute.icon_url(:thumb).to_s) + "   #{institute.name}" " (#{institute.acronym})", institute %></td>
+		        <% else %>
+			        <td><%= link_to image_tag(institute.icon_url(:thumb).to_s) + "#{institute.name}", institute %></td>
+			       <% end %>
+		      </tr>
+		  </tbody>
+		</table>
 	</div>
 <% end %>
+
+

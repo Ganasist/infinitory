@@ -18,7 +18,7 @@
 		<%= render 'gmap' %>
 	</div>
 <% else %>
-	<div class="span3">
+	<div class="span5">
 	<%= render @institutes %>
 	<br>
 		<% if @institutes.previous_page %>
@@ -30,7 +30,7 @@
 		<% end %>
 	</div>
 	<% if @mapped.present? %>
-		<div class="span8">
+		<div class="span6">
 			<%= render 'gmap' %>
 		</div>
 	<% end %>
