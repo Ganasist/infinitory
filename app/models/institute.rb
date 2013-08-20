@@ -3,6 +3,11 @@ class Institute < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :acronym_and_name, use: [:slugged, :history]
 
+	include PgSearch
+  pg_search_scope :search, against: [:name, :acronym, :alternate_name],
+                  using: { tsearch: { prefix: true,
+                  										dictionary: "english" }}
+
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
 	has_many :labs, through: :departments, dependent: :destroy
@@ -59,4 +64,12 @@ class Institute < ActiveRecord::Base
 	  def should_generate_new_friendly_id?
 		  new_record? || slug.blank?
 		end
+
+		def self.global_search(query)
+	    if query.present?
+	      search(query)
+	    else
+	      scoped
+	    end
+	  end
 end

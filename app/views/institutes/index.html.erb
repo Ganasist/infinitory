@@ -2,8 +2,9 @@
 <div class="page-header">
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
+		<br>
   <% end %>
-  <br>
+
   <div class="btn-group">
 		<%= link_to "Register your lab", new_institute_lab_path(@institute), :class => 'btn-large' %>
 	</div>
@@ -12,7 +13,6 @@
 <% if params[:search].present? %>
 	<div class="span3">
 		<%= render @institutes %>
-		<%= link_to "Add new institute", new_institute_path, :class => 'btn' %>
 	</div>
 	<br>
 	<div class="span8">
