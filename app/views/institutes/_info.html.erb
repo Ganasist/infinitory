@@ -1,11 +1,14 @@
 <%- model_class = Institute -%>
 <% cache @institute do %>
   <dl class="dl-vertical">
-    <% if @institute.url? %>
-      <dt><strong>Website</strong></dt>
+    <% if @institute.url.present? && @institute.icon.present? %>
+    	<dd class="text-center"><%= link_to image_tag(@institute.icon_url(:main).to_s).html_safe, @institute.url %></dd>
+    <% elsif @institute.url.present? && @institute.icon.blank? %>
+    	<dt><strong>Website</strong></dt>
       <dd><%= link_to "#{@institute.url}", @institute.url, :only_path => false  %></dd>
       <br>
     <% end %>
+    <br>
     <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
     <dd><%= @institute.address %></dd>
   </dl>
