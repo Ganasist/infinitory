@@ -1,5 +1,7 @@
 <% cache @institute do %>
   <div class="page-header">
+        
+        <%= image_tag @institute.icon_url %>
       <h2>
         <%= "#{@institute.name}" %>
         <% if @institute.acronym.present? %>

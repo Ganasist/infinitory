@@ -66,6 +66,8 @@ gem 'high_voltage'
 gem 'geocoder'
 gem 'gmaps4rails'
 
+gem 'carrierwave'
+
 gem 'will_paginate'
 gem 'seed_dump'
 

@@ -1,4 +1,5 @@
 class Institute < ActiveRecord::Base
+	mount_uploader :icon, IconUploader
 
 	extend FriendlyId
 	friendly_id :acronym_and_name, use: [:slugged, :history]

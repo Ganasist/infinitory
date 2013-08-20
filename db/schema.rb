@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130819170513) do
+ActiveRecord::Schema.define(version: 20130820132442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20130819170513) do
     t.string   "url"
     t.string   "acronym"
     t.string   "slug"
+    t.string   "icon"
   end
 
   add_index "institutes", ["latitude"], name: "index_institutes_on_latitude", using: :btree
