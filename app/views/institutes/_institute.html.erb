@@ -3,11 +3,7 @@
 		<table>
 		  <tbody>
 		      <tr>
-		      	<% if institute.icon.present? %>
-			        <td><%= link_to image_tag(institute.icon_url(:thumb).to_s) + "   #{institute.name}" " (#{institute.acronym})", institute %></td>
-		        <% else %>
-			        <td><%= link_to image_tag(institute.icon_url(:thumb).to_s) + "#{institute.name}", institute %></td>
-			       <% end %>
+		        <td><%= link_to image_tag(institute.icon_url(:thumb).to_s).html_safe + "  #{institute.name}".html_safe, institute %></td>
 		      </tr>
 		  </tbody>
 		</table>
