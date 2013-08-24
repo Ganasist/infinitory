@@ -1,11 +1,12 @@
-<%= simple_form_for @lab, :html => { :class => 'form-inline' } do |f| %>
-  <%= f.input :group_leader %>
-  <%= f.input :group_leader_email %>
-  <%= f.association :institute %>
-  <%= f.association :department %>
-  <div class="form-actions">
-    <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                institutes_path, :class => 'btn' %>
-  </div>
-<% end %>
+<h3>Group Leader / Lab Registration</h3>
+	<%= simple_form_for @lab, :html => { :class => 'form-inline' } do |f| %>
+	  <%= f.input :group_leader, label: "Name" %>
+	  <%= f.input :group_leader_email, label: "Email" %>
+	  <%= f.association :institute %>
+	  <%= f.association :department %>
+	  <div class="form-actions">
+	    <%= f.button :submit, :class => 'btn-primary' %>
+	    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	                institutes_path, :class => 'btn' %>
+	  </div>
+	<% end %>
