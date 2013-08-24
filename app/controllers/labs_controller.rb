@@ -31,13 +31,22 @@ class LabsController < ApplicationController
   # POST /labs.json
   def create
     @institute = Institute.find(lab_params[:institute_id])
-    @department = Department.find(lab_params[:department_id])
-    @lab = @institute.labs.new(lab_params)
-
+    
+    if lab_params[:department_id].present?
+      @department = Department.find(lab_params[:department_id])
+      @lab = @department.labs.new(lab_params)
+    else
+      @lab = @institute.labs.new(lab_params)
+    end
 
     respond_to do |format|
       if @lab.save
-        format.html { redirect_to institute_labs_path(@institute), notice: 'Lab was successfully created.' }
+
+        if @department.present?
+          format.html { redirect_to institute_department_labs_path(@institute, @department), notice: 'Lab was successfully created.' }
+        else
+          format.html { redirect_to institute_labs_path(@institute), notice: 'Lab was successfully created.' }
+        end
         format.json { render action: 'show', status: :created, location: @lab }
       else
         format.html { render action: 'new' }
