@@ -1,13 +1,12 @@
 <% cache institute do %>
 	<div class="institute">
 		<table>
-		      <tr>
-		      	<% if institute.icon? %>
-			        <td><%= link_to image_tag(institute.icon_url(:thumb).to_s).html_safe + "#{institute.name}".html_safe, institute %></td>
-		        <% else %>
-			        <td><%= link_to "#{institute.name}".html_safe, institute %></td>
-		     		<% end %>
-		      </tr>
+    	<% if institute.icon? %>
+    			<td><%= image_tag(institute.icon_url(:thumb), class: "small-icon") %></td>
+	        <td><%= link_to "#{institute.name}".html_safe, institute %></td>
+      <% else %>
+	        <td><%= link_to "#{institute.name}".html_safe, institute %></td>
+   		<% end %>
 		</table>
 	</div>
 <% end %>
