@@ -20,15 +20,17 @@
 <% else %>
 	<div class="span5">
 	<%= render @institutes %>
-	<br>
-		<% if @institutes.previous_page %>
-		  <%= link_to "< Previous", params.merge(page: @institutes.previous_page) %>
-		<% end %>
-		Page <%= @institutes.current_page %> of <%= @institutes.total_pages %>
-		<% if @institutes.next_page %>
-		  <%= link_to "Next >", params.merge(page: @institutes.next_page) %>
-		<% end %>
-	</div>
+	<span class="offset1">
+			<% if @institutes.previous_page %>
+			  <%= link_to "< Previous", params.merge(page: @institutes.previous_page) %>
+			<% end %>
+			Page <%= @institutes.current_page %> of <%= @institutes.total_pages %>
+			<% if @institutes.next_page %>
+			  <%= link_to "Next >", params.merge(page: @institutes.next_page) %>
+			<% end %>
+			<br><br>
+		</div>
+	</span>
 	<% if @mapped.present? %>
 		<div class="span6">
 			<%= render 'gmap' %>

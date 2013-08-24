@@ -4,7 +4,13 @@ class LabsController < ApplicationController
   # GET /labs
   # GET /labs.json
   def index
-    @labs = Lab.all
+    @institute = Institute.friendly.find(params[:institute_id])
+    @labs = Lab.where(institute_id: @institute)
+
+    if params[:department_id].present?
+      @department = Department.find(params[:department_id])
+      @labs = Lab.where(institute_id: @institute, department_id: @department)
+    end
   end
 
   # GET /labs/1
@@ -15,12 +21,6 @@ class LabsController < ApplicationController
   # GET /labs/new
   def new
     @lab = Lab.new
-    if params[:institute_id].present?
-      @institute = Institute.friendly.find(params[:institute_id])
-    end
-    if params[:department_id].present?
-      @department = Department.find(params[:department_id])
-    end
   end
 
   # GET /labs/1/edit
@@ -30,23 +30,16 @@ class LabsController < ApplicationController
   # POST /labs
   # POST /labs.json
   def create
-    @institute = Institute.find(lab_params[:institute_id])
-    
-    if lab_params[:department_id].present?
-      @department = Department.find(lab_params[:department_id])
-      @lab = @department.labs.new(lab_params)
+    if lab_params[:institute_id].present?
+      @institute = Institute.find(params[lab_params])
+      @lab = @institute.lab.new(lab_params)
     else
-      @lab = @institute.labs.new(lab_params)
+      @lab = Lab.new(lab_params)
     end
-
+    
     respond_to do |format|
       if @lab.save
-
-        if @department.present?
-          format.html { redirect_to institute_department_labs_path(@institute, @department), notice: 'Lab was successfully created.' }
-        else
-          format.html { redirect_to institute_labs_path(@institute), notice: 'Lab was successfully created.' }
-        end
+        format.html { redirect_to @lab, notice: 'Lab was successfully created.' }
         format.json { render action: 'show', status: :created, location: @lab }
       else
         format.html { render action: 'new' }
@@ -74,7 +67,7 @@ class LabsController < ApplicationController
   def destroy
     @lab.destroy
     respond_to do |format|
-      format.html { redirect_to labs_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end
@@ -87,6 +80,6 @@ class LabsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lab_params
-      params.require(:lab).permit(:department_id, :institute_id, :group_leader, :group_leader_email)
+      params.require(:lab).permit(:department_id, :institute_id, :group_leader, :email)
     end
 end
