@@ -1,6 +1,6 @@
 Infinitory::Application.routes.draw do
 
-  resources :labs, only: :new
+  resources :labs
 
   resources :institutes do
     resources :labs

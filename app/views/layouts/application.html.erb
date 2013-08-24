@@ -39,11 +39,9 @@
     <div id="push">
       <%= nav_bar brand: "Infinitory", brand_link: institutes_path, responsive: false do %>
         <%= menu_group do %>
-              <%= menu_item "Register Institute", new_institute_path %>
+              <%= menu_item "Register Your Lab", new_lab_path %>
               <%= menu_divider %>
-              <%= menu_item "Register Department", "#"  %>
-              <%= menu_divider %>
-              <%= menu_item "Register Lab", "#"  %>     
+              <%= menu_item "Join Infinitory", "#"  %>
         <% end %>
             <%= form_tag institutes_path, method: :get do %>
                 <%= text_field_tag :query, params[:query], class: "typeahead navbar-search pull-right", placeholder: "Search Infinitory"  %>

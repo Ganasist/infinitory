@@ -1,9 +1,11 @@
-<%= simple_form_for [@institute, @department, @lab], :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @lab, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :group_leader %>
   <%= f.input :group_leader_email %>
+  <%= f.association :institute %>
+  <%= f.association :department %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                institute_path(@institute), :class => 'btn' %>
+                institutes_path, :class => 'btn' %>
   </div>
 <% end %>

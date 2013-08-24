@@ -15,7 +15,9 @@ class LabsController < ApplicationController
   # GET /labs/new
   def new
     @lab = Lab.new
-    @institute = Institute.friendly.find(params[:institute_id])
+    if params[:institute_id].present?
+      @institute = Institute.friendly.find(params[:institute_id])
+    end
     if params[:department_id].present?
       @department = Department.find(params[:department_id])
     end
@@ -32,7 +34,7 @@ class LabsController < ApplicationController
 
     respond_to do |format|
       if @lab.save
-        format.html { redirect_to @lab, notice: 'Lab was successfully created.' }
+        format.html { redirect_to labs_path, notice: 'Lab was successfully created.' }
         format.json { render action: 'show', status: :created, location: @lab }
       else
         format.html { render action: 'new' }
