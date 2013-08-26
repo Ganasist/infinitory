@@ -3,6 +3,8 @@ class Lab < ActiveRecord::Base
 	belongs_to :department
 	belongs_to :institute
 
+	has_many 	 :users
+
 	validates :group_leader, :institute, presence: true
 
   # validates :email, uniqueness: true, presence: true,
