@@ -2,6 +2,7 @@ class Lab < ActiveRecord::Base
 
 	belongs_to :department
 	belongs_to :institute
+	has_one		 :group_leader
 
 	validates :group_leader, :institute, presence: true
   validates :email, uniqueness: true, presence: true,
