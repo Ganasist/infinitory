@@ -2,9 +2,10 @@ class Lab < ActiveRecord::Base
 
 	belongs_to :department
 	belongs_to :institute
-	has_one		 :group_leader
+	has_one :group_leader
 
 	validates :group_leader, :institute, presence: true
+	
   validates :email, uniqueness: true, presence: true,
   					format: { :with => /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/,
                      :message => 'Invalid e-mail! Please provide a valid e-mail address'}
