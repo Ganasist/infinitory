@@ -55,8 +55,9 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem "twitter-bootstrap-rails"
 
 gem 'cancan'
-gem 'devise', '3.0.0.rc'
-# gem 'devise_invitable'
+gem 'devise', '3.0.0'
+gem 'devise_invitable', :github => 'scambra/devise_invitable'
+
 gem 'figaro'
 gem 'pg'
 gem 'rolify'

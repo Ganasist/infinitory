@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/scambra/devise_invitable.git
+  revision: 7a7cb78f39c68ae5d565289ad1f097d6b76ab433
+  specs:
+    devise_invitable (1.2.1)
+      actionmailer (>= 3.2.6, < 5)
+      devise (~> 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -61,11 +69,11 @@ GEM
     dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
-    devise (3.0.0.rc)
+    devise (3.0.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
-      warden (~> 1.2.1)
+      warden (~> 1.2.3)
     diff-lcs (1.2.4)
     email_spec (1.4.0)
       launchy (~> 2.1)
@@ -266,7 +274,8 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   dalli
   database_cleaner
-  devise (= 3.0.0.rc)
+  devise (= 3.0.0)
+  devise_invitable!
   email_spec
   factory_girl_rails
   figaro
