@@ -13,6 +13,9 @@ Bundler.require(:default, Rails.env)
 
 module Infinitory
   class Application < Rails::Application
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.1'    # <--- Bump it up!
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
