@@ -1,6 +1,5 @@
 <h3>Group Leader / Lab Registration</h3>
 	<%= simple_form_for @lab, :html => { :class => 'form-inline' } do |f| %>
-	  <%= f.input :group_leader, label: "Name" %>
 	  <%= f.association :institute, as: :string %>
 	  <div class="form-actions">
 	    <%= f.button :submit, :class => 'btn-primary' %>
