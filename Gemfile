@@ -21,7 +21,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'gon'
+
 
 gem 'redis'
 gem 'dalli'
@@ -78,8 +78,8 @@ group :production do
 end
 
 group :development do
-  gem 'rack-mini-profiler'
-  gem 'bullet', group: :development
+  # gem 'rack-mini-profiler'
+  gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
   gem 'guard-bundler'
