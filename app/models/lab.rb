@@ -3,7 +3,7 @@ class Lab < ActiveRecord::Base
 	belongs_to :department
 	belongs_to :institute
 
-	has_many 	 :users
+	has_many 	 :users, dependent: :destroy
 
 	validates :group_leader, :institute, presence: true
 
