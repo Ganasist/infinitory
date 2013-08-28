@@ -41,7 +41,12 @@
     <div id="push">
       <%= nav_bar brand: "INFINITORY", brand_link: institutes_path, responsive: false do %>
         <%= menu_group do %>
-              <%= menu_item "SIGN-UP", new_lab_path %>
+          <% if user_signed_in? %>
+              <%= menu_item "SIGN-OUT", destroy_user_session_path %>
+          <% else %>
+              <%= menu_item "SIGN-IN", new_user_session_path %>
+              <%= menu_item "SIGN-UP", new_user_registration_path %>
+          <% end %>
         <% end %>
             <%= form_tag institutes_path, method: :get do %>
                 <%= text_field_tag :query, params[:query], class: "navbar-search pull-right", placeholder: "Search"  %>
