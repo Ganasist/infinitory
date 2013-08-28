@@ -6,4 +6,16 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :lab
+
+  before_validation :admin_cascade
+
+  protected
+  	def admin_cascade
+  		if self.super_admin?
+  			self.group_leader = true
+  			self.admin 				= true
+  		elsif self.group_leader?
+  			self.admin = true
+  		end
+  	end
 end
