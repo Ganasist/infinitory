@@ -29,10 +29,11 @@
 // Example:
 // @linkColor: #ff0000;
 
+@linkHover: #FF0000;
 @navbarBackground: #555;
-@navbarBackgroundHighlight: #888;
+@navbarBackgroundHighlight: @navbarBackground + #222;
 @navbarText: #eee;
-@navbarLinkColor: #eee;
+@navbarLinkColor: @navbarText + #777;
 
 input.navbar-search {
 	font-size: 1.3em;
@@ -55,8 +56,9 @@ body td img {
 	margin-right: 5px;
 }
 
-body a:hover {
-	color: none;
+html a:hover {
+	color: @linkHover;
+	background: none;
   text-decoration: none;
 }
 
