@@ -4,9 +4,11 @@
 		<h3 class="text-muted"><%= pluralize @institutes.count, "institute".titleize %> in <%= params[:search].titleize %></h3>
 		<br>
   <% end %>
+  <% unless user_signed_in? %>
   <div class="btn-group">
 		<%= link_to "Register your lab", new_lab_path, :class => 'btn-large' %>
 	</div>
+	<% end %>
 </div>
 
 <% if params[:search].present? %>
