@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130828164843) do
+ActiveRecord::Schema.define(version: 20130829104130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,24 @@ ActiveRecord::Schema.define(version: 20130828164843) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "group_leaders", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_leaders", ["email"], name: "index_group_leaders_on_email", unique: true, using: :btree
+  add_index "group_leaders", ["reset_password_token"], name: "index_group_leaders_on_reset_password_token", unique: true, using: :btree
+
   create_table "institutes", force: true do |t|
     t.string   "name"
     t.float    "latitude"
@@ -73,6 +91,7 @@ ActiveRecord::Schema.define(version: 20130828164843) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "room"
+    t.string   "email"
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -104,12 +123,13 @@ ActiveRecord::Schema.define(version: 20130828164843) do
     t.datetime "updated_at"
     t.string   "name"
     t.boolean  "super_admin",            default: false
-    t.boolean  "group_leader",           default: false
     t.boolean  "admin",                  default: false
+    t.integer  "lab_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["lab_id"], name: "index_users_on_lab_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
