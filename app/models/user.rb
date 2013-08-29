@@ -1,4 +1,4 @@
-require 'role_model'
+# require 'role_model'
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
