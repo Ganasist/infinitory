@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   	def admin_cascade
   		if self.super_admin?
+        self.group_leader = true
         self.admin        = true
   		elsif self.group_leader?
   			self.admin 				= true

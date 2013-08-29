@@ -1,6 +1,5 @@
 Infinitory::Application.routes.draw do
 
-  devise_for :group_leaders
   devise_for :users
   
   resources :labs
