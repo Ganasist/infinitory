@@ -1,21 +1,23 @@
 <span class="text-center">
-	<h2>Lab member sign-up</h2>
-	<h4>Group leaders sign-up here</h4>
+	<h2>Sign-up</h2>
 </span>
 <br>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => 'form-vertical'} ) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name),
+                              :html => { :class => 'form-vertical'} ) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.collection_radio_buttons :role, User::ROLES, :to_s, :humanize %>
+    <br><br>
+
     <%= f.input :email, :required => true, :autofocus => true, label: "Your email address",
-    							placeholder: "Institutional addresses only", input_html: {:style=> 'width: 350px'}  %>
-
-    <%= f.association :lab, label_method: :email, value_method: :id, include_blank: false,
-    									label: "Group leader's email address", input_html: {:style=> 'width: 350px'} %>
-
-    <%= f.input :password, :required => true, input_html: {:style=> 'width: 350px'}  %>
-    <%= f.input :password_confirmation, :required => true, input_html: {:style=> 'width: 350px'}  %>
+    							placeholder: "Institutional addresses only", input_html: { style: 'width: 350px' } %>
+    <%= f.association :lab, as: :string, label_method: :email, value_method: :id, include_blank: false,
+    									label: "Group leader's email address", input_html: { style: 'width: 350px' },
+                  wrapper_html: { class: 'hide GLemail' } %>
+    <%= f.input :password, :required => true, input_html: {:style=> 'width: 350px'} %>
+    <%= f.input :password_confirmation, :required => true, input_html: {:style=> 'width: 350px'} %>
   </div>
 
   <div class="form-actions">

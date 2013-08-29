@@ -1,4 +1,4 @@
-# require 'role_model'
+require 'role_model'
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -19,6 +19,12 @@ class User < ActiveRecord::Base
  
   # declare the valid roles -- do not change the order if you add more
   # roles later, always append them at the end!
-  roles :god, :group_leader, :admin, :user, :guest
+  roles :guest, :lab_member, :lab_manager, :group_leader, :superadmin
 
+
+  protected
+    ROLES = %w[group_leader lab_manager lab_member]
+    def role?(base_role)
+      ROLES.index(base_role.to_s) <= ROLES.index(role)
+    end
 end
