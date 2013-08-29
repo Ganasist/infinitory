@@ -1,3 +1,5 @@
+require 'role_model'
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable and :omniauthable
@@ -9,14 +11,14 @@ class User < ActiveRecord::Base
 
   before_validation :admin_cascade
 
-  protected
 
-  	def admin_cascade
-  		if self.super_admin?
-        self.group_leader = true
-        self.admin        = true
-  		elsif self.group_leader?
-  			self.admin 				= true
-  		end
-  	end
+  include RoleModel
+  # optionally set the integer attribute to store the roles in,
+  # :roles_mask is the default
+  roles_attribute :roles_mask
+ 
+  # declare the valid roles -- do not change the order if you add more
+  # roles later, always append them at the end!
+  roles :god, :group_leader, :admin, :user, :guest
+
 end
