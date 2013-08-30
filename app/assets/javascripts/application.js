@@ -13,31 +13,14 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
-//= require twitter/bootstrap
-//= require twitter/typeahead   
+//= require twitter/bootstrap  
 //= require_tree .
 
 
-$(document).ready(function() {
-
-  $('#group_leader_department_name').typeahead(
-  	{ name: 'departments',
-  	  local: [ "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" ] });
-  
-  $('#group_leader_institute_name').typeahead(
-  	{ name: 'institutes', 
-  	  local: [ "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" ],
-  	  prefetch: '/institutes' });
-  
-
- //  $('input[type=radio]').change(function(){
- //  	if (this.value != 'group_leader') {
- //  		$('.GLemail').fadeIn(200);
- //  		$('.hide').removeClass('hide');	
- //  	} else if (this.value == 'group_leader') {
- //  		$('.GLemail').fadeOut(200);
- //  	}  	
-	// });
+$(document).ready(function(){
+	$('#group_leader_institute_name').autocomplete({
+    source: "/search_suggestions"
+  });
 });
 
 
