@@ -41,11 +41,12 @@
     <div id="push">
       <%= nav_bar brand: "INFINITORY", brand_link: institutes_path, responsive: false do %>
         <%= menu_group do %>
-          <% if user_signed_in? %>
+          <% if user_signed_in? || group_leader_signed_in? %>
               <%= menu_item "SIGN-OUT", destroy_user_session_path, method: 'delete' %>
           <% else %>
               <%= menu_item "SIGN-IN", new_user_session_path %>
-              <%= menu_item "SIGN-UP", new_user_registration_path %>
+              <%= menu_item "Group Leader SIGN-UP", new_group_leader_registration_path %>
+              <%= menu_item "Lab Member SIGN-UP", new_user_registration_path %>
           <% end %>
         <% end %>
             <%= form_tag institutes_path, method: :get do %>
