@@ -1,6 +1,6 @@
 Infinitory::Application.routes.draw do
 
-  devise_for :group_leaders, :controllers => { :sessions => "group_leaders/sessions" }
+  devise_for :group_leaders
   devise_for :users
   
   resources :labs
