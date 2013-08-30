@@ -16,16 +16,18 @@
 //= require twitter/bootstrap
 //= require_tree .
 
-$(document).ready(function() {
-  $('input[type=radio]').change(function(){
-  	if (this.value != 'group_leader') {
-  		$('.GLemail').fadeIn(200);
-  		$('.hide').removeClass('hide');	
-  	} else if (this.value == 'group_leader') {
-  		$('.GLemail').fadeOut(200);
-  	}  	
-	});
-});
+
+
+// $(document).ready(function() {
+//   $('input[type=radio]').change(function(){
+//   	if (this.value != 'group_leader') {
+//   		$('.GLemail').fadeIn(200);
+//   		$('.hide').removeClass('hide');	
+//   	} else if (this.value == 'group_leader') {
+//   		$('.GLemail').fadeOut(200);
+//   	}  	
+// 	});
+// });
 
 
 

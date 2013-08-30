@@ -6,7 +6,6 @@ class Lab < ActiveRecord::Base
 	has_many 	 :users, dependent: :destroy
 	has_one		 :group_leader, dependent: :destroy
 
-
   validates_presence_of :institute
   validates_presence_of :group_leader
 
