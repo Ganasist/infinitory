@@ -6,8 +6,10 @@ class Department < ActiveRecord::Base
 	before_validation :smart_add_url_protocol
 	before_validation :default_address
 
-	after_validation :reverse_geocode, :if => :address_changed?
-	after_validation :geocode, :if => :address_changed?     # auto-fetch coordinates
+	after_validation :reverse_geocode,
+									 :if => lambda { |t| t.address_changed? && t.address? }
+	after_validation :geocode,
+									 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
 
   validates_associated :institute
 
