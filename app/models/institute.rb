@@ -12,6 +12,7 @@ class Institute < ActiveRecord::Base
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
 	has_many :labs, through: :departments, dependent: :destroy
+	has_many :group_leaders, through: :labs, dependent: :destroy
 
 	before_validation :smart_add_url_protocol
 	after_validation :geocode, :if => :address_changed? # auto-fetch coordinates only if there's a new address

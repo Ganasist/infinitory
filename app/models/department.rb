@@ -1,6 +1,7 @@
 class Department < ActiveRecord::Base
 	belongs_to :institute, touch: true
 	has_many :labs, dependent: :destroy
+	has_many :group_leaders, through: :labs, dependent: :destroy
 
 	before_validation :smart_add_url_protocol
 	before_validation :default_address

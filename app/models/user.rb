@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
  
   # declare the valid roles -- do not change the order if you add more
   # roles later, always append them at the end!
-  roles :guest, :lab_member, :lab_manager, :group_leader, :superadmin
+  roles :guest, :lab_member, :lab_manager, :superadmin
 
   def lab
     lab.try(:email)
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
 
   protected
-    ROLES = %w[group_leader lab_manager lab_member]
+    ROLES = %w[lab_manager lab_member]
     def role?(base_role)
       ROLES.index(base_role.to_s) <= ROLES.index(role)
     end

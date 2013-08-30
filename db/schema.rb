@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130830110433) do
+ActiveRecord::Schema.define(version: 20130830112740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,10 +66,14 @@ ActiveRecord::Schema.define(version: 20130830110433) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lab_id"
+    t.integer  "institute_id"
+    t.integer  "department_id"
   end
 
   add_index "group_leaders", ["confirmation_token"], name: "index_group_leaders_on_confirmation_token", unique: true, using: :btree
+  add_index "group_leaders", ["department_id"], name: "index_group_leaders_on_department_id", using: :btree
   add_index "group_leaders", ["email"], name: "index_group_leaders_on_email", unique: true, using: :btree
+  add_index "group_leaders", ["institute_id"], name: "index_group_leaders_on_institute_id", using: :btree
   add_index "group_leaders", ["lab_id"], name: "index_group_leaders_on_lab_id", using: :btree
   add_index "group_leaders", ["reset_password_token"], name: "index_group_leaders_on_reset_password_token", unique: true, using: :btree
   add_index "group_leaders", ["unlock_token"], name: "index_group_leaders_on_unlock_token", unique: true, using: :btree
@@ -137,6 +141,7 @@ ActiveRecord::Schema.define(version: 20130830110433) do
     t.integer  "lab_id"
     t.integer  "roles_mask"
     t.string   "role"
+    t.boolean  "approved"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
