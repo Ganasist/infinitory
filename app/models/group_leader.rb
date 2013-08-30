@@ -5,8 +5,10 @@ class GroupLeader < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, 
   			 :trackable, :validatable, :lockable, :timeoutable
 
-  belongs_to :lab
+  has_one :lab
+
   belongs_to :department
   belongs_to :institute
 
+  validates_presence_of :institute
 end
