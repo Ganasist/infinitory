@@ -11,26 +11,26 @@ class GroupLeader < ActiveRecord::Base
 
   
 	def lab_email
-    lab.try(:email)
+    lab.try(email: :lab_email)
   end
   
-  def lab_email=(email)
-    self.lab = Lab.find_or_create_by(email: email) if email.present?
+  def lab_email=(lab_email)
+    self.lab = Lab.find_or_create_by(email: lab_email) if lab_email.present?
   end
 
   def department_name
-    department.try(:name)
+    department.try(name: :department_name)
   end
   
-  def department_name=(name)
-    self.department = Department.find_or_create_by(name: name) if name.present?
+  def department_name=(department_name)
+    self.department = Department.find_or_create_by(name: department_name) if department_name.present?
   end
 
   def institute_name
-    institute.try(:name)
+    institute.try(name: :institute_name)
   end
   
-  def institute_name=(name)
-    self.institute = Institute.find_or_create_by(name: name) if name.present?
+  def institute_name=(institute_name)
+    self.institute = Institute.find_or_create_by(name: institute_name) if institute_name.present?
   end
 end
