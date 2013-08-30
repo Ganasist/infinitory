@@ -9,6 +9,6 @@ class Lab < ActiveRecord::Base
   # validates_presence_of :institute
   # validates_presence_of :group_leader
 
-  validates_associated :department
+  # validates_associated :department
 
 end

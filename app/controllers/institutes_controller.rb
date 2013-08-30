@@ -43,7 +43,6 @@ class InstitutesController < ApplicationController
         marker.infowindow "<h4>#{institute.name}<h4>
                           <h5>Labs: #{institute.labs.count}</h5>"
       end
-      render json: Institute.all
     end
   end
 

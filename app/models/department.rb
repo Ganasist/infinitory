@@ -11,9 +11,9 @@ class Department < ActiveRecord::Base
 	after_validation :geocode,
 									 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
 
-  validates_associated :institute
+  # validates_associated :institute
 
-  validates :name, :institute_id, presence: true
+  # validates :name, :institute_id, presence: true
 
   validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,

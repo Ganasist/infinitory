@@ -1,7 +1,5 @@
 Infinitory::Application.routes.draw do
 
-  resources :search_suggestions
-
   devise_for :group_leaders
   devise_for :users
   

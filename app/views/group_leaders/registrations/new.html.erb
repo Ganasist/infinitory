@@ -8,10 +8,15 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :lab_email, label: "E-mail", :required => true,
-    						:autofocus => true, input_html: { style: 'width: 350px' }  %>
-    <%= f.input :institute_name, :required => true, input_html: { style: 'width: 350px' }  %>
-    <%= f.input :department_name, placeholder: "Optional", input_html: { style: 'width: 350px' }  %>    
+    <%= f.input :email, :required => true, :autofocus => true, input_html: { style: 'width: 350px' }  %>
+
+    <%= f.input :institute do %>
+      <%= f.select :institute, Institute.all.order(:name).map { |r| [r.name, r.id] }, include_blank: true %>
+    <% end %>
+
+     <%= f.input :department do %>
+      <%= f.select :department, Department.order(:name).map { |r| [r.name, r.id] }, include_blank: true %>
+    <% end %>  
     <%= f.input :password, :required => true, input_html: { style: 'width: 350px' }  %>
     <%= f.input :password_confirmation, :required => true, input_html: { style: 'width: 350px' }  %>
   </div>
