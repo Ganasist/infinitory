@@ -9,6 +9,11 @@
 
   <div class="form-inputs">
     <%= f.input :email, as: :string, :required => true, :autofocus => true, input_html: { style: 'width: 350px' }  %>
+    
+    <%= f.simple_fields_for :lab do |l| %>
+      <%= l.input :room, label: "Lab Room" %>
+    <% end %>
+
     <%= f.association :institute, collection: Institute.order(:name), value_method: :id, include_blank: true %>
     <%= f.association :department, collection: Department.order(:name), value_method: :id, include_blank: true %>
     <%= f.input :password, :required => true, input_html: { style: 'width: 350px' }  %>
