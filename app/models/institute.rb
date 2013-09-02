@@ -12,23 +12,23 @@ class Institute < ActiveRecord::Base
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
 	has_many :labs, through: :departments, dependent: :destroy
-	has_many :group_leaders, through: :labs, dependent: :destroy
+	has_many :group_leaders, dependent: :destroy
 
 	before_validation :smart_add_url_protocol
 	after_validation :geocode, 
-									 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates only if there's a new address
+									 :if => lambda { |t| t.address_changed? && t.address.present? } # auto-fetch coordinates only if there's a new address
 	after_validation :reverse_geocode, 
-									 :if => lambda { |t| t.address_changed? && t.address? } 
+									 :if => lambda { |t| t.address_changed? && t.address.present? } 
 
-	validates :name, presence: true
-	validates :name, uniqueness: { scope: :address,
-    													 	 message: "This institute is already registered at that address" },
-    								:if => :address?
+	validates :name, :presence => { :message => "Story title is required" }
+	# validates :name, uniqueness: { scope: :address,
+ #    													 	 message: "This institute is already registered at that address" },
+ #    								:if => :address.present?
 
-  validates :url, allow_blank: true,
-  								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
-  													multiline: true,
-  													message: "is not valid" }
+ #  validates :url, allow_blank: true,
+ #  								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+ #  													multiline: true,
+ #  													message: "is not valid" }
 
 	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|

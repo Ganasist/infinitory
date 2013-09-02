@@ -4,7 +4,7 @@ class Department < ActiveRecord::Base
 	has_many :group_leaders, through: :labs, dependent: :destroy
 
 	before_validation :smart_add_url_protocol
-	before_validation :default_address
+	# before_validation :default_address
 
 	after_validation :reverse_geocode,
 									 :if => lambda { |t| t.address_changed? && t.address? }
