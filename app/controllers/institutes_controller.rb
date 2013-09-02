@@ -43,9 +43,6 @@ class InstitutesController < ApplicationController
         marker.infowindow "<h4>#{institute.name}<h4>
                           <h5>Labs: #{institute.labs.count}</h5>"
       end
-
-      @test = Institute.order(:name).where("name like ?", "%#{params[:term]}%")
-      render json: @test.map(&:name)
     end
   end
 
