@@ -44,9 +44,8 @@
           <% if user_signed_in? || group_leader_signed_in? %>
               <%= menu_item "SIGN-OUT", destroy_user_session_path, method: 'delete' %>
           <% else %>
-              <%= menu_item "SIGN-IN", new_user_session_path %>
-              <%= menu_item "Group Leaders", new_group_leader_registration_path %>
-              <%= menu_item "Lab Members", new_user_registration_path %>
+              <%= menu_item "GL sign-in", new_group_leader_session_path %>
+               <%= menu_item "LM sign-in", new_user_session_path %>
           <% end %>
         <% end %>
             <%= form_tag institutes_path, method: :get do %>
