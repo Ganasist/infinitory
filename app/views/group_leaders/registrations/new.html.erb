@@ -11,9 +11,11 @@
     <%= f.input :email, as: :string, required: true, :autofocus => true, input_html: { style: 'width: 350px' }  %>
 
     <%= f.input :institute_name, as: :string, required: true,
-                input_html: { style: 'width: 350px' } %>
+                input_html: { style: 'width: 350px', data: {  autocomplete_source: tests_path } } %>
 
-    <%= f.input :department_name, as: :string, input_html: { style: 'width: 350px' }, disabled: true %>
+    <%= f.input :department_name, as: :string,
+                input_html: { style: 'width: 350px' },
+                disabled: true %>
 
     <%= f.input :password, :required => true, input_html: { style: 'width: 350px' }  %>
     <%= f.input :password_confirmation, :required => true, input_html: { style: 'width: 350px' }  %>

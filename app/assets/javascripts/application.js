@@ -19,7 +19,7 @@
 
 $(document).ready(function(){
 	$('#group_leader_institute_name').autocomplete({		
-    source: ['foo', 'food', 'four']
+    source: $('#group_leader_institute_name').data('autocomplete-source')
   });
 });
 
