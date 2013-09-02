@@ -44,6 +44,8 @@ class InstitutesController < ApplicationController
                           <h5>Labs: #{institute.labs.count}</h5>"
       end
     end
+    # @test = Institute.order(:name).where("name ilike ?", "%#{params[:term]}%")
+    # render json: @test.map(&:name)
   end
 
   # GET /institutes/1

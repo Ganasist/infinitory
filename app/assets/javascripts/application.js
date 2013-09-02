@@ -19,10 +19,12 @@
 
 $(document).ready(function(){
 	$('#group_leader_institute_name').autocomplete({		
-    source: $('#group_leader_institute_name').data('autocomplete-source')
+    source: $('#group_leader_institute_name').data('autocomplete-source'),
+    minLength: 3,
+    delay: 0
+  });
+  $( "#group_leader_institute_name" ).blur(function() {
+  	console.log('hello');
+  	$('.group_leader_department').show();
   });
 });
-
-
-// $('#group_leader_institute_name').data('autocomplete-source')
-
