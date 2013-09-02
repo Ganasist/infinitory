@@ -8,9 +8,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, as: :string, :required => true, :autofocus => true, input_html: { style: 'width: 350px' }  %>
+    <%= f.input :email, as: :string, required: true, :autofocus => true, input_html: { style: 'width: 350px' }  %>
 
-    <%= f.input :institute_name, as: :string, input_html: { style: 'width: 350px' } %>
+    <%= f.input :institute_name, as: :string, required: true,
+                :input_html => { data: { autocomplete_source: Institute.order(:name).map(&:name) }},
+                input_html: { style: 'width: 350px' } %>
 
     <%= f.input :department_name, input_html: { style: 'width: 350px' }, disable: true %>
     <%= f.input :password, :required => true, input_html: { style: 'width: 350px' }  %>

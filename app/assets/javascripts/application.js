@@ -11,17 +11,17 @@
 // about supported directives.
 //
 //= require jquery
+//= require twitter/bootstrap
 //= require jquery.ui.all
 //= require jquery_ujs
-//= require twitter/bootstrap  
 //= require_tree .
 
 
-$(document).ready(function(){
-	$('#group_leader_institute_name').autocomplete({
-    source: "/search_suggestions"
-  });
-});
+// $(document).ready(function(){
+// 	$('#group_leader_institute_name').autocomplete({		
+//     source: $('#group_leader_institute_name').data('autocomplete-source')
+//   });
+// });
 
 
 
