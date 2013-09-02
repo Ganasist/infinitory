@@ -14,8 +14,6 @@
                 :input_html => { data: { autocomplete_source: Institute.order(:name).map(&:name) }},
                 input_html: { style: 'width: 350px' } %>
 
-    <%= f.autocomplete_field :institute_name, :url => autocomplete_institute_name_group_leaders_path, :as => :autocomplete %>
-
     <%= f.input :department_name, input_html: { style: 'width: 350px' }, disable: true %>
     <%= f.input :password, :required => true, input_html: { style: 'width: 350px' }  %>
     <%= f.input :password_confirmation, :required => true, input_html: { style: 'width: 350px' }  %>

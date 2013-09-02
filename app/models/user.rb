@@ -6,16 +6,6 @@ class User < ActiveRecord::Base
 
   belongs_to :lab
 
-  validates_presence_of :lab, message: "Your group leader must create an account first"
-
-  def lab
-    lab.try(:email)
-  end
-  
-  def lab=(email)
-    self.lab = Lab.find_or_create_by(email) if email.present?
-  end
-
-  protected
+  # validates_presence_of :lab, message: "Your group leader must create an account first"
 
 end

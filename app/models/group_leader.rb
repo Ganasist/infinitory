@@ -7,7 +7,6 @@ class GroupLeader < ActiveRecord::Base
 
   has_one :lab, inverse_of: :group_leader, dependent: :destroy
   accepts_nested_attributes_for :lab
-  after_create :create_lab
 
   belongs_to :department
   belongs_to :institute
@@ -32,7 +31,8 @@ class GroupLeader < ActiveRecord::Base
 
 
   def create_lab
-    Lab.create(institute_id: self.institute_id, department_id: self.department_id, group_leader_id: self.id, email: self.email)
+    Lab.create(institute_id: self.institute_id, department_id: self.department_id,
+               group_leader_id: self.id, email: self.email)
   end
 
 end
