@@ -23,8 +23,8 @@ $(document).ready(function(){
     minLength: 3,
     delay: 0
   });
-  $( "#group_leader_institute_name" ).blur(function() {
-  	console.log('hello');
-  	$('.group_leader_department').show();
-  });
+  $( "#group_leader_institute_name" ).on( "autocompleteselect", function( event, ui ) {
+		console.log('hello');
+  	$('#group_leader_department_name').removeAttr('disabled');
+  } );
 });
