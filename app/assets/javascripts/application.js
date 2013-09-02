@@ -17,12 +17,12 @@
 //= require_tree .
 
 
-// $(document).ready(function(){
-// 	$('#group_leader_institute_name').autocomplete({		
-//     source: $('#group_leader_institute_name').data('autocomplete-source')
-//   });
-// });
+$(document).ready(function(){
+	$('#group_leader_institute_name').autocomplete({		
+    source: ['foo', 'food', 'four']
+  });
+});
 
 
-
+// $('#group_leader_institute_name').data('autocomplete-source')
 
