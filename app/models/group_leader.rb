@@ -7,6 +7,7 @@ class GroupLeader < ActiveRecord::Base
 
   has_one :lab, inverse_of: :group_leader, dependent: :destroy
   accepts_nested_attributes_for :lab
+  after_create :create_lab
 
   belongs_to :department
   belongs_to :institute

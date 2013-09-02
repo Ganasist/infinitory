@@ -5,33 +5,33 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th>Group Leader</th>
       <th><%= model_class.human_attribute_name(:department_id) %></th>
-      <th><%= model_class.human_attribute_name(:institute_id) %></th>
-      <th><%= model_class.human_attribute_name(:group_leader) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Created</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @labs.each do |lab| %>
       <tr>
-        <td><%= link_to lab.id, lab_path(lab) %></td>
-        <td><%= lab.department_id %></td>
-        <td><%= lab.institute_id %></td>
-        <td><%= lab.group_leader %></td>
-        <td><%= lab.email %></td>
-        <td><%=l lab.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_lab_path(lab), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      lab_path(lab),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <% if lab.group_leader.name? %>
+          <td><%= link_to "lab.group_leader.name", lab_path(lab) %></td>
+        <% else %>
+          <td><%= link_to "lab.email", lab_path(lab) %></td>
+        <% end %>
+        <td><%= lab.department.name unless lab.department.nil? %></td>
+        <td><%= "#{time_ago_in_words(lab.created_at)} ago" %></td>
+        <% if group_leader_signed_in? %>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_lab_path(lab), :class => 'btn btn-mini' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        lab_path(lab),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                        :class => 'btn btn-mini btn-danger' %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

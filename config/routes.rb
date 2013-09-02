@@ -3,7 +3,10 @@ Infinitory::Application.routes.draw do
   devise_for :group_leaders  
   devise_for :users
   
-  resources :labs
+  resources :labs do
+    resources :group_leaders  
+    resources :users
+  end
 
   resources :institutes do
     resources :labs

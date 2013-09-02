@@ -9,9 +9,9 @@
   <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
   <dd><%= @lab.institute_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
-  <dd><%= @lab.group_leader %></dd>
+  <dd><%= @lab.group_leader.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:group_leader_email) %>:</strong></dt>
-  <dd><%= @lab.group_leader_email %></dd>
+  <dd><%= @lab.email %></dd>
 </dl>
 
 <div class="form-actions">
