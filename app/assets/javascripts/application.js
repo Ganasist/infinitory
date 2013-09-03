@@ -24,7 +24,6 @@ $(document).ready(function(){
     delay: 0
   });
   $( "#group_leader_institute_name" ).on( "autocompleteselect", function( event, ui ) {
-		console.log('hello');
   	$('#group_leader_department_name').removeAttr('disabled');
-  } );
+  });
 });
