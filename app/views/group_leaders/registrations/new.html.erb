@@ -20,7 +20,7 @@
     <%= f.input :department_name, as: :string, placeholder: "Optional",
                                   # disabled: true,
                                   input_html: { style: 'width: 350px',                                  
-                                  data: { autocomplete_source: Department.all.map(&:test) }} %>
+                                  data: { autocomplete_source: Department.all(include: [:institute]).map(&:test) }} %>
 
     <%= f.input :password, required: true,
                            input_html: { style: 'width: 350px' }  %>
