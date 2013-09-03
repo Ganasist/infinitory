@@ -37,15 +37,16 @@ class InstitutesController < ApplicationController
         marker.infowindow "<h4>#{institute.name}<h4>
                           <h5>Labs: #{institute.labs.count}</h5>"
       end
-    else  
+    elsif params[:term].present?
+      @test = Institute.order(:name).where("name ilike ?", "%#{params[:term]}%")
+      render json: @test.map(&:name)
+    else 
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(10)
       @mapped = Institute.order(updated_at: :desc).page(params[:page]).per_page(10).to_gmaps4rails do |institute, marker|
         marker.infowindow "<h4>#{institute.name}<h4>
                           <h5>Labs: #{institute.labs.count}</h5>"
       end
     end
-    # @test = Institute.order(:name).where("name ilike ?", "%#{params[:term]}%")
-    # render json: @test.map(&:name)
   end
 
   # GET /institutes/1
