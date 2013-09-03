@@ -18,8 +18,9 @@
                                  input_html: { style: 'width: 350px',
                                  data: {  autocomplete_source: institutes_path }} %>
 
-    <%= f.input :department_name, as: :string, placeholder: "Optional",
-                                  # disabled: true,
+    <%= f.input :department_name, as: :string, label: "Department name (optional)",
+                                  placeholder: "Find or create your department",
+                                  disabled: true,
                                   input_html: { style: 'width: 350px',                                  
                                   data: { autocomplete_source: Department.all(include: [:institute]).map(&:test) }} %>
 

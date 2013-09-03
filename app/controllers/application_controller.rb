@@ -4,16 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :authenticate_group_leader!, :only => [:new, :edit, :create, :destroy]
-
-
-	before_filter :configure_permitted_parameters, if: :devise_controller?
+  # before_filter :authenticate_group_leader!, :only => [:new, :edit, :create, :destroy]
 
 
   protected
-	  def configure_permitted_parameters
-	    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :department_id, :institute_id,
-                                                              :institute_name, :department_name,
-                                                              :room, :password, :password_confirmation) }
-	  end 
+ 
+    def devise_parameter_sanitizer
+      if resource_class == User
+        User::ParameterSanitizer.new(User, :user, params)
+      else
+        super
+      end
+    end
+
 end

@@ -29,9 +29,8 @@ class GroupLeader < ActiveRecord::Base
   end
 
   def department_name=(name)
-    self.department = Department.find_or_create_by(institute_id: self.institute, name: name) if name.present?
+    self.department = Department.find_or_create_by(name: name, institute_id: self.institute_id) if name.present?
   end
-
 
   def create_lab
     Lab.create(institute_id: self.institute_id, department_id: self.department_id,

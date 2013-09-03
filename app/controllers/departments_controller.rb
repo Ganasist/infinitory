@@ -7,8 +7,7 @@ class DepartmentsController < ApplicationController
     if params[:term].present?
       # @institute = Institute.where(name: params[:term])
       # render json: @institute.departments.map(&:name)
-
-
+      # @tests = Department.all(include: [:institute]).map(&:test)
     else
       @institute = Institute.friendly.find(params[:institute_id])
       @departments = Department.where(institute_id: @institute)  
