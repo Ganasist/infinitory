@@ -34,6 +34,10 @@ class Department < ActiveRecord::Base
 
 	acts_as_gmappable validation: false
 
+	def test
+		"#{name} at #{institute.name}"
+	end
+
 	protected
 
 		def gmaps4rails_address

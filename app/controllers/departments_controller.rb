@@ -4,21 +4,28 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @institute = Institute.friendly.find(params[:institute_id])
-    @departments = Department.where(institute_id: @institute)  
-    @circles_json = @departments.to_gmaps4rails do |department|
-                       {lng: "#{department.longitude}",
-                        lat: "#{department.latitude}",
-                        radius: 20,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 1,
-                        fillColor: "#000",
-                        fillOpacity: 0.35}
-       end
-    @mapped = @departments.to_gmaps4rails do |department, marker|
-      marker.infowindow "<h4>#{department.name}<h4>
-                          <h5>Labs: #{department.labs.count}</h5>"
+    if params[:term].present?
+      # @institute = Institute.where(name: params[:term])
+      # render json: @institute.departments.map(&:name)
+
+
+    else
+      @institute = Institute.friendly.find(params[:institute_id])
+      @departments = Department.where(institute_id: @institute)  
+      @circles_json = @departments.to_gmaps4rails do |department|
+                         {lng: "#{department.longitude}",
+                          lat: "#{department.latitude}",
+                          radius: 20,
+                          strokeColor: "#FF0000",
+                          strokeOpacity: 0.8,
+                          strokeWeight: 1,
+                          fillColor: "#000",
+                          fillOpacity: 0.35}
+         end
+      @mapped = @departments.to_gmaps4rails do |department, marker|
+        marker.infowindow "<h4>#{department.name}<h4>
+                            <h5>Labs: #{department.labs.count}</h5>"
+      end
     end
   end
 

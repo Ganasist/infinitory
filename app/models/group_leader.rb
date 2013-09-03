@@ -7,12 +7,14 @@ class GroupLeader < ActiveRecord::Base
 
   has_one :lab, inverse_of: :group_leader, dependent: :destroy
   accepts_nested_attributes_for :lab
-  after_create :create_lab
 
   belongs_to :department
-  belongs_to :institute
 
-  validates_presence_of :institute
+  belongs_to :institute
+  validates_associated :institute
+  validates_associated :lab
+
+  after_create :create_lab
 
   def institute_name
     institute.try(:name)
@@ -27,7 +29,7 @@ class GroupLeader < ActiveRecord::Base
   end
 
   def department_name=(name)
-    self.department = Department.find_or_create_by(name: name) if name.present?
+    self.department = Department.find_or_create_by(institute_id: self.institute, name: name) if name.present?
   end
 
 

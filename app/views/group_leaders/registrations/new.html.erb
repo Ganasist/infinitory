@@ -15,12 +15,12 @@
 
     <%= f.input :institute_name, as: :string, required: true,
                                  input_html: { style: 'width: 350px',
-                                 data: {  autocomplete_source: institutes_path } } %>
+                                 data: {  autocomplete_source: institutes_path }} %>
 
-    <%= f.input :department_name, as: :string,
-                                  placeholder: "Optional",
-                                  input_html: { style: 'width: 350px' },
-                                  disabled: true %>
+    <%= f.input :department_name, as: :string, placeholder: "Optional",
+                                  # disabled: true,
+                                  input_html: { style: 'width: 350px',                                  
+                                  data: { autocomplete_source: Department.all.map(&:test) }} %>
 
     <%= f.input :password, required: true,
                            input_html: { style: 'width: 350px' }  %>

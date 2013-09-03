@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   belongs_to :lab
+  validates_associated :lab
 
   # validates_presence_of :lab, message: "Your group leader must create an account first"
 

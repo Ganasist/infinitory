@@ -5,5 +5,4 @@ class Lab < ActiveRecord::Base
 	has_many 	 :users, dependent: :destroy
 	belongs_to :group_leader, inverse_of: :lab
 
-	validates_presence_of :group_leader
 end
