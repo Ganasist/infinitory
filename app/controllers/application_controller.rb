@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
     def devise_parameter_sanitizer
       if resource_class == User
         User::ParameterSanitizer.new(User, :user, params)
-      else
+      elsif resource_class == GroupLeader
+        GroupLeader::ParameterSanitizer.new(GroupLeader, :group_leader, params)
+      else  
         super
       end
     end
