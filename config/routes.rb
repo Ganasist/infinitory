@@ -1,6 +1,6 @@
 Infinitory::Application.routes.draw do
 
-  devise_for :users, :path => '', :path_names => { sign_in: 'Login', sign_out: 'Logout', sign_up: 'Register' }
+  devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   
   resources :labs do 
     resources :users
