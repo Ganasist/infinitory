@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   validates_associated :lab
 
-  before_validation :create_lab
+  after_create :create_lab
   # validates_presence_of :lab, message: "Your group leader must create an account first"
 
   ROLES = %w[group_leader lab_manager lab_member]
@@ -23,20 +23,20 @@ class User < ActiveRecord::Base
     department.try(:name)
   end
   
-  def department_name=(email)
-    self.department = department.find_or_create_by(name) if name.present?
+  def department_name=(name)
+    self.department = Department.find_or_create_by(name: name, institute_id: self.institute_id) if name.present?
   end
 
 	def institute_name
     institute.try(:name)
   end
   
-  def institute_name=(email)
-    self.institute = Institute.find_or_create_by(name) if name.present?
+  def institute_name=(name)
+    self.institute = Institute.find_or_create_by(name: name) if name.present?
   end
 
   def create_lab
-  	if self.role.group_leader?
+  	if self.role == "group_leader"
 	  	self.lab = Lab.create(email: self.email, department: self.department, institute: self.institute)
   	end
   end
