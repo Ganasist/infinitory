@@ -2,7 +2,7 @@ class User::ParameterSanitizer < Devise::ParameterSanitizer
     private
 
     def sign_in
-      default_params.permit self.for(:sign_in)
+      default_params.permit(:email, :password)
     end
 
     def sign_up
