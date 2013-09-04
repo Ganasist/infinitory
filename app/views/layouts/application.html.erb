@@ -40,7 +40,7 @@
   <body>
     <div id="push">
       <% if user_signed_in? || group_leader_signed_in? %>
-        <%= nav_bar brand: "INFINITORY", brand_link: institutes_path, responsive: false do %>
+        <%= nav_bar brand: "INFINITORY", brand_link: lab_group_leader_path(current_group_leader, current_group_leader.lab), responsive: false do %>
           <%= menu_group do %>        
                 <%= menu_item "SIGN-OUT", destroy_user_session_path, method: 'delete' %>
           <% end %>
