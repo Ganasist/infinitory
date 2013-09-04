@@ -1,7 +1,7 @@
 Infinitory::Application.routes.draw do
 
-  devise_for :group_leaders
-  devise_for :users
+  devise_for :group_leaders, :path => '', :path_names => {:sign_in => 'loginGL', :sign_out => 'logoutGL'}
+  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   
   resources :labs do
     resources :group_leaders  

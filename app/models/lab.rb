@@ -6,7 +6,7 @@ class Lab < ActiveRecord::Base
 	belongs_to :group_leader, inverse_of: :lab
 
 	def location
-		"#{self.room} #{institute.address}"
+		"#{self.room} #{department.address}"
 	end
 
 end
