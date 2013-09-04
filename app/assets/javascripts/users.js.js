@@ -14,7 +14,19 @@ jQuery(function() {
       $('.LMform').removeClass('hidden');
     }
     if ((_ref1 = $('#user_role').val()) !== "lab_manager" && _ref1 !== "lab_member") {
-      return $('.LMform').addClass('hidden');
+      $('.LMform').addClass('hidden');
     }
+    $('#user_institute_name').autocomplete({
+      source: $('#user_institute_name').data('autocomplete-source'),
+      minLength: 3,
+      delay: 50,
+      autoFocus: true
+    });
+    return $('#user_department_name').autocomplete({
+      source: $('#user_department_name').data('autocomplete-source'),
+      minLength: 3,
+      delay: 50,
+      autoFocus: true
+    });
   });
 });

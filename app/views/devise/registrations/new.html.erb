@@ -15,17 +15,25 @@
 
     <span class="GLform hidden">
       <%= f.input :email, required: true, label: "Email address",
-      							placeholder: "Institute addresses only", input_html: { style: 'width: 350px' } %>
+      							placeholder: "Institutional addresses only", input_html: { style: 'width: 350px' } %>
 
+      <%= f.input :institute_name, required: true,
+                    placeholder: "Find or create your institute",
+                    input_html: { style: 'width: 350px', 
+                    data: { autocomplete_source: institutes_path }} %>
       
-      
+      <%= f.input :department_name, label: "Department name (optional)",
+                    placeholder: "Find or create your department",
+                    input_html: { style: 'width: 350px', 
+                    data: {autocomplete_source: Department.order(:name).map(&:name) }} %>
+
       <%= f.input :password, required: true, input_html: {:style=> 'width: 350px'} %>
       <%= f.input :password_confirmation, :required => true, input_html: {:style=> 'width: 350px'} %>
     </span>
 
     <span class="LMform hidden">
       <%= f.input :email, required: true, :autofocus => true, label: "Your email address",
-                    placeholder: "Institute addresses only", input_html: { style: 'width: 350px' } %>
+                    placeholder: "Institutional addresses only", input_html: { style: 'width: 350px' } %>
 
       <%= f.association :lab, as: :string, required: true, label: "Your group leader's email address", value_method: :id,
                         placeholder: "Institute addresses only", input_html: { style: 'width: 350px' } %>

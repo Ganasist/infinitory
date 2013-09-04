@@ -7,3 +7,15 @@ jQuery ->
 
 		$('.LMform').removeClass('hidden') if $('#user_role').val() in ["lab_manager", "lab_member"]
 		$('.LMform').addClass('hidden') if $('#user_role').val() not in ["lab_manager", "lab_member"]
+
+		$('#user_institute_name').autocomplete
+    	source: $('#user_institute_name').data('autocomplete-source'),
+    	minLength: 3,
+    	delay: 50,
+    	autoFocus: true
+
+    $('#user_department_name').autocomplete
+    	source: $('#user_department_name').data('autocomplete-source'),
+    	minLength: 3,
+    	delay: 50,
+    	autoFocus: true
