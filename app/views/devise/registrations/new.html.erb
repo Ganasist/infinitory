@@ -8,16 +8,14 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true, label: "Your email address",
+    
+
+    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, required: true %>
+
+    <%= f.input :email, required: true, :autofocus => true, label: "Your email address",
     							placeholder: "Institute addresses only", input_html: { style: 'width: 350px' } %>
     
-    <%= f.association :lab, as: :string, label_method: :email, value_method: :id, include_blank: false,
-    									      label: "Group leader's email address",
-                            input_html: { style: 'width: 350px' },
-                            wrapper_html: { class: 'GLemail' },
-                            hint: "Your group leader must have an account" %>
-    <br>
-    <%= f.input :password, :required => true, input_html: {:style=> 'width: 350px'} %>
+    <%= f.input :password, required: true, input_html: {:style=> 'width: 350px'} %>
     <%= f.input :password_confirmation, :required => true, input_html: {:style=> 'width: 350px'} %>
   </div>
 
