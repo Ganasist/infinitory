@@ -5,4 +5,8 @@ class Lab < ActiveRecord::Base
 	has_many 	 :users, dependent: :destroy
 	belongs_to :group_leader, inverse_of: :lab
 
+	def location
+		"#{self.room} #{institute.address}"
+	end
+
 end
