@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
   belongs_to :lab
   validates_associated :lab
 
-
-
   # validates_presence_of :lab, message: "Your group leader must create an account first"
 
   ROLES = %w[group_leader lab_manager lab_member]
@@ -16,5 +14,4 @@ class User < ActiveRecord::Base
   def role_symbols
 	  [role.to_sym]
 	end
-
 end

@@ -13,16 +13,8 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :email, :role, :institute_name, :department_name,
                               :password, :password_confirmation, :current_password) }
-  end
 
-    # def devise_parameter_sanitizer
-    #   if resource_class == User
-    #     User::ParameterSanitizer.new(User, :user, params)
-    #   elsif resource_class == GroupLeader
-    #     GroupLeader::ParameterSanitizer.new(GroupLeader, :group_leader, params)
-    #   else  
-    #     super
-    #   end
-    # end
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
+  end
 
 end
