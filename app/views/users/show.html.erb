@@ -6,30 +6,8 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:encrypted_password) %>:</strong></dt>
-  <dd><%= @user.encrypted_password %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:reset_password_token) %>:</strong></dt>
-  <dd><%= @user.reset_password_token %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:reset_password_sent_at) %>:</strong></dt>
-  <dd><%= @user.reset_password_sent_at %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:remember_created_at) %>:</strong></dt>
-  <dd><%= @user.remember_created_at %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:current_sign_in_at) %>:</strong></dt>
-  <dd><%= @user.current_sign_in_at %></dd>
   <dt><strong><%= model_class.human_attribute_name(:last_sign_in_at) %>:</strong></dt>
   <dd><%= @user.last_sign_in_at %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:current_sign_in_ip) %>:</strong></dt>
-  <dd><%= @user.current_sign_in_ip %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:last_sign_in_ip) %>:</strong></dt>
-  <dd><%= @user.last_sign_in_ip %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:confirmation_token) %>:</strong></dt>
-  <dd><%= @user.confirmation_token %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:confirmed_at) %>:</strong></dt>
-  <dd><%= @user.confirmed_at %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:confirmation_sent_at) %>:</strong></dt>
-  <dd><%= @user.confirmation_sent_at %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:unconfirmed_email) %>:</strong></dt>
-  <dd><%= @user.unconfirmed_email %></dd>
   <dt><strong><%= model_class.human_attribute_name(:lab_id) %>:</strong></dt>
   <dd><%= @user.lab_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:approved) %>:</strong></dt>
@@ -50,6 +28,6 @@
   <%= link_to t('.back', :default => t("helpers.links.back")),
               lab_users_path(@lab), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_lab_user_path(@lab, @user), :class => 'btn' %>
+              edit_user_registration_path, :class => 'btn' %>
   
 </div>
