@@ -10,16 +10,23 @@ class ApplicationController < ActionController::Base
    lab_user_path(current_user.lab, current_user)
   end
 
+  def after_update_path_for(resource)
+    lab_user_path(current_user.lab, current_user)
+  end
+
 
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :email, :role,
-                                                            :institute_name, :department_name,
-                                                            :password, :password_confirmation, 
-                                                            :current_password) }
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :role, :institute_name, :department_name, :password) }
 
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
+
+
+
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email,
+                                                                   :password, :password_confirmation, 
+                                                                   :current_password) }
   end
 
 end

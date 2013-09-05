@@ -29,8 +29,7 @@
     </span>
 
     <span class="LMform hidden">
-      <%= f.association :lab, as: :string, required: true, label: "Your group leader's email address",
-                          value_method: :email, placeholder: "Institute addresses only",
+      <%= f.association :lab, required: true, label: "Your group leader's email address", placeholder: "Institute addresses only",
                           input_html: { style: 'width: 350px' } %>
     </span>
 

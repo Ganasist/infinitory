@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
   def create_lab
   	if self.role == "group_leader"
 	  	self.lab = Lab.create(email: self.email, department: self.department, institute: self.institute)
-  	end
+    end
   end
-
 end
