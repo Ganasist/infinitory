@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :lab
 
   validates_associated :lab
+  validates_uniqueness_of :email
 
   before_create :create_lab
   
@@ -20,7 +21,15 @@ class User < ActiveRecord::Base
 	#   [role.to_sym]
 	# end
 
-	def department_name
+	def lab_name
+    lab.try(:email)
+  end
+  
+  def lab_name=(email)
+    self.lab = Lab.find_by(email: email) if email.present?
+  end
+
+  def department_name
     department.try(:name)
   end
   

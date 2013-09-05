@@ -25,16 +25,17 @@
       <%= f.input :department_name, label: "Department name (optional)",
                     placeholder: "Find or create your department",
                     input_html: { style: 'width: 350px', 
-                    data: {autocomplete_source: Department.order(:name).map(&:name) }} %>
+                    data: { autocomplete_source: Department.order(:name).map(&:name) }} %>
     </span>
 
     <span class="LMform hidden">
-      <%= f.association :lab, collection: Lab.all(order: 'email'), prompt: "Choose a Lab",
-                          label_method: :email, value_method: :id %>
+      <%= f.input :lab_name, label: "Group leader email address", required: true,
+                    input_html: { style: 'width: 350px', 
+                    data: { autocomplete_source: labs_path }} %>
     </span>
 
-      <%= f.input :password, required: true, input_html: {:style=> 'width: 350px'} %>
-      <%= f.input :password_confirmation, :required => true, input_html: {:style=> 'width: 350px'} %>
+      <%= f.input :password, required: true, input_html: { style: 'width: 350px' } %>
+      <%= f.input :password_confirmation, :required => true, input_html: { style: 'width: 350px' } %>
   </div>
 
   <div class="form-actions">
