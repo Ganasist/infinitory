@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
 
   ROLES = %w[group_leader lab_manager lab_member]
 
-  def role_symbols
-	  [role.to_sym]
-	end
+  # def role_symbols
+	#   [role.to_sym]
+	# end
 
 	def department_name
     department.try(:name)

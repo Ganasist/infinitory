@@ -38,6 +38,14 @@ class Department < ActiveRecord::Base
 		"#{name} at #{institute.name}"
 	end
 
+	def location
+		if self.room.present?
+			"#{room} #{address}"
+		else
+			"#{address}"
+		end
+	end
+
 	protected
 
 		def gmaps4rails_address

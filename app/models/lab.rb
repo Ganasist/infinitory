@@ -5,7 +5,11 @@ class Lab < ActiveRecord::Base
 	has_many :users, dependent: :destroy
 
 	def location
-		"#{self.room} #{department.address}"
+		if self.room.present?
+			"#{self.room} #{department.address}"
+		else
+			"#{department.address}"
+		end
 	end
 
 end
