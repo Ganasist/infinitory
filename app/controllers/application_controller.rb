@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  def after_sign_in_path_for(resource)
+   lab_user_path(current_user.lab, current_user)
+  end
+
+
   protected
 
   def configure_permitted_parameters
