@@ -29,8 +29,8 @@
     </span>
 
     <span class="LMform hidden">
-      <%= f.association :lab, required: true, label: "Your group leader's email address", placeholder: "Institute addresses only",
-                          input_html: { style: 'width: 350px' } %>
+      <%= f.association :lab, collection: Lab.all(order: 'email'), prompt: "Choose a Lab",
+                          label_method: :email, value_method: :id %>
     </span>
 
       <%= f.input :password, required: true, input_html: {:style=> 'width: 350px'} %>

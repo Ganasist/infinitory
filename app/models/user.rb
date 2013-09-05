@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates_associated :lab
 
   before_create :create_lab
+  
   # validates_presence_of :lab, message: "Your group leader must create an account first"
 
   ROLES = %w[group_leader lab_manager lab_member]
