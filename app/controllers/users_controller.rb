@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def index
-    @users = User.where(lab_id: params[:lab_id])
+    @users = User.where(lab_id: params[:lab_id]).order(:role, :created_at)
   end
 
   def show

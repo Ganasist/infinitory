@@ -8,19 +8,23 @@ class User < ActiveRecord::Base
   belongs_to :department
   belongs_to :lab
 
-  validates_presence_of :lab, message: "Your group leader must create an account first", if: :not_gl?
-  validates_presence_of :institute_name, unless: :not_gl?
+  validates_presence_of :lab, message: "Your group leader must create an account first", unless: :gl?
+  validates_presence_of :institute_name, message: "You must enter your institute's name", if: :gl?
   validates_uniqueness_of :email
   validates_presence_of :role
 
   before_create :create_lab
-  after_create  :affiliations
+  before_validation  :affiliations
   
   ROLES = %w[group_leader lab_manager lab_member]
 
   # def role_symbols
 	#   [role.to_sym]
 	# end
+
+  def fullname
+    "#{first_name} #{last_name}"
+  end
 
   def affiliations
     if self.role != "group_leader"
@@ -29,8 +33,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def not_gl?
-    self.role != "group_leader"
+  def gl?
+    self.role == "group_leader"
   end
 
   def department_name
