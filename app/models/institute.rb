@@ -11,7 +11,6 @@ class Institute < ActiveRecord::Base
 
 	has_many :departments, dependent: :destroy
 	has_many :labs, dependent: :destroy
-	has_many :labs, through: :departments, dependent: :destroy
 	has_many :group_leaders, dependent: :destroy
 
 	before_validation :smart_add_url_protocol

@@ -1,9 +1,15 @@
 <%= render 'header' %>
 <div class="span3">
    <%= render 'info' %>
+   
    <% if @institute.departments.present? %>
 			<%= render 'department' %>
    <% end %>
+
+   <% if @institute.labs.present? %>
+      <%= render 'lab' %>
+   <% end %>
+
    <% if @institute.nearbys.present? %>
 	   <%= render 'nearby' %>
 	 <% end %>
