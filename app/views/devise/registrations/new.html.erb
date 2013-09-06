@@ -9,7 +9,7 @@
 
   <div class="form-inputs">
     
-    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position", required: true %>
+    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position" %>
     <br><br>
 
       <%= f.input :email, label: "Email address",
