@@ -4,7 +4,8 @@ Infinitory::Application.routes.draw do
   # get "users/show"
   # get "users/edit"
   # get "users/update"
-  devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
+  devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
+                                  :controllers => { :registrations => :registrations }
   
   resources :labs do 
     resources :users
