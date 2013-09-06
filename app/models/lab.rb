@@ -4,8 +4,15 @@ class Lab < ActiveRecord::Base
 
 	has_many :users, dependent: :destroy
 	validates_uniqueness_of :email
+	validate :gl_unique, message: "Labs can only have 1 group leader"
 
+	def gl
+		users.where(role: "group_leader")
+	end
 
+	def gl_unique
+		users.where(role: "group_leader") == 1
+	end
 
 	def location
 		if self.room.present? && self.department.present?

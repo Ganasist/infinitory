@@ -29,9 +29,9 @@
     </span>
 
     <span class="LMform hidden">
-      <%= f.input :lab_name, label: "Group leader email address", required: true,
-                    input_html: { style: 'width: 350px', 
-                    data: { autocomplete_source: labs_path }} %>
+      <%= f.association :lab, label_method: :email, allow_blank: false, required: true,
+                          label: "Group leader email address", value_method: :id,
+                          input_html: { style: 'width: 350px'} %>
     </span>
 
       <%= f.input :password, required: true, input_html: { style: 'width: 350px' } %>

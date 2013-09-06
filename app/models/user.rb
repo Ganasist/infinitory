@@ -8,25 +8,33 @@ class User < ActiveRecord::Base
   belongs_to :department
   belongs_to :lab
 
-  validates_associated :lab
+  validates_presence_of :lab, message: "Your group leader must create an account first"
   validates_uniqueness_of :email
 
   before_create :create_lab
+  before_create  :affiliations
   
-  # validates_presence_of :lab, message: "Your group leader must create an account first"
-
   ROLES = %w[group_leader lab_manager lab_member]
 
   # def role_symbols
 	#   [role.to_sym]
 	# end
 
-	def lab_name
-    lab.try(:email)
+  # def unique_gl?
+  #   if self.role != "group_leader"
+  #     false
+  #   end
+  # end
+
+  def affiliations
+    if self.role? != "group_leader"
+      self.institute_id = lab.institute_id
+      self.department_id = lab.department_id
+    end
   end
-  
-  def lab_name=(email)
-    self.lab = Lab.find_by(email: email) if email.present?
+
+  def gl
+    role.where(role: "group_leader")
   end
 
   def department_name
