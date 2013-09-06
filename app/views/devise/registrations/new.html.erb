@@ -9,16 +9,15 @@
 
   <div class="form-inputs">
     
-    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position" %>
+    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position", required: true %>
     <br><br>
 
-      <%= f.input :email, required: true, label: "Email address",
+      <%= f.input :email, label: "Email address",
       							placeholder: "Institutional addresses only",
                     input_html: { style: 'width: 350px' } %>
 
     <span class="GLform hidden">
-      <%= f.input :institute_name, required: true,
-                    placeholder: "Find or create your institute",
+      <%= f.input :institute_name, placeholder: "Find or create your institute",
                     input_html: { style: 'width: 350px', 
                     data: { autocomplete_source: institutes_path }} %>
       
@@ -29,13 +28,13 @@
     </span>
 
     <span class="LMform hidden">
-      <%= f.association :lab, label_method: :email, allow_blank: false, required: true,
+      <%= f.association :lab, label_method: :email, include_blank: false,
                           label: "Group leader email address", value_method: :id,
                           input_html: { style: 'width: 350px'} %>
     </span>
 
-      <%= f.input :password, required: true, input_html: { style: 'width: 350px' } %>
-      <%= f.input :password_confirmation, :required => true, input_html: { style: 'width: 350px' } %>
+      <%= f.input :password, input_html: { style: 'width: 350px' } %>
+      <%= f.input :password_confirmation, input_html: { style: 'width: 350px' } %>
   </div>
 
   <div class="form-actions">
