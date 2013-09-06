@@ -7,18 +7,6 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:encrypted_password) %></th>
-      <th><%= model_class.human_attribute_name(:reset_password_token) %></th>
-      <th><%= model_class.human_attribute_name(:reset_password_sent_at) %></th>
-      <th><%= model_class.human_attribute_name(:remember_created_at) %></th>
-      <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
-      <th><%= model_class.human_attribute_name(:last_sign_in_at) %></th>
-      <th><%= model_class.human_attribute_name(:current_sign_in_ip) %></th>
-      <th><%= model_class.human_attribute_name(:last_sign_in_ip) %></th>
-      <th><%= model_class.human_attribute_name(:confirmation_token) %></th>
-      <th><%= model_class.human_attribute_name(:confirmed_at) %></th>
-      <th><%= model_class.human_attribute_name(:confirmation_sent_at) %></th>
-      <th><%= model_class.human_attribute_name(:unconfirmed_email) %></th>
       <th><%= model_class.human_attribute_name(:lab_id) %></th>
       <th><%= model_class.human_attribute_name(:approved) %></th>
       <th><%= model_class.human_attribute_name(:first_name) %></th>
@@ -33,20 +21,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.id, user_path(user) %></td>
+        <td><%= link_to current_user.id, lab_user_path(current_user.lab, current_user) %></td>
         <td><%= user.email %></td>
-        <td><%= user.encrypted_password %></td>
-        <td><%= user.reset_password_token %></td>
-        <td><%= user.reset_password_sent_at %></td>
-        <td><%= user.remember_created_at %></td>
-        <td><%= user.current_sign_in_at %></td>
-        <td><%= user.last_sign_in_at %></td>
-        <td><%= user.current_sign_in_ip %></td>
-        <td><%= user.last_sign_in_ip %></td>
-        <td><%= user.confirmation_token %></td>
-        <td><%= user.confirmed_at %></td>
-        <td><%= user.confirmation_sent_at %></td>
-        <td><%= user.unconfirmed_email %></td>
         <td><%= user.lab_id %></td>
         <td><%= user.approved %></td>
         <td><%= user.first_name %></td>
@@ -56,13 +32,16 @@
         <td><%= user.department_id %></td>
         <td><%=l user.created_at %></td>
         <td>
+          <% if current_user == user %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_user_path(user), :class => 'btn btn-mini' %>
+                      edit_user_registration_path, :class => 'btn btn-mini' %>
+          
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      user_path(user),
+                      user_registration_path(user),
                       :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :data => { :confirm => "Are you sure you want to delete your account?" },
                       :class => 'btn btn-mini btn-danger' %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -70,5 +49,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_user_path,
+            new_user_registration_path,
             :class => 'btn btn-primary' %>

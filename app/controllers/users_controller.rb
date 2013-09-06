@@ -2,12 +2,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def index
+    @users = User.where(lab_id: params[:lab_id])
   end
 
   def show
   	@lab = Lab.where(params[:lab_id])
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -17,8 +17,8 @@
                     input_html: { style: 'width: 350px' } %>
 
     <span class="GLform hidden">
-      <%= f.input :institute_name, placeholder: "Find or create your institute",
-                    input_html: { style: 'width: 350px', 
+      <%= f.input :institute_name, placeholder: "Find or create your institute", required: true,
+                    input_html: { style: 'width: 350px',
                     data: { autocomplete_source: institutes_path }} %>
       
       <%= f.input :department_name, label: "Department name (optional)",
@@ -28,7 +28,7 @@
     </span>
 
     <span class="LMform hidden">
-      <%= f.association :lab, label_method: :email, include_blank: false,
+      <%= f.association :lab, label_method: :email, include_blank: false, include_blank: true,
                           label: "Group leader email address", value_method: :id,
                           input_html: { style: 'width: 350px'} %>
     </span>
