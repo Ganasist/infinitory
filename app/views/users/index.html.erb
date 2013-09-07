@@ -1,10 +1,10 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h3>The <%= "#{current_user.lab.name}" %> Lab</h3>
+  <h3>The <%= link_to "#{@lab.name} Lab", @lab %> members</h3>
   <% if current_user.department.present? %>
-    <h4><%= "#{current_user.department.name}" %></h4>
+    <h4><%= link_to "#{ @lab.department.name }", @lab.department %></h4>
   <% end %>
-  <h5 class="text-muted"><%= "#{current_user.institute.name}" %></h5>
+  <h5 class="text-muted"><%= link_to "#{ @lab.institute.name }", @lab.institute %></h5>
 </div>
 <table class="table table-striped">
   <thead>

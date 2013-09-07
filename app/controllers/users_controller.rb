@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.where(lab_id: params[:lab_id]).order(:role, :created_at)
+    @lab = Lab.find(params[:lab_id])
   end
 
   def show

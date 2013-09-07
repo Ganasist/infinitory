@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   after_save :set_lab_name
   
   ROLES = %w[group_leader lab_manager lab_member]
-  DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate masters_student project_student technician other]
+  DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate master's_student project_student technician other]
 
   def fullname
     "#{first_name} #{last_name}"
