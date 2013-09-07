@@ -7,9 +7,9 @@
   <dt><strong><%= model_class.human_attribute_name(:department_id) %>:</strong></dt>
   <dd><%= @lab.department_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
-  <dd><%= @lab.institute_id %></dd>
+  <dd><%= @lab.institute.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
-  <dd><%= @lab.group_leader.name %></dd>
+  <dd><%= @lab.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:group_leader_email) %>:</strong></dt>
   <dd><%= @lab.email %></dd>
 </dl>

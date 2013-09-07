@@ -1,10 +1,15 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h3><%= "#{@user.fullname}" %> <small class="text-muted "><%= "#{@user.lab.name}" %></small></h3>
+  <h3><%= "#{@user.fullname}" %></h3>
+  <% if @user.role != "group_leader" && @user.lab != params[:lab_id] %>
+    <h4><%= "#{@user.lab.name}" %></h4>
+  <% else %>
+    <h4>Group Leader</h4>
+  <% end %>
   <% if @user.department.present? %>
     <h4><%= "#{@user.department.name}" %></h4>
   <% end %>
-  <h5><%= "#{@user.institute.name}" %></h5>
+  <h5 class="text-muted"><%= "#{@user.institute.name}" %></h5>
 </div>
 
 <dl class="dl-horizontal">

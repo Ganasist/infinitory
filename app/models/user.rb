@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   def labname
     if self.role == "group_leader"
-      self.lab.update_attributes(name: "The #{self.last_name} Lab")
+      self.lab.update_attributes(name: "#{self.fullname}")
     end
   end
 

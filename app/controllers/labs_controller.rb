@@ -4,8 +4,7 @@ class LabsController < ApplicationController
   # GET /labs
   # GET /labs.json
   def index
-    @institute = Institute.friendly.find(params[:institute_id])
-    @labs = Lab.where(institute_id: @institute)
+    @labs = Lab.all
       
     if params[:department_id].present?
       @department = Department.find(params[:department_id])

@@ -14,14 +14,14 @@
   <tbody>
     <% @labs.each do |lab| %>
       <tr>
-        <% if lab.group_leader.name? %>
-          <td><%= link_to "lab.group_leader.name", lab_path(lab) %></td>
+        <% if lab.name? %>
+          <td><%= link_to lab.name, lab_path(lab) %></td>
         <% else %>
           <td><%= link_to "lab.email", lab_path(lab) %></td>
         <% end %>
         <td><%= lab.department.name unless lab.department.nil? %></td>
         <td><%= "#{time_ago_in_words(lab.created_at)} ago" %></td>
-        <% if group_leader_signed_in? %>
+        <% if current_user.role == "group_leader" %>
           <td>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_lab_path(lab), :class => 'btn btn-mini' %>

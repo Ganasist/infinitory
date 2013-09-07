@@ -4,7 +4,6 @@ class Department < ActiveRecord::Base
 	has_many :group_leaders, through: :labs, dependent: :destroy
 
 	before_validation :smart_add_url_protocol
-	after_validation :default_address
 
 	after_validation :reverse_geocode,
 									 :if => lambda { |t| t.address_changed? && t.address? }
@@ -58,12 +57,6 @@ class Department < ActiveRecord::Base
 			  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
 			    self.url = 'http://' + self.url
 			  end
-			end
-		end
-
-		def default_address
-			unless self.address.present?
-				self.address = self.institute.address
 			end
 		end
 end
