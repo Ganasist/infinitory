@@ -6,18 +6,16 @@ Infinitory::Application.routes.draw do
   # get "users/update"
   devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
                                   :controllers => { :registrations => :registrations }
-  
-  resources :labs do 
-      resources :users
-  end
-
-  resources :institutes do
+ 
+  resources :institutes, shallow: true do
     resources :departments
+    resources :labs do
+      resources :users
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
 
   # You can have the root of your site routed with "root"
   root :to => 'high_voltage/pages#show', id: 'splash'

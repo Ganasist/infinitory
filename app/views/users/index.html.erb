@@ -9,9 +9,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th>E-mail</th>
       <th>Name</th>
-      <th><%= model_class.human_attribute_name(:role) %></th>
+      <th>Role</th>
       <th>Joined</th>
     </tr>
   </thead>
@@ -21,13 +21,8 @@
         <td><%= link_to user.email, lab_user_path(current_user.lab, user)  %></td>
         <td><%= user.fullname %></td>
         <td><%= user.role.humanize %></td>
-        <td><%= time_ago_in_words(user.created_at) %> ago</td>
-       
+        <td><%= time_ago_in_words(user.created_at) %> ago</td>       
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_user_registration_path,
-            :class => 'btn btn-primary' %>
