@@ -10,13 +10,12 @@
     <%= f.input :first_name, input_html: { style: 'width: 350px'} %>
     <%= f.input :last_name, input_html: { style: 'width: 350px'} %>
     
-    <% if @user.role == "lab_member" %>
+    <% if @user.role != "group_leader" %>
       <%= f.collection_select :description, User::DESCRIPTIONS, :to_s, :humanize, prompt: "Status",
-                                required: false, input_html: { style: 'width: 350px'} %>
-
+                                required: false %>
+      <br><br>
       <%= f.association :lab, label_method: :email, label: "Group leader email address",
                           value_method: :id, input_html: { style: 'width: 350px'} %>
-     <br><br>
     <% end %>
 
     <% if @user.role == "group_leader" %>
@@ -34,10 +33,12 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, label: "New password", :autocomplete => "off", 
-                  placeholder: "Optional", :required => false, input_html: { style: 'width: 350px'} %>
+    <%= f.input :password, label: "New password (Optional)", :autocomplete => "off",
+                :required => false, input_html: { style: 'width: 350px'} %>
+
     <%= f.input :password_confirmation, label: "New password confirmation", :required => false,
-                  input_html: { style: 'width: 350px'} %>
+                  wrapper_html: { style: 'display: none' },
+                  input_html: { style: 'width: 350px', display: 'none' } %>
 
     <%= f.input :current_password, :hint => "Enter current password to confirm changes",
                 :required => true, input_html: { style: 'width: 350px'} %>

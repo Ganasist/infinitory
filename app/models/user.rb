@@ -15,20 +15,16 @@ class User < ActiveRecord::Base
 
   before_create :create_lab
   before_validation  :affiliations
-  after_save :labname
+  after_save :set_lab_name
   
   ROLES = %w[group_leader lab_manager lab_member]
-  DESCRIPTIONS = %w[research_associate postdoc Ph.D_candidate masters_student project_student technician other]
-
-  # def role_symbols
-	#   [role.to_sym]
-	# end
+  DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate masters_student project_student technician other]
 
   def fullname
     "#{first_name} #{last_name}"
   end
 
-  def labname
+  def set_lab_name
     if self.role == "group_leader"
       self.lab.update_attributes(name: "#{self.fullname}")
     end
@@ -64,6 +60,7 @@ class User < ActiveRecord::Base
   def create_lab
   	if self.role == "group_leader"
 	  	self.lab = Lab.create(email: self.email, department: self.department, institute: self.institute)
+      self.description == "Group Leader"
     end
   end
 end

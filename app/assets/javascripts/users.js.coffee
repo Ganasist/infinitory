@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
+  $('#user_password').focus ->
+    $('.user_password_confirmation').show()
+
 	$('.GLform').removeClass('hidden') if $('#user_role').val() is "group_leader"
 	$('.GLform').addClass('hidden') if $('#user_role').val() isnt "group_leader"
 

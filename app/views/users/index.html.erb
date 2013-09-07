@@ -9,8 +9,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>E-mail</th>
       <th>Name</th>
+      <th>E-mail</th>
       <th>Role</th>
       <th>Joined</th>
     </tr>
@@ -18,8 +18,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.email, user_path(user)  %></td>
-        <td><%= user.fullname %></td>
+        <% if user.fullname.present? %>
+          <td><%= link_to user.fullname, user %></td>
+        <% else %>
+          <td><%= link_to user.id, user %></td>
+        <% end %>
+        <td><%= user.email %></td>        
         <td><%= user.role.humanize %></td>
         <td><%= time_ago_in_words(user.created_at) %> ago</td>       
       </tr>
