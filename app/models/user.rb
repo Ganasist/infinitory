@@ -26,7 +26,11 @@ class User < ActiveRecord::Base
 
   def set_lab_name
     if self.role == "group_leader"
-      self.lab.update_attributes(name: "#{self.fullname}")
+      if !self.fullname.blank?
+        self.lab.update_attributes(name: "#{self.fullname}")
+      else
+        self.lab.update_attributes(name: "#{self.email}")
+      end
     end
   end
 
