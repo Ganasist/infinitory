@@ -1,20 +1,46 @@
-<h2>Edit <%= "#{current_user.email}" %></h2>
+<h2 class="text-center">Edit your profile</h2>
+<br>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-inline' }) do |f| %>
+
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
+    <%= f.input :email, :required => true, :autofocus => true, input_html: { style: 'width: 350px'} %>
+    <%= f.input :first_name, input_html: { style: 'width: 350px'} %>
+    <%= f.input :last_name, input_html: { style: 'width: 350px'} %>
+    
+    <% if @user.role == "lab_member" %>
+      <%= f.collection_select :description, User::DESCRIPTIONS, :to_s, :humanize, prompt: "Status",
+                                required: false, input_html: { style: 'width: 350px'} %>
 
+      <%= f.association :lab, label_method: :email, label: "Group leader email address",
+                          value_method: :id, input_html: { style: 'width: 350px'} %>
+     <br><br>
+    <% end %>
+
+    <% if @user.role == "group_leader" %>
+      <%= f.input :institute_name, placeholder: "Find or create your institute",
+                    input_html: { style: 'width: 350px',
+                    data: { autocomplete_source: institutes_path }} %>
+      
+      <%= f.input :department_name, label: "Department name (optional)",
+                    placeholder: "Find or create your department",
+                    input_html: { style: 'width: 350px', 
+                    data: { autocomplete_source: Department.order(:name).map(&:name) }} %>
+    <% end %>
+   
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-    <%= f.input :current_password, :hint => "Enter your current password to confirm your changes", :required => true %>
+    <%= f.input :password, label: "New password", :autocomplete => "off", 
+                  placeholder: "Optional", :required => false, input_html: { style: 'width: 350px'} %>
+    <%= f.input :password_confirmation, label: "New password confirmation", :required => false,
+                  input_html: { style: 'width: 350px'} %>
+
+    <%= f.input :current_password, :hint => "Enter current password to confirm changes",
+                :required => true, input_html: { style: 'width: 350px'} %>
   </div>
 
   <div class="form-actions">

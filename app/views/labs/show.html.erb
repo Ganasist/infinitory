@@ -16,7 +16,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              labs_path, :class => 'btn'  %>
+              institute_labs_path(@institute), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_lab_path(@lab), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

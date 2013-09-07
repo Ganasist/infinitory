@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   after_save :labname
   
   ROLES = %w[group_leader lab_manager lab_member]
+  DESCRIPTIONS = %w[research_associate postdoc Ph.D_candidate masters_student project_student technician other]
 
   # def role_symbols
 	#   [role.to_sym]
