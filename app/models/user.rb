@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   before_create :create_lab
   before_validation  :affiliations
+  after_save :labname
   
   ROLES = %w[group_leader lab_manager lab_member]
 
@@ -24,6 +25,12 @@ class User < ActiveRecord::Base
 
   def fullname
     "#{first_name} #{last_name}"
+  end
+
+  def labname
+    if self.role == "group_leader"
+      self.lab.update_attributes(name: "The #{self.last_name} Lab")
+    end
   end
 
   def affiliations
