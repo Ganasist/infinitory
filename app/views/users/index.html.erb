@@ -1,10 +1,10 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h3><%= "#{current_user.lab.name}" %></small></h3>
+  <h3>The <%= "#{current_user.lab.name}" %> Lab</h3>
   <% if current_user.department.present? %>
     <h4><%= "#{current_user.department.name}" %></h4>
   <% end %>
-  <h5><%= "#{current_user.institute.name}" %></h5>
+  <h5 class="text-muted"><%= "#{current_user.institute.name}" %></h5>
 </div>
 <table class="table table-striped">
   <thead>
@@ -18,7 +18,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.email, lab_user_path(current_user.lab, user)  %></td>
+        <td><%= link_to user.email, institute_lab_user_path(current_user.institute, current_user.lab, user)  %></td>
         <td><%= user.fullname %></td>
         <td><%= user.role.humanize %></td>
         <td><%= time_ago_in_words(user.created_at) %> ago</td>
