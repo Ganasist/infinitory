@@ -23,8 +23,12 @@
         <% else %>
           <td><%= link_to user.id, user %></td>
         <% end %>
-        <td><%= user.email %></td>        
-        <td><%= user.role.humanize %></td>
+        <td><%= user.email %></td>
+        <% if user.description.present? || user.role == "group_leader" %>      
+          <td><%= user.role == "group_leader" ? "Group Leader" : user.description.humanize %></td>
+        <% else %>
+          <td></td>
+        <% end %>
         <td><%= time_ago_in_words(user.created_at) %> ago</td>       
       </tr>
     <% end %>

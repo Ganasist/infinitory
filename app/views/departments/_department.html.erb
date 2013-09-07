@@ -1,7 +1,7 @@
 <% cache @departments do %>
 	<% @departments.each do |department| %>
 		<p>
-			<%= link_to department.name, institute_department_path(@institute, department) %>
+			<%= link_to department.name, department_path(department) %>
 		</p>
 	<% end %>
 <% end %>

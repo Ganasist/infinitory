@@ -1,18 +1,18 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h3><%= @user.fullname.blank? ? "User #{@user.id}" : "#{@user.fullname}" %>
-    <% if @user.description?  %>
-      <small><%= @user.role == "group_leader" ? "Group Leader" : "#{@user.description.humanize.titleize}" %></small>
+  <h3><%= @user.fullname.blank? ? "User #{@user.id}" : "#{@user.fullname}" %><br>
+    <% if @user.description.present? || @user.role == "group_leader" %>
+      <small class="lead"><%= @user.role == "group_leader" ? "Group Leader" : "#{@user.description.humanize}" %></small>
     <% end %>
   </h3>
 
   <% if @user.role != "group_leader" && @user.lab != params[:lab_id] %>
-    <h4>The <%= "#{@user.lab.name}" %> lab</h4>
+    <h4><%= link_to "The #{@user.lab.name} lab", @user.lab %></h4>
   <% end %>
   <% if @user.department.present? %>
     <h4><%= "#{@user.department.name}" %></h4>
   <% end %>
-  <h5 class="text-muted"><%= "#{@user.institute.name}" %></h5>
+  <h5 class="text-muted"><%= link_to "#{@user.institute.name}", @user.institute %></h5>
 </div>
 
 <dl class="dl-horizontal">
