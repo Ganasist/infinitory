@@ -16,11 +16,11 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              institute_labs_path(params[:institute_id]), :class => 'btn'  %>
+              labs_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_institute_lab_path(@institute, @lab), :class => 'btn' %>
+              edit_lab_path(@lab), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              institute_lab_path(@institue, @lab),
+              lab_path(@lab),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>

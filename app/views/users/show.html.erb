@@ -33,7 +33,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              institute_lab_users_path(params[:institute_id], params[:lab_id]), :class => 'btn'  %>
+              lab_users_path(params[:lab_id]), :class => 'btn'  %>
 
   <% if current_user == @user %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),

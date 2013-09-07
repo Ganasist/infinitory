@@ -1,9 +1,9 @@
 <% cache @labs do %>
 <hr>           
-	<h4><%= link_to "Labs", institute_labs_path(@institute) %></h4>
+	<h4><%= link_to "Labs", labs_path %></h4>
 	    <% @labs.each do |lab| %>
 	    <div class="lab">
-	    <p><%= link_to lab.email, institute_lab_path(@institute, lab) %></p>
+	    <p><%= link_to lab.email, lab_path(lab) %></p>
 	    </div>
 	  <% end %>
 <% end %>

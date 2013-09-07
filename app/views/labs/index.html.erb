@@ -14,7 +14,7 @@
     <% @labs.each do |lab| %>
       <tr>
         <% if lab.name? %>
-          <td><%= link_to lab.name, institute_lab_path(@institute, lab) %></td>
+          <td><%= link_to lab.name, lab_path(lab) %></td>
         <% else %>
           <td><%= link_to "lab.email", lab_path(lab) %></td>
         <% end %>
@@ -22,9 +22,9 @@
         <% if current_user.role == "group_leader" && current_user.lab == lab %>
           <td>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_institute_lab_path(@institute, lab), :class => 'btn btn-mini' %>
+                        edit_lab_path(lab), :class => 'btn btn-mini' %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                        institute_lab_path(@institute, lab),
+                        lab_path(lab),
                         :method => :delete,
                         :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                         :class => 'btn btn-mini btn-danger' %>
@@ -34,7 +34,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_institute_lab_path,
-            :class => 'btn btn-primary' %>
