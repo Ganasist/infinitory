@@ -5,13 +5,11 @@
 
 <dl class="dl-horizontal table-striped">
   <dt><strong><%= model_class.human_attribute_name(:department) %>:</strong></dt>
-  <dd><%= @lab.department.name %></dd>
+  <dd><%= link_to "#{@lab.department.name}", department_path(@lab.department) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
-  <dd><%= @lab.institute.name %></dd>
+  <dd><%= link_to "#{@lab.institute.name}", institute_path(@lab.institute) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
-  <dd><%= @lab.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:group_leader_email) %>:</strong></dt>
-  <dd><%= @lab.email %></dd>
+  <dd><%= link_to "#{@lab.gl.fullname}", user_path(@lab.gl) %></dd>
 </dl>
 
 <div class="form-actions">

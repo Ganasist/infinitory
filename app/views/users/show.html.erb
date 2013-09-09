@@ -1,14 +1,12 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h3><%= @user.fullname.blank? ? "User #{@user.id}" : "#{@user.fullname}" %><br>
+  <h2><%= @user.fullname.blank? ? "User #{@user.email}" : "#{@user.fullname}" %><br>
     <% if @user.description.present? || @user.gl? %>
       <small class="lead"><%= @user.gl? ? "Group Leader" : "#{@user.description.humanize}" %></small>
     <% end %>
-  </h3>
+  </h2>
 
-
-    <h4><%= link_to "The #{@user.lab.lab_name} lab", @user.lab %></h4>
-
+    <h3><%= link_to "The #{@lab.name} lab", @lab %></h3>
 
   <% if @user.department.present? %>
     <h4><%= link_to "#{@user.department.name}", @user.department %></h4>
@@ -19,20 +17,6 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:last_sign_in_at) %>:</strong></dt>
-  <dd><%= @user.last_sign_in_at %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:lab_id) %>:</strong></dt>
-  <dd><%= @user.lab_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:approved) %>:</strong></dt>
-  <dd><%= @user.approved %></dd>
-  <dt><strong>Name:</strong></dt>
-  <dd><%= @user.fullname %></dd>  
-  <dt><strong><%= model_class.human_attribute_name(:role) %>:</strong></dt>
-  <dd><%= @user.role %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
-  <dd><%= @user.institute_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:department_id) %>:</strong></dt>
-  <dd><%= @user.department_id %></dd>
 </dl>
 
 <div class="form-actions">

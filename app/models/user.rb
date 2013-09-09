@@ -13,9 +13,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_presence_of :role
 
-  before_validation :create_lab
-  after_update      :update_lab
-  before_create     :affiliations
+  before_create :affiliations, :create_lab
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate master's_student project_student technician other]
@@ -75,14 +73,7 @@ class User < ActiveRecord::Base
 
   def create_lab
   	if self.gl?
-	  	self.lab = Lab.create(email: self.email, department: self.department, institute: self.institute)
-    end
-  end
-
-  def update_lab
-    if self.gl?
-      @lab = Lab.where(email: self.email)
-      @lab.update_all(email: self.email, department_id: self.department_id, institute_id: self.institute_id)
+	  	self.lab = Lab.create(name: self.email, email: self.email, department: self.department, institute: self.institute)
     end
   end
 end
