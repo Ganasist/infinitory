@@ -6,9 +6,10 @@
     <% end %>
   </h3>
 
-  <% if @user.gl? && @user.lab != params[:lab_id] %>
-    <h4><%= link_to "The #{@user.lab.name} lab", @user.lab %></h4>
-  <% end %>
+
+    <h4><%= link_to "The #{@user.lab.lab_name} lab", @user.lab %></h4>
+
+
   <% if @user.department.present? %>
     <h4><%= link_to "#{@user.department.name}", @user.department %></h4>
   <% end %>
