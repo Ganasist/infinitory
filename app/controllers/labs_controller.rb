@@ -15,6 +15,7 @@ class LabsController < ApplicationController
   # GET /labs/1
   # GET /labs/1.json
   def show
+    @user = User.where(lab_id: params[:id], role: "group_leader").first
   end
 
   # GET /labs/new

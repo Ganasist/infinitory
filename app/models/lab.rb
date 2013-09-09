@@ -7,8 +7,8 @@ class Lab < ActiveRecord::Base
 	has_many :users
 	validates_uniqueness_of :email
 
-	def gl
-		User.last
+	def lab_name
+		self.name ||= self.email
 	end
 
 	def department_name

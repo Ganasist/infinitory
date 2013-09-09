@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
   <dd><%= link_to "#{@lab.institute.name}", institute_path(@lab.institute) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
-  <dd><%= link_to "#{@lab.gl.fullname}", user_path(@lab.gl) %></dd>
+  <dd><%= link_to "#{@user}", @user %></dd>
 </dl>
 
 <div class="form-actions">
