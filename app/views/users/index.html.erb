@@ -7,51 +7,56 @@
   <h5 class="text-muted"><%= link_to "#{ @lab.institute.name }", @lab.institute %></h5>
 </div>
 
-<% if current_user.gl_lm? && !params[:approved].present? && current_user.lab == @lab && @approval > 0 %>
-  <%= link_to "Members awaiting approval", lab_users_path(params[:lab_id], :approved => "false"), :class => 'btn btn-warning' %>
-<% end %>
-
-<% if params[:approved].present? %>
-  <h3>Members awaiting authorization</h3>
-<% end %>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>E-mail</th>
-      <th>Role</th>
-      <th>Joined</th>      
-      <th>Current status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+ <% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <% if user.fullname.present? %>
-          <td><%= link_to user.fullname, user %></td>
-        <% else %>
-          <td><%= link_to user.id, user %></td>
+        <th>Name</th>
+        <th>E-mail</th>
+        <% if current_user.gl_lm? && @approval > 0 %>     
+          <th>Current status</th>
         <% end %>
-        <td><%= user.email %></td>
-        <% if user.description.present? || user.gl? %>      
-          <td><%= user.role == "group_leader" ? "Group Leader" : user.description.humanize %></td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <td><%= time_ago_in_words(user.created_at) %> ago</td>
-        <td><% if !user.approved? %>
-              <%= link_to "Awaiting authorization", "#" %>
-            <% else %>
-              Active
-            <% end %>
-        </td>       
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<% if params[:approved].present? %>
-  <br>
-  <%= link_to "Back", lab_users_path(current_user.lab_id), :class => 'btn' %>
-<% end %> 
+    </thead>
+    <tbody>
+      <% @approvals.each do |user| %>
+        <tr>
+          <td><%= link_to user.id, user %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= link_to 'Awaiting authorization', active_user_path(user), class: 'btn btn-info' %>
+          </td>   
+          <% end %>    
+        </tr>
+    </tbody>
+  </table>
+<% end %>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Role</th>
+        <th>Joined</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <% if user.fullname.present? %>
+            <td><%= link_to user.fullname, user %></td>
+          <% else %>
+            <td><%= link_to user.id, user %></td>
+          <% end %>
+          <td><%= user.email %></td>
+          <% if user.description.present? || user.gl? %>      
+            <td><%= user.gl? ? "Group Leader" : user.description.humanize %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td><%= time_ago_in_words(user.created_at) %> ago</td>   
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 

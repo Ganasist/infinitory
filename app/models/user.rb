@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
     end 
   end
 
-
   def fullname
     "#{first_name} #{last_name}"
   end
@@ -52,6 +51,9 @@ class User < ActiveRecord::Base
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
       self.approved = true
+    else
+      self.institute_id = lab.institute_id
+      self.department_id = lab.department_id
     end
   end
 
