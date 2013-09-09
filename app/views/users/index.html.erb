@@ -11,7 +11,6 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
         <th>E-mail</th>
         <% if current_user.gl_lm? && @approval > 0 %>     
           <th>Current status</th>
@@ -21,10 +20,9 @@
     <tbody>
       <% @approvals.each do |user| %>
         <tr>
-          <td><%= link_to user.id, user %></td>
           <td><%= user.email %></td>
           <td>
-            <%= link_to 'Awaiting authorization', active_user_path(user), class: 'btn btn-info' %>
+            <%= link_to 'Awaiting authorization', active_user_path(user), class: 'btn btn-info', :method => :post, remote: true %>
           </td>   
           <% end %>    
         </tr>

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
-  	@lab = Lab.where(params[:lab_id])
+  	@lab = @user.lab
   end
 
   def activate

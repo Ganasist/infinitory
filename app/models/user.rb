@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   before_validation :create_lab
   after_update      :update_lab
   before_create     :affiliations
-  after_save        :set_lab_name
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate master's_student project_student technician other]
@@ -41,21 +40,12 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def set_lab_name
-    if self.gl?
-      if !self.fullname.blank?
-        self.lab.update_attributes(name: "#{self.fullname}")
-      else
-        self.lab.update_attributes(name: "#{self.email}")
-      end
-    end
-  end
-
   def affiliations
     if self.gl?
+      self.approved = true
+    else
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
-      self.approved = true
     end
   end
 

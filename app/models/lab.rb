@@ -8,6 +8,10 @@ class Lab < ActiveRecord::Base
 	validates_uniqueness_of :email
 	validate :gl_unique, message: "Labs can only have 1 group leader"
 
+	def lab_name
+		self.name ||= self.email
+	end
+
 	def department_name
     department.try(:name)
   end
@@ -23,7 +27,6 @@ class Lab < ActiveRecord::Base
   def institute_name=(name)
     self.institute = Institute.find_or_create_by(name: name) if name.present?
   end
-
 
 	def gl
 		users.where(role: "group_leader")
