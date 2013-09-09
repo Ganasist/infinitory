@@ -6,8 +6,10 @@
   </div>
   <div class="span8">  
       <br>
-      <%= render 'gmap' %>
-      <br>
+      <% if !@department.longitude.nil? %>
+        <%= render 'gmap' %>
+        <br>
+      <% end %>
   </div>
 
 

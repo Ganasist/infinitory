@@ -31,7 +31,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   # GET /departments/1.json
   def show
-    @institute = Institute.friendly.find(params[:institute_id])
+    @labs = Lab.where(department_id: params[:id])
     @mapped = @department.to_gmaps4rails
   end
 
@@ -43,11 +43,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/1/edit
   def edit
-    gon.push({
-      longitude: @department.longitude,
-      latitude: @department.latitude
-    })
-    @institute = Institute.friendly.find(params[:institute_id])
+    @institute = Institute.where(department_id: params[:id])
   end
 
   # POST /departments
@@ -71,11 +67,11 @@ class DepartmentsController < ApplicationController
   # PATCH/PUT /departments/1
   # PATCH/PUT /departments/1.json
   def update
-    @institute = Institute.friendly.find(params[:institute_id])    
+    @institute = Institute.where(department_id: params[:id])   
 
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to institute_department_path(@department.institute, @department), 
+        format.html { redirect_to department_path(@department), 
                       notice: 'Department was successfully updated.' }
         format.json { head :no_content }
       else

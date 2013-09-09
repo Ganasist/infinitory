@@ -9,9 +9,8 @@ class Institute < ActiveRecord::Base
                   using: { tsearch: { prefix: true,
                   										dictionary: "english" }}
 
-	has_many :departments, dependent: :destroy
-	has_many :labs, dependent: :destroy
-	has_many :group_leaders, dependent: :destroy
+	has_many :departments
+	has_many :labs
 
 	before_validation :smart_add_url_protocol
 	after_validation :geocode, 

@@ -10,7 +10,7 @@
     <h4><%= link_to "The #{@user.lab.name} lab", @user.lab %></h4>
   <% end %>
   <% if @user.department.present? %>
-    <h4><%= "#{@user.department.name}" %></h4>
+    <h4><%= link_to "#{@user.department.name}", @user.department %></h4>
   <% end %>
   <h5 class="text-muted"><%= link_to "#{@user.institute.name}", @user.institute %></h5>
 </div>

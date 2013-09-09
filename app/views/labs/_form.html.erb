@@ -1,9 +1,27 @@
-<h3>Group Leader / Lab Registration</h3>
-	<%= simple_form_for @lab, :html => { :class => 'form-inline' } do |f| %>
-	  <%= f.association :institute, as: :string %>
-	  <div class="form-actions">
-	    <%= f.button :submit, :class => 'btn-primary' %>
-	    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-	                institutes_path, :class => 'btn' %>
-	  </div>
-	<% end %>
+<%= simple_form_for @lab, :html => { :class => 'form-vertical', multipart: true } do |f| %>
+  <div class="row">
+    <div class="span4">
+      
+    	<%= f.input :name, input_html: { style: 'width: 350px'} %>
+      <%= f.input :institute_name, input_html: { style: 'width: 350px'}, label: "Institute" %>
+      <%= f.input :department_name, input_html: { style: 'width: 350px'}, label: "Department" %>
+      <%= f.input :room, :input_html => { style: 'width: 350px', rows: 4 } %>
+      <%= f.input :url, input_html: {:style=> 'width: 350px'}, label: 'Website', placeholder: "Optional" %>
+    </div>
+    <div class="span6 pull-right">
+      <label>Lab picture</label><br>
+      <% if @lab.icon? %>
+        <%= image_tag(@lab.icon_url(:main)) %><br><br>
+      <% end %>
+      <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
+      <h4>or</h4>
+      <%= f.input :icon, label: false %>  
+      <%= f.hidden_field :icon_cache %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                lab_path(@lab), :class => 'btn' %>
+  </div>
+<% end %>

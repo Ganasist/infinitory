@@ -1,18 +1,17 @@
 class Department < ActiveRecord::Base
 	belongs_to :institute, touch: true
-	has_many :labs, dependent: :destroy
-	has_many :group_leaders, through: :labs, dependent: :destroy
+	has_many :labs
 
 	before_validation :smart_add_url_protocol
+	before_update :default_addresses
+
 
 	after_validation :reverse_geocode,
 									 :if => lambda { |t| t.address_changed? && t.address? }
 	after_validation :geocode,
 									 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
 
-  validates_associated :institute
-
-  validates :name, :institute_id, presence: true
+  validates :name, presence: true
 
   validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
@@ -42,6 +41,19 @@ class Department < ActiveRecord::Base
 			"#{room} #{address}"
 		else
 			"#{address}"
+		end
+	end
+
+	def default_addresses
+		if self.address.blank?
+			self.address = institute.address
+		end
+		if self.url.blank?
+			self.url ||= institute.url
+		end
+		if self.longitude.nil?
+			self.longitude = institute.longitude
+			self.latitude = institute.latitude
 		end
 	end
 
