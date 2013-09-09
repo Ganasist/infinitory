@@ -20,13 +20,11 @@
 
     <% if @user.role == "group_leader" %>
       <%= f.input :institute_name, placeholder: "Find or create your institute",
-                    input_html: { style: 'width: 350px',
-                    data: { autocomplete_source: institutes_path }} %>
+                    input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path }} %>
       
       <%= f.input :department_name, label: "Department name (optional)",
                     placeholder: "Find or create your department",
-                    input_html: { style: 'width: 350px', 
-                    data: { autocomplete_source: Department.order(:name).map(&:name) }} %>
+                    input_html: { style: 'width: 350px', data: { autocomplete_source: Department.order(:name).map(&:name) }} %>
     <% end %>
    
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -51,6 +49,6 @@
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+<p><%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure you want to delete your account?" }, :method => :delete %></p>
 
 <%= link_to "Back", :back %>
