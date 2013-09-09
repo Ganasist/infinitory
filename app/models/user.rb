@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def set_lab_name
-    if self.role == "group_leader"
+    if self.gl?
       if !self.fullname.blank?
         self.lab.update_attributes(name: "#{self.fullname}")
       else
@@ -48,14 +48,19 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if self.role != "group_leader"
+    if self.gl?
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
+      self.approved = true
     end
   end
 
   def gl?
     self.role == "group_leader"
+  end
+
+  def gl_lm?
+    self.role == "group_leader" || self.role == "lab_manager"
   end
 
   def department_name
@@ -75,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def create_lab
-  	if self.role == "group_leader"
+  	if self.gl?
 	  	self.lab = Lab.create(email: self.email, department: self.department, institute: self.institute)
     end
   end

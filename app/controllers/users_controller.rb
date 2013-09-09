@@ -4,8 +4,10 @@ class UsersController < ApplicationController
   def index
     @users = User.where(lab_id: params[:lab_id]).order(:role, :created_at)
     @lab = Lab.find(params[:lab_id])
-
-    if current_user.role == "group_leader" && params[:approved] == "false"
+    
+    @approval = User.where(lab_id: params[:lab_id], approved: false).count
+    
+    if current_user.gl_lm? && params[:approved] == "false"
       @users = User.where(lab_id: params[:lab_id], approved: false)
     end
   end
@@ -13,12 +15,6 @@ class UsersController < ApplicationController
   def show
   	@lab = Lab.where(params[:lab_id])
   end
-
-  # def approval
-  #   if current_user.role == "group_leader"
-      
-  #   end
-  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

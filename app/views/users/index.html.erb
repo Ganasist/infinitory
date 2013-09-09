@@ -7,8 +7,12 @@
   <h5 class="text-muted"><%= link_to "#{ @lab.institute.name }", @lab.institute %></h5>
 </div>
 
-<% if current_user.gl? && !params[:approved].present? %>
-  <%= link_to "Members awaiting approval", lab_users_path(current_user.lab_id, :approved => "false"), :class => 'btn' %>
+<% if current_user.gl_lm? && !params[:approved].present? && current_user.lab == @lab && @approval > 0 %>
+  <%= link_to "Members awaiting approval", lab_users_path(params[:lab_id], :approved => "false"), :class => 'btn btn-warning' %>
+<% end %>
+
+<% if params[:approved].present? %>
+  <h3>Members awaiting authorization</h3>
 <% end %>
 
 <table class="table table-striped">
@@ -17,7 +21,8 @@
       <th>Name</th>
       <th>E-mail</th>
       <th>Role</th>
-      <th>Joined</th>
+      <th>Joined</th>      
+      <th>Current status</th>
     </tr>
   </thead>
   <tbody>
@@ -34,13 +39,18 @@
         <% else %>
           <td></td>
         <% end %>
-        <td><%= time_ago_in_words(user.created_at) %> ago</td>       
+        <td><%= time_ago_in_words(user.created_at) %> ago</td>
+        <td><% if !user.approved? %>
+              <%= link_to "Awaiting authorization", "#" %>
+            <% else %>
+              Active
+            <% end %>
+        </td>       
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<% if params[:approved].present? %>  
+<% if params[:approved].present? %>
   <br>
   <%= link_to "Back", lab_users_path(current_user.lab_id), :class => 'btn' %>
 <% end %> 
