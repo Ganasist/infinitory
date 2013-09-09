@@ -6,6 +6,11 @@
   <% end %>
   <h5 class="text-muted"><%= link_to "#{ @lab.institute.name }", @lab.institute %></h5>
 </div>
+
+<% if current_user.gl? && !params[:approved].present? %>
+  <%= link_to "Members awaiting approval", lab_users_path(current_user.lab_id, :approved => "false"), :class => 'btn' %>
+<% end %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -24,7 +29,7 @@
           <td><%= link_to user.id, user %></td>
         <% end %>
         <td><%= user.email %></td>
-        <% if user.description.present? || user.role == "group_leader" %>      
+        <% if user.description.present? || user.gl? %>      
           <td><%= user.role == "group_leader" ? "Group Leader" : user.description.humanize %></td>
         <% else %>
           <td></td>
@@ -34,3 +39,9 @@
     <% end %>
   </tbody>
 </table>
+
+<% if params[:approved].present? %>  
+  <br>
+  <%= link_to "Back", lab_users_path(current_user.lab_id), :class => 'btn' %>
+<% end %> 
+

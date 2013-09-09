@@ -1,12 +1,12 @@
 <%- model_class = User -%>
 <div class="page-header">
   <h3><%= @user.fullname.blank? ? "User #{@user.id}" : "#{@user.fullname}" %><br>
-    <% if @user.description.present? || @user.role == "group_leader" %>
-      <small class="lead"><%= @user.role == "group_leader" ? "Group Leader" : "#{@user.description.humanize}" %></small>
+    <% if @user.description.present? || @user.gl? %>
+      <small class="lead"><%= @user.gl? ? "Group Leader" : "#{@user.description.humanize}" %></small>
     <% end %>
   </h3>
 
-  <% if @user.role != "group_leader" && @user.lab != params[:lab_id] %>
+  <% if @user.gl? && @user.lab != params[:lab_id] %>
     <h4><%= link_to "The #{@user.lab.name} lab", @user.lab %></h4>
   <% end %>
   <% if @user.department.present? %>
