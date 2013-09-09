@@ -20,6 +20,19 @@ class User < ActiveRecord::Base
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate master's_student project_student technician other]
 
+  def active_for_authentication? 
+    super && approved? 
+  end 
+
+  def inactive_message 
+    if !approved? 
+      :not_approved 
+    else 
+      super # Use whatever other message 
+    end 
+  end
+
+
   def fullname
     "#{first_name} #{last_name}"
   end

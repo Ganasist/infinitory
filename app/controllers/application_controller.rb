@@ -19,13 +19,13 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_id, :department_name, 
-                                                            :institute_name, :password,
+                                                            :institute_name, :password, :approved,
                                                             :password_confirmation) }
 
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
 
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email,
-                                                                   :description,
+                                                                   :description, :approved,
                                                                    :password, :password_confirmation, 
                                                                    :current_password) }
   end
