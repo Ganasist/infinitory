@@ -13,7 +13,7 @@
       <tr>
         <th>E-mail</th>
         <% if current_user.gl_lm? && @approval > 0 %>     
-          <th>Current status</th>
+          <th>Awaiting authorization</th>
         <% end %>
       </tr>
     </thead>
@@ -22,7 +22,7 @@
         <tr>
           <td><%= user.email %></td>
           <td>
-            <%= link_to 'Awaiting authorization', active_user_path(user), class: 'btn btn-info', :method => :post %>
+            <%= link_to 'Click to authorize', active_user_path(user), class: 'btn btn-info' %>
           </td>   
           <% end %>    
         </tr>
@@ -34,11 +34,10 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>E-mail</th>
         <th>Role</th>
         <th>Joined</th>
     </thead>
-    <tbody>
+    <tbody id="approved">
       <% @users.each do |user| %>
         <tr>
           <% if user.fullname.present? %>
@@ -46,9 +45,14 @@
           <% else %>
             <td><%= link_to user.id, user %></td>
           <% end %>
-          <td><%= user.email %></td>
-          <% if user.description.present? || user.gl? %>      
-            <td><%= user.gl? ? "Group Leader" : user.description.humanize %></td>
+          <% if user.description.present? || user.gl_lm? %>
+            <% if user.gl? %>      
+              <td>Group Leader</td>
+            <% elsif user.lm? %>
+              <td>Lab Manager</td>
+            <% elsif user.description? %>
+              <td><%= user.description.humanize %></td>
+            <% end %>
           <% else %>
             <td></td>
           <% end %>

@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     self.role == "group_leader" || self.role == "lab_manager"
   end
 
+  def lm?
+    self.role == "lab_manager"    
+  end
+
   def department_name
     department.try(:name)
   end
