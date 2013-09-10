@@ -1,13 +1,13 @@
 <%- model_class = Lab -%>
 <div class="page-header">
-  <h1>The <%= "#{@lab.name}" %> Lab
+  <h2>The <%= "#{@lab.name}" %> Lab
     <% if current_user.gl_lm? && current_user.lab == @lab %>
       <div class="btn-group">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_path(@lab), :class => 'btn-small btn-success' %>
       </div>
     <% end %>
-  </h1>
+  </h2>
   <br>
   <div class="btn-toolbar">
       <%= link_to "MEMBERS", lab_users_path(@lab), :class => 'btn-large' %>      
@@ -15,15 +15,10 @@
 </div>
 
 <dl class="dl-horizontal table-striped">
+  <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
+  <dd><%= link_to "#{@user.fullname}", @user %></dd><br>
   <dt><strong><%= model_class.human_attribute_name(:department) %>:</strong></dt>
-  <dd><%= link_to "#{@lab.department.name}", department_path(@lab.department) %></dd>
+  <dd><%= link_to "#{@lab.department.name}", department_path(@lab.department) %></dd><br>
   <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
   <dd><%= link_to "#{@lab.institute.name}", institute_path(@lab.institute) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
-  <dd><%= link_to "#{@user.fullname}", @user %></dd>
 </dl>
-
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              institute_path(@lab.institute), :class => 'btn'  %>
-</div>

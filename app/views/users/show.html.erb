@@ -1,31 +1,27 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h2><%= @user.fullname.blank? ? "User #{@user.email}" : "#{@user.fullname}" %><br>
-    <% if @user.description.present? || @user.gl? %>
-      <small class="lead"><%= @user.gl? ? "Group Leader" : "#{@user.description.humanize}" %></small>
-    <% end %>
-  </h2>
+  <h3><%= @user.fullname.blank? ? "User #{@user.email}" : "#{@user.fullname}" %>
+  
+      <% if current_user == @user %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_user_registration_path, :class => 'btn-small btn-success' %>
 
-    <h3><%= link_to "The #{@lab.name} lab", @lab %></h3>
+      <% end %>
+      <br>
 
-  <% if @user.department.present? %>
-    <h4><%= link_to "#{@user.department.name}", @user.department %></h4>
-  <% end %>
-  <h5 class="text-muted"><%= link_to "#{@user.institute.name}", @user.institute %></h5>
+      <% if @user.description.present? || @user.gl? %>
+        <small class="lead"><%= @user.gl? ? "Group Leader" : "#{@user.description.humanize}" %></small>
+      <% end %>
+  </h3>
+
+    
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
-  <dd><%= @user.email %></dd>
-</dl>
-
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              lab_users_path(@user.lab_id), :class => 'btn'  %>
-
-  <% if current_user == @user %>
-    <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_user_registration_path, :class => 'btn' %>
-
+  <h5><%= link_to "The #{@lab.name} lab", @lab %></h5>
+  <% if @user.department.present? %>
+    <h5><%= link_to "#{@user.department.name}", @user.department %></h5>
   <% end %>
-</div>
+  <h5 class="text-muted"><%= link_to "#{@user.institute.name}", @user.institute %></h5>
+  <h5>Email: <%= @user.email %></h5>
+</dl>

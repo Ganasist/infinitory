@@ -2,12 +2,12 @@
   <div class="span3">
      <%= render 'info' %>
      <%= render 'lab' %>
-     <%= render 'nearby' %>
   </div>
   <div class="span8">  
       <br>
       <% if !@department.longitude.nil? %>
         <%= render 'gmap' %>
+        <%= render 'nearby' %>
         <br>
       <% end %>
   </div>

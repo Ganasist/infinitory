@@ -9,13 +9,12 @@
    <% if @institute.labs.present? %>
       <%= render 'lab' %>
    <% end %>
-
-   <% if @institute.nearbys.present? %>
-	   <%= render 'nearby' %>
-	 <% end %>
 </div>
 <div class="span8">  
     <br>
     <%= render 'gmap' %>
+    <% if @institute.nearbys.present? %>
+     <%= render 'nearby' %>
+   <% end %>
     <br>
 </div>

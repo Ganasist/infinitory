@@ -1,5 +1,5 @@
 class Department < ActiveRecord::Base
-	belongs_to :institute, touch: true
+	belongs_to :institute
 	has_many :labs
 
 	before_update :smart_add_url_protocol, :default_addresses
