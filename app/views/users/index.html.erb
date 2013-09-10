@@ -45,17 +45,17 @@
           <% else %>
             <td><%= link_to user.id, user %></td>
           <% end %>
-          <% if user.description.present? || user.gl_lm? %>
+
             <% if user.gl? %>      
               <td>Group Leader</td>
             <% elsif user.lm? %>
               <td>Lab Manager</td>
             <% elsif user.description? %>
               <td><%= user.description.humanize %></td>
+            <% else %>
+              <td></td>
             <% end %>
-          <% else %>
-            <td></td>
-          <% end %>
+
           <td><%= time_ago_in_words(user.created_at) %> ago</td>   
         </tr>
       <% end %>
