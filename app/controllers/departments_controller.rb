@@ -43,7 +43,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/1/edit
   def edit
-    @institute = Institute.where(department_id: params[:id])
+    @department = Department.find(params[:id])
   end
 
   # POST /departments
@@ -54,7 +54,7 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to institute_department_path(@department.institute, @department), 
+        format.html { redirect_to department_path(@department), 
                       notice: 'Department was successfully created.' }
         format.json { render action: 'show', status: :created, location: @department }
       else
@@ -67,7 +67,6 @@ class DepartmentsController < ApplicationController
   # PATCH/PUT /departments/1
   # PATCH/PUT /departments/1.json
   def update
-    @institute = Institute.where(department_id: params[:id])   
 
     respond_to do |format|
       if @department.update(department_params)

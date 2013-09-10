@@ -51,8 +51,14 @@ body td {
  	line-height: 1.3em;
 }
 
+a.btn-large, .btn-success {
+	&:hover {
+	text-decoration: none;
+	}
+}
+
 dd a, td a, p a, h3 a, h4 a, h5 a, .brand {
-	font-size: 1.1em;
+	font-size: 1.3em;
 	&:hover {
 		color: @linkHover;
 		background: none;
@@ -64,11 +70,6 @@ dd a, td a, p a, h3 a, h4 a, h5 a, .brand {
 	}
 }
 
-a.btn-large {
-	&:hover {
-	text-decoration: none;
-	}
-}
 
 .footer {
 border-top-style: solid;
