@@ -2,7 +2,7 @@
   <div class="row">
     <div class="span4">
       
-    	<%= f.input :name, input_html: { style: 'width: 350px'} %>
+    	<%= f.input :name, input_html: { style: 'width: 350px'}, label: "Lab name", placeholder: "Group leader's name is recommended" %>
       <%= f.input :institute_name, input_html: { style: 'width: 350px'}, label: "Institute" %>
       <%= f.input :department_name, input_html: { style: 'width: 350px'}, label: "Department" %>
       <%= f.input :room, :input_html => { style: 'width: 350px', rows: 4 } %>
@@ -10,10 +10,12 @@
     </div>
     <div class="span6 pull-right">
       <label>Lab picture</label><br>
-      <% if @lab.icon? %>
-        <%= image_tag(@lab.icon_url(:main)) %><br><br>
-      <% end %>
       <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
+      <% if @lab.icon? %>        
+        <%= image_tag(@lab.icon_url(:main)) %>
+        <p>Remove picture? <%= f.check_box :remove_icon %></p>       
+      <% end %>
+      
       <h4>or</h4>
       <%= f.input :icon, label: false %>  
       <%= f.hidden_field :icon_cache %>

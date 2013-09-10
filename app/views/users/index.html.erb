@@ -22,7 +22,7 @@
         <tr>
           <td><%= user.email %></td>
           <td>
-            <%= link_to 'Awaiting authorization', active_user_path(user), class: 'btn btn-info', :method => :post, remote: true %>
+            <%= link_to 'Awaiting authorization', active_user_path(user), class: 'btn btn-info', :method => :post %>
           </td>   
           <% end %>    
         </tr>

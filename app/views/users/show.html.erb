@@ -27,10 +27,5 @@
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_user_registration_path, :class => 'btn' %>
 
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-          user_registration_path(@user),
-          :method => :delete,
-          :data => { :confirm => "Are you sure you want to delete your account?" },
-          :class => 'btn btn-mini btn-danger' %>
   <% end %>
 </div>

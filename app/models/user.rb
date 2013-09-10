@@ -35,7 +35,11 @@ class User < ActiveRecord::Base
   end
 
   def fullname
-    "#{first_name} #{last_name}"
+    if self.last_name.blank?
+      self.email
+    else
+      "#{first_name} #{last_name}"
+    end
   end
 
   def affiliations

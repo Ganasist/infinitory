@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :approval]
+  before_action :set_user, only: [:show, :activate]
 
   def index
     @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
@@ -18,9 +18,8 @@ class UsersController < ApplicationController
   end
 
   def activate
-    @user = User.find(params[:id])
     @user.update_attributes(approved: true)
-    redirect_to lab_users_path(@user.lab_id)
+    redirect_to lab_users_path(current_user.lab)
   end
 
   private

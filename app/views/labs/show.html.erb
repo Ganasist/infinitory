@@ -1,6 +1,14 @@
 <%- model_class = Lab -%>
 <div class="page-header">
-  <h1>The <%= "#{@lab.name}" %> Lab</h1>
+  <h1>The <%= "#{@lab.name}" %> Lab
+    <% if current_user.gl_lm? && current_user.lab == @lab %>
+      <div class="btn-group">
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_lab_path(@lab), :class => 'btn-small btn-success' %>
+      </div>
+    <% end %>
+  </h1>
+  
 </div>
 
 <dl class="dl-horizontal table-striped">
@@ -9,19 +17,10 @@
   <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
   <dd><%= link_to "#{@lab.institute.name}", institute_path(@lab.institute) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
-  <dd><%= link_to "#{@user}", @user %></dd>
+  <dd><%= link_to "#{@user.fullname}", @user %></dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               institute_path(@lab.institute), :class => 'btn'  %>
-
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_lab_path(@lab), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              lab_path(@lab),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm",
-                          :default => 'Are you sure you want to destroy the lab and all of its contents?')) },
-              :class => 'btn btn-danger' %>
 </div>
