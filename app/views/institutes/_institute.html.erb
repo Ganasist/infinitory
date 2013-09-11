@@ -4,6 +4,7 @@
     	<% if institute.icon? %>
     			<td><%= link_to image_tag(institute.icon_url(:thumb)).html_safe, institute  %></td>
 	        <td><%= link_to "#{institute.name}".html_safe, institute %></td>
+	        <br>
 	        <% if user_signed_in? && current_user.superuser? %>
 		        <td><%= link_to t('.destroy', :default => t("helpers.links.destroy")),
 		                      institute_path(institute),
@@ -12,6 +13,7 @@
 		      <% end %>
       <% else %>
 	        <td><%= link_to "#{institute.name}".html_safe, institute %></td>
+	        <br>
 	        <% if user_signed_in? && current_user.superuser? %>
 		        <td><%= link_to t('.destroy', :default => t("helpers.links.destroy")),
 		                      institute_path(institute),

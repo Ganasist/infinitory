@@ -1,13 +1,16 @@
 <%- model_class = Lab -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h3><%= "Labs at the #{@institute.name}" %></h3>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Group Leader</th>
-      <th>Joined</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>Established</th>
+      <th>Members</th>
+       <% if current_user.role == "group_leader" && current_user.lab == lab %>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+       <% end %>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +33,7 @@
                         :class => 'btn btn-mini btn-danger' %>
           </td>
         <% end %>
+        <td><%= lab.users.count %></td>
       </tr>
     <% end %>
   </tbody>
