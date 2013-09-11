@@ -11,15 +11,12 @@ class Department < ActiveRecord::Base
 
   validates :name, presence: true
   validates_presence_of :institute
+  validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, presence: true
 
   validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   													multiline: true,
   													message: "is not valid" }
-
-  validates :name, uniqueness: { scope: :institute_id, 
-  													  	 message: "That department has already been registered at this institute." }
-
 
 	geocoded_by :address  				# can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
@@ -30,10 +27,6 @@ class Department < ActiveRecord::Base
 	end
 
 	acts_as_gmappable validation: false
-
-	def test
-		"#{name} at #{institute.name}"
-	end
 
 	def location
 		if self.room.present?

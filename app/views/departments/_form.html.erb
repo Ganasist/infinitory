@@ -1,5 +1,10 @@
 <%= simple_form_for [@institute, @department], :html => { :class => 'form-inline' } do |f| %>
-  <%= f.input :name, input_html: { style: 'width: 350px' }, label: "Department name" %>
+  
+  <%= f.input :name, label: "Department name",
+                 placeholder: "Find or create your department",
+                 input_html: { style: 'width: 350px', 
+                 data: { autocomplete_source: institute_departments_path(@institute) }} %>
+
   <%= f.input :address, :input_html => { style: 'width: 350px', rows: 5 }, as: :text, placeholder: "Optional"  %>
   <%= f.input :room, :input_html => { style: 'width: 350px', rows: 5 }, placeholder: "Optional"  %>
   <%= f.input :url, input_html: { style: 'width: 350px' }, 
@@ -9,3 +14,5 @@
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
               institute_path(@institute), :class => 'btn' %>
 <% end %>
+
+

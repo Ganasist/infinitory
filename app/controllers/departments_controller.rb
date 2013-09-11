@@ -5,8 +5,8 @@ class DepartmentsController < ApplicationController
   # GET /departments.json
   def index
     if params[:term].present?
-      @departments = current_user.institute.departments
-      render json: @departments.where("name ilike ?", "%#{params[:term]}%").map(&:name)
+      @departments = @institute.departments
+      render json: @departments.map { |x| "#{x.name} @ #{x.institute.name}"}
     else
       @institute = Institute.friendly.find(params[:institute_id])
       @departments = Department.where(institute_id: @institute)  
