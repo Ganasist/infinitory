@@ -18,14 +18,14 @@
                           value_method: :id, input_html: { style: 'width: 350px'} %>
     <% end %>
 
-    <% if @user.gl? %>
+    <% if current_user.gl? %>
       <%= f.input :institute_name, placeholder: "Find or create your institute",
                     input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path }} %>
       
       <%= f.input :department_name, label: "Department name (optional)",
                     placeholder: "Find or create your department",
                     input_html: { style: 'width: 350px', 
-                    data: { autocomplete_source: institute_departments_path(@user.institute) }} %>
+                    data: { autocomplete_source: institute_departments_path(current_user.institute) }} %>
     <% end %>
    
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates_presence_of :role
 
   before_create :affiliations, :create_lab
+  before_update :update_lab
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate master's_student project_student technician other]
@@ -77,6 +78,12 @@ class User < ActiveRecord::Base
   
   def institute_name=(name)
     self.institute = Institute.find_or_create_by(name: name) if name.present?
+  end
+
+  def update_lab
+    if self.gl?
+      self.lab.update_attributes(name: self.fullname, email: self.email, department: self.department, institute: self.institute)
+    end
   end
 
   def create_lab
