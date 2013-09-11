@@ -5,9 +5,8 @@ class DepartmentsController < ApplicationController
   # GET /departments.json
   def index
     if params[:term].present?
-      # @institute = Institute.where(name: params[:term])
-      # render json: @institute.departments.map(&:name)
-      # @tests = Department.all(include: [:institute]).map(&:test)
+      @departments = current_user.institute.departments
+      render json: @departments.where("name ilike ?", "%#{params[:term]}%").map(&:name)
     else
       @institute = Institute.friendly.find(params[:institute_id])
       @departments = Department.where(institute_id: @institute)  
@@ -98,6 +97,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :address, :url, :acronym)
+      params.require(:department).permit(:name, :address, :room, :url, :acronym)
     end
 end

@@ -18,7 +18,7 @@
   <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
   <dd><%= link_to "#{@user.fullname}", @user %></dd><br>
   <dt><strong><%= model_class.human_attribute_name(:department) %>:</strong></dt>
-  <dd><%= link_to "#{@lab.department.name}", department_path(@lab.department) %></dd><br>
+  <dd><%= link_to "#{@department.name}", department_path(@department) %></dd><br>
   <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
   <dd><%= link_to "#{@lab.institute.name}", institute_path(@lab.institute) %></dd>
 </dl>

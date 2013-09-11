@@ -5,7 +5,7 @@ class Lab < ActiveRecord::Base
 	belongs_to :institute
 
 	has_many :users
-	validates_uniqueness_of :email
+	validates_uniqueness_of :email, message: "This email addresss has already been registered"
 
 	def lab_name
 		self.name ||= self.email

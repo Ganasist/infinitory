@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @department = @user.department
   	@lab = @user.lab
   end
 

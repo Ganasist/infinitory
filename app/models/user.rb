@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :lab, message: "Your group leader must create an account first", unless: :gl?
   validates_presence_of :institute_name, message: "You must enter your institute's name", if: :gl?
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, message: "That email address has already been registered"
   validates_presence_of :role
 
   before_create :affiliations, :create_lab

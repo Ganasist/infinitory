@@ -19,9 +19,8 @@
 
 <dl class="dl-horizontal">
   <h5><%= link_to "The #{@lab.name} lab", @lab %></h5>
-  <% if @user.department.present? %>
-    <h5><%= link_to "#{@user.department.name}", @user.department %></h5>
+  <% if @department.present? %>
+    <h5><%= link_to "#{@department.name}", @department %></h5>
   <% end %>
   <h5 class="text-muted"><%= link_to "#{@user.institute.name}", @user.institute %></h5>
-  <h5>Email: <%= @user.email %></h5>
 </dl>

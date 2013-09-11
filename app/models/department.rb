@@ -2,7 +2,7 @@ class Department < ActiveRecord::Base
 	belongs_to :institute
 	has_many :labs
 
-	before_update :smart_add_url_protocol, :default_addresses
+	before_validation :smart_add_url_protocol, :default_addresses
 
 	after_validation :reverse_geocode,
 									 :if => lambda { |t| t.address_changed? && t.address? }
@@ -68,6 +68,13 @@ class Department < ActiveRecord::Base
 			  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
 			    self.url = 'http://' + self.url
 			  end
+			end
+		end
+
+		def default_addresses
+			if self.institute.present?
+				self.address = self.institute.address if self.address.blank?
+				self.url = self.institute.url if self.url.blank?
 			end
 		end
 end

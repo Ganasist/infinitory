@@ -16,6 +16,7 @@ class LabsController < ApplicationController
   # GET /labs/1.json
   def show
     @user = User.where(lab_id: params[:id], role: "group_leader").first
+    @department = @user.department
   end
 
   # GET /labs/new
@@ -55,6 +56,7 @@ class LabsController < ApplicationController
       if @lab.update(lab_params)
         format.html { redirect_to @lab, notice: 'Lab was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: 'edit' }
         format.json { render json: @lab.errors, status: :unprocessable_entity }

@@ -2,8 +2,18 @@
 var _ref, _ref1;
 
 jQuery(function() {
-  return $('#user_password').focus(function() {
+  $('#user_password').focus(function() {
     return $('.user_password_confirmation').show();
+  });
+  $("#user_institute_name").autocomplete({
+    source: $("#user_institute_name").data("autocomplete-source"),
+    minLength: 3,
+    delay: 100
+  });
+  return $("#user_department_name").autocomplete({
+    source: $("#user_department_name").data("autocomplete-source"),
+    minLength: 3,
+    delay: 100
   });
 });
 
@@ -35,16 +45,6 @@ $('#user_role').change(function() {
     $('.LMform').removeClass('hidden');
   }
   if ((_ref3 = $('#user_role').val()) !== "lab_manager" && _ref3 !== "lab_member") {
-    $('.LMform').addClass('hidden');
+    return $('.LMform').addClass('hidden');
   }
-  $("#user_institute_name").autocomplete({
-    source: $("#user_institute_name").data("autocomplete-source"),
-    minLength: 3,
-    delay: 100
-  });
-  return $("#user_department_name").autocomplete({
-    source: $("#user_department_name").data("autocomplete-source"),
-    minLength: 3,
-    delay: 100
-  });
 });

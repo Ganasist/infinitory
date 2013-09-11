@@ -20,11 +20,6 @@
       <%= f.input :institute_name, placeholder: "Find or create your institute",
                     input_html: { style: 'width: 350px',
                     data: { autocomplete_source: institutes_path }} %>
-      
-      <%= f.input :department_name, label: "Department name (optional)",
-                    placeholder: "Find or create your department",
-                    input_html: { style: 'width: 350px', 
-                    data: { autocomplete_source: Department.order(:name).map(&:name) }} %>
     </span>
 
     <span class="LMform hidden">

@@ -1,6 +1,7 @@
 <%= simple_form_for [@institute, @department], :html => { :class => 'form-inline' } do |f| %>
   <%= f.input :name, input_html: { style: 'width: 350px' }, label: "Department name" %>
   <%= f.input :address, :input_html => { style: 'width: 350px', rows: 5 }, as: :text, placeholder: "Optional"  %>
+  <%= f.input :room, :input_html => { style: 'width: 350px', rows: 5 }, placeholder: "Optional"  %>
   <%= f.input :url, input_html: { style: 'width: 350px' }, 
   						label: 'Website', placeholder: "Optional" %>
 
