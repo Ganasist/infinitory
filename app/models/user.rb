@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   validates_presence_of :institute_name, message: "You must enter your institute's name", if: :gl?
   validates_uniqueness_of :email, message: "That email address has already been registered"
   validates_presence_of :role
+  validates_presence_of :department_id, allow_blank: true
 
   before_create :affiliations, :create_lab
   before_update :update_lab

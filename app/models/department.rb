@@ -9,9 +9,10 @@ class Department < ActiveRecord::Base
 	after_validation :geocode,
 									 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
 
-  validates :name, presence: true
+
   validates_presence_of :institute
-  validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, presence: true
+  validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, 
+  						presence: true
 
   validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,

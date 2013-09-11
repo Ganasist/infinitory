@@ -22,7 +22,8 @@
       <%= f.input :institute_name, placeholder: "Find or create your institute",
                     input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path }} %>
       
-      <%= f.association :department, collection: Department.where(institute: current_user.institute).order(:name) %>
+      <%= f.association :department,
+                          collection: Department.where(institute: current_user.institute).order(:name) %>
     <% end %>
    
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
