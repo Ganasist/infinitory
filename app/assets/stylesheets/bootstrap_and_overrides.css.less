@@ -92,13 +92,21 @@ background-color: white;
 	}
 }
 
+.col-lg-4 h2 {
+	color: @navbarBackground;
+}
+
 .jumbotron {
 	background-image:url('dandelion.jpg');
 	background-size: cover;
 }
 
 #jumbotext {
-	color: green;
+	color: @navbarBackground + #111;
+	text-shadow: 1px 1px 2px @navbarBackground - #333;
+	h1 {
+		text-shadow: 2px 2px 3px @navbarBackground - #333;		
+	}
 }
 
 .user_password_confirmation {

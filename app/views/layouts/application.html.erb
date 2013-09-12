@@ -42,7 +42,8 @@
       <% if user_signed_in? %>
         <%= nav_bar brand: "INFINITORY", brand_link: user_path(current_user), responsive: false do %>
           <%= menu_group do %>        
-                <%= menu_item "Sign-out #{current_user.fullname}", destroy_user_session_path, method: 'delete' %>
+                <%= menu_item " Sign-out #{current_user.fullname}", destroy_user_session_path, method: 'delete',
+                                class: "icon-hand-right" %>
           <% end %>
         <%= form_tag institutes_path, method: :get do %>
             <%= text_field_tag :query, params[:query], class: "navbar-search pull-right", placeholder: "Search"  %>
@@ -51,7 +52,7 @@
       <% else %>
         <%= nav_bar brand: "INFINITORY", brand_link: root_path, responsive: false do %>
           <%= menu_group do %>  
-            <%= menu_item "SIGN-IN", new_user_session_path %>
+            <%= menu_item " SIGN-IN", new_user_session_path %>
           <% end %>          
           <%= form_tag institutes_path, method: :get do %>
             <%= text_field_tag :query, params[:query], class: "navbar-search pull-right", placeholder: "Search"  %>
