@@ -1,6 +1,6 @@
 <% if @department.labs.present? %>
 	<% cache @labs do %>
-		<h4>Labs</h4>
+		<h4><i class="icon-beaker"></i> Labs</h4>
 		  <% @labs.each do |lab| %>
 		    <div class="department">
 		    <p><%= link_to lab.name, lab %></p>

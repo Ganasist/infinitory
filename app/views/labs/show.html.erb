@@ -1,6 +1,9 @@
 <%- model_class = Lab -%>
 <div class="page-header">
-  <h3><i class="icon-beaker"></i><%= link_to " The #{@lab.name} Lab", lab_users_path(@lab) %> 
+  <h3>
+    <%= link_to lab_users_path(@lab) do %>
+     <i class="icon-group"></i><%= " The #{@lab.name} Lab" %>
+    <% end %>
     <% if current_user.gl_lm? && current_user.lab == @lab %>
       <div class="btn-group">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -9,22 +12,41 @@
     <% end %>
   </h3>
 
+
   <dl class="dl-horizontal">
-    <h5><i class="icon-eye-open"></i><%= link_to " #{@user.fullname}", @user %></h5>
+    <h5>
+      <%= link_to @user do %>
+       <i class="icon-eye-open"></i><%= " #{@user.fullname}" %>
+       <% end %>
+    </h5>
+
     <% if @department.present? %>
-      <h5><i class="icon-th"></i><%= link_to " #{@department.name}", @department %></h5>
+      <h5>
+        <%= link_to @department do %>
+         <i class="icon-sitemap"></i><%= " #{@department.name}" %>
+         <% end %>
+      </h5>
     <% end %>
-    <h5 class="text-muted"><i class="icon-sitemap"></i><%= link_to " #{@institute.name}", @institute %></h5>
+
+    <h5>
+      <%= link_to @institute do %>
+       <i class="icon-home"></i><%= " #{@institute.name}" %>
+       <% end %>
+    </h5>
   </dl>
 
-  <br>
-  <div class="btn-toolbar">
-      <% if @department.present? %>
-        <%= link_to "UP", department_path(@department), :class => 'btn-large' %>
-      <% else %>
-        <%= link_to "UP", institute_path(@institute), :class => 'btn-large' %>
-      <% end %>    
-  </div>
+
+<%= link_to "#", class: "btn-large" do %>
+  <i class="icon-tint"> Reagents</i>
+<% end %>
+<%= link_to "#", class: "btn-large" do %>
+  <i class="icon-wrench"> Equipment</i>
+<% end %>
+<br><br>
 </div>
+
+
+<p>lksjdflkj</p>
+
   
 

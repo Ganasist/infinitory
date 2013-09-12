@@ -1,21 +1,17 @@
 <% cache @department do %>
   <%- model_class = Department -%>
     <div class="page-header">
-      <h2>
-        <%= "#{@department.name}" %>
+      <h3>
+        <i class="icon-sitemap"></i><%= " #{@department.name}" %>
         <% if current_user.gl? && current_user.department == @department  %>
         <div class="btn-group">
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                           edit_department_path(@department), :class => 'btn-small btn-success' %>         
         </div>
         <% end %>
-      </h2>
-      <h5><%= link_to "#{@department.institute.name}", institute_path(@department.institute) %></h5>
+      </h3>
+      <h5><i class="icon-home"></i>
+        <%= link_to " #{@department.institute.name}", institute_path(@department.institute) %></h5>
       <br>
-        <div class="btn-group">
-           <%= link_to t('.new', :default => "UP"),
-                          institute_path(@department.institute),
-                          :class => 'btn-large' %>
-        </div>
       </div>
 <% end %>

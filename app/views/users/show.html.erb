@@ -11,7 +11,7 @@
       <% if @user.gl_lm? %>
         <small class="lead"><i class="icon-eye-open"></i><%= @user.gl? ? " Group Leader" : " Lab Manager" %></small>
       <% elsif @user.description.present? %>
-        <small class="lead"><%= "#{@user.description.humanize}" %></small>
+        <small class="lead"><i class="icon-user"></i><%= " #{@user.description.humanize}" %></small>
       <% end %>
   </h3>
 
@@ -19,7 +19,7 @@
 </div>
 
 <dl class="dl-horizontal">
-  <h5><i class="icon-beaker"></i><%= link_to " The #{@lab.name} lab", @lab %></h5>
+  <h5><i class="icon-group"></i><%= link_to " The #{@lab.name} lab", @lab %></h5>
   <% if @department.present? %>
     <h5><i class="icon-th"></i><%= link_to " #{@department.name}", @department %></h5>
   <% end %>
