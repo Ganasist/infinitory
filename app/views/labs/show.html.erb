@@ -7,7 +7,7 @@
     <% if current_user.gl_lm? && current_user.lab == @lab %>
       <div class="btn-group">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_lab_path(@lab), :class => 'btn-small btn-success' %>
+                      edit_lab_path(@lab), :class => 'btn-mini btn-success' %>
       </div>
     <% end %>
   </h3>
@@ -40,13 +40,13 @@
           <i class="icon-bullhorn"> Announcements</i>
         <% end %>
         <%= link_to "#", class: "btn-large" do %>
-          <i class="icon-bar-chart"> Statistics</i>
-        <% end %>
-        <%= link_to "#", class: "btn-large" do %>
-          <i class="icon-tint"> Reagents</i>
+          <i class="icon-beaker"> Reagents</i>
         <% end %>
         <%= link_to "#", class: "btn-large" do %>
           <i class="icon-wrench"> Equipment</i>
+        <% end %>
+        <%= link_to "#", class: "btn-large" do %>
+          <i class="icon-bar-chart"> Statistics</i>
         <% end %>
     </div>
 <br><br>
