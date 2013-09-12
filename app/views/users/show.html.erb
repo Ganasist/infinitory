@@ -19,9 +19,23 @@
 </div>
 
 <dl class="dl-horizontal">
-  <h5><i class="icon-group"></i><%= link_to " The #{@lab.name} lab", @lab %></h5>
+  <h5>
+    <%= link_to @lab do %>
+      <i class="icon-group"></i><%= " The #{@lab.name} lab" %>
+    <% end %>
+  </h5>
+  
   <% if @department.present? %>
-    <h5><i class="icon-th"></i><%= link_to " #{@department.name}", @department %></h5>
+    <h5>
+      <%= link_to @department do %>
+        <i class="icon-sitemap"></i><%= " #{@department.name}" %>
+      <% end %>
+    </h5>
   <% end %>
-  <h5 class="text-muted"><i class="icon-sitemap"></i><%= link_to " #{@institute.name}", @institute %></h5>
+
+  <h5>
+    <%= link_to @institute do %>
+      <i class="icon-building"></i><%= " #{@institute.name}" %>
+    <% end %>
+  </h5>
 </dl>

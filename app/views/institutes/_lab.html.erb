@@ -1,10 +1,14 @@
 <% cache @labs do %>
 <hr>           
-	<h4><i class="icon-group"></i><%= link_to " Labs", institute_labs_path(@institute) %></h4>
+	<h4>
+		<%= link_to institute_labs_path(@institute) do %>
+			<i class="icon-group"></i><%=  " Labs" %>
+		<% end %>
+	</h4>
 	<br>
 	    <% @labs.each do |lab| %>
 	    <div class="lab">
-	    <p><%= link_to lab.name, lab_path(lab) %></p>
+		    <p><%= link_to lab.name, lab_path(lab) %></p>
 	    </div>
 	  <% end %>
 <% end %>

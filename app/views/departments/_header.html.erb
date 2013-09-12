@@ -10,8 +10,11 @@
         </div>
         <% end %>
       </h3>
-      <h5><i class="icon-home"></i>
-        <%= link_to " #{@department.institute.name}", institute_path(@department.institute) %></h5>
+      <h5>
+        <%= link_to institute_path(@department.institute) do %>
+          <i class="icon-building"></i><%= " #{@department.institute.name}" %>
+        <% end %>
+      </h5>
       <br>
       </div>
 <% end %>

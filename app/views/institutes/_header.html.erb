@@ -1,6 +1,6 @@
 <% cache @institute do %>
   <div class="page-header">
-      <h3><i class="icon-home"></i>        
+      <h3><i class="icon-building"></i>        
         <%= " #{@institute.name}" %>
         <% if @institute.acronym.present? %>
           (<%= "#{@institute.acronym}" %>)
@@ -20,6 +20,15 @@
         </h4>
       <% end %>
       <br>
+
+
+      <%= link_to "#", class: "btn-large" do %>
+        <i class="icon-bullhorn"> Announcements</i>
+      <% end %>
+      <%= link_to "#", class: "btn-large" do %>
+        <i class="icon-bar-chart"> Statistics</i>
+      <% end %>
+      <br><br>
       
   </div>
 <% end %>

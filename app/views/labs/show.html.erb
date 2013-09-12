@@ -30,18 +30,25 @@
 
     <h5>
       <%= link_to @institute do %>
-       <i class="icon-home"></i><%= " #{@institute.name}" %>
+       <i class="icon-building"></i><%= " #{@institute.name}" %>
        <% end %>
     </h5>
   </dl>
 
-
-<%= link_to "#", class: "btn-large" do %>
-  <i class="icon-tint"> Reagents</i>
-<% end %>
-<%= link_to "#", class: "btn-large" do %>
-  <i class="icon-wrench"> Equipment</i>
-<% end %>
+    <div class='row-fluid'>
+        <%= link_to "#", class: "btn-large" do %>
+          <i class="icon-bullhorn"> Announcements</i>
+        <% end %>
+        <%= link_to "#", class: "btn-large" do %>
+          <i class="icon-bar-chart"> Statistics</i>
+        <% end %>
+        <%= link_to "#", class: "btn-large" do %>
+          <i class="icon-tint"> Reagents</i>
+        <% end %>
+        <%= link_to "#", class: "btn-large" do %>
+          <i class="icon-wrench"> Equipment</i>
+        <% end %>
+    </div>
 <br><br>
 </div>
 

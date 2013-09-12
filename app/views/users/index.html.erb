@@ -1,6 +1,11 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h3><i class="icon-group"></i><%= link_to " #{@lab.name} Lab", @lab %> members</h3>
+
+  <h3>
+    <%= link_to @lab do %>
+     <i class="icon-group"></i><%= " #{@lab.name} lab members" %>
+     <% end %>
+  </h3>
 </div>
 
  <% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>
