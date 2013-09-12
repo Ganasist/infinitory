@@ -8,9 +8,6 @@
       <th>Group Leader</th>
       <th>Established</th>
       <th>Members</th>
-       <% if current_user.role == "group_leader" && current_user.lab == lab %>
-        <th><%=t '.actions', :default => t("helpers.actions") %></th>
-       <% end %>
     </tr>
   </thead>
   <tbody>
@@ -22,17 +19,6 @@
           <td><%= link_to "lab.email", lab_path(lab) %></td>
         <% end %>
         <td><%= time_ago_in_words(lab.created_at) %> ago</td>
-        <% if current_user.role == "group_leader" && current_user.lab == lab %>
-          <td>
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_lab_path(lab), :class => 'btn btn-mini' %>
-            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                        lab_path(lab),
-                        :method => :delete,
-                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                        :class => 'btn btn-mini btn-danger' %>
-          </td>
-        <% end %>
         <td><%= lab.users.count %></td>
       </tr>
     <% end %>

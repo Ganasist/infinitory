@@ -1,31 +1,30 @@
 <%- model_class = Lab -%>
 <div class="page-header">
-  <h2>The <%= "#{@lab.name}" %> Lab
+  <h3><i class="icon-beaker"></i><%= link_to " The #{@lab.name} Lab", lab_users_path(@lab) %> 
     <% if current_user.gl_lm? && current_user.lab == @lab %>
       <div class="btn-group">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_lab_path(@lab), :class => 'btn-small btn-success' %>
       </div>
     <% end %>
-  </h2>
+  </h3>
+
+  <dl class="dl-horizontal">
+    <h5><i class="icon-eye-open"></i><%= link_to " #{@user.fullname}", @user %></h5>
+    <% if @department.present? %>
+      <h5><i class="icon-th"></i><%= link_to " #{@department.name}", @department %></h5>
+    <% end %>
+    <h5 class="text-muted"><i class="icon-sitemap"></i><%= link_to " #{@institute.name}", @institute %></h5>
+  </dl>
+
   <br>
   <div class="btn-toolbar">
-      <% if @lab.department.present? %>
-        <%= link_to "UP", department_path(@lab.department) %>
+      <% if @department.present? %>
+        <%= link_to "UP", department_path(@department), :class => 'btn-large' %>
       <% else %>
-        <%= link_to "UP", institute_path(@lab.institute) %>
-      <% end %>
-      <%= link_to "MEMBERS", lab_users_path(@lab), :class => 'btn-large' %>      
+        <%= link_to "UP", institute_path(@institute), :class => 'btn-large' %>
+      <% end %>    
   </div>
 </div>
+  
 
-<dl class="dl-horizontal table-striped">
-  <dt><strong><%= model_class.human_attribute_name(:group_leader) %>:</strong></dt>
-  <dd><%= link_to "#{@user.fullname}", @user %></dd><br>
-  <% if @lab.department.present? %>
-  <dt><strong><%= model_class.human_attribute_name(:department) %>:</strong></dt>
-  <dd><%= link_to "#{@department.name}", department_path(@department) %></dd><br>
-  <% end %>
-  <dt><strong><%= model_class.human_attribute_name(:institute_id) %>:</strong></dt>
-  <dd><%= link_to "#{@lab.institute.name}", institute_path(@lab.institute) %></dd>
-</dl>

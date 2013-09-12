@@ -1,6 +1,7 @@
 <% cache @labs do %>
 <hr>           
-	<h4><%= link_to "Labs", institute_labs_path(@institute) %></h4>
+	<h4><i class="icon-beaker"></i><%= link_to " Labs", institute_labs_path(@institute) %></h4>
+	<br>
 	    <% @labs.each do |lab| %>
 	    <div class="lab">
 	    <p><%= link_to lab.name, lab_path(lab) %></p>

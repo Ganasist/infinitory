@@ -1,10 +1,6 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h3>The <%= link_to "#{@lab.name} Lab", @lab %> members</h3>
-  <% if @lab.department.present? %>
-    <h4><%= link_to "#{ @lab.department.name }", @lab.department %></h4>
-  <% end %>
-  <h5 class="text-muted"><%= link_to "#{ @lab.institute.name }", @lab.institute %></h5>
+  <h3><i class="icon-group"></i><%= link_to " #{@lab.name} Lab", @lab %> members</h3>
 </div>
 
  <% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>

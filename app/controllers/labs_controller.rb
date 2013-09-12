@@ -18,6 +18,7 @@ class LabsController < ApplicationController
   def show
     @user = User.where(lab_id: params[:id], role: "group_leader").first
     @department = @lab.department
+    @institute = @lab.institute
   end
 
   # GET /labs/new
