@@ -29,16 +29,20 @@ class IconUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process :resize_to_limit => [100, 100]
+  version :thumb, :from_version => :main do
+    process :resize_to_limit => [50, 50]
+  end
+
+  version :portrait, :from_version => :main do
+    process :resize_to_limit => [200, 100]
+  end
+
+  version :large, :from_version => :main do
+    process :resize_to_limit => [400, 400]
   end
 
   version :main do
-    process :resize_to_limit => [250, 250]
-  end
-
-  version :large do
-    process :resize_to_limit => [500, 500]
+    process :resize_to_limit => [800, 800]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

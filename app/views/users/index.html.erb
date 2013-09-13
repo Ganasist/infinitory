@@ -34,13 +34,15 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th></th>
         <th>Name</th>
         <th>Role</th>
         <th>Joined</th>
     </thead>
     <tbody id="approved">      
       <% @users.each do |user| %>
-        <tr>            
+        <tr>
+          <td></td>          
           <% if user.fullname.present? %>
             <td><%= link_to user.fullname, user %></td>
           <% else %>

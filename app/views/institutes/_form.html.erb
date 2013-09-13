@@ -10,8 +10,10 @@
     </div>
     <div class="span6 pull-right">
       <label>Logo</label><br>
-      <% if @institute.icon? %>
+      <% if @institute.icon? %>               
         <%= image_tag(@institute.icon_url(:main)) %><br><br>
+        Remove image
+        <%= f.check_box :remove_icon %><br><br>
       <% end %>
       <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
       <h4>or</h4>

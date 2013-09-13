@@ -46,6 +46,8 @@
       <label>Picture</label><br>
        <% if @user.icon? %>
          <%= image_tag(@user.icon_url(:main)) %><br><br>
+         Remove image
+        <%= f.check_box :remove_icon %><br><br>
        <% end %>
        <%= f.input :remote_icon_url, placeholder: "Enter a URL", label: false %>
        <h4>or</h4>
