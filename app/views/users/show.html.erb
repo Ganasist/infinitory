@@ -5,7 +5,7 @@
       <% if @user.icon.present? %>
         <div class="span2 pull-left">
           <% if @user.icon.present? %>
-            <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %><br><br>
+            <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %><br>
           <% end %> 
         </div>
       <% end %>
