@@ -18,14 +18,14 @@ class User < ActiveRecord::Base
   validates_presence_of :department_id, allow_blank: true
 
   before_create :create_lab, :affiliations
-  before_update :update_lab, :deauthorize
+  before_update :update_lab, :deauthorize, :affiliations
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
   def deauthorize
-    if self.lab_id_changed?
+    if !self.gl? && self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id
       self.institute_id = lab.institute_id
@@ -55,12 +55,14 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if self.gl?
-      self.approved = true
-    else
+    if !gl?
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
     end
+  end
+
+  def gl
+    self.lab.users.where(role: "group_leader")
   end
 
   def gl?
@@ -93,12 +95,16 @@ class User < ActiveRecord::Base
 
   def update_lab
     if self.gl?
+      if self.institute_id_changed?
+        self.department = nil
+      end    
       self.lab.update_attributes(name: self.fullname, email: self.email, department: self.department, institute: self.institute)
     end
   end
 
   def create_lab
-  	if self.gl?
+  	if self.gl?      
+      self.approved = true
 	  	self.lab = Lab.create(name: self.email, email: self.email, department: self.department, institute: self.institute)
     end
   end
