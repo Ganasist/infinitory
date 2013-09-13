@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base  
   mount_uploader :icon, IconUploader
+  acts_as_taggable
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, and :omniauthable
@@ -17,14 +18,18 @@ class User < ActiveRecord::Base
   validates_presence_of :department_id, allow_blank: true
 
   before_create :affiliations, :create_lab
-  before_update :update_lab
+  before_update :update_lab, :deauthorize, :affiliations
   
   ROLES = %w[group_leader lab_manager lab_member]
-  DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate master's_student project_student technician other]
+  DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
+                    master's_student project_student technician other]
 
-  # def authorize
-  #   self.approved = true
-  # end
+  def deauthorize
+    if self.lab_id_changed?
+      self.approved = false
+      self.lab_id   = lab_id
+    end
+  end
 
   def active_for_authentication? 
     super && approved? 
