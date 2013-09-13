@@ -3,35 +3,34 @@
   <h3>
     <div class="row">
       <% if @user.icon.present? %>
-        <div class="span2">
+        <div class="span2 pull-left">
           <% if @user.icon.present? %>
             <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %><br><br>
           <% end %> 
         </div>
       <% end %>
-       <%= @user.fullname.blank? ? "User #{@user.email}" : "#{@user.fullname}" %>
-          <% if current_user == @user %>
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_user_registration_path, :class => 'btn-mini btn-success' %>
+
+     <%= @user.fullname.blank? ? "User #{@user.email}" : "#{@user.fullname}" %>
+        <% if current_user == @user %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_user_registration_path, :class => 'btn-mini btn-success' %>
+        <% end %>
+      <br>
+        <% if @user.icon.blank? %>
+          <% if @user.gl_lm? %>
+            <small class="lead"><i class="icon-eye-open"></i><%= @user.gl? ? " Group Leader" : " Lab Manager" %></small>
+          <% elsif @user.description.present? %>
+            <small class="lead"><i class="icon-user"></i><%= " #{@user.description.humanize}" %></small>
           <% end %>
-        <br>
-          <% if @user.icon.blank? %>
-            <% if @user.gl_lm? %>
-              <small class="lead"><i class="icon-eye-open"></i><%= @user.gl? ? " Group Leader" : " Lab Manager" %></small>
-            <% elsif @user.description.present? %>
-              <small class="lead"><i class="icon-user"></i><%= " #{@user.description.humanize}" %></small>
-            <% end %>
-          <% else %>
-            <% if @user.gl_lm? %>
-              <small class="lead"><%= @user.gl? ? " Group Leader" : " Lab Manager" %></small>
-            <% elsif @user.description.present? %>
-              <small class="lead"><%= " #{@user.description.humanize}" %></small>
-            <% end %>
-          <% end %>     
-        
-      </div>
+        <% else %>
+          <% if @user.gl_lm? %>
+            <small class="lead"><%= @user.gl? ? " Group Leader" : " Lab Manager" %></small>
+          <% elsif @user.description.present? %>
+            <small class="lead"><%= " #{@user.description.humanize}" %></small>
+          <% end %>
+        <% end %>        
+    </div>
   </h3>   
-    
 </div>
 
 <dl class="dl-horizontal">

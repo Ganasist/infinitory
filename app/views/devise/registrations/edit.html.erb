@@ -6,6 +6,18 @@
 <%= f.error_notification %>
 <div class="form-inputs">
   <div class="row">
+    <div class="span6 pull-right">
+      <label>Picture</label><br>
+       <% if @user.icon? %>
+         <%= image_tag(@user.icon_url(:main)) %><br><br>
+         Remove image
+        <%= f.check_box :remove_icon %><br><br>
+       <% end %>
+       <%= f.input :remote_icon_url, placeholder: "Enter a URL", label: false %>
+       <h4>or</h4>
+       <%= f.input :icon, label: false %>  
+       <%= f.hidden_field :icon_cache %>
+    </div>
     <div class="span3">      
       <%= f.input :email, required: true, autofocus: true, input_html: { style: 'width: 350px'} %>
       <%= f.input :first_name, input_html: { style: 'width: 350px' } %>
@@ -41,18 +53,6 @@
 
       <%= f.input :current_password, :hint => "Enter current password to confirm changes",
                   :required => true, input_html: { style: 'width: 350px'} %>
-    </div>
-    <div class="span6 pull-right">
-      <label>Picture</label><br>
-       <% if @user.icon? %>
-         <%= image_tag(@user.icon_url(:main)) %><br><br>
-         Remove image
-        <%= f.check_box :remove_icon %><br><br>
-       <% end %>
-       <%= f.input :remote_icon_url, placeholder: "Enter a URL", label: false %>
-       <h4>or</h4>
-       <%= f.input :icon, label: false %>  
-       <%= f.hidden_field :icon_cache %>
     </div>
   </div>
   <div class="form-actions">
