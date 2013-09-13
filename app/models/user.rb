@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
   validates_presence_of :role
   validates_presence_of :department_id, allow_blank: true
 
-  before_create :affiliations, :create_lab
-  before_update :update_lab, :deauthorize, :affiliations
+  before_create :create_lab, :affiliations
+  before_update :update_lab, :deauthorize
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
@@ -28,6 +28,9 @@ class User < ActiveRecord::Base
     if self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id
+      self.institute_id = lab.institute_id
+      self.department_id = lab.department_id
+      self.joined   = Time.now
     end
   end
 
@@ -38,8 +41,6 @@ class User < ActiveRecord::Base
   def inactive_message 
     if !approved? 
       :not_approved
-    elsif deauthorize?
-      :deauthorize
     else 
       super # Use whatever other message 
     end 
