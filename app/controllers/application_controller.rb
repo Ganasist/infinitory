@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :deauthorization
+
+  def deauthorization
+    if user_signed_in?
+       if current_user.deauthorize
+         redirect_to destroy_user_session_path
+       end
+    end
+  end
 
   def after_sign_in_path_for(resource)
    user_path(current_user)

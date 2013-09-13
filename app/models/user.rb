@@ -37,7 +37,9 @@ class User < ActiveRecord::Base
 
   def inactive_message 
     if !approved? 
-      :not_approved 
+      :not_approved
+    elsif deauthorize?
+      :deauthorize
     else 
       super # Use whatever other message 
     end 
