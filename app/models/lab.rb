@@ -11,6 +11,10 @@ class Lab < ActiveRecord::Base
 		self.name ||= self.email
 	end
 
+	def size
+		users.count
+	end
+
 	def department_name
     department.try(:name)
   end

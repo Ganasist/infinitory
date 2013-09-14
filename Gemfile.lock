@@ -28,7 +28,6 @@ GEM
     acts-as-taggable-on (2.4.1)
       rails (>= 3, < 5)
     addressable (2.3.5)
-    angularjs-rails (1.0.8)
     arel (4.0.0)
     atomic (1.1.10)
     bcrypt-ruby (3.1.1)
@@ -59,6 +58,8 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     commonjs (0.2.6)
+    d3_rails (3.3.3)
+      railties (>= 3.1.0)
     daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (1.0.1)
@@ -255,13 +256,13 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
-  angularjs-rails
   better_errors
   binding_of_caller
   bullet
   capybara
   carrierwave
   coffee-rails (~> 4.0.0)
+  d3_rails
   dalli
   database_cleaner
   devise (= 3.0.0)
