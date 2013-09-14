@@ -12,17 +12,14 @@ class Institute < ActiveRecord::Base
 	has_many :departments
 	has_many :labs
 
-	before_validation :smart_add_url_protocol
-	
+	before_validation :smart_add_url_protocol	
 	after_validation :geocode, 
 									 :if => lambda { |t| t.address_changed? && t.address.present? } # auto-fetch coordinates only if there's a new address
 	after_validation :reverse_geocode, 
-									 :if => lambda { |t| t.address_changed? && t.address.present? } 
-
+									 :if => lambda { |t| t.address_changed? && t.address.present? }
 	# validates :name, uniqueness: { scope: :address,
- #    													 	 message: "This institute is already registered at that address" },
- #    								:if => :address.present?, allow_blank: true
-
+  #    													 	 message: "This institute is already registered at that address" },
+  #    								:if => :address.present?, allow_blank: true
   validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   													multiline: true,
@@ -39,7 +36,6 @@ class Institute < ActiveRecord::Base
 	acts_as_gmappable validation: false
 
 	protected
-
 		def gmaps4rails_address
 		#describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
 		  "#{self.latitude}, #{self.longitude}" 

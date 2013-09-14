@@ -2,9 +2,13 @@
 <div class="page-header">
 
   <h3>
-    <%= link_to @lab do %>
-     <i class="icon-group"></i><%= " #{@lab.name} lab members" %>
-     <% end %>
+    <% if params[:tag] %>
+      <%= "Local scientists interested in #{params[:tag]}" %>
+    <% else %>
+      <%= link_to @lab do %>
+       <i class="icon-group"></i><%= " #{@lab.name} lab members" %>
+       <% end %>
+    <% end %>
   </h3>
 </div>
 
@@ -30,40 +34,39 @@
     </tbody>
   </table>
 <% end %>
-
-  <table class="table table-striped">
-    <tbody id="approved">      
-      <% @users.each do |user| %>
-        <tr>
-          <td>            
-            <% if user.icon.blank? %> 
-            <h4 class="text-left">             
-                <% if user.gl_lm? %>
-                  <i class="icon-eye-open"></i>
-                <% else %>
-                  <i class="icon-user"></i>
-                <% end %>
-            </h4>
-            <% else %>
-              <span class="text-center"><%= link_to image_tag(user.icon_url(:thumb).to_s).html_safe, user %></span>
-            <% end %>
-          </td>          
-          <% if user.fullname.present? %>
-            <td><%= link_to user.fullname, user %></td>
+<table class="table table-striped">
+  <tbody id="approved">      
+    <% @users.each do |user| %>
+      <tr>
+        <td>            
+          <% if user.icon.blank? %> 
+          <h4 class="text-left">             
+              <% if user.gl_lm? %>
+                <i class="icon-eye-open"></i>
+              <% else %>
+                <i class="icon-user"></i>
+              <% end %>
+          </h4>
           <% else %>
-            <td><%= link_to user.id, user %></td>
+            <span class="text-center"><%= link_to image_tag(user.icon_url(:thumb).to_s).html_safe, user %></span>
           <% end %>
+        </td>          
+        <% if user.fullname.present? %>
+          <td><%= link_to user.fullname, user %></td>
+        <% else %>
+          <td><%= link_to user.id, user %></td>
+        <% end %>
 
-          <% if user.gl_lm? %>    
-            <td><%= user.gl? ? "Group Leader" : "Lab Manager" %></td>
-          <% elsif user.description.present? %>
-            <td><%= user.description.humanize %></td>
-          <% else %>
-            <td></td>
-          <% end %>
-          <td>Joined <%= time_ago_in_words(user.joined) %> ago</td>   
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+        <% if user.gl_lm? %>    
+          <td><%= user.gl? ? "Group Leader" : "Lab Manager" %></td>
+        <% elsif user.description.present? %>
+          <td><%= user.description.humanize %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td>Joined <%= time_ago_in_words(user.joined) %> ago</td>   
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 

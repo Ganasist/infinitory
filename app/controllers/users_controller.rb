@@ -2,14 +2,18 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :activate]
 
   def index
-    @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
-    @lab = Lab.find(params[:lab_id])
-    
-    @approval = User.where(lab_id: params[:lab_id], approved: false).count
-    
-    if @approval > 0 && current_user.gl_lm?
-      @approvals = User.where(lab_id: params[:lab_id], approved: false)
+    if params[:tag]
+      @users = User.tagged_with(params[:tag]).order(created_at: :desc)
+      @approval = 0
+    else      
       @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
+      @lab = Lab.find(params[:lab_id])    
+      @approval = User.where(lab_id: params[:lab_id], approved: false).count
+      
+      if @approval > 0 && current_user.gl_lm?
+        @approvals = User.where(lab_id: params[:lab_id], approved: false)
+        @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
+      end
     end
   end
 

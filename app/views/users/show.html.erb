@@ -30,7 +30,8 @@
           <% end %>
         <% end %>        
     </div>
-  </h3>   
+  </h3>
+  <h5 class="text-muted">Interests: <%= raw @user.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')  %></h5>
 </div>
 
 <dl class="dl-horizontal">
