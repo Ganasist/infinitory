@@ -3,7 +3,9 @@ class UsersController < ApplicationController
 
   def index
     if params[:tag]
-      @users = User.tagged_with(params[:tag]).order(created_at: :desc)
+      @institutes = Institute.find(current_user.institute)
+      @locals = User.where(institute_id: @institutes)
+      @users = @locals.tagged_with(params[:tag])
       @approval = 0
     else      
       @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)

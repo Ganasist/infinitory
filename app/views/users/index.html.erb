@@ -3,7 +3,7 @@
 
   <h3>
     <% if params[:tag] %>
-      <%= "Local scientists interested in #{params[:tag]}" %>
+      <%= "Nearby scientists interested in #{params[:tag]}" %>
     <% else %>
       <%= link_to @lab do %>
        <i class="icon-group"></i><%= " #{@lab.name} lab members" %>

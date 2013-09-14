@@ -46,6 +46,10 @@ class User < ActiveRecord::Base
     end 
   end
 
+  def location
+    institute.city
+  end
+
   def fullname
     if self.last_name.blank?
       self.email

@@ -11,6 +11,7 @@ class Institute < ActiveRecord::Base
 
 	has_many :departments
 	has_many :labs
+	has_many :users
 
 	before_validation :smart_add_url_protocol	
 	after_validation :geocode, 
