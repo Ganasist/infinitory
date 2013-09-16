@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base  
   mount_uploader :icon, IconUploader
-  acts_as_taggable
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, and :omniauthable

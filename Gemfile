@@ -22,13 +22,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'd3_rails'
-
 gem 'redis'
 gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
-gem 'acts-as-taggable-on'
 
 gem 'pg_search'
                              
