@@ -14,5 +14,4 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require d3
 //= require_tree .
