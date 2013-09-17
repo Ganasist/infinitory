@@ -17,18 +17,17 @@ class ApplicationController < ActionController::Base
 
 
   protected
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_id, :department_name, 
+                                                              :institute_name, :password, :approved,
+                                                              :password_confirmation) }
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_id, :department_name, 
-                                                            :institute_name, :password, :approved,
-                                                            :password_confirmation) }
+      devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
 
-    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
-
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :icon, :tag_list, :lab_id,
-                                                                   :description, :approved, :department_id, :institute_name,
-                                                                   :password, :password_confirmation, :current_password, 
-                                                                   :icon, :remote_icon_url, :remove_icon, :icon_cache) }
-  end
+      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :icon, :tag_list, :lab_id,
+                                                                     :description, :approved, :department_id, :institute_name,
+                                                                     :password, :password_confirmation, :current_password, 
+                                                                     :icon, :remote_icon_url, :remove_icon, :icon_cache) }
+    end
 
 end

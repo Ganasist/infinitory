@@ -41,7 +41,9 @@
         <td>            
           <% if user.icon.blank? %> 
           <h4 class="text-left">             
-              <% if user.gl_lm? %>
+              <% if user.gl? %>
+                <i class="icon-lightbulb"></i>
+              <% elsif user.lm? %>
                 <i class="icon-eye-open"></i>
               <% else %>
                 <i class="icon-user"></i>
