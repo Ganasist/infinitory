@@ -43,7 +43,6 @@
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
-      <%= f.input :tag_list, input_html: { style: 'width: 350px'}, label: "Research interests (comma separated)" %>
 
       <%= f.input :password, label: "New password (Optional)", :autocomplete => "off",
                   :required => false, input_html: { style: 'width: 350px'} %>

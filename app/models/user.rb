@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   belongs_to :institute
@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
       self.joined   = Time.now
-    end
+  nh  end
   end
 
   def active_for_authentication? 
