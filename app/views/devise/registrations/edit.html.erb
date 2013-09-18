@@ -33,7 +33,7 @@
 
       <% if current_user.gl? %>
         <%= f.input :institute_name, placeholder: "Find or create your institute",
-                      input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path }} %>        
+                      input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path }} %>
         <span id="department_select">
           <%= f.input :department_id, 
                         collection: Institute.where(id: current_user.institute), as: :grouped_select,
