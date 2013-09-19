@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base  
   mount_uploader :icon, IconUploader
 
+  include PublicActivity::Model
+  tracked
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
