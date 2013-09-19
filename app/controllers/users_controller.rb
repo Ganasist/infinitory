@@ -20,7 +20,11 @@ class UsersController < ApplicationController
 
   def activate
     @user.update_attributes(approved: true)
-    @user.send_confirmation_instructions
+    if !@user.confirmed?
+      @user.send_confirmation_instructions
+    else
+      @user.SEND_APPROVAL_EMAIL
+    end
     redirect_to lab_users_path(current_user.lab)
   end
 
