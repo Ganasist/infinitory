@@ -1,9 +1,8 @@
 Infinitory::Application.routes.draw do
 
-  resources :activities
-
   devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
-                                  :controllers => { :registrations => :registrations }
+                                  :controllers => { registrations: 'registrations',
+                                                    confirmations: 'confirmations' }
  
   resources :institutes, shallow: true do
     resources :departments
@@ -19,7 +18,6 @@ Infinitory::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root :to => 'high_voltage/pages#show', id: 'splash'
-  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

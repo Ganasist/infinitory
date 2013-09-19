@@ -16,12 +16,36 @@ class User < ActiveRecord::Base
   validates_presence_of :role
   validates_presence_of :department_id, allow_blank: true
 
-  before_create :create_lab, :affiliations
+  before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
   before_update :update_lab, :deauthorize, :affiliations
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
+
+  def approve 
+    self.approved = true 
+  end 
+
+  def disapprove 
+    self.approved = false 
+  end
+
+  def skip_confirmation!
+    true
+  end
+
+  def active_for_authentication?
+    super && approved? 
+  end 
+
+  def inactive_message 
+    if !approved? 
+      :not_approved
+    else
+      super # Use whatever other message 
+    end 
+  end
 
   def deauthorize
     if !self.gl? && self.lab_id_changed?
@@ -30,19 +54,7 @@ class User < ActiveRecord::Base
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
       self.joined   = Time.now
-  nh  end
-  end
-
-  def active_for_authentication? 
-    super && approved? 
-  end 
-
-  def inactive_message 
-    if !approved? 
-      :not_approved
-    else 
-      super # Use whatever other message 
-    end 
+    end
   end
 
   def location
