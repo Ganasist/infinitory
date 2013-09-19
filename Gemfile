@@ -28,7 +28,6 @@ gem 'dalli'
 gem 'friendly_id', '5.0.0.beta1'
 
 gem 'pg_search'
-gem 'public_activity'
                              
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'

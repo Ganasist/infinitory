@@ -10,8 +10,6 @@ Infinitory::Application.routes.draw do
     end
   end
 
-  resources :activities
-
   match "users/:id/activate" => "users#activate", :as => "active_user", via: :get
 
   # The priority is based upon order of creation: first created -> highest priority.

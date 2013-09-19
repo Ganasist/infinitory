@@ -52,7 +52,7 @@
           <% else %>
             <span class="text-center"><%= link_to image_tag(user.icon_url(:thumb).to_s).html_safe, user %></span>
           <% end %>
-        </td>          
+        </td>
         <% if user.fullname.present? %>
           <td><%= link_to user.fullname, user %></td>
         <% else %>
@@ -66,7 +66,9 @@
         <% else %>
           <td></td>
         <% end %>
-        <td>Joined <%= time_ago_in_words(user.joined) %> ago</td>   
+        <% if user.joined %>
+          <td>Joined <%= time_ago_in_words(user.joined) %> ago</td> 
+        <% end %>  
       </tr>
     <% end %>
   </tbody>
