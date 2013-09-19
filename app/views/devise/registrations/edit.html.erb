@@ -26,12 +26,12 @@
       <% if @user.role != "group_leader" %>
         <%= f.collection_select :description, User::DESCRIPTIONS, :to_s, :humanize, prompt: "Status",
                                   required: false %>
-        <br><br>      
+        <br><br>
         <%= f.association :lab, label_method: :email, label: "Group leader email address",
                             value_method: :id, input_html: { style: 'width: 350px'} %>
       <% end %>
 
-      <% if current_user.gl? %>
+      <% if @user.gl? %>
         <%= f.input :institute_name, placeholder: "Find or create your institute",
                       input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path }} %>
         <span id="department_select">
