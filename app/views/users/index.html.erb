@@ -69,9 +69,9 @@
         <% if user.joined %>
           <td>Joined <%= time_ago_in_words(user.joined) %> ago</td> 
         <% end %> 
-        <% if current_user.gl_lm? && current_user.lab == @lab && !user.gl? %>
+        <% if current_user.gl_lm? && current_user.lab == @lab && !user.gl? && current_user != user %>
           <td>
-            <%= link_to 'Retire member', deactivate_user_path(user), class: 'btn btn-info' %>
+            <%= link_to 'Retire member', retire_user_path(user), class: 'btn btn-info' %>
           </td>
         <% end %>
       </tr>

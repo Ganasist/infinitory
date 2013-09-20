@@ -28,13 +28,16 @@ class User < ActiveRecord::Base
     self.joined = Time.now
   end 
 
-  def disapprove 
+  def retire 
     self.approved = false
-    self.lab_id   = 1
+    self.lab_id   = 1 # Blank lab for orphan users
     self.institute_id = nil
     self.department_id = nil
     self.joined  = nil
-    #SEND TRANSITION EMAIL
+  end
+
+  def reject
+    # THINK ABOUT THIS
   end
 
   def skip_confirmation!
