@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
       self.lab_id   = lab_id
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
-      self.joined   = Time.now
     end
   end
 

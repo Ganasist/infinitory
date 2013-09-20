@@ -19,17 +19,25 @@ class UsersController < ApplicationController
   end
 
   def activate
-    @user.update_attributes(approved: true)
+    @user.approve
+    @user.joined = Time.now
     if !@user.confirmed?
       @user.send_confirmation_instructions
     else
-      @user.SEND_APPROVAL_EMAIL
+      # @user.SEND_activated_EMAIL
     end
     redirect_to lab_users_path(current_user.lab)
   end
 
   def deactivate
-    @user.update_attributes(approved: false)
+    @user.disapprove
+    # SEND deactivated EMAIL
+    redirect_to lab_users_path(current_user.lab)
+  end
+
+  def retire
+    @user.retired
+    # SEND deactivated EMAIL
     redirect_to lab_users_path(current_user.lab)
   end
 
