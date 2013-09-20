@@ -20,24 +20,27 @@ class UsersController < ApplicationController
 
   def activate
     @user.approve
-    @user.joined = Time.now
     if !@user.confirmed?
       @user.send_confirmation_instructions
     else
-      # @user.SEND_activated_EMAIL
+      # @user.send_welcome_email
+    end
+    if @user.save
+      flash[:notice] = "#{@user.fullname} has joined your lab"
+    else
+      flash[:alert] = "#{@user.fullname} couldn't be added..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
 
   def deactivate
+    @user = User.find(params[:id])
     @user.disapprove
-    # SEND deactivated EMAIL
-    redirect_to lab_users_path(current_user.lab)
-  end
-
-  def retire
-    @user.retired
-    # SEND deactivated EMAIL
+    if @user.save
+      flash[:notice] = "#{@user.fullname} has been retired"
+    else
+      flash[:alert] = "#{@user.fullname} couldn't be retired..."
+    end
     redirect_to lab_users_path(current_user.lab)
   end
 

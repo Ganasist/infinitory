@@ -17,18 +17,24 @@ class User < ActiveRecord::Base
   validates_presence_of :department_id, allow_blank: true
 
   before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
-  before_update :update_lab, :deauthorize, :affiliations
+  before_update :update_lab, :transition, :affiliations
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
-  def approve 
-    self.approved = true 
+  def approve
+    self.approved = true    
+    self.joined = Time.now
   end 
 
   def disapprove 
-    self.approved = false 
+    self.approved = false
+    self.lab_id   = 1
+    self.institute_id = nil
+    self.department_id = nil
+    self.joined  = nil
+    #SEND TRANSITION EMAIL
   end
 
   def skip_confirmation!
@@ -36,7 +42,7 @@ class User < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    super && approved? 
+    super && approved? || lab_id = 1
   end 
 
   def inactive_message 
@@ -47,12 +53,14 @@ class User < ActiveRecord::Base
     end 
   end
 
-  def deauthorize
-    if !self.gl? && self.lab_id_changed?
+  def transition
+    if !gl? && self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id
-      self.institute_id = lab.institute_id
-      self.department_id = lab.department_id
+      self.institute_id = nil
+      self.department_id = nil
+      self.joined  = nil
+      #SEND TRANSITION EMAIL 
     end
   end
 
@@ -69,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if !gl?
+    if !gl? && self.approved?
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
     end
