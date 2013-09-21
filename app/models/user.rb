@@ -59,6 +59,8 @@ class User < ActiveRecord::Base
   end
 
   def transition
+    # Implement farewell email from member --> gl, maybe not here??
+    
     if !gl? && self.lab_id_changed? && self.lab_id != 1
       self.approved = false
       self.lab_id   = lab_id
