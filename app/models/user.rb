@@ -25,16 +25,18 @@ class User < ActiveRecord::Base
 
   def reject
     # THINK ABOUT THIS
+    UserMailer.rejection_email(self, self.lab).deliver
   end
-  
+
   def approve
     self.approved = true    
     self.joined = Time.now
   end 
 
   def retire 
+    UserMailer.retire_email(self, self.lab).deliver  
     self.approved = false
-    self.lab_id   = 1 # Blank lab for orphan users
+    self.lab_id   = 1
     self.institute_id = nil
     self.department_id = nil
     self.joined  = nil
@@ -57,13 +59,13 @@ class User < ActiveRecord::Base
   end
 
   def transition
-    if !gl? && self.lab_id_changed?
+    if !gl? && self.lab_id_changed? && self.lab_id != 1
       self.approved = false
       self.lab_id   = lab_id
       self.institute_id = nil
       self.department_id = nil
       self.joined  = nil
-      #SEND TRANSITION EMAIL 
+      UserMailer.request_email(self, self.gl).deliver
     end
   end
 
@@ -87,7 +89,7 @@ class User < ActiveRecord::Base
   end
 
   def gl
-    self.lab.users.where(role: "group_leader")
+    User.find(self.lab.users.where(role: "group_leader"))
   end
 
   def gl?

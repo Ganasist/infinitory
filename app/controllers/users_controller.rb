@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :activate]
+  before_action :set_user, only: [:show, :activate, :retire]
 
   def index    
     @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
@@ -18,21 +18,6 @@ class UsersController < ApplicationController
   	@lab = @user.lab
   end
 
-  def reject
-    @user.reject
-    if @user.save
-      flash[:notice] = "#{@user.fullname} has been rejected"
-      if !@user.confirmed?
-        @user.send_confirmation_instructions
-      else
-        UserMailer.rejection_email(@user, @user.lab).deliver
-      end
-    else
-      flash[:alert] = "#{@user.fullname} couldn't be added..."
-    end
-    redirect_to lab_users_path(current_user.lab)
-  end
-
   def activate
     @user.approve
     if @user.save
@@ -48,13 +33,20 @@ class UsersController < ApplicationController
     redirect_to lab_users_path(current_user.lab)
   end
 
+  def reject
+    @user.reject
+    if @user.save
+      flash[:notice] = "#{@user.fullname} has been rejected"      
+    else
+      flash[:alert] = "#{@user.fullname} couldn't be rejected..."
+    end
+    redirect_to lab_users_path(current_user.lab)
+  end
+
   def retire
-    @user = User.find(params[:id])
-    @lab  = @user.lab
     @user.retire
     if @user.save
-      flash[:notice] = "#{@user.fullname} has been retired"
-      UserMailer.farewell_email(@user, @lab).deliver
+      flash[:notice] = "#{@user.fullname} has been retired"    
     else
       flash[:alert] = "#{@user.fullname} couldn't be retired..."
     end

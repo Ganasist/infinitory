@@ -4,9 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Dear <%= @gl.fullname %>!</h1>
+    <h1><%= @gl.fullname %>!</h1>
     <p>
-      <%= @user.fullname %> has left your lab.
+      <%= link_to @user.fullname, user_url(@user) %> would like to join your <%= link_to "lab", lab_users_url(@lab) %>!
     </p>
   </body>
 </html>

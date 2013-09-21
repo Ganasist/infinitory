@@ -4,9 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Dear <%= @gl.fullname %>!</h1>
+    <h1><%= @user.fullname %>!</h1>
     <p>
-      <%= @user.fullname %> has left your lab.
+      You have been retired from the <%= @lab.name %> lab!
     </p>
   </body>
 </html>
