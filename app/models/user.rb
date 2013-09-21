@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
+  def reject
+    # THINK ABOUT THIS
+  end
+  
   def approve
     self.approved = true    
     self.joined = Time.now
@@ -34,10 +38,6 @@ class User < ActiveRecord::Base
     self.institute_id = nil
     self.department_id = nil
     self.joined  = nil
-  end
-
-  def reject
-    # THINK ABOUT THIS
   end
 
   def skip_confirmation!
