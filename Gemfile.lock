@@ -55,6 +55,8 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
+    celluloid (0.15.1)
+      timers (~> 1.1.0)
     coderay (1.1.0)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -64,6 +66,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     commonjs (0.2.7)
+    connection_pool (1.1.0)
     daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (1.1.1)
@@ -180,6 +183,8 @@ GEM
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
     redis (3.0.4)
+    redis-namespace (1.3.1)
+      redis (~> 3.0.0)
     ref (1.0.5)
     rmagick (2.13.2)
     rolify (3.2.0)
@@ -204,6 +209,12 @@ GEM
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
     seed_dump (0.6.0)
+    sidekiq (2.14.1)
+      celluloid (>= 0.14.1)
+      connection_pool (>= 1.0.0)
+      json
+      redis (>= 3.0.4)
+      redis-namespace (>= 1.3.1)
     simple_form (3.0.0.rc)
       actionpack (>= 4.0.0.rc1, < 4.1)
       activemodel (>= 4.0.0.rc1, < 4.1)
@@ -227,6 +238,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    timers (1.1.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -290,6 +302,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.0)
   seed_dump
+  sidekiq
   simple_form (>= 3.0.0.rc)
   therubyracer
   thin
