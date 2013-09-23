@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :activate, :retire]
+  before_action :set_user, only: [:show, :activate, :retire, :reject]
 
   def index    
     @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
@@ -24,10 +24,8 @@ class UsersController < ApplicationController
       flash[:notice] = "#{@user.fullname} has joined your lab"
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
-        # @user.send_confirmation_instructions
       else
-        WelcomeMailsWorker.perform_async(@user.id)        
-        # UserMailer.welcome_email(@user, @user.lab).deliver
+        WelcomeMailsWorker.perform_async(@user.id)
       end
     else
       flash[:alert] = "#{@user.fullname} couldn't be added..."
@@ -36,9 +34,11 @@ class UsersController < ApplicationController
   end
 
   def reject
+    @lab = current_user.lab
     @user.reject
     if @user.save
-      flash[:notice] = "#{@user.fullname} has been rejected"      
+      flash[:notice] = "#{@user.fullname} has been rejected"
+      RejectMailsWorker.perform_async(@user.id, @lab.id)      
     else
       flash[:alert] = "#{@user.fullname} couldn't be rejected..."
     end
@@ -48,7 +48,8 @@ class UsersController < ApplicationController
   def retire
     @user.retire
     if @user.save
-      flash[:notice] = "#{@user.fullname} has been retired"    
+      flash[:notice] = "#{@user.fullname} has been retired"
+      RetireMailsWorker.perform_async(self.id)   
     else
       flash[:alert] = "#{@user.fullname} couldn't be retired..."
     end

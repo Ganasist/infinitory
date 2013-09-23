@@ -15,12 +15,9 @@
  <% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th>Incoming member(s)</th>
-        <% if current_user.gl_lm? && @approval > 0 %>     
-          <th>Awaiting authorization</th>
-        <% end %>
-      </tr>
+      <% if current_user.gl_lm? && @approval > 0 %>
+        <h4>Members awaiting authorization</h4>
+      <% end %>
     </thead>
     <tbody>
       <% @approvals.each do |user| %>
@@ -28,7 +25,10 @@
           <td><%= user.fullname %></td>
           <td>
             <%= link_to 'Authorize member', activate_user_path(user), class: 'btn btn-info' %>
-          </td>   
+          </td>
+          <td>
+            <%= link_to 'Decline member', reject_user_path(user), class: 'btn btn-danger' %>
+          </td> 
           <% end %>    
         </tr>
     </tbody>

@@ -13,7 +13,8 @@ Infinitory::Application.routes.draw do
   end
 
   match "users/:id/activate" => "users#activate", :as => "activate_user", via: :get
-  match "users/:id/retire" => "users#retire", :as => "retire_user", via: :get
+  match "users/:id/retire" => "users#retire", :as => "retire_user", via: :get  
+  match "users/:id/reject" => "users#reject", :as => "reject_user", via: :get
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -16,6 +16,10 @@ class Lab < ActiveRecord::Base
 		users.count
 	end
 
+	def gl
+		User.where(role: "group_leader").first
+	end
+
 	def department_name
     department.try(:name)
   end

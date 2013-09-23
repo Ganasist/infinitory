@@ -3,8 +3,7 @@ class UserMailer < ActionMailer::Base
  
   def request_email(user, gl)
     @user = user
-    @gl  = gl
-    @lab = @gl.lab
+    @gl   = gl
     mail(to: @gl.email, subject:  "#{@user.fullname} would like to join your lab")
   end
 
@@ -17,7 +16,7 @@ class UserMailer < ActionMailer::Base
   def rejection_email(user, lab)
     @user = user
     @lab  = lab
-    mail(to: @user.email, subject: "You cannot join from the #{@lab.name} lab")
+    mail(to: @user.email, subject: "You cannot join the #{@lab.name} lab at this time")
   end
 
   def retire_email(user, lab)

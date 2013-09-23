@@ -24,17 +24,19 @@ class User < ActiveRecord::Base
                     master's_student project_student technician other]
 
   def reject
-    # THINK ABOUT THIS
-    UserMailer.rejection_email(self, self.lab).deliver
+    self.approved = false
+    self.lab_id   = 1
+    self.institute_id = nil
+    self.department_id = nil
+    self.joined  = nil
   end
 
   def approve
-    self.approved = true    
+    self.approved = true   
     self.joined = Time.now
   end 
 
   def retire
-    RetireMailsWorker.perform_async(self.id) 
     self.approved = false
     self.lab_id   = 1
     self.institute_id = nil
@@ -59,16 +61,15 @@ class User < ActiveRecord::Base
   end
 
   def transition
-    # Implement farewell email from member --> gl, maybe not here??
-    
+    # Implement farewell email from member --> gl, maybe not here??    
     if !gl? && self.lab_id_changed? && self.lab_id != 1
       self.approved = false
       self.lab_id   = lab_id
       self.institute_id = nil
       self.department_id = nil
       self.joined  = nil
-      RequestMailsWorker.perform_async(self.id)
     end
+    
   end
 
   def location
