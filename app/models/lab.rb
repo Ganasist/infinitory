@@ -17,7 +17,7 @@ class Lab < ActiveRecord::Base
 	end
 
 	def gl
-		User.where(role: "group_leader").first
+		self.users.where(role: "group_leader").first
 	end
 
 	def department_name

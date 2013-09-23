@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates_presence_of :department_id, allow_blank: true
 
   before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
-  before_update :update_lab, :transition, :affiliations
+  before_update :update_lab, :affiliations, :transition
   
   ROLES = %w[group_leader lab_manager lab_member]
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 

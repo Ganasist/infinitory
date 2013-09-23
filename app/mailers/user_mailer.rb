@@ -24,10 +24,4 @@ class UserMailer < ActionMailer::Base
     @lab  = lab
     mail(to: @user.email, subject: "Farewell from the #{@lab.name} lab")
   end
-
-  def farewell_email(user, gl)
-    @user = user
-    @gl  = gl
-    mail(to: @gl.email, subject: "Farewell from #{@user.fullname}")
-  end
 end

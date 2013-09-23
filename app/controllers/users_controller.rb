@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :activate, :retire, :reject]
+  before_action :set_lab, only: [:retire, :reject]
 
   def index    
     @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
@@ -34,11 +35,10 @@ class UsersController < ApplicationController
   end
 
   def reject
-    @lab = current_user.lab.id
     @user.reject
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been rejected"
-      RejectMailsWorker.perform_async(@user.id, @lab)      
+      RejectMailsWorker.perform_async(@user.id, @lab.id)      
     else
       flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
     end
@@ -46,7 +46,6 @@ class UsersController < ApplicationController
   end
 
   def retire
-    @lab = current_user.lab
     @user.retire
     if @user.save
       flash[:notice] = "#{@user.fullname} has been retired"
@@ -61,6 +60,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def set_lab
+      @lab = current_user.lab
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
