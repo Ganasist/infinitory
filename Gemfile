@@ -65,7 +65,10 @@ gem 'thin'
 gem 'high_voltage'
 gem 'geocoder'
 gem 'gmaps4rails'
+
 gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
 gem 'carrierwave'
 gem "rmagick"

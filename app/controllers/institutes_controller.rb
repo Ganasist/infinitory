@@ -53,11 +53,13 @@ class InstitutesController < ApplicationController
   # GET /institutes/1.json
   def show
     @institute = Institute.friendly.find(params[:id])
-    @departments = Department.where(institute_id: @institute).order(name: :asc)
+    @departments = @institute.departments
+    
     @mapped = @institute.to_gmaps4rails  do |institute, marker|
-        marker.infowindow "<h4>#{institute.name}<h4>
-                          <h5>Labs: #{institute.labs.count}</h5>"
-        end
+      marker.infowindow "<h4>#{institute.name}<h4>
+                        <h5>Labs: #{institute.labs.count}</h5>"
+      end
+      
     @labs = Lab.where(institute_id: @institute).order(email: :asc)
   end
 
