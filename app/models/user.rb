@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
     self.joined = Time.now
   end 
 
-  def retire 
-    UserMailer.retire_email(self, self.lab).deliver  
+  def retire
+    RetireMailsWorker.perform_async(self.id) 
     self.approved = false
     self.lab_id   = 1
     self.institute_id = nil
@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
       self.institute_id = nil
       self.department_id = nil
       self.joined  = nil
-      UserMailer.request_email(self, self.gl).deliver
+      RequestMailsWorker.perform_async(self.id)
     end
   end
 

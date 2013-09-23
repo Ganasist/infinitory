@@ -23,9 +23,11 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = "#{@user.fullname} has joined your lab"
       if !@user.confirmed?
-        @user.send_confirmation_instructions
+        ConfirmationMailsWorker.perform_async(@user.id)
+        # @user.send_confirmation_instructions
       else
-        UserMailer.welcome_email(@user, @user.lab).deliver
+        WelcomeMailsWorker.perform_async(@user.id)        
+        # UserMailer.welcome_email(@user, @user.lab).deliver
       end
     else
       flash[:alert] = "#{@user.fullname} couldn't be added..."
