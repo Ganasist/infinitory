@@ -77,7 +77,7 @@ group :production do
 end
 
 group :development do
-  # gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler'
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
