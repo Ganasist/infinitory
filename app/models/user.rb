@@ -68,8 +68,8 @@ class User < ActiveRecord::Base
       self.institute_id = nil
       self.department_id = nil
       self.joined  = nil
+      RequestMailsWorker.perform_async(self.id)
     end
-    
   end
 
   def location

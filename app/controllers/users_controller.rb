@@ -34,11 +34,11 @@ class UsersController < ApplicationController
   end
 
   def reject
-    @lab = current_user.lab
+    @lab = current_user.lab.id
     @user.reject
     if @user.save
       flash[:notice] = "#{@user.fullname} has been rejected"
-      RejectMailsWorker.perform_async(@user.id, @lab.id)      
+      RejectMailsWorker.perform_async(@user.id, @lab)      
     else
       flash[:alert] = "#{@user.fullname} couldn't be rejected..."
     end
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     @user.retire
     if @user.save
       flash[:notice] = "#{@user.fullname} has been retired"
-      RetireMailsWorker.perform_async(self.id)   
+      RetireMailsWorker.perform_async(@user.id, current_user.lab)   
     else
       flash[:alert] = "#{@user.fullname} couldn't be retired..."
     end
