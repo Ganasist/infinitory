@@ -61,14 +61,13 @@ class User < ActiveRecord::Base
   end
 
   def transition
-    # Implement farewell email from member --> gl, maybe not here??    
-    if !gl? && self.lab_id_changed? && self.lab_id != 1
+    if !self.gl? && self.lab_id_changed?   
       self.approved = false
       self.lab_id   = lab_id
       self.institute_id = nil
       self.department_id = nil
       self.joined  = nil
-      RequestMailsWorker.perform_async(self.id)
+      RequestMailsWorker.perform_async(self.id, self.lab_id)
     end
   end
 

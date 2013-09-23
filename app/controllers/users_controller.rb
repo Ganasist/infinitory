@@ -21,14 +21,14 @@ class UsersController < ApplicationController
   def activate
     @user.approve
     if @user.save
-      flash[:notice] = "#{@user.fullname} has joined your lab"
+      flash[:notice] = "#{ @user.fullname } has joined your lab"
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
       else
         WelcomeMailsWorker.perform_async(@user.id)
       end
     else
-      flash[:alert] = "#{@user.fullname} couldn't be added..."
+      flash[:alert] = "#{ @user.fullname } couldn't be added..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
@@ -37,19 +37,20 @@ class UsersController < ApplicationController
     @lab = current_user.lab.id
     @user.reject
     if @user.save
-      flash[:notice] = "#{@user.fullname} has been rejected"
+      flash[:notice] = "#{ @user.fullname } has been rejected"
       RejectMailsWorker.perform_async(@user.id, @lab)      
     else
-      flash[:alert] = "#{@user.fullname} couldn't be rejected..."
+      flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
 
   def retire
+    @lab = current_user.lab
     @user.retire
     if @user.save
       flash[:notice] = "#{@user.fullname} has been retired"
-      RetireMailsWorker.perform_async(@user.id, current_user.lab)   
+      RetireMailsWorker.perform_async(@user.id, @lab.id)   
     else
       flash[:alert] = "#{@user.fullname} couldn't be retired..."
     end

@@ -1,10 +1,10 @@
 class UserMailer < ActionMailer::Base
   default from: 'admin@infinitory.com'
  
-  def request_email(user, gl)
+  def request_email(user, lab)
     @user = user
-    @gl   = gl
-    mail(to: @gl.email, subject:  "#{@user.fullname} would like to join your lab")
+    @lab   = lab
+    mail(to: @lab.email, subject:  "#{@user.fullname} would like to join your lab")
   end
 
   def welcome_email(user, lab)
