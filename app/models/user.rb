@@ -62,13 +62,13 @@ class User < ActiveRecord::Base
   end
 
   def first_request
-    if !self.gl?
+    if !self.gl? && !self.confirmed? && !self.approved?
       RequestMailsWorker.perform_async(self.id, self.lab_id)
     end
   end
 
   def transition
-    if !self.gl? && self.lab_id_changed? && self.approved = true  
+    if !self.gl? && self.lab_id_changed? && self.approved?  
       self.approved = false
       self.lab_id   = lab_id
       self.institute_id = nil

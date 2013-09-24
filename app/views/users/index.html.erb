@@ -24,10 +24,10 @@
         <tr>
           <td><%= user.fullname %></td>
           <td>
-            <%= link_to 'Authorize member', activate_user_path(user), class: 'btn btn-info' %>
+            <%= link_to 'Authorize', activate_user_path(user), class: 'btn btn-info' %>
           </td>
           <td>
-            <%= link_to 'Decline member', reject_user_path(user), class: 'btn btn-danger' %>
+            <%= link_to 'Decline', reject_user_path(user), class: 'btn btn-danger' %>
           </td> 
           <% end %>    
         </tr>
@@ -71,7 +71,7 @@
         <% end %> 
         <% if current_user.gl_lm? && current_user.lab == @lab && !user.gl? && current_user != user %>
           <td>
-            <%= link_to 'Retire member', retire_user_path(user), class: 'btn btn-info' %>
+            <%= link_to 'Retire', retire_user_path(user), class: 'btn btn-info' %>
           </td>
         <% end %>
       </tr>
