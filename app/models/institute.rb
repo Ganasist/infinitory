@@ -15,10 +15,13 @@ class Institute < ActiveRecord::Base
 	
 	before_validation :smart_add_url_protocol
 
-	after_validation :geocode, 
+	after_validation :geocode,
 									 :if => lambda { |t| t.address.present? && t.address_changed? }
+	
+
 	after_validation :reverse_geocode, 
 									 :if => lambda { |t| t.address.present? && t.address_changed? }
+
 	# validates :name, uniqueness: { scope: :address,
   #    													 	 message: "This institute is already registered at that address" },
   #    								:if => :address.present?, allow_blank: true
@@ -28,7 +31,6 @@ class Institute < ActiveRecord::Base
   													multiline: true,
   													message: "is not valid" }
 
-	
 	geocoded_by :address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
 	  if geo = results.first
