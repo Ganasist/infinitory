@@ -154,8 +154,7 @@ class User < ActiveRecord::Base
   def slug_candidates
       [
         :fullname,
-        [:fullname, :city],
-        [:fullname, :city, :id]
+        [:fullname, :city]
       ]
     end
 

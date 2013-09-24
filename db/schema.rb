@@ -120,6 +120,6 @@ ActiveRecord::Schema.define(version: 20130924165346) do
   add_index "users", ["institute_id"], name: "index_users_on_institute_id", using: :btree
   add_index "users", ["lab_id"], name: "index_users_on_lab_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
 end
