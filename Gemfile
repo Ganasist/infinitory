@@ -22,8 +22,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'paper_trail', '>= 3.0.0.beta1'
-
 gem 'redis'
 gem 'dalli'
 

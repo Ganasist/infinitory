@@ -22,7 +22,7 @@ Infinitory::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root :to => 'high_voltage/pages#show', id: 'splash'
 
-  mount Sidekiq::Web, at: "/sidekiq"
+  mount Sidekiq::Web, at: '/sidekiq'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
