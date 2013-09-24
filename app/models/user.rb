@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def transition
-    if !self.gl? && self.lab_id_changed? && self.approved?  
+    if !self.gl? && self.lab_id_changed? && self.confirmed?  
       self.approved = false
       self.lab_id   = lab_id
       self.institute_id = nil
