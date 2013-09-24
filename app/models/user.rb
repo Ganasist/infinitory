@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   validates_presence_of :department_id, allow_blank: true
 
   before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
+  after_create  :first_request
   before_update :update_lab, :affiliations, :transition
   
   ROLES = %w[group_leader lab_manager lab_member]
@@ -58,6 +59,12 @@ class User < ActiveRecord::Base
     else
       super # Use whatever other message 
     end 
+  end
+
+  def first_request
+    if !self.gl?
+      RequestMailsWorker.perform_async(self.id, self.lab_id)
+    end
   end
 
   def transition

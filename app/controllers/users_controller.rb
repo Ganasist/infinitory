@@ -48,10 +48,10 @@ class UsersController < ApplicationController
   def retire
     @user.retire
     if @user.save
-      flash[:notice] = "#{@user.fullname} has been retired"
+      flash[:notice] = "#{ @user.fullname } has been retired"
       RetireMailsWorker.perform_async(@user.id, @lab.id)   
     else
-      flash[:alert] = "#{@user.fullname} couldn't be retired..."
+      flash[:alert] = "#{ @user.fullname } couldn't be retired..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
