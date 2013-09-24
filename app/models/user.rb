@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base  
   mount_uploader :icon, IconUploader
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -45,39 +48,6 @@ class User < ActiveRecord::Base
     self.joined  = nil
   end
 
-  def skip_confirmation!
-    true
-  end
-
-  def active_for_authentication?
-    super && approved? || lab_id = 1
-  end 
-
-  def inactive_message 
-    if !approved? 
-      :not_approved
-    else
-      super # Use whatever other message 
-    end 
-  end
-
-  def first_request
-    if !self.gl? && !self.confirmed? && !self.approved?
-      RequestMailsWorker.perform_async(self.id, self.lab_id)
-    end
-  end
-
-  def transition
-    if !self.gl? && self.lab_id_changed? && self.confirmed?  
-      self.approved = false
-      self.lab_id   = lab_id
-      self.institute_id = nil
-      self.department_id = nil
-      self.joined  = nil
-      RequestMailsWorker.perform_async(self.id, self.lab_id)
-    end
-  end
-
   def location
     institute.city
   end
@@ -87,13 +57,6 @@ class User < ActiveRecord::Base
       self.email
     else
       "#{first_name} #{last_name}"
-    end
-  end
-
-  def affiliations
-    if !gl? && self.approved?
-      self.institute_id = lab.institute_id
-      self.department_id = lab.department_id
     end
   end
 
@@ -129,6 +92,47 @@ class User < ActiveRecord::Base
     self.institute = Institute.find_or_create_by(name: name) if name.present?
   end
 
+  def active_for_authentication?
+    super && approved? || lab_id = 1
+  end 
+
+  def first_request
+    if !self.gl? && !self.confirmed? && !self.approved?
+      RequestMailsWorker.perform_async(self.id, self.lab_id)
+    end
+  end
+
+  def transition
+    if !self.gl? && self.lab_id_changed? && self.confirmed?  
+      self.approved = false
+      self.lab_id   = lab_id
+      self.institute_id = nil
+      self.department_id = nil
+      self.joined  = nil
+      RequestMailsWorker.perform_async(self.id, self.lab_id)
+    end
+  end
+
+  def skip_confirmation!
+    true
+  end
+
+  def inactive_message 
+    if !approved? 
+      :not_approved
+    else
+      super # Use whatever other message 
+    end 
+  end
+
+
+  def affiliations
+    if !gl? && self.approved?
+      self.institute_id = lab.institute_id
+      self.department_id = lab.department_id
+    end
+  end
+
   def update_lab
     if self.gl?
       if self.institute_id_changed?
@@ -139,9 +143,21 @@ class User < ActiveRecord::Base
   end
 
   def create_lab
-  	if self.gl?      
+    if self.gl?      
       self.approved = true
-	  	self.lab = Lab.create(name: self.email, email: self.email, department: self.department, institute: self.institute)
+      self.lab = Lab.create(name: self.email, email: self.email, department: self.department, institute: self.institute)
     end
   end
+
+  private
+
+  def slug_candidates
+      [
+        :fullname,
+        [:fullname, :city],
+        [:fullname, :city, :id]
+      ]
+    end
+
+    
 end
