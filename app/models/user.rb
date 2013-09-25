@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base  
   mount_uploader :icon, IconUploader
 
+  has_paper_trail
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -28,7 +30,7 @@ class User < ActiveRecord::Base
                     master's_student project_student technician other]
 
   def should_generate_new_friendly_id?
-    first_name_changed? || last_name_changed?  || location_changed? || role_changed?
+    first_name_changed? || last_name_changed?  || role_changed?
   end
 
   def reject

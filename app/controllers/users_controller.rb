@@ -3,13 +3,13 @@ class UsersController < ApplicationController
   before_action :set_lab, only: [:retire, :reject]
 
   def index    
-    @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
-    @lab = Lab.find(params[:lab_id])
+    @lab = Lab.friendly.find(params[:lab_id])
+    @users = User.where(lab_id: @lab, approved: true).order(:role, :created_at)
 
-    @approval = User.where(lab_id: params[:lab_id], approved: false).count
+    @approval = User.where(lab_id: @lab, approved: false).count
     if @approval > 0 && current_user.gl_lm?
-      @approvals = User.where(lab_id: params[:lab_id], approved: false)
-      @users = User.where(lab_id: params[:lab_id], approved: true).order(:role, :created_at)
+      @approvals = User.where(lab_id: @lab, approved: false)
+      @users = User.where(lab_id: @lab, approved: true).order(:role, :created_at)
     end
   end
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def activate
     @user.approve
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has joined your lab"
+      flash[:notice] = "#{ @user.fullname } has joined your lab #{ undo_link }"
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
       else
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   def reject
     @user.reject
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has been rejected"
+      flash[:notice] = "#{ @user.fullname } has been rejected. #{ undo_link }"
       RejectMailsWorker.perform_async(@user.id, @lab.id)      
     else
       flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def retire
     @user.retire
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has been retired"
+      flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
       RetireMailsWorker.perform_async(@user.id, @lab.id)   
     else
       flash[:alert] = "#{ @user.fullname } couldn't be retired..."
@@ -68,6 +68,11 @@ class UsersController < ApplicationController
 
     def set_lab
       @lab = current_user.lab
+    end
+
+    def undo_link
+      view_context.link_to("UNDO", revert_version_path(@user.versions.last), 
+                            method: :post, class: "btn-large")
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
