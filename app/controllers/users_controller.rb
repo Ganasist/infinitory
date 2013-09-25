@@ -14,6 +14,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    if request.path != user_path(@user)
+      redirect_to @user, status: :moved_permanently
+    end
+
     @institute = @user.institute
     @department = @user.department
   	@lab = @user.lab

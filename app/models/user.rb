@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
                     master's_student project_student technician other]
 
   def should_generate_new_friendly_id?
-    first_name_changed? || last_name_changed?
+    first_name_changed? || last_name_changed?  || location_changed? || role_changed?
   end
 
   def reject
@@ -129,7 +129,6 @@ class User < ActiveRecord::Base
     end 
   end
 
-
   def affiliations
     if !gl? && self.approved?
       self.institute_id = lab.institute_id
@@ -158,7 +157,9 @@ class User < ActiveRecord::Base
   def slug_candidates
     [
       :fullname,
-      [:fullname, :location]
+      [:fullname, :location],
+      [:fullname, :location, :role],
+      [:fullname, :location, :role, :id]
     ]
   end
 
