@@ -16,7 +16,11 @@ class LabsController < ApplicationController
   # GET /labs/1
   # GET /labs/1.json
   def show
-    @user = User.where(lab_id: params[:id], role: "group_leader").first
+    if request.path != lab_path(@lab)
+      redirect_to @lab, status: :moved_permanently
+    end
+
+    @user = User.where(lab_id: @lab, role: "group_leader").first
     @department = @lab.department
     @institute = @lab.institute
   end
@@ -79,7 +83,7 @@ class LabsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lab
-      @lab = Lab.find(params[:id])
+      @lab = Lab.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

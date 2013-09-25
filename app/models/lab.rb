@@ -1,6 +1,9 @@
 class Lab < ActiveRecord::Base
 	mount_uploader :icon, IconUploader
 
+	extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
 	belongs_to :department
 	belongs_to :institute
 
@@ -8,8 +11,16 @@ class Lab < ActiveRecord::Base
 	
 	validates_uniqueness_of :email, message: "This email addresss has already been registered"
 
+	def should_generate_new_friendly_id?
+    name_changed?
+  end
+
 	def lab_name
 		self.name ||= self.email
+	end
+
+	def city
+		self.institute.city
 	end
 
 	def size
@@ -46,4 +57,12 @@ class Lab < ActiveRecord::Base
 		end
 	end
 
+	private
+
+  def slug_candidates
+    [
+      :lab_name,
+      [:lab_name, :id]
+    ]
+  end
 end

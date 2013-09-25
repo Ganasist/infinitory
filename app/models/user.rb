@@ -161,7 +161,5 @@ class User < ActiveRecord::Base
       [:fullname, :location, :role],
       [:fullname, :location, :role, :id]
     ]
-  end
-
-    
+  end    
 end

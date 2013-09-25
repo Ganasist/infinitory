@@ -2,7 +2,7 @@
 <div class="page-header">
   <h3>
     <%= link_to lab_users_path(@lab) do %>
-     <i class="icon-group"></i><%= " The #{@lab.name} Lab" %>
+     <i class="icon-group"></i><%= " The #{ @lab.name } Lab" %>
     <% end %>
     <% if current_user.gl_lm? && current_user.lab == @lab %>
       <div class="btn-group">
@@ -15,21 +15,21 @@
   <dl class="dl-horizontal">
     <h5>
       <%= link_to @user do %>
-       <i class="icon-lightbulb"></i><%= " #{@user.fullname}" %>
+       <i class="icon-lightbulb"></i><%= " #{ @user.fullname }" %>
        <% end %>
     </h5>
 
     <% if @department.present? %>
       <h5>
         <%= link_to @department do %>
-         <i class="icon-sitemap"></i><%= " #{@department.name}" %>
+         <i class="icon-sitemap"></i><%= " #{ @department.name }" %>
          <% end %>
       </h5>
     <% end %>
 
     <h5>
       <%= link_to @institute do %>
-       <i class="icon-building"></i><%= " #{@institute.name}" %>
+       <i class="icon-building"></i><%= " #{ @institute.name }" %>
        <% end %>
     </h5>
   </dl>
