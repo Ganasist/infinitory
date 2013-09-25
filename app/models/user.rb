@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
   DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
+  def should_generate_new_friendly_id?
+    first_name_changed? || last_name_changed?
+  end
+
   def reject
     self.approved = false
     self.lab_id   = 1
@@ -152,11 +156,11 @@ class User < ActiveRecord::Base
   private
 
   def slug_candidates
-      [
-        :fullname,
-        [:fullname, :city]
-      ]
-    end
+    [
+      :fullname,
+      [:fullname, :location]
+    ]
+  end
 
     
 end
