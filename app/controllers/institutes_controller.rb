@@ -8,8 +8,8 @@ class InstitutesController < ApplicationController
     if params[:search].present?
       @institutes = Institute.near(params[:search], 50)
       @circles_json = @institutes.to_gmaps4rails do |institute|
-                       {lng: "#{institute.longitude}",
-                        lat: "#{institute.latitude}",
+                       {lng: "#{ institute.longitude }",
+                        lat: "#{ institute.latitude }",
                         radius: 20,
                         strokeColor: "#FF0000",
                         strokeOpacity: 0.8,

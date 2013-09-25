@@ -5,7 +5,7 @@ class Institute < ActiveRecord::Base
 	friendly_id :acronym_and_name, use: [:slugged, :history]
 
 	include PgSearch
-  pg_search_scope :search, against: [:name, :acronym, :alternate_name],
+  pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
                   using: { tsearch: { prefix: true,
                   										dictionary: "english" }}
 
