@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
+    email "test@pleasework.com"
+    password  "loislane"
   end
 end
