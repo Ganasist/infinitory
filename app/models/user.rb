@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
 
   def first_request
     if !self.gl? && !self.confirmed? && !self.approved?
-      RequestMailsWorker.perform_async(self.id, self.lab_id)
+      UserMailer.delay_for(10.seconds).request_email(self.id, self.lab_id)
     end
   end
 
@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
       self.institute_id = nil
       self.department_id = nil
       self.joined  = nil
-      RequestMailsWorker.perform_async(self.id, self.lab_id)
+      UserMailer.delay_for(10.seconds, retry: false).request_email(self.id, self.lab_id)
     end
   end
 

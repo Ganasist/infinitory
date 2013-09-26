@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
       else
-        WelcomeMailsWorker.perform_async(@user.id)
+        UserMailer.delay(retry: false).welcome_email(@user.id, current_user.lab_id)
       end
     else
       flash[:alert] = "#{ @user.fullname } couldn't be added..."
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     @user.reject
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been rejected. #{ undo_link }"
-      RejectMailsWorker.perform_async(@user.id, @lab.id)      
+      UserMailer.delay(retry: false).rejection_email(@user.id, @lab.id)      
     else
       flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
     end
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     @user.retire
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
-      RetireMailsWorker.perform_async(@user.id, @lab.id)   
+      UserMailer.delay(retry: false).retire_email(@user.id, @lab.id) 
     else
       flash[:alert] = "#{ @user.fullname } couldn't be retired..."
     end
