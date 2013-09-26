@@ -73,6 +73,7 @@ gem 'sinatra', require: false
 gem 'slim'
 
 gem 'carrierwave'
+gem 'carrierwave_backgrounder'
 gem "rmagick"
 
 gem 'will_paginate'
