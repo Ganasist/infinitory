@@ -19,14 +19,13 @@ class Institute < ActiveRecord::Base
 	after_validation :geocode,
 									 :if => lambda { |t| t.address.present? && t.address_changed? }
 	
-
 	after_validation :reverse_geocode, 
 									 :if => lambda { |t| t.address.present? && t.address_changed? }
 
 	# validates :name, uniqueness: { scope: :address,
   #    													 	 message: "This institute is already registered at that address" },
   #    								:if => :address.present?, allow_blank: true
-  
+ 
 	validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   													multiline: true,
