@@ -1,16 +1,18 @@
 class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
-  before_action :set_lab
+  before_action :set_lab, except: [:show, :edit, :update, :destroy]
 
   # GET /reagents
   # GET /reagents.json
   def index
-    @reagents = Reagent.all
+    @lab = Lab.friendly.find(params[:lab_id])
+    @reagents = Reagent.where(lab_id: @lab)
   end
 
   # GET /reagents/1
   # GET /reagents/1.json
   def show
+    @lab = @reagent.lab 
   end
 
   # GET /reagents/new
@@ -25,7 +27,8 @@ class ReagentsController < ApplicationController
   # POST /reagents
   # POST /reagents.json
   def create
-    @reagent = Reagent.new(reagent_params)
+    @lab = Lab.friendly.find(params[:lab_id])
+    @reagent = @lab.reagents.new(reagent_params)    
 
     respond_to do |format|
       if @reagent.save
@@ -55,9 +58,10 @@ class ReagentsController < ApplicationController
   # DELETE /reagents/1
   # DELETE /reagents/1.json
   def destroy
+    @lab = @reagent.lab
     @reagent.destroy
     respond_to do |format|
-      format.html { redirect_to reagents_url }
+      format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
     end
   end
@@ -69,11 +73,12 @@ class ReagentsController < ApplicationController
     end
 
     def set_lab
-      @lab = Lab.friendly.find(params[:lab_id])      
+      @lab = Lab.friendly.find(params[:lab_id])   
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reagent_params
-      params.require(:reagent).permit(:name, :category, :owner, :location, :price, :serial, :quantity, :properties)
+      params.require(:reagent).permit(:lab_id, :name, :category, :owner, :location, :price, :serial, 
+                                      :quantity, :properties, :description, :expiration)
     end
 end

@@ -1,6 +1,7 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h3><%= @reagent.name %></h3>
+  <h4><%= @reagent.lab.name %> lab</h4>
 </div>
 
 <dl class="dl-horizontal">
@@ -24,7 +25,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              reagents_path, :class => 'btn'  %>
+              lab_reagents_path(@lab), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_reagent_path(@reagent), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

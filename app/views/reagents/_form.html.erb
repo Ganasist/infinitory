@@ -6,10 +6,11 @@
   <%= f.input :price %>
   <%= f.input :serial %>
   <%= f.input :quantity %>
-  <%= f.input :properties %>
+  <%= f.input :description %>
+  <%= f.input :expiration %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                reagents_path, :class => 'btn' %>
+                lab_reagents_path(@lab), :class => 'btn' %>
   </div>
 <% end %>
