@@ -1,5 +1,6 @@
 class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
+  before_action :set_lab
 
   # GET /reagents
   # GET /reagents.json
@@ -65,6 +66,10 @@ class ReagentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_reagent
       @reagent = Reagent.find(params[:id])
+    end
+
+    def set_lab
+      @lab = Lab.friendly.find(params[:lab_id])      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130927124016) do
+ActiveRecord::Schema.define(version: 20130927133323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,8 +98,10 @@ ActiveRecord::Schema.define(version: 20130927124016) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.hstore   "properties"
+    t.integer  "lab_id"
   end
 
+  add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["properties"], name: "reagents_properties", using: :gin
 
   create_table "users", force: true do |t|
