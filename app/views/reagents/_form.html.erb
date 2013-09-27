@@ -1,0 +1,15 @@
+<%= simple_form_for @reagent, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :category %>
+  <%= f.input :owner %>
+  <%= f.input :location %>
+  <%= f.input :price %>
+  <%= f.input :serial %>
+  <%= f.input :quantity %>
+  <%= f.input :properties %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                reagents_path, :class => 'btn' %>
+  </div>
+<% end %>

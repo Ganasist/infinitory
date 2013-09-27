@@ -8,6 +8,7 @@ Infinitory::Application.routes.draw do
   resources :institutes, shallow: true do
     resources :departments
     resources :labs do
+      resources :reagents
       resources :users
     end
   end

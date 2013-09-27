@@ -15,6 +15,7 @@ Bundler.require(:default, Rails.env)
 
 module Infinitory
   class Application < Rails::Application
+    # config.active_record.schema_format = :sql
     
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.1'    # <--- Bump it up!
