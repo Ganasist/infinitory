@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   belongs_to :lab
   validates_associated  :lab
-  validates :lab, presence: { message: "Your group leader must create an account first" }, unless: :gl?
+  validates :lab, presence: { message: "Your group leader must create an account first" }, unless: :gl?, allow_blank: true
   
   validates :email, presence: true, uniqueness: { message: "That email address has already been registered" }
   
@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
   before_update :update_lab, :affiliations, :transition
-  after_update  :create_lab
   
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
@@ -42,7 +41,7 @@ class User < ActiveRecord::Base
 
   def reject
     self.approved = false
-    self.lab_id   = 1
+    self.lab_id   = nil
     self.institute_id = nil
     self.department_id = nil
     self.joined  = nil
@@ -55,7 +54,7 @@ class User < ActiveRecord::Base
 
   def retire
     self.approved = false
-    self.lab_id   = 1
+    self.lab_id   = nil
     self.institute_id = nil
     self.department_id = nil
     self.joined  = nil
@@ -146,22 +145,28 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_lab
-    if self.gl? && !self.lab_id_changed?
-      if self.institute_id_changed?
-        self.department = nil
-      end    
-      self.lab.update_attributes(name: self.fullname, email: self.email, department: self.department, institute: self.institute)
-    end
-  end
-
   def create_lab
     if self.gl?
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
-      self.lab = Lab.create(name: self.email, email: self.email, department: self.department, institute: self.institute)
+      self.lab = Lab.create(name: self.email, email: self.email,
+                            department: self.department, institute: self.institute)
     end
+  end
+
+  def update_lab
+    if self.gl? && !self.lab_id_changed?
+      if self.institute_id_changed?
+        self.department = nil
+      end    
+      self.lab.update_attributes(name: self.fullname, email: self.email,
+                                 department: self.department, institute: self.institute)
+    end
+  end
+
+  def gl_promotion
+    
   end
 
   private

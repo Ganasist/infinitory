@@ -23,12 +23,12 @@ class ApplicationController < ActionController::Base
       if user_signed_in?
         if current_user.approved? && !current_user.confirmed?
           redirect_to edit_user_registration_path
-          flash[:alert] = "#{current_user.fullname}, please confirm your email address"
+          flash[:alert] = "#{current_user.first_name} please confirm your email address"
         elsif !current_user.approved?
           redirect_to edit_user_registration_path
-          flash[:alert] = "#{current_user.fullname}, you currently don't belong to a lab"
-          if current_user.save && current_user.lab_id != 1
-            flash[:alert] = "#{current_user.fullname}, please wait for approval to join the #{current_user.lab.name} lab"
+          flash[:alert] = "#{current_user.first_name} you currently don't belong to a lab"
+          if current_user.save && current_user.lab_id != nil
+            flash[:alert] = "#{current_user.first_name} please wait for approval to join the #{current_user.lab.name} lab"
           end
         end
       end
