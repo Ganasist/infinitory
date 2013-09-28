@@ -106,7 +106,29 @@ class User < ActiveRecord::Base
 
   def active_for_authentication?
     super && approved? || lab_id = 1
-  end 
+  end
+
+  def skip_confirmation!
+    true
+  end
+
+  def inactive_message 
+    if !approved? 
+      :not_approved
+    else
+      super # Use whatever other message 
+    end 
+  end
+
+  def create_lab
+    if self.gl?
+      self.approved = true
+      self.joined = Time.now      
+      self.send_confirmation_instructions
+      self.lab = Lab.create(name: self.email, email: self.email,
+                            department: self.department, institute: self.institute)
+    end
+  end
 
   def first_request
     if !self.gl? && !self.confirmed? && !self.approved?
@@ -118,43 +140,11 @@ class User < ActiveRecord::Base
   end
 
   def transition
-    if !self.gl? && self.lab_id_changed? && self.confirmed?  
+    if !gl? && self.lab_id_changed? && self.confirmed?  
       self.approved = false
       self.lab_id   = lab_id
-      self.institute_id = lab.institute_id
-      self.department_id = lab.department_id
       self.joined  = nil
       UserMailer.delay_for(10.seconds, retry: false).request_email(self.id, self.lab_id)
-    end
-  end
-
-  def skip_confirmation!
-    true
-
-  end
-
-  def inactive_message 
-    if !approved? 
-      :not_approved
-    else
-      super # Use whatever other message 
-    end 
-  end
-
-  # def affiliations
-  #   if !gl? && self.approved?
-  #     self.institute_id = lab.institute_id
-  #     self.department_id = lab.department_id
-  #   end
-  # end
-
-  def create_lab
-    if self.gl?
-      self.approved = true
-      self.joined = Time.now      
-      self.send_confirmation_instructions
-      self.lab = Lab.create(name: self.email, email: self.email,
-                            department: self.department, institute: self.institute)
     end
   end
 
