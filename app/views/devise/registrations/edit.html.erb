@@ -24,8 +24,8 @@
       <%= f.input :last_name, input_html: { style: 'width: 350px'} %>
       
       <% if @user.role != "group_leader" %>
-        <%= f.collection_select :description, User::DESCRIPTIONS, :to_s, :humanize, prompt: "Status",
-                                  required: false %>
+        <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position",
+                                  required: false, hint: "Choosing Group Leader will create a new lab" %>
         <br><br>
         <%= f.association :lab, label_method: :email, label: "Group leader email address",
                             value_method: :id, input_html: { style: 'width: 350px'} %>

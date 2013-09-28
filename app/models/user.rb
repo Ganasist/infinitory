@@ -31,9 +31,9 @@ class User < ActiveRecord::Base
   before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
   before_update :update_lab, :affiliations, :transition
+  after_update  :create_lab
   
-  ROLES = %w[group_leader lab_manager lab_member]
-  DESCRIPTIONS = %w[research_associate postdoctoral_researcher doctoral_candidate 
+  ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
   def should_generate_new_friendly_id?
@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
   end
 
   def create_lab
-    if self.gl?
+    if self.role_changed? && self.gl?
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
@@ -169,9 +169,7 @@ class User < ActiveRecord::Base
   def slug_candidates
     [
       :fullname,
-      [:fullname, :location],
-      [:fullname, :location, :role],
-      [:fullname, :location, :role, :id]
+      [:fullname, :id]
     ]
   end    
 end

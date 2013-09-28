@@ -21,14 +21,14 @@
             <small class="lead"><i class="icon-lightbulb"></i> Group Leader</small>
           <% elsif @user.lm? %>
             <small class="lead"><i class="icon-eye-open"></i> Lab Manager</small>
-          <% elsif @user.description.present? %>
-            <small class="lead"><i class="icon-user"></i><%= " #{@user.description.humanize}" %></small>
+          <% elsif @user.role.present? %>
+            <small class="lead"><i class="icon-user"></i><%= " #{@user.role.humanize}" %></small>
           <% end %>
         <% else %>
           <% if @user.gl_lm? %>
             <small class="lead"><%= @user.gl? ? " Group Leader" : " Lab Manager" %></small>
-          <% elsif @user.description.present? %>
-            <small class="lead"><%= " #{@user.description.humanize}" %></small>
+          <% elsif @user.role.present? %>
+            <small class="lead"><%= " #{@user.role.humanize}" %></small>
           <% end %>
         <% end %>        
     </div>
