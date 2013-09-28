@@ -17,12 +17,12 @@ class Lab < ActiveRecord::Base
 	
 	validates :email, uniqueness: { message: "This email address has already been registered" }
 
-	def should_generate_new_friendly_id?
-    name_changed?
-  end
+	# def should_generate_new_friendly_id?
+ #    name_changed?
+ #  end
 
-	def lab_name
-		self.name ||= self.email
+	def name
+		self.users.where(role: "group_leader").first.fullname
 	end
 
 	def city

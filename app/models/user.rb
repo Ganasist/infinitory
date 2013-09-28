@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   before_create :create_lab, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
-  before_update :update_lab, :transition
+  before_update :update_lab, :transition, :affiliations
   
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
@@ -150,12 +150,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def affiliations
+    self.institute = lab.institute
+    self.department = lab.department
+  end
+
   def update_lab
     if gl?
       if self.institute_id_changed?
         self.department = nil
       end    
-      self.lab.update_attributes(name: self.fullname, email: self.email,
+      self.lab.update_attributes(email: self.email,
                                  department: self.department, institute: self.institute)
     end
   end
