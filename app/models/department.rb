@@ -10,7 +10,9 @@ class Department < ActiveRecord::Base
 									 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
 
 
+	validates_associated	:institute
   validates_presence_of :institute
+  
   validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, 
   						presence: true
 

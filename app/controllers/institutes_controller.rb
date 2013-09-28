@@ -38,7 +38,7 @@ class InstitutesController < ApplicationController
                           <h5>Labs: #{ institute.labs.count }</h5>"
       end
     elsif params[:term].present?
-      @institutes = Institute.order(:name).where("name ilike ?", "%#{ params[:term] }%")
+      @institutes = Institute.order(:name).where("name ilike ?", "%#{params[:term]}%")
       render json: @institutes.map(&:name)
     else 
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(10)

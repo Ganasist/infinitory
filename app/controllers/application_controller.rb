@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:register, :sign_up, :sign_in, :index]
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :orphans, except: [:edit, :update, :destroy]
 
@@ -21,7 +21,10 @@ class ApplicationController < ActionController::Base
 
     def orphans
       if user_signed_in?
-        if !current_user.approved?
+        if current_user.approved? && !current_user.confirmed?
+          redirect_to edit_user_registration_path
+          flash[:alert] = "#{current_user.fullname}, please confirm your email address"
+        elsif !current_user.approved?
           redirect_to edit_user_registration_path
           flash[:alert] = "#{current_user.fullname}, you currently don't belong to a lab"
           if current_user.save && current_user.lab_id != 1

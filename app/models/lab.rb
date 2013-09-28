@@ -5,12 +5,17 @@ class Lab < ActiveRecord::Base
   friendly_id :slug_candidates, use: [:slugged, :history]
 
 	belongs_to :department
+	validates_associated :department
+	
 	belongs_to :institute
+	validates_associated	:institute
+	validates_presence_of :institute
 
+	has_one	 :user, -> { where role: "group_leader" }, validate: true
 	has_many :users
 	has_many :reagents
 	
-	validates_uniqueness_of :email, message: "This email addresss has already been registered"
+	validates_uniqueness_of :email, message: "This email address has already been registered"
 
 	def should_generate_new_friendly_id?
     name_changed?

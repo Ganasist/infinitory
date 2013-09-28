@@ -13,14 +13,20 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   belongs_to :institute
-  belongs_to :department
-  belongs_to :lab
-
-  validates_presence_of :lab, message: "Your group leader must create an account first", unless: :gl?
+  validates_associated  :institute
   validates_presence_of :institute_name, message: "You must enter your institute's name", if: :gl?
-  validates_uniqueness_of :email, message: "That email address has already been registered"
+  
+  belongs_to :department
+  validates_associated :department
+  # validates_presence_of :department_id, allow_blank: true
+
+  belongs_to :lab
+  validates_associated  :lab
+  validates_presence_of :lab, message: "Your group leader must create an account first", unless: :gl?
+  
+  validates :email, presence: true, uniqueness: true, message: "That email address has already been registered"
+  
   validates_presence_of :role
-  validates_presence_of :department_id, allow_blank: true
 
   before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
@@ -122,6 +128,7 @@ class User < ActiveRecord::Base
 
   def skip_confirmation!
     true
+
   end
 
   def inactive_message 
@@ -149,8 +156,10 @@ class User < ActiveRecord::Base
   end
 
   def create_lab
-    if self.gl?      
+    if self.gl?
       self.approved = true
+      self.joined = Time.now      
+      self.send_confirmation_instructions
       self.lab = Lab.create(name: self.email, email: self.email, department: self.department, institute: self.institute)
     end
   end
