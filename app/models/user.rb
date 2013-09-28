@@ -28,9 +28,9 @@ class User < ActiveRecord::Base
   
   validates :role, presence: true
 
-  before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
+  before_create :create_lab, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
-  before_update :update_lab, :affiliations, :transition
+  before_update :update_lab, :transition
   
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
@@ -110,6 +110,9 @@ class User < ActiveRecord::Base
 
   def first_request
     if !self.gl? && !self.confirmed? && !self.approved?
+      self.lab_id   = lab_id
+      self.institute_id = lab.institute_id
+      self.department_id = lab.department_id
       UserMailer.delay_for(10.seconds).request_email(self.id, self.lab_id)
     end
   end
@@ -118,8 +121,8 @@ class User < ActiveRecord::Base
     if !self.gl? && self.lab_id_changed? && self.confirmed?  
       self.approved = false
       self.lab_id   = lab_id
-      self.institute_id = nil
-      self.department_id = nil
+      self.institute_id = lab.institute_id
+      self.department_id = lab.department_id
       self.joined  = nil
       UserMailer.delay_for(10.seconds, retry: false).request_email(self.id, self.lab_id)
     end
@@ -138,12 +141,12 @@ class User < ActiveRecord::Base
     end 
   end
 
-  def affiliations
-    if !gl? && self.approved?
-      self.institute_id = lab.institute_id
-      self.department_id = lab.department_id
-    end
-  end
+  # def affiliations
+  #   if !gl? && self.approved?
+  #     self.institute_id = lab.institute_id
+  #     self.department_id = lab.department_id
+  #   end
+  # end
 
   def create_lab
     if self.gl?
@@ -156,12 +159,15 @@ class User < ActiveRecord::Base
   end
 
   def update_lab
-    if self.gl? && !self.lab_id_changed?
+    if gl?
       if self.institute_id_changed?
         self.department = nil
       end    
       self.lab.update_attributes(name: self.fullname, email: self.email,
                                  department: self.department, institute: self.institute)
+    elsif !gl? && self.approved?
+      self.institute_id = lab.institute_id
+      self.department_id = lab.department_id
     end
   end
 
