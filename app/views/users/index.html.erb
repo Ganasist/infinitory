@@ -59,10 +59,8 @@
           <td><%= link_to user.id, user %></td>
         <% end %>
 
-        <% if user.gl_lm? %>    
-          <td><%= user.gl? ? "Group Leader" : "Lab Manager" %></td>
-        <% elsif user.description.present? %>
-          <td><%= user.description.humanize %></td>
+        <% if user.role.present? %>
+          <td><%= user.role.humanize %></td>
         <% else %>
           <td></td>
         <% end %>

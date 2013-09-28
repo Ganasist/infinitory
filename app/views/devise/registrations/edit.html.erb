@@ -21,25 +21,28 @@
     <div class="span3">
       <%= f.input :email, required: true, autofocus: true, input_html: { style: 'width: 350px'} %>
       <%= f.input :first_name, input_html: { style: 'width: 350px' } %>
-      <%= f.input :last_name, input_html: { style: 'width: 350px'} %>
+      <%= f.input :last_name, input_html: { style: 'width: 350px' } %>
       
-      <% if @user.role != "group_leader" %>
+      
         <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position",
-                                  required: false, hint: "Choosing Group Leader will create a new lab" %>
+                                  required: false %>
         <br><br>
+      
+      <span class="LMform hidden">
         <%= f.association :lab, label_method: :email, label: "Group leader email address",
-                            value_method: :id, input_html: { style: 'width: 350px'} %>
-      <% end %>
+                            value_method: :id, input_html: { style: 'width: 350px' } %>
+      </span>
 
-      <% if @user.gl? %>
+      <span class="GLform hidden">
         <%= f.input :institute_name, placeholder: "Find or create your institute",
-                      input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path }} %>
+                      input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path } } %>
         <span id="department_select">
           <%= f.input :department_id, 
                         collection: Institute.where(id: current_user.institute), as: :grouped_select,
                         group_method: :departments, include_blank: "None" %>
-        </span>          
-      <% end %>       
+        </span>
+      </span>
+
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>

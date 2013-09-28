@@ -147,7 +147,7 @@ class User < ActiveRecord::Base
   end
 
   def update_lab
-    if self.gl?
+    if self.gl? && !self.lab_id_changed?
       if self.institute_id_changed?
         self.department = nil
       end    
@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
   end
 
   def create_lab
-    if self.role_changed? && self.gl?
+    if self.gl?
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
