@@ -69,6 +69,7 @@ GEM
     coffee-script-source (1.6.3)
     commonjs (0.2.7)
     connection_pool (1.1.0)
+    consistency_fail (0.3.2)
     daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (1.1.1)
@@ -284,6 +285,7 @@ DEPENDENCIES
   carrierwave
   carrierwave_backgrounder
   coffee-rails (~> 4.0.0)
+  consistency_fail
   dalli
   database_cleaner
   devise

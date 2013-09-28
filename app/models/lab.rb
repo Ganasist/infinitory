@@ -9,13 +9,13 @@ class Lab < ActiveRecord::Base
 	
 	belongs_to :institute
 	validates_associated	:institute
-	validates_presence_of :institute
+	validates :institute, presence: true
 
 	has_one	 :user, -> { where role: "group_leader" }, validate: true
 	has_many :users
 	has_many :reagents
 	
-	validates_uniqueness_of :email, message: "This email address has already been registered"
+	validates :email, uniqueness: { message: "This email address has already been registered" }
 
 	def should_generate_new_friendly_id?
     name_changed?

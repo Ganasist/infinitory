@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   belongs_to :institute
   validates_associated  :institute
-  validates_presence_of :institute_name, message: "You must enter your institute's name", if: :gl?
+  validates :institute_name, presence: { message: "You must enter your institute's name", if: :gl? }
   
   belongs_to :department
   validates_associated :department
@@ -22,11 +22,11 @@ class User < ActiveRecord::Base
 
   belongs_to :lab
   validates_associated  :lab
-  validates_presence_of :lab, message: "Your group leader must create an account first", unless: :gl?
+  validates :lab, presence: { message: "Your group leader must create an account first" }, unless: :gl?
   
-  validates :email, presence: true, uniqueness: true, message: "That email address has already been registered"
+  validates :email, presence: true, uniqueness: { message: "That email address has already been registered" }
   
-  validates_presence_of :role
+  validates :role, presence: true
 
   before_create :create_lab, :affiliations, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
