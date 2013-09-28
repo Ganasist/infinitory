@@ -73,7 +73,9 @@ class User < ActiveRecord::Base
   end
 
   def gl
-    User.find(self.lab.users.where(role: "group_leader"))
+    if self.lab_id?
+      User.find(self.lab.users.where(role: "group_leader"))
+    end
   end
 
   def gl?
@@ -140,7 +142,7 @@ class User < ActiveRecord::Base
   end
 
   def transition
-    if !gl? && self.lab_id_changed? && self.confirmed?  
+    if !gl? && self.lab_id_changed? && self.confirmed? 
       self.approved = false
       self.lab_id   = lab_id
       self.joined  = nil
@@ -155,22 +157,13 @@ class User < ActiveRecord::Base
       end    
       self.lab.update_attributes(name: self.fullname, email: self.email,
                                  department: self.department, institute: self.institute)
-    elsif !gl? && self.approved?
-      self.institute_id = lab.institute_id
-      self.department_id = lab.department_id
     end
-  end
-
-  def gl_promotion
-    
   end
 
   private
 
   def slug_candidates
-    [
-      :fullname,
-      [:fullname, :id]
-    ]
+    [  :fullname,
+      [:fullname, :id] ]
   end    
 end
