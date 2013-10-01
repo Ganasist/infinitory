@@ -102,6 +102,11 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'spork'
+  gem 'spork-rails', github: 'railstutorial/spork-rails'
+  gem 'guard-spork', :github => 'guard/guard-spork'
+  gem 'growl_notify'
+  gem 'turn'
 end
 
 group :test do

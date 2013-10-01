@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   belongs_to :institute
   validates_associated  :institute
-  validates :institute_name, presence: { message: "You must enter your institute's name", if: :gl? }
+  validates :institute_name, presence: { message: "You must enter your institute's name", if: :gl? }, allow_blank: true
   
   belongs_to :department
   validates_associated :department
@@ -25,8 +25,9 @@ class User < ActiveRecord::Base
   validates :lab, presence: { message: "Your group leader must create an account first" }, unless: :gl?, allow_blank: true
   
   validates :email, presence: true, uniqueness: { message: "That email address has already been registered" }
-  
   validates :role, presence: true
+
+  validate :same_email_as_lab?
 
   before_create :create_lab, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
@@ -37,6 +38,12 @@ class User < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     first_name_changed? || last_name_changed?  || role_changed?
+  end
+
+  def same_email_as_lab?
+    if gl?
+      email == lab.email
+    end
   end
 
   def reject
@@ -90,13 +97,13 @@ class User < ActiveRecord::Base
     self.role == "lab_manager"    
   end
 
-  def department_name
-    department.try(:name)
-  end
+  # def department_name
+  #   department.try(:name)
+  # end
   
-  def department_name=(name)
-    self.department = Department.find_or_create_by(name: name, institute_id: self.institute_id) if name.present?
-  end
+  # def department_name=(name)
+  #   self.department = Department.find_or_create_by(name: name, institute_id: self.institute_id) if name.present?
+  # end
 
 	def institute_name
     institute.try(:name)
@@ -127,7 +134,7 @@ class User < ActiveRecord::Base
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
-      self.lab = Lab.create(name: self.email, email: self.email,
+      self.lab = Lab.create(email: self.email,
                             department: self.department, institute: self.institute)
     end
   end
@@ -137,22 +144,24 @@ class User < ActiveRecord::Base
       self.lab_id   = lab_id
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
-      UserMailer.delay_for(10.seconds).request_email(self.id, self.lab_id)
+      UserMailer.delay_for(2.seconds).request_email(self.id, self.lab_id)
     end
   end
 
   def transition
-    if !gl? && self.lab_id_changed? && self.confirmed? 
+    if !gl? && self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id
       self.joined  = nil
-      UserMailer.delay_for(10.seconds, retry: false).request_email(self.id, self.lab_id)
+      UserMailer.delay_for(2.seconds, retry: false).request_email(self.id, self.lab_id)
     end
   end
 
   def affiliations
-    self.institute = lab.institute
-    self.department = lab.department
+    if self.confirmed? && self.approved?
+      self.institute = lab.institute
+      self.department = lab.department
+    end
   end
 
   def update_lab

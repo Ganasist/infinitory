@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :activate, :retire, :reject]
   before_action :set_lab, only: [:retire, :reject]
+  before_filter :authenticate_user!
 
   def index    
     @lab = Lab.friendly.find(params[:lab_id])

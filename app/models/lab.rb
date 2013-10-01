@@ -4,6 +4,14 @@ class Lab < ActiveRecord::Base
 	extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
+  # include ActiveModel::Validations
+  # validates_with LabValidator
+
+	# validate :has_one_gl
+
+	validates :email, uniqueness: { message: "This email address has already been registered" },
+						presence: true
+
 	belongs_to :department
 	validates_associated :department
 	
@@ -11,30 +19,33 @@ class Lab < ActiveRecord::Base
 	validates_associated	:institute
 	validates :institute, presence: true
 
-	has_one	 :user, -> { where role: "group_leader" }, validate: true
 	has_many :users
 	has_many :reagents
 	
-	validates :email, uniqueness: { message: "This email address has already been registered" }
-
 	# def should_generate_new_friendly_id?
- #    name_changed?
- #  end
+  #    name_changed?
+  #  end
 
-	def name
-		self.users.where(role: "group_leader").first.fullname
-	end
+  def name
+  	self.email
+  end
+
+  def gl  	
+		users.where(role: "group_leader")
+  end
+
+	# def has_one_gl
+	# 	unless gl.count == 1
+	# 		errors.add(:one_gl, "There must be one group leader per lab")
+	# 	end
+	# end
 
 	def city
-		self.institute.city
+		institute.city
 	end
 
 	def size
 		users.count
-	end
-
-	def gl
-		self.users.where(role: "group_leader").first
 	end
 
 	def department_name
@@ -67,8 +78,8 @@ class Lab < ActiveRecord::Base
 
   def slug_candidates
     [
-      :lab_name,
-      [:lab_name, :id]
+      :name,
+      [:name, :id]
     ]
   end
 end
