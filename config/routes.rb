@@ -1,6 +1,9 @@
 require 'sidekiq/web'
 
 Infinitory::Application.routes.draw do
+  # The priority is based upon order of creation: first created -> highest priority.
+
+  root :to => 'high_voltage/pages#show', id: 'splash'
 
   devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
                                   :controllers => { registrations: 'registrations' }
@@ -13,17 +16,11 @@ Infinitory::Application.routes.draw do
     end
   end
 
-  match "users/:id/activate" => "users#activate", :as => "activate_user", via: :get
-  match "users/:id/retire" => "users#retire", :as => "retire_user", via: :get  
-  match "users/:id/reject" => "users#reject", :as => "reject_user", via: :get
+  match 'users/:id/activate' => 'users#activate', :as => 'activate_user', via: :get
+  match 'users/:id/retire' => 'users#retire', :as => 'retire_user', via: :get  
+  match 'users/:id/reject' => 'users#reject', :as => 'reject_user', via: :get
 
-  post "versions/:id/revert" => "versions#revert", as: "revert_version"  
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  root :to => 'high_voltage/pages#show', id: 'splash'
+  post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 
   mount Sidekiq::Web, at: '/sidekiq'
 

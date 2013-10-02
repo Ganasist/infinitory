@@ -31,7 +31,7 @@ if ($('#user_role').val() === "group_leader") {
 
 $('#user_role').change(function() {
   if ($('#user_role').val() === "group_leader") {
-    $('.GLform').removeClass('hidden');
+    $('.GLform').removeClass('hidden') && $('#user_lab_id').val([]);
   }
   if ($('#user_role').val() !== "group_leader") {
     $('.GLform').addClass('hidden');

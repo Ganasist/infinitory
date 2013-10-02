@@ -23,8 +23,10 @@ jQuery ->
 	$('.LMform').addClass('hidden') if $('#user_role').val() is "group_leader"
 
 	$('#user_role').change ->
-		$('.GLform').removeClass('hidden') if $('#user_role').val() is "group_leader"
+		$('.GLform').removeClass('hidden') and $('#user_lab_id').val([]) if $('#user_role').val() is "group_leader"
 		$('.GLform').addClass('hidden') if $('#user_role').val() isnt "group_leader"
 
 		$('.LMform').removeClass('hidden') if $('#user_role').val() isnt "group_leader"
 		$('.LMform').addClass('hidden') if $('#user_role').val() is "group_leader"
+
+     # if $('#user_role').val() is "group_leader"

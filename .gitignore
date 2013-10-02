@@ -74,3 +74,6 @@ pickle-email-*.html
 **.swp
 
 .zeus.sock
+
+# Ignore application configuration
+/config/application.yml
