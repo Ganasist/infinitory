@@ -107,6 +107,7 @@ group :development, :test do
   gem 'guard-spork', :github => 'guard/guard-spork'
   gem 'growl_notify'
   gem 'turn'
+  gem 'rspec-nc'
 end
 
 group :test do
