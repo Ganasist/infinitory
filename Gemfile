@@ -93,9 +93,9 @@ group :development do
   gem 'guard-rspec'
   gem 'hub', :require=>nil
   gem 'quiet_assets'
-  gem 'rb-fchange', :require=>false
-  gem 'rb-fsevent', :require=>false
-  gem 'rb-inotify', :require=>false
+  gem 'rb-fchange', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-inotify', :require => false
   gem 'consistency_fail'
 end
 
@@ -111,6 +111,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "cucumber-rails", :require => false
   gem 'capybara'
   gem 'database_cleaner'
   gem 'email_spec'

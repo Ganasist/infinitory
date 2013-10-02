@@ -9,6 +9,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'capybara/rspec'
+  require 'email_spec'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -28,6 +29,8 @@ Spork.prefork do
     # config.mock_with :rr
 
     config.include Devise::TestHelpers, :type => :controller
+    config.include(EmailSpec::Helpers)
+    config.include(EmailSpec::Matchers)
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
