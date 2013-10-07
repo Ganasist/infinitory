@@ -4,12 +4,12 @@ describe Lab do
   it 'is invalid without an email address' do
   	institute = Institute.new
   	lab = Lab.new(institute: institute)
-  	lab.should_not be_valid
+  	expect(lab).to_not be_valid
   end
 
   it 'is invalid without an institute' do
   	lab = Lab.new(email: "lab@lab.com")
-  	lab.should_not be_valid
+  	expect(lab).to_not be_valid
   end
 
   it 'is invalid without a group leader'

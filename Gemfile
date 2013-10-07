@@ -104,7 +104,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spork'
   gem 'spork-rails', github: 'railstutorial/spork-rails'
-  gem 'guard-spork', :github => 'guard/guard-spork'
+  gem 'guard-spork', github: 'guard/guard-spork'
   gem 'growl_notify'
   gem 'turn'
   gem 'rspec-nc'
@@ -115,5 +115,6 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'email_spec'
+  gem 'launchy'
 end
 

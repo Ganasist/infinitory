@@ -5,9 +5,6 @@ class Lab < ActiveRecord::Base
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   # include ActiveModel::Validations
-  # validates_with LabValidator
-
-	# validate :has_one_gl
 
 	validates :email, uniqueness: { message: "This email address has already been registered" },
 						presence: true
@@ -21,24 +18,25 @@ class Lab < ActiveRecord::Base
 
 	has_many :users
 	has_many :reagents
+
+	after_create :name
+	after_update :name
 	
-	# def should_generate_new_friendly_id?
-  #    name_changed?
-  #  end
+	def should_generate_new_friendly_id?
+  	name_changed?
+  end
 
   def name
-  	self.email
+  	self.name = gl.fullname
   end
 
-  def gl  	
-		users.where(role: "group_leader")
+  def gl_count  	
+		users.where(role: "group_leader").count
   end
 
-	# def has_one_gl
-	# 	unless gl.count == 1
-	# 		errors.add(:one_gl, "There must be one group leader per lab")
-	# 	end
-	# end
+  def gl
+		users.find_by(role: "group_leader")
+  end
 
 	def city
 		institute.city

@@ -27,8 +27,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: { message: "That email address has already been registered" }
   validates :role, presence: true
 
-  validate :same_email_as_lab?
-
   before_create :create_lab, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
   before_update :update_lab, :transition, :affiliations
@@ -38,12 +36,6 @@ class User < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     first_name_changed? || last_name_changed?  || role_changed?
-  end
-
-  def same_email_as_lab?
-    if gl?
-      email == lab.email
-    end
   end
 
   def reject
@@ -134,7 +126,7 @@ class User < ActiveRecord::Base
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
-      self.lab = Lab.create(email: self.email,
+      self.lab = Lab.create(email: self.email, name: self.name,
                             department: self.department, institute: self.institute)
     end
   end
@@ -169,7 +161,7 @@ class User < ActiveRecord::Base
       if self.institute_id_changed?
         self.department = nil
       end    
-      self.lab.update_attributes(email: self.email,
+      self.lab.update_attributes(email: self.email, name: self.fullname,
                                  department: self.department, institute: self.institute)
     end
   end
