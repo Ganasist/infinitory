@@ -7,10 +7,10 @@ class Department < ActiveRecord::Base
 
 	before_validation :smart_add_url_protocol, :default_addresses
 
-	after_validation :reverse_geocode,
-									 :if => lambda { |t| t.address_changed? && t.address? }
-	after_validation :geocode,
-									 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
+	# after_validation :reverse_geocode,
+	# 								 :if => lambda { |t| t.address_changed? && t.address? }
+	# after_validation :geocode,
+	# 								 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
   
   validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, 
   						presence: true

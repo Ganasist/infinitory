@@ -19,15 +19,18 @@ class Lab < ActiveRecord::Base
 	has_many :users
 	has_many :reagents
 
-	after_create :name
-	after_update :name
-	
+	after_update :lab_name, :lab_email
+
 	def should_generate_new_friendly_id?
   	name_changed?
   end
 
-  def name
+  def lab_name
   	self.name = gl.fullname
+  end
+
+  def lab_email
+  	self.email = gl.email
   end
 
   def gl_count  	
@@ -35,7 +38,7 @@ class Lab < ActiveRecord::Base
   end
 
   def gl
-		users.find_by(role: "group_leader")
+		self.users.find_by(role: "group_leader")
   end
 
 	def city

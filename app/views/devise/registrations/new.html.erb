@@ -10,8 +10,8 @@
   <div class="form-inputs">
     
     <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position" %>
-    <br><br>
-
+    <br>
+    <br>
       <%= f.input :email, label: "Email address",
       							placeholder: "Institutional addresses only",
                     input_html: { style: 'width: 350px' } %>

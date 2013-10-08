@@ -108,10 +108,10 @@ group :development, :test do
   gem 'growl_notify'
   gem 'turn'
   gem 'rspec-nc'
+  gem 'minitest'
 end
 
 group :test do
-  gem "cucumber-rails", :require => false
   gem 'capybara'
   gem 'database_cleaner'
   gem 'email_spec'

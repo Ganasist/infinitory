@@ -76,7 +76,6 @@ class UsersController < ApplicationController
                             method: :post, class: "btn-large")
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     # def user_params
     #   params.require(:lab).permit(:email, :first_name, :last_name,
     #   														:group_leader_id, :department_id, :institute_id, :approved)

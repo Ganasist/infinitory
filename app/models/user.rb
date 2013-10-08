@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
   validates_associated  :lab
   validates :lab, presence: { message: "Your group leader must create an account first" }, unless: :gl?, allow_blank: true
   
-  validates :email, presence: true, uniqueness: { message: "That email address has already been registered" }
   validates :role, presence: true
 
   before_create :create_lab, :skip_confirmation!, :skip_confirmation_notification!
@@ -60,7 +59,9 @@ class User < ActiveRecord::Base
   end
 
   def location
-    institute.city
+    if self.lab_id?
+      institute.city
+    end
   end
 
   def fullname
@@ -78,15 +79,15 @@ class User < ActiveRecord::Base
   end
 
   def gl?
-    self.role == "group_leader"
+    role == "group_leader"
   end
 
   def gl_lm?
-    self.role == "group_leader" || self.role == "lab_manager"
+    role == "group_leader" || self.role == "lab_manager"
   end
 
   def lm?
-    self.role == "lab_manager"    
+    role == "lab_manager"    
   end
 
   # def department_name
@@ -122,12 +123,11 @@ class User < ActiveRecord::Base
   end
 
   def create_lab
-    if self.gl?
+    if gl?
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
-      self.lab = Lab.create(email: self.email, name: self.name,
-                            department: self.department, institute: self.institute)
+      self.lab = Lab.create(email: self.email, name: self.fullname, department: self.department, institute: self.institute)
     end
   end
 
@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def transition
-    if !gl? && self.lab_id_changed?
+    if !self.gl? && self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id
       self.joined  = nil
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
   end
 
   def update_lab
-    if gl?
+    if self.gl?
       if self.institute_id_changed?
         self.department = nil
       end    
