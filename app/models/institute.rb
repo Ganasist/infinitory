@@ -31,15 +31,15 @@ class Institute < ActiveRecord::Base
   													multiline: true,
   													message: "is not valid" }
 
-	geocoded_by :address
-	reverse_geocoded_by :latitude, :longitude do |obj,results|
-	  if geo = results.first
-	    obj.city    = geo.city
-	    obj.country = geo.country
-	  end
-	end
+	# geocoded_by :address
+	# reverse_geocoded_by :latitude, :longitude do |obj,results|
+	#   if geo = results.first
+	#     obj.city    = geo.city
+	#     obj.country = geo.country
+	#   end
+	# end
 
-	acts_as_gmappable validation: false
+	# acts_as_gmappable validation: false
 
 	protected
 		def gmaps4rails_address

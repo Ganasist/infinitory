@@ -30,7 +30,11 @@ Spork.prefork do
     # config.mock_with :flexmock
     # config.mock_with :rr
 
+    # Include Factory Girl syntax to simplify calls to factories
+    config.include FactoryGirl::Syntax::Methods
+
     config.include Devise::TestHelpers, :type => :controller
+
     config.include(EmailSpec::Helpers)
     config.include(EmailSpec::Matchers)
 
