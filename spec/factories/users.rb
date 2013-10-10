@@ -5,11 +5,15 @@ require 'faker'
 FactoryGirl.define do
   factory :user do
     email { Faker::Internet.email }
-    role 'group_leader'
+    role 'technician'
     password  'loislane'
     password_confirmation 'loislane'
-    institute_name 'Fake School'
 		# required if the Devise Confirmable module is used
     confirmed_at Time.now
+
+    factory :admin do
+    	role 'group_leader'
+    	institute_name 'University One'
+    end
   end
 end

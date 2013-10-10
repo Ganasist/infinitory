@@ -10,66 +10,66 @@ describe UsersController do
 	  end
 	end
 
-	describe 'member access' do
+	# describe 'member access' do
 
-	  describe 'GET "index"' do
-	    it 'returns http success' do
-	      get 'index'
-	      response.should be_success
-	    end
-	  end
+	#   describe 'GET "index"' do
+	#     it 'returns http success' do
+	#       get 'index'
+	#       response.should be_success
+	#     end
+	#   end
 
-	  describe 'GET "show"' do
-	    it 'returns http success' do
-	      get 'show'
-	      response.should be_success
-	    end
-	  end
+	#   describe 'GET "show"' do
+	#     it 'returns http success' do
+	#       get 'show'
+	#       response.should be_success
+	#     end
+	#   end
 
-	  describe 'GET "edit"' do
-	    it 'returns http success' do
-	      get 'edit'
-	      response.should be_success
-	    end
-	  end
+	#   describe 'GET "edit"' do
+	#     it 'returns http success' do
+	#       get 'edit'
+	#       response.should be_success
+	#     end
+	#   end
 
-	  describe 'GET "update"' do
-	    it 'returns http success' do
-	      get 'update'
-	      response.should be_success
-	    end
-	  end
-	end
+	#   describe 'GET "update"' do
+	#     it 'returns http success' do
+	#       get 'update'
+	#       response.should be_success
+	#     end
+	#   end
+	# end
 
-	describe 'group leader / lab manager access' do
+	# describe 'group leader / lab manager access' do
 
-	  describe 'GET "index"' do
-	    it 'returns http success' do
-	      get 'index'
-	      response.should be_success
-	    end
-	  end
+	#   describe 'GET "index"' do
+	#     it 'returns http success' do
+	#       get 'index'
+	#       response.should be_success
+	#     end
+	#   end
 
-	  describe 'GET "show"' do
-	    it 'returns http success' do
-	      get 'show'
-	      response.should be_success
-	    end
-	  end
+	#   describe 'GET "show"' do
+	#     it 'returns http success' do
+	#       get 'show'
+	#       response.should be_success
+	#     end
+	#   end
 
-	  describe 'GET "edit"' do
-	    it 'returns http success' do
-	      get 'edit'
-	      response.should be_success
-	    end
-	  end
+	#   describe 'GET "edit"' do
+	#     it 'returns http success' do
+	#       get 'edit'
+	#       response.should be_success
+	#     end
+	#   end
 
-	  describe 'GET "update"' do
-	    it 'returns http success' do
-	      get 'update'
-	      response.should be_success
-	    end
-	  end
-	end
+	#   describe 'GET "update"' do
+	#     it 'returns http success' do
+	#       get 'update'
+	#       response.should be_success
+	#     end
+	#   end
+	# end
 
 end

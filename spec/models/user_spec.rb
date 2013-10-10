@@ -2,8 +2,12 @@ require 'spec_helper'
 
 describe User do
 
-  it 'has a valid factory' do
+  it 'has a valid user factory' do
     expect(build(:user)).to be_valid
+  end
+
+  it 'has a valid admin factory' do
+    expect(build(:admin)).to be_valid
   end
 
   it 'is invalid without an email address' do
@@ -32,8 +36,16 @@ describe User do
                        role: 'group_leader')).to be_valid
   end
 
+  it 'gets sent a confirmation email' do
+    User.create(email: 'factory@test.com',
+                       institute_name: 'University One',
+                       password: 'loislane',
+                       role: 'group_leader')
+    open_last_email.should be_delivered_to 'factory@test.com'
+  end
+
   it 'is valid with an email address, password, and role if its role is not a group leader' do
-    expect(create(:user, role: 'technician', institute_name: nil)).to be_valid
+    expect(create(:user)).to be_valid
   end
 
   it'has an email that matches "bob@toner.com"' do
