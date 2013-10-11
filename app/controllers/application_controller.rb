@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :orphans, except: [:edit, :update, :destroy]
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def after_sign_in_path_for(resource)
    user_path(current_user)
@@ -17,6 +18,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+    def record_not_found
+      redirect_to root_path
+      flash[:alert] = "Resource does not exist!"
+    end
 
     def orphans
       if user_signed_in?

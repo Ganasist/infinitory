@@ -1,35 +1,70 @@
 require 'spec_helper'
 
-describe "LayoutLinks" do
-  
-  it "should have the right title" do
+describe 'LayoutLinks' do
+
+  it 'should have the right title' do
     get '/'
-    response.body.should have_title("Infinitory")
+    response.body.should have_title('Infinitory')
   end
 
-  it "should have a sign-up link" do
+  it 'should have a Root link' do
     get '/'
-    response.body.should have_link("Sign-up")
+    response.body.should have_link('Infinitory', root_path)
   end
 
-  it "should have a register link" do
+  it 'should have a Register link' do
     get '/'
-    response.body.should have_link("SIGN-IN")
+    response.body.should have_link('Sign-up', new_user_registration_path)
   end
 
-  it "should have the right title" do
+  it 'should have a Sign-in link' do
     get '/'
-    response.body.should have_content("Sign-up")
+    response.body.should have_link('SIGN-IN', new_user_session_path)
   end
 
-  it "should have the right title" do
-    get '/splash'
-    response.body.should have_content("Infinitory")
+  it 'should have an About link' do
+    get '/'
+    response.body.should have_link('About Infinitory', page_path('about'))
   end
 
-  it "should have the right content" do
+  it 'should have a Privacy Policy link' do
+    get '/'
+    response.body.should have_link('Privacy Policy', page_path('privacy'))
+  end
+
+  it 'should have an sign-in page at /login' do
+    get '/login'
+    response.body.should have_field('Email')
+    response.body.should have_field('Password')
+  end
+
+  it 'should have a Register page at /register' do
+    get '/register'
+    # response.body.should have_select(:role)
+    # response.body.should have_select(:lab)
+    response.body.should have_field(:email)
+    # response.body.should have_field(:institute_name)
+    response.body.should have_field('Password')
+    # response.body.should have_field('Password Confirmation')
+    response.body.should have_button('Sign up')
+  end
+
+  it 'should have the right links in the layout' do
+    visit root_path
+    expect(page).to have_content 'Sign-up'
+    click_link 'Privacy Policy'
+    expect(page).to have_content 'Privacy Policy'
+    click_link('About Infinitory', page_path('about'))
+    expect(page).to have_content 'About Infinitory'    
+  end
+
+  it 'should have an About page at /about' do
+    get '/about'
+    response.body.should have_content('About Infinitory')
+  end
+
+  it 'should have a Privacy Policy at /privacy' do
     get '/privacy'
-    response.body.should have_content("Privacy Policy")
+    response.body.should have_content('Privacy Policy')
   end
-
 end
