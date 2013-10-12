@@ -62,6 +62,16 @@ class UsersController < ApplicationController
   end
 
   private
+
+    rescue_from ActiveRecord::RecordNotFound do |exception|
+      flash[:alert] = "User #{params[:id]} wasn't found."
+      if user_signed_in?
+        redirect_to current_user
+      else
+        redirect_to root_url
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.friendly.find(params[:id])

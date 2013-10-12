@@ -4,9 +4,7 @@
     <div class="row">
       <% if @user.icon.present? %>
         <div class="span2 pull-left user-icon-portrait">
-          <% if @user.icon.present? %>
             <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %><br>
-          <% end %> 
         </div>
       <% end %>
 
@@ -17,21 +15,21 @@
         <% end %>
       <br>
         <% if @user.icon.blank? %>
-          <% if @user.gl? %>
-            <small class="lead"><i class="icon-lightbulb"></i></small>
-          <% elsif @user.lm? %>
-            <small class="lead"><i class="icon-eye-open"></i></small>
-          <% else %>
-            <small class="lead"><i class="icon-user"></i>
-          <% end %>
-          <small class="lead"><%= " #{@user.role.humanize}" %></small>
+          <small class="lead">
+            <% if @user.gl? %>
+              <i class="icon-lightbulb"></i>
+            <% elsif @user.lm? %>
+              <i class="icon-eye-open"></i>
+            <% else %>
+              <i class="icon-user"></i>
+            <% end %>
+            <%= " #{@user.role.humanize}" %>
+          </small>
         <% else %>
-          <% if @user.gl_lm? %>
-            <small class="lead"><%= @user.gl? ? " Group Leader" : " Lab Manager" %></small>
-          <% elsif @user.role.present? %>
-            <small class="lead"><%= " #{@user.role.humanize}" %></small>
-          <% end %>
-        <% end %>        
+          <small class="lead">
+            <%= " #{@user.role.humanize}" %>
+          </small>
+        <% end %>      
     </div>
   </h3>
 </div>
