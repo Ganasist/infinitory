@@ -6,7 +6,7 @@ class Lab < ActiveRecord::Base
 
   # include ActiveModel::Validations
 
-	validates :email, uniqueness: { message: "This email address has already been registered" },
+	validates :email, uniqueness: { message: 'This email address has already been registered' },
 						presence: true
 
 	belongs_to :department
@@ -34,11 +34,11 @@ class Lab < ActiveRecord::Base
   end
 
   def gl_count  	
-		users.where(role: "group_leader").count
+		users.where(role: 'group_leader').count
   end
 
   def gl
-		self.users.find_by(role: "group_leader")
+		self.users.find_by(role: 'group_leader')
   end
 
 	def city

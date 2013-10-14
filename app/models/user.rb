@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   belongs_to :institute
   validates_associated  :institute
-  validates :institute_name, presence: { message: "You must enter your institute's name", if: :gl? }, allow_blank: true
+  validates :institute_name, presence: { message: 'You must enter your institutes name', if: :gl? }, allow_blank: true
   
   belongs_to :department
   validates_associated :department
@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   belongs_to :lab
   validates_associated  :lab
-  validates :lab, presence: { message: "Your group leader must create an account first" }, unless: :gl?, allow_blank: true
+  validates :lab, presence: { message: 'Your group leader must create an account first' }, unless: :gl?, allow_blank: true
   
   validates :role, presence: true
 
@@ -68,26 +68,26 @@ class User < ActiveRecord::Base
     if self.last_name.blank?
       self.email
     else
-      "#{first_name} #{last_name}"
+      '#{first_name} #{last_name}'
     end
   end
 
   def gl
     if self.lab_id?
-      User.find(self.lab.users.where(role: "group_leader"))
+      User.find(self.lab.users.where(role: 'group_leader'))
     end
   end
 
   def gl?
-    role == "group_leader"
+    role == 'group_leader'
   end
 
   def gl_lm?
-    role == "group_leader" || self.role == "lab_manager"
+    role == 'group_leader' || self.role == 'lab_manager'
   end
 
   def lm?
-    role == "lab_manager"    
+    role == 'lab_manager'    
   end
 
   # def department_name
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
   end
 
   def update_lab
-    if self.gl?
+    if gl?
       if self.institute_id_changed?
         self.department = nil
       end    

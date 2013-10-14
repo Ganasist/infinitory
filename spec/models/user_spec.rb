@@ -3,15 +3,28 @@ require 'spec_helper'
 describe User do
 
   it 'has a valid user factory' do
-    expect(build(:user)).to be_valid
+    expect(create(:user)).to be_valid
   end
 
   it 'has a valid admin factory' do
-    expect(build(:admin)).to be_valid
+    @gl = User.create(email: 'factory@test.com',
+                        institute_name: 'University One',
+                        role: 'group_leader',
+                        password: 'loislane')
+    expect(@gl).to be_valid
   end
 
   it 'is invalid without an email address' do
-    expect(build(:user, email: nil)).to have(1).errors_on(:email)
+    expect(build(:user, email: "")).to have(1).errors_on(:email)
+  end
+
+  it 'is invalid without a password' do
+    user = build(:user, password: "")
+    expect(user).to have(1).errors_on(:password)
+  end
+
+  it 'is invalid without a role' do
+    expect(build(:user, role: "")).to have(1).errors_on(:role)
   end
 
   it 'is invalid with an existing email address' do
@@ -20,13 +33,20 @@ describe User do
     expect(user).to have(1).errors_on(:email)
   end
 
-  it 'is invalid without a password' do
-    user = build(:user, password: nil)
-    expect(user).to have(1).errors_on(:password)
+  it 'is valid with a valid email address' do
+    addresses = %w[user@foo.com user_@_foo.org example@foo.com]
+    addresses.each do |address|
+      valid_email_user = build(:user, email: address)
+      expect(valid_email_user).to be_valid
+    end
   end
 
-  it 'is invalid without a role' do
-    expect(build(:user, role: nil)).to have(1).errors_on(:role)
+  it 'is invalid with an invalid email address' do
+    addresses = %w[user@foo,com user_at_foo.org example@foo.]
+    addresses.each do |address|
+      invalid_email_user = build(:user, email: address)
+      expect(invalid_email_user).to_not be_valid
+    end
   end
 
   it 'is valid with an email address, password, role and institute if its role is group leader' do
