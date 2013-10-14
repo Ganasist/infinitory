@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
     if self.last_name.blank?
       self.email
     else
-      '#{first_name} #{last_name}'
+      "#{first_name} #{last_name}"
     end
   end
 
