@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe UsersController do
 
-	describe 'guest access' do
+	# describe 'guest access' do
 
-	  xit 'requires login' do
-	  	get :show
-	  	expect(response).to redirect_to login_url
-	  end
-	end
+	#   it 'requires login' do
+	#   	get :show
+	#   	expect(response).to redirect_to login_url
+	#   end
+	# end
 
 	# describe 'member access' do
 

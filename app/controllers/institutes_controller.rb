@@ -61,7 +61,7 @@ class InstitutesController < ApplicationController
                         <h5>Labs: #{ institute.labs.count }</h5>"
       end
       
-    @labs = Lab.where(institute_id: @institute).order(email: :asc)
+    @labs = Lab.where(institute_id: @institute)
   end
 
   # GET /institutes/new

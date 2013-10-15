@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   belongs_to :institute
   validates_associated  :institute
-  validates :institute_name, presence: { message: 'You must enter your institutes name', if: :gl? }, allow_blank: true
+  validates :institute_name, presence: { message: "You must enter your institute's name" }, allow_blank: true, if: Proc.new{ |f| f.gl? }
   
   belongs_to :department
   validates_associated :department
@@ -22,11 +22,12 @@ class User < ActiveRecord::Base
 
   belongs_to :lab
   validates_associated  :lab
-  validates :lab, presence: { message: 'Your group leader must create an account first' }, unless: :gl?, allow_blank: true
+  # validates :lab, presence: { message: 'Your group leader must create an account first' }, 
+  #                 allow_blank: true, unless: Proc.new{ |f| f.gl? }
   
   validates :role, presence: true
 
-  before_create :create_lab, :skip_confirmation!, :skip_confirmation_notification!
+  before_create :gl_signup, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request
   before_update :update_lab, :transition, :affiliations
   
@@ -73,9 +74,7 @@ class User < ActiveRecord::Base
   end
 
   def gl
-    if self.lab_id?
-      User.find(self.lab.users.where(role: 'group_leader'))
-    end
+    User.find(self.lab.users.where(role: 'group_leader')) if self.lab_id?
   end
 
   def gl?
@@ -122,12 +121,12 @@ class User < ActiveRecord::Base
     end 
   end
 
-  def create_lab
+  def gl_signup
     if gl?
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
-      self.lab = Lab.create(email: self.email, name: self.fullname, department: self.department, institute: self.institute)
+      # self.lab = Lab.create(email: self.email, institute: self.institute)
     end
   end
 
@@ -157,11 +156,11 @@ class User < ActiveRecord::Base
   end
 
   def update_lab
-    if gl?
+    if self.gl?
       if self.institute_id_changed?
         self.department = nil
       end    
-      self.lab.update_attributes(email: self.email, name: self.fullname,
+      self.lab.update(email: self.email, name: self.fullname,
                                  department: self.department, institute: self.institute)
     end
   end

@@ -1,4 +1,7 @@
 <%- model_class = Lab -%>
+
+<% title "Labs: " + @lab.lab_name %>
+
 <div class="page-header">
   <h3>
     <%= link_to lab_users_path(@lab) do %>

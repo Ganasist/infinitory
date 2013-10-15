@@ -28,5 +28,3 @@ jQuery ->
 
 		$('.LMform').removeClass('hidden') if $('#user_role').val() isnt "group_leader"
 		$('.LMform').addClass('hidden') if $('#user_role').val() is "group_leader"
-
-     # if $('#user_role').val() is "group_leader"

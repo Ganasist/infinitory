@@ -7,11 +7,7 @@ describe User do
   end
 
   it 'has a valid admin factory' do
-    @gl = User.create(email: 'factory@test.com',
-                        institute_name: 'University One',
-                        role: 'group_leader',
-                        password: 'loislane')
-    expect(@gl).to be_valid
+    expect(create(:admin)).to be_valid
   end
 
   it 'is invalid without an email address' do
@@ -50,18 +46,17 @@ describe User do
   end
 
   it 'is valid with an email address, password, role and institute if its role is group leader' do
-    expect(User.create(email: 'factory@test.com',
-                       institute_name: 'University One',
-                       password: 'loislane',
-                       role: 'group_leader')).to be_valid
+    expect(create(:user)).to be_valid
   end
 
   it 'gets sent a confirmation email' do
-    User.create(email: 'factory@test.com',
-                       institute_name: 'University One',
-                       password: 'loislane',
-                       role: 'group_leader')
-    open_last_email.should be_delivered_to 'factory@test.com'
+    gl = create(:admin)
+    open_last_email.should be_delivered_to gl.email
+  end
+
+  it 'has a fullname equal to email initially' do
+    gl = create(:admin)
+    expect(gl.fullname).to eql gl.email
   end
 
   it 'is valid with an email address, password, and role if its role is not a group leader' do
@@ -74,36 +69,27 @@ describe User do
   end
 
   it 'changes the number of Users' do
-    expect{ User.create(email: 'test22@test.com',
-                       institute_name: 'University One',
-                       password: 'loislane',
-                       role: 'group_leader') }.to change{ User.count }.by(1)
-  end
-
-  it 'returns the group leader when the gl method is called' do
-    @gl = User.create(email: 'factory@test.com',
-                        institute_name: 'University One',
-                        role: 'group_leader',
-                        password: 'loislane')
-    user = create(:user, role: 'technician', lab: @gl.lab)
-    expect(user.gl).to eql @gl
+    expect{ create(:user) }.to change{ User.count }.by(1)
   end
 
   describe 'when it is a group leader' do
     before :each do
-      @gl = User.new(email: 'factory@test.com',
-                        institute_name: 'University One',
-                        role: 'group_leader',
-                        password: 'loislane')
+      @gl = build(:admin)
     end
 
-    it 'has the same email as the lab' do
+    it 'returns nil when the gl method is called on a gl without a Lab' do
       @gl.save
-      expect(@gl.lab.email).to eql @gl.email
+      expect(@gl.gl).to eql nil
     end
 
-    it 'triggers creation of a new lab if it signs up' do
-      expect{ @gl.save }.to change{ Lab.count }.by(1)
+    it 'returns gl when the gl method is called on a gl with a Lab' do
+      lab = Lab.create(email: @gl.email, institute: @gl.institute)
+      @gl.lab = lab
+      @gl.save
+      user = build(:user)
+      user.lab = lab
+      user.save
+      expect(user.gl).to eql @gl
     end
 
     it 'returns true when gl is called on a group leader' do
@@ -113,19 +99,12 @@ describe User do
 
   describe 'when it is not group leader' do
     before :each do
-      @gl = User.create(email: 'factory@test.com',
-                        institute_name: 'University One',
-                        role: 'group_leader',
-                        password: 'loislane')
+      @gl = create(:admin)
       @user = build(:user, role: 'technician', lab: @gl.lab)
     end
 
-    it 'does not trigger creation of a new lab if it signs up' do
-      expect{ @user.save }.to change{ Lab.count }.by(0) 
-    end
-
     it 'has the same lab_id as its group leader' do
-      expect(@user.lab_id).to eql @gl.lab_id
+      expect(@user.lab).to eql @gl.lab
     end
 
     it 'returns false when gl? is called' do

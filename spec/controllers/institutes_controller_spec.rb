@@ -1,6 +1,19 @@
 require 'spec_helper'
 
-# describe InstitutesController do
+
+
+describe InstitutesController do
+
+  # describe 'as guest' do
+  # 	describe "GET index" do
+	 #    it "assigns all institutes as @institutes" do
+	 #      institute = Institute.create!
+	 #      get :index, {}, valid_session
+	 #      assigns(:institutes).should eq([institute])
+	 #    end
+	 #  end
+  # end  
+end
 
 #   # This should return the minimal set of attributes required to create a valid
 #   # Institute. As you add validations to Institute, be sure to

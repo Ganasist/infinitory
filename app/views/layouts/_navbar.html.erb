@@ -2,7 +2,7 @@
   <% if user_signed_in? %>
     <%= nav_bar brand: "INFINITORY", brand_link: user_path(current_user), responsive: false do %>
       <%= menu_group do %>        
-            <%= menu_item " Sign-out #{current_user.fullname}", destroy_user_session_path, method: 'delete',
+            <%= menu_item " Sign-out #{current_user.fullname}", destroy_user_session_path, :method => :delete ,
                             class: "icon-signout" %>
       <% end %>
     <%= form_tag institutes_path, method: :get do %>

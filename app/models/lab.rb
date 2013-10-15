@@ -4,10 +4,7 @@ class Lab < ActiveRecord::Base
 	extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  # include ActiveModel::Validations
-
-	validates :email, uniqueness: { message: 'This email address has already been registered' },
-						presence: true
+	validates :email, presence: true
 
 	belongs_to :department
 	validates_associated :department
@@ -80,7 +77,7 @@ class Lab < ActiveRecord::Base
   def slug_candidates
     [
       :name,
-      [:name, :id]
+      [:name, :city]
     ]
   end
 end
