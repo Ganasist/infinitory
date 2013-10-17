@@ -1,12 +1,9 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
   factory :institute do
-    name "MyString"
-    description "MyText"
-    latitude 1.5
-    longitude 1.5
-    city "MyString"
-    address "MyString"
+    name			{ Faker::Name.name }
+    address		{ Faker::Address.street_address }
+    url				{ Faker::Internet.url }
   end
 end

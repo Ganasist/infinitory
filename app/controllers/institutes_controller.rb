@@ -1,7 +1,7 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
   before_action :find_institute, only: [:show]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
 
   # GET /institutes
   # GET /institutes.json

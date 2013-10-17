@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
   end
 
   def update_lab
-    if self.gl?
+    if self.gl? && self.confirmed?
       if self.institute_id_changed?
         self.department = nil
       end    

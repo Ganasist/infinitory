@@ -9,15 +9,15 @@ class ApplicationController < ActionController::Base
 
   # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def after_sign_in_path_for(resource)
-   user_path(current_user)
-  end
-
-  def after_update_path_for(resource)
-    user_path(current_user)
-  end
-
   protected
+
+    def after_sign_in_path_for(resource)
+     user_path(current_user)
+    end
+
+    # def after_update_path_for(resource)
+    #   user_path(current_user)
+    # end
 
     # def record_not_found
     #   redirect_to root_path
@@ -28,12 +28,12 @@ class ApplicationController < ActionController::Base
       if user_signed_in?
         if current_user.approved? && !current_user.confirmed?
           redirect_to edit_user_registration_path
-          flash[:alert] = "#{current_user.first_name} please confirm your email address"
+          flash[:alert] = "Please confirm your email address"
         elsif !current_user.approved?
           redirect_to edit_user_registration_path
-          flash[:alert] = "#{current_user.first_name} you currently don't belong to a lab"
+          flash[:alert] = "You currently don't belong to a lab"
           if current_user.save && current_user.lab_id != nil
-            flash[:alert] = "#{current_user.first_name} please wait for approval to join the #{current_user.lab.name} lab"
+            flash[:alert] = "Please wait for approval to join the #{current_user.lab.name} lab"
           end
         end
       end

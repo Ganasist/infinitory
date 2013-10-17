@@ -13,7 +13,7 @@ FactoryGirl.define do
 
     factory :admin do
       role 'group_leader'
-      institute_name 'Bigtime Institute'
+      institute_name { Faker::Name.name }
     end
   end
 end

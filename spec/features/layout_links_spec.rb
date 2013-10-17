@@ -36,17 +36,24 @@ describe 'LayoutLinks' do
     get '/login'
     response.body.should have_field('Email')
     response.body.should have_field('Password')
+    response.body.should have_link('Sign up')
+    response.body.should have_link('Forgot your password?')
+    response.body.should have_unchecked_field('user[remember_me]')
+    response.body.should have_link("Didn't receive confirmation instructions?")   
   end
 
   it 'should have a Register page at /register' do
     get '/register'
-    # response.body.should have_select(:role)
-    # response.body.should have_select(:lab)
-    response.body.should have_field(:email)
-    # response.body.should have_field(:institute_name)
+    response.body.should have_select('user[role]')
+    response.body.should have_select('user[lab_id]')
+    response.body.should have_field('Email address')
+    response.body.should have_field('Institute name')
     response.body.should have_field('Password')
-    # response.body.should have_field('Password Confirmation')
+    response.body.should have_field('Password confirmation')
     response.body.should have_button('Sign up')
+    response.body.should have_link('Sign in')
+    response.body.should have_link('Forgot your password?')
+    response.body.should have_link("Didn't receive confirmation instructions?")    
   end
 
   it 'should have the right links in the layout' do

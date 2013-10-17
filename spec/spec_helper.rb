@@ -34,6 +34,7 @@ Spork.prefork do
     config.include FactoryGirl::Syntax::Methods
 
     config.include Devise::TestHelpers, :type => :controller
+    config.include ControllerHelpers, :type => :controller
     
     config.include RSpec::Rails::RequestExampleGroup, type: :feature
 

@@ -23,7 +23,8 @@ class Institute < ActiveRecord::Base
 	# 								 if: Proc.new{ |t| t.address.present? && t.address_changed? }
 
 	validates :name, uniqueness: { scope: :address,
-     													 	 message: "This institute is already registered at that address" }, if: Proc.new{ |f| f.address? }
+     													 	 message: "This institute is already registered at that address" },
+     													 	 if: Proc.new{ |f| f.address? }
  
 	validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,

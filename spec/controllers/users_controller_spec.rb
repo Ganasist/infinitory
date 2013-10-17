@@ -5,6 +5,8 @@ describe UsersController do
 	# describe 'guest access' do
 
 	#   it 'requires login' do
+	#   	sign_in
+	  	
 	#   	get :show
 	#   	expect(response).to redirect_to login_url
 	#   end
