@@ -27,16 +27,37 @@ describe 'LayoutLinks' do
     response.body.should have_link('About Infinitory', page_path('about'))
   end
 
+  it 'should have an About page at /about' do
+    get '/about'
+    response.body.should have_content('About Infinitory')
+  end
+
   it 'should have a Privacy Policy link' do
     get '/'
     response.body.should have_link('Privacy Policy', page_path('privacy'))
+  end
+
+  it 'should have a Privacy Policy at /privacy' do
+    get '/privacy'
+    response.body.should have_content('Privacy Policy')
+  end
+
+  it 'should have the right links in the layout' do
+    visit root_path
+    click_link 'Privacy Policy'
+    expect(page).to have_content 'Privacy Policy'
+    expect(page).to have_content("INFINITORY", root_path)
+
+    click_link('About Infinitory', page_path('about'))
+    expect(page).to have_content("INFINITORY", root_path)
+    expect(page).to have_content 'About Infinitory'    
   end
 
   it 'should have an sign-in page at /login' do
     get '/login'
     response.body.should have_field('Email')
     response.body.should have_field('Password')
-    response.body.should have_link('Sign up')
+    response.body.should have_link('Sign up', new_user_registration_path)
     response.body.should have_link('Forgot your password?')
     response.body.should have_unchecked_field('user[remember_me]')
     response.body.should have_link("Didn't receive confirmation instructions?")   
@@ -51,27 +72,64 @@ describe 'LayoutLinks' do
     response.body.should have_field('Password')
     response.body.should have_field('Password confirmation')
     response.body.should have_button('Sign up')
-    response.body.should have_link('Sign in')
+    response.body.should have_link('Sign in', new_user_session_path)
     response.body.should have_link('Forgot your password?')
     response.body.should have_link("Didn't receive confirmation instructions?")    
   end
 
-  it 'should have the right links in the layout' do
-    visit root_path
-    expect(page).to have_content 'Sign-up'
-    click_link 'Privacy Policy'
-    expect(page).to have_content 'Privacy Policy'
-    click_link('About Infinitory', page_path('about'))
-    expect(page).to have_content 'About Infinitory'    
+  describe 'when not signed in' do    
+    it 'should have a brand link pointing to the Splash page' do      
+      visit root_path
+      expect(page).to have_content("INFINITORY", root_path)
+    end
+
+    it 'should have a sign-in and sign-up link' do
+      visit root_path
+      expect(page).to have_link('SIGN-IN', new_user_session_path) 
+      expect(page).to have_link('Sign-up', new_user_registration_path)  
+    end
+
+    it 'should not have a sign out link' do
+      visit root_path
+      expect(page).to_not have_link("Sign-out", destroy_user_session_path)
+    end
   end
 
-  it 'should have an About page at /about' do
-    get '/about'
-    response.body.should have_content('About Infinitory')
-  end
+  describe 'when signed in' do
+    before(:each) do
+      @user = build(:admin)
+      @lab  = Lab.create(email: @user.email, institute: @user.institute)
+      @user.lab = @lab
+      @user.save
+      visit new_user_session_path
+      fill_in 'Email',    with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button('Sign in')
+    end
 
-  it 'should have a Privacy Policy at /privacy' do
-    get '/privacy'
-    response.body.should have_content('Privacy Policy')
+    it 'should redirect to a User profile page' do      
+      expect(page).to have_content("#{@user.fullname}")
+    end
+
+    it 'should have a brand link pointing to their profile page' do      
+      expect(page).to have_link("INFINITORY", user_path(@user))
+      click_link("INFINITORY")
+      expect(page).to have_content("#{@user.fullname}")
+    end
+
+    it 'should have a new root path redirecting to the User profile page' do
+      visit root_path
+      expect(page).to have_content("#{@user.fullname}")
+    end
+
+    it 'should have a sign out link' do
+      expect(page).to have_link("Sign-out #{@user.fullname}", destroy_user_session_path)
+    end
+
+    it 'should not have sign-in or sign-up links at the root path' do
+      visit root_path
+      expect(page).to_not have_link('SIGN-IN', new_user_session_path)
+      expect(page).to_not have_link('Sign up', new_user_registration_path)   
+    end
   end
 end

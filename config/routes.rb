@@ -1,7 +1,10 @@
 require 'sidekiq/web'
 
 Infinitory::Application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
+
+  authenticated :user do
+    root :to => 'users#show', as: :authenticated_root
+  end
 
   root :to => 'high_voltage/pages#show', id: 'splash'
 

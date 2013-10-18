@@ -11,8 +11,8 @@ describe InstitutesController do
 	  end
 
 	  it 'requires login to see pages other than index' do
-	  	sign_in nil
 	  	institute  = create(:institute)
+	  	sign_in
 	  	get :show, use_route: institute_path(institute)
 	  	expect(response).to redirect_to login_path
 	  end
