@@ -96,6 +96,7 @@ describe 'LayoutLinks' do
   end
 
   describe 'when signed in' do
+
     before(:each) do
       @user = build(:admin)
       @lab  = Lab.create(email: @user.email, institute: @user.institute)
@@ -109,6 +110,20 @@ describe 'LayoutLinks' do
 
     it 'should redirect to a User profile page' do      
       expect(page).to have_content("#{@user.fullname}")
+    end
+
+    it 'should have the right title on the profile page' do      
+      expect(page).to have_title("Infinitory | People: #{@user.fullname}")
+    end
+
+    it 'should have a link to edit the current user' do
+      expect(page).to have_link("Edit", edit_user_registration_path(@user))
+    end
+
+    it 'should not have a link to edit users other than the current user' do
+      @member = create(:user, lab: @user.lab, institute: @user.institute)
+      visit user_path(@member)
+      expect(page).to_not have_link("Edit")
     end
 
     it 'should have a brand link pointing to their profile page' do      
