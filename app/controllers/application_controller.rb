@@ -40,13 +40,13 @@ class ApplicationController < ActionController::Base
     end
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_id, 
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_id,
                                                               :institute_name, :password, :approved,
                                                               :password_confirmation) }
 
       devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
 
-      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :icon, :role, :approved, 
+      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :icon, :room, :role, :approved, 
                                                                      :lab_id, :department_id, :institute_id, :institute_name, 
                                                                      :password, :password_confirmation, :current_password, 
                                                                      :icon, :remote_icon_url, :remove_icon, :icon_cache) }

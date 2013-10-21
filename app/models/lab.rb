@@ -16,7 +16,7 @@ class Lab < ActiveRecord::Base
 	has_many :users
 	has_many :reagents
 
-	after_update :lab_name, :lab_email
+	before_update :lab_name, :lab_email
 
 	def should_generate_new_friendly_id?
   	name_changed?

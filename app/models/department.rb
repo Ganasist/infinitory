@@ -4,6 +4,7 @@ class Department < ActiveRecord::Base
   validates :institute, presence: true
 
 	has_many :labs
+	has_many :users
 
 	before_validation :smart_add_url_protocol, :default_addresses
 

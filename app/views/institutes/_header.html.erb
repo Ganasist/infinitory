@@ -5,7 +5,7 @@
         <% if @institute.acronym.present? %>
           (<%= "#{@institute.acronym}" %>)
         <% end %>
-      <% if current_user.gl? && current_user.institute == @institute %>
+      <% if user_signed_in? && current_user.gl? && current_user.institute == @institute %>
         <div class="btn-group">
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_institute_path(@institute), :class => 'btn-small btn-success' %>

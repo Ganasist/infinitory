@@ -18,17 +18,17 @@ class User < ActiveRecord::Base
   
   belongs_to :department
   validates_associated :department
-  # validates_presence_of :department_id, allow_blank: true
+  validates_presence_of :department_id, allow_blank: true
 
   belongs_to :lab
   validates_associated  :lab
-  # validates :lab, presence: { message: 'Your group leader must create an account first' }, 
-  #                 allow_blank: true, unless: Proc.new{ |f| f.gl? }
+  validates :lab, presence: { message: 'Your group leader must create an account first' },
+                  allow_blank: false, unless: Proc.new{ |f| f.gl? || !f.new_record? }
   
   validates :role, presence: true
 
-  before_create :gl_signup, :skip_confirmation!, :skip_confirmation_notification!
-  after_create  :first_request
+  before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
+  after_create  :first_request_email
   before_update :update_lab, :transition, :affiliations
   
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
@@ -126,7 +126,11 @@ class User < ActiveRecord::Base
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
-      # self.lab = Lab.create(email: self.email, institute: self.institute)
+      self.lab = Lab.create(email: self.email,
+                            room:  "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
+                            institute: self.institute,
+                            department: self.department,
+                            name: self.fullname)
     end
   end
 
@@ -135,7 +139,12 @@ class User < ActiveRecord::Base
       self.lab_id   = lab_id
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
-      UserMailer.delay_for(2.seconds).request_email(self.id, self.lab_id)
+    end
+  end
+
+  def first_request_email  
+    if !self.gl? && !self.confirmed? && !self.approved?  
+      UserMailer.delay_for(1.second).request_email(self.id, self.lab_id)
     end
   end
 

@@ -1,7 +1,7 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
   before_action :find_institute, only: [:show]
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /institutes
   # GET /institutes.json
@@ -61,7 +61,7 @@ class InstitutesController < ApplicationController
                         <h5>Labs: #{ institute.labs.count }</h5>"
       end
       
-    @labs = Lab.where(institute_id: @institute)
+    @labs = Lab.where(institute_id: @institute).order("name ASC")
   end
 
   # GET /institutes/new
