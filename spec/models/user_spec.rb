@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe User do
+  before :each do
+    @gl = build(:admin)
+    lab = Lab.create(email: @gl.email, institute: @gl.institute)
+    @gl.lab = lab
+    @gl.save
+  end
 
   it 'has a valid user factory' do
-    expect(create(:user)).to be_valid
+    expect(create(:user, lab: @gl.lab)).to be_valid
   end
 
   it 'has a valid admin factory' do
-    expect(create(:admin)).to be_valid
+    expect( @gl ).to be_valid
   end
 
   it 'is invalid without an email address' do
@@ -24,15 +30,14 @@ describe User do
   end
 
   it 'is invalid with an existing email address' do
-    create(:user, email: 'bob@toner.com')
-    user = build(:user, email: 'bob@toner.com')
+    user = build(:admin, email: @gl.email)
     expect(user).to have(1).errors_on(:email)
   end
 
   it 'is valid with a valid email address' do
     addresses = %w[user@foo.com user_@_foo.org example@foo.com]
     addresses.each do |address|
-      valid_email_user = build(:user, email: address)
+      valid_email_user = build(:user, email: address, lab: @gl.lab)
       expect(valid_email_user).to be_valid
     end
   end
@@ -46,21 +51,28 @@ describe User do
   end
 
   it 'is valid with an email address, password, role and institute if its role is group leader' do
-    expect(create(:user)).to be_valid
+    expect(@gl).to be_valid
   end
 
   it 'gets sent a confirmation email' do
-    gl = create(:admin)
-    open_last_email.should be_delivered_to gl.email
+    open_last_email.should be_delivered_to @gl.email
   end
 
   it 'has a fullname equal to email initially' do
-    gl = create(:admin)
-    expect(gl.fullname).to eql gl.email
+    expect(@gl.fullname).to eql @gl.email
   end
 
-  it 'is valid with an email address, password, and role if its role is not a group leader' do
-    expect(create(:user)).to be_valid
+  it 'is not valid without a lab if it is a new account' do
+    invalid_user = build(:user, lab: nil)
+    expect(invalid_user).to_not be_valid
+  end
+
+  it 'is valid without a lab if it is not a new account' do
+    user = create(:user, lab: @gl.lab)
+    user.confirmed? == true
+    user.lab = nil
+    user.save
+    expect(user).to be_valid
   end
 
   it'has an email that matches "bob@toner.com"' do
@@ -69,37 +81,27 @@ describe User do
   end
 
   it 'changes the number of Users' do
-    expect{ create(:user) }.to change{ User.count }.by(1)
+    user = build(:user, lab: @gl.lab)
+    expect{ user.save }.to change{ User.count }.by(1)
   end
 
-  describe 'when it is a group leader' do
-    before :each do
-      @gl = build(:admin)
-    end
+  it 'returns the gl when gl is called on a gl with a Lab' do
+    user = create(:user, lab: @gl.lab)
+    expect(user.gl) =~ @gl
+  end
 
-    it 'returns nil when the gl method is called on a gl without a Lab' do
-      @gl.save
-      expect(@gl.gl).to eql nil
-    end
+  it 'returns a generic message when the gl method is called on a user without a Lab' do
+    user = create(:user, lab: @gl.lab)
+    user.lab = nil
+    expect(user.gl).to eql "#{user.fullname} has no group leader"
+  end
 
-    it 'returns gl when the gl method is called on a gl with a Lab' do
-      lab = Lab.create(email: @gl.email, institute: @gl.institute)
-      @gl.lab = lab
-      @gl.save
-      user = build(:user)
-      user.lab = lab
-      user.save
-      expect(user.gl).to eql @gl
-    end
-
-    it 'returns true when gl is called on a group leader' do
-      expect(@gl.gl?).to be_true
-    end
+  it 'returns true when gl is called on a group leader' do
+    expect(@gl.gl?).to be_true
   end
 
   describe 'when it is not group leader' do
     before :each do
-      @gl = create(:admin)
       @user = build(:user, role: 'technician', lab: @gl.lab)
     end
 
@@ -113,9 +115,9 @@ describe User do
   end
 
   describe 'it returns the fullname' do
-    it 'returns the fullname as email if they have not specified a last name' do
-      user = build(:user, first_name: 'Bob')
-      expect(user.fullname).to eq user.email
+    it 'returns the fullname as email if they have not specified a first and last name' do
+      @gl.first_name = "Bob"
+      expect(@gl.fullname).to eq @gl.email
     end
 
     it 'returns the fullname as first and last name if they have specified a last name' do

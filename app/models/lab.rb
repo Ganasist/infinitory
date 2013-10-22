@@ -16,7 +16,8 @@ class Lab < ActiveRecord::Base
 	has_many :users
 	has_many :reagents
 
-	before_update :lab_name, :lab_email
+	before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
+	before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
 
 	def should_generate_new_friendly_id?
   	name_changed?
@@ -35,7 +36,7 @@ class Lab < ActiveRecord::Base
   end
 
   def gl
-		self.users.find_by(role: 'group_leader')
+		User.find_by(email: self.email)
   end
 
 	def city

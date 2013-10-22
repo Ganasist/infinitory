@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
 
   belongs_to :institute
   validates_associated  :institute
-  validates :institute_name, presence: { message: "You must enter your institute's name" }, allow_blank: true, if: Proc.new{ |f| f.gl? }
+  validates :institute_name, presence: { message: "You must enter your institute's name" },
+                             allow_blank: true, if: Proc.new{ |f| f.gl? }
   
   belongs_to :department
   validates_associated :department
@@ -66,7 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def fullname
-    if self.last_name.blank?
+    if self.first_name.blank? || self.last_name.blank?
       self.email
     else
       "#{first_name} #{last_name}"
@@ -74,7 +75,11 @@ class User < ActiveRecord::Base
   end
 
   def gl
-    User.find(self.lab.users.where(role: 'group_leader')) if self.lab_id?
+    unless self.lab_id.blank?
+      User.find_by(email: self.lab.email)
+    else
+      "#{self.fullname} has no group leader"
+    end
   end
 
   def gl?
@@ -168,9 +173,11 @@ class User < ActiveRecord::Base
     if self.gl? && self.confirmed?
       if self.institute_id_changed?
         self.department = nil
-      end    
-      self.lab.update(email: self.email, name: self.fullname,
-                                 department: self.department, institute: self.institute)
+      end
+      unless self.lab_id.blank? 
+        self.lab.update(email: self.email, name: self.fullname,
+                        department: self.department, institute: self.institute)
+      end
     end
   end
 

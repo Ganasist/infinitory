@@ -10,11 +10,12 @@ describe InstitutesController do
 	  	expect(response).to be_success
 	  end
 
-	  it 'requires login to see pages other than index' do
+	  it 'does not require login to see institute Show page' do
 	  	sign_in nil
-	  	institute  = create(:institute)
-	  	get :show, use_route: institute_path(institute)
-	  	expect(response).to redirect_to login_path
+	  	institute  = Institute.create!(name: "Test")
+	  	visit institute_path(institute)
+	  	# get :show, use_route: institute_path(institute)
+	  	expect(response).to be_success
 	  end
 	end
 end
