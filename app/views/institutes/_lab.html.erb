@@ -8,7 +8,11 @@
 	<br>
 	    <% @labs.each do |lab| %>
 	    <div class="lab">
-		    <p><%= link_to lab.lab_name, lab_path(lab) %> / <%= pluralize(lab.users.count, "member") %></p>
+		    <p>
+		    	<%= link_to lab.lab_name, lab_path(lab) %>
+		    <br>
+		    	<%= pluralize(lab.users.count, "member") %>
+		  	</p>
 	    </div>
 	  <% end %>
 <% end %>

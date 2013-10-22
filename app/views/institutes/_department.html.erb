@@ -8,8 +8,10 @@
 	<br>
     <% @departments.each do |department| %>
 	    <div class="department">
-		    <p><%= link_to department.name, department_path(department) %> / 
-		    	 <%= pluralize(department.labs.count, "group") %> / 
+		    <p>
+		    	<%= link_to department.name, department_path(department) %>
+		    <br>
+		    	 <%= pluralize(department.labs.count, "group") %> & 
 		    	 <%= pluralize(department.users.count, "member") %>
 		    </p>
 	    </div>

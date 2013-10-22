@@ -20,7 +20,7 @@
         </h4>
       <% end %>
       <br>
-      <p> <%= pluralize(@institute.labs.count, "group") + " and " + pluralize(@institute.users.count, "member") %></p>
+      <p> <%= pluralize(@institute.labs.count, "group") + " & " + pluralize(@institute.users.count, "member") %></p>
 
 
       <%= link_to "#", class: "btn-large" do %>
