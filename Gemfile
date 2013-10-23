@@ -58,6 +58,7 @@ gem "twitter-bootstrap-rails"
 # gem 'cancan'
 gem 'devise'
 gem 'devise_invitable', :github => 'scambra/devise_invitable'
+gem 'devise-async'
 
 gem 'figaro'
 gem 'pg'
