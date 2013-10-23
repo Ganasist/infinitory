@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
 
   def first_request_email  
     if !self.gl? && !self.confirmed? && !self.approved?  
-      UserMailer.delay_for(1.second).request_email(self.id, self.lab_id)
+      UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
     end
   end
 
@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
       self.approved = false
       self.lab_id   = lab_id
       self.joined  = nil
-      UserMailer.delay_for(2.seconds, retry: false).request_email(self.id, self.lab_id)
+      UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
     end
   end
 

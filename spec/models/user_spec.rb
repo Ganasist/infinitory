@@ -55,7 +55,7 @@ describe User do
   end
 
   it 'gets sent a confirmation email' do
-    open_last_email.should be_delivered_to @gl.email
+    expect { @gl.send_confirmation_instructions }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
   end
 
   it 'has a fullname equal to email initially' do
