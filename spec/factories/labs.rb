@@ -1,10 +1,9 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
   factory :lab do
-    department_id 1
-    institute_id 1
-    group_leader "MyString"
-    group_leader_email "MyString"
+    department_id Faker::Company.name
+    institute_name Faker::Company.name
+    email Faker::Internet.email
   end
 end

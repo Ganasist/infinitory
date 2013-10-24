@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe User do
   before :each do
-    @gl = build(:admin)
-    lab = Lab.create(email: @gl.email, institute: @gl.institute)
-    @gl.lab = lab
-    @gl.save
+    @gl = create(:admin)
   end
 
   it 'has a valid user factory' do
@@ -13,7 +10,7 @@ describe User do
   end
 
   it 'has a valid admin factory' do
-    expect( @gl ).to be_valid
+    expect(@gl).to be_valid
   end
 
   it 'is invalid without an email address' do
@@ -50,12 +47,10 @@ describe User do
     end
   end
 
-  it 'is valid with an email address, password, role and institute if its role is group leader' do
-    expect(@gl).to be_valid
-  end
-
   it 'gets sent a confirmation email' do
-    expect { @gl.send_confirmation_instructions }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
+    # expect { @gl.save }.to change(Devise::Async::Backend::Sidekiq.jobs, :size).by(1)
+    open_last_email.should be_delivered_to @gl.email
+    open_last_email.should have_subject "Confirmation instructions"
   end
 
   it 'has a fullname equal to email initially' do
@@ -85,19 +80,31 @@ describe User do
     expect{ user.save }.to change{ User.count }.by(1)
   end
 
-  it 'returns the gl when gl is called on a gl with a Lab' do
-    user = create(:user, lab: @gl.lab)
-    expect(user.gl) =~ @gl
-  end
+  describe 'when it is a group leader' do
+    it 'returns the gl when gl is called on a gl with a Lab' do
+      user = create(:user, lab: @gl.lab)
+      expect(user.gl) =~ @gl
+    end
 
-  it 'returns a generic message when the gl method is called on a user without a Lab' do
-    user = create(:user, lab: @gl.lab)
-    user.lab = nil
-    expect(user.gl).to eql "#{user.fullname} has no group leader"
-  end
+    it 'is valid without a lab if it is not a new account' do
+      @gl.lab = nil
+      @gl.save
+      expect(@gl).to be_valid
+    end
 
-  it 'returns true when gl is called on a group leader' do
-    expect(@gl.gl?).to be_true
+    it 'changes the number of Labs when it is created' do
+      expect(create(:admin, email: Faker::Internet.email)).to change{ Lab.count }.by(1)
+    end
+
+    it 'returns a generic message when the gl method is called on a user without a Lab' do
+      user = create(:user, lab: @gl.lab)
+      user.lab = nil
+      expect(user.gl).to eql "#{user.fullname} has no group leader"
+    end
+
+    it 'returns true when gl is called on a group leader' do
+      expect(@gl.gl?).to be_true
+    end
   end
 
   describe 'when it is not group leader' do

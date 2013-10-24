@@ -13,15 +13,13 @@ class Lab < ActiveRecord::Base
 	validates_associated	:institute
 	validates :institute, presence: true
 
+	# validates_with LabValidator
+
 	has_many :users
 	has_many :reagents
 
 	before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
 	before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
-
-	def should_generate_new_friendly_id?
-  	name_changed?
-  end
 
   def lab_name
   	self.name = gl.fullname
@@ -39,12 +37,22 @@ class Lab < ActiveRecord::Base
 		User.find_by(email: self.email)
   end
 
+	def size
+		users.count
+	end
+
 	def city
 		institute.city
 	end
 
-	def size
-		users.count
+	def location
+		if self.room.present? && self.department.present?
+			"#{self.room} #{department.address}"
+		elsif self.room.present? && self.department.blank?
+			"#{self.room} #{institute.address}"
+		else
+			"#{institute.address}"
+		end
 	end
 
 	def department_name
@@ -63,17 +71,11 @@ class Lab < ActiveRecord::Base
     self.institute = Institute.find_or_create_by(name: name) if name.present?
   end
 
-	def location
-		if self.room.present? && self.department.present?
-			"#{self.room} #{department.address}"
-		elsif self.room.present? && self.department.blank?
-			"#{self.room} #{institute.address}"
-		else
-			"#{institute.address}"
-		end
-	end
-
 	private
+
+	def should_generate_new_friendly_id?
+  	name_changed?
+  end
 
   def slug_candidates
     [

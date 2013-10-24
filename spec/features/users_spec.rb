@@ -30,9 +30,8 @@ describe "Users" do
 	    after(:each) do
 		    Sidekiq::Extensions::DelayedMailer.jobs.clear
 	    end
-		    
-			it "should make a new non-gl User" do
 
+			it "should make a new non-gl User" do
 				lambda do
 					visit new_user_registration_path
 					select "Technician", 							from: "user[role]"
@@ -44,10 +43,10 @@ describe "Users" do
 
 					current_path.should == "/edit"
 					page.should have_content("Please wait for approval to join the #{@gl.lab.name} lab")
-					# open_last_email.should be_delivered_to @gl.email
-					# assert_equal 1, Sidekiq::Extensions::DelayedMailer.jobs.size
+					open_last_email.should be_delivered_to @gl.email
+					assert_equal 1, Sidekiq::Extensions::DelayedMailer.jobs.size
+					open_last_email.should have_subject "Confirmation instructions"
 					expect { UserMailer.delay_for(1.second, retry: false).request_email }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
-					# open_last_email.should have_subject "Confirmation instructions"
 				end.should change{ User.count }.by(1)
 			end
 
@@ -62,10 +61,10 @@ describe "Users" do
 					click_button "Sign up"					
 
 					current_path.should == "/edit"
-					# page.should have_content("Please wait for approval to join the #{@lab.name} lab")
-					expect { Devise::Mailer.send_confirmation_request }.to change(Devise::Async::Backend::Sidekiq.jobs, :size).by(1)
-					# open_last_email.should be_delivered_to "factory@test.com"
-					# open_last_email.should have_subject "Confirmation instructions"
+					page.should have_content("Please confirm your email address")
+					open_last_email.should be_delivered_to "factory@test.com"
+					open_last_email.should have_subject "Confirmation instructions"
+					# expect { ConfirmationMailsWorker.perform_async }.to change(Devise::Async::Backend::Sidekiq.jobs, :size).by(1)
 				end.should change{ User.count }.by(1)
 			end
 		end

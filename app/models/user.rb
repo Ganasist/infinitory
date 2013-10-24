@@ -163,7 +163,7 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if self.confirmed? && self.approved?
+    if self.confirmed? && self.approved? && !self.lab.nil?
       self.institute = lab.institute
       self.department = lab.department
     end

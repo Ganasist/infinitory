@@ -98,10 +98,10 @@ describe 'LayoutLinks' do
   describe 'when signed in' do
 
     before(:each) do
-      @user = build(:admin)
-      @lab  = Lab.create(email: @user.email, institute: @user.institute)
-      @user.lab = @lab
-      @user.save
+      @user = create(:admin)
+      # @lab  = Lab.create(email: @user.email, institute: @user.institute)
+      # @user.lab = @lab
+      # @user.save
       visit new_user_session_path
       fill_in 'Email',    with: @user.email
       fill_in 'Password', with: @user.password
