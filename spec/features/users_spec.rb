@@ -7,11 +7,10 @@ describe "Users" do
 		describe "failure" do
 			it "should not create a new User" do
 				lambda do
-					visit new_user_registration_path
-					# page.select "", from: "User_role"
-					fill_in "Email",									with: ""
-					fill_in "Password",								with: ""
-					fill_in "Password confirmation",	with: ""
+					visit "/register"
+					fill_in "Email address", match: :first,		with: ""
+					fill_in "Password",	match: :first,				with: ""
+					fill_in "Password confirmation",					with: ""
 					click_button "Sign up"
 					
 					current_path.should == "/"
@@ -24,7 +23,7 @@ describe "Users" do
 		describe "success" do
 			before(:each) do
 				@gl  = create(:admin)
-				# @lab = Lab.create(email: @gl.email, institute: @gl.institute)
+				Sidekiq::Extensions::DelayedMailer.jobs.clear
 	    end
 
 	    after(:each) do
@@ -33,12 +32,12 @@ describe "Users" do
 
 			it "should make a new non-gl User" do
 				lambda do
-					visit new_user_registration_path
-					select "Technician", 							from: "user[role]"
-					fill_in "Email",									with: "factory@test.com"
-					select @gl.email, match: :first, 	from: "user[lab_id]"
-					fill_in "Password",								with: "loislane"
-					fill_in "Password confirmation",	with: "loislane"
+					visit "/register"
+					select "Technician", 											from: "user[role]"
+					find('.js-email').set 'tests@factory.com'
+					select @gl.email, match: :first, 	from: 	"user[lab_id]"
+					find('.js-password').set 'loislane'
+					find('.js-password-confirmation').set 'loislane'
 					click_button "Sign up"					
 
 					current_path.should == "/edit"
@@ -52,12 +51,12 @@ describe "Users" do
 
 			it "should make a new gl User" do
 				lambda do
-					visit new_user_registration_path
-					select "Group leader", 						from: "user[role]"
-					fill_in "Email",									with: "factory@test.com"
-					fill_in "Institute name",					with: "Big Institute"
-					fill_in "Password",								with: "loislane"
-					fill_in "Password confirmation",	with: "loislane"
+					visit "/register"
+					select "Group leader", 							from: "user[role]"
+					find('.js-email').set "factory@test.com"
+					fill_in "Institute name",						with: "Big Institute"
+					find('.js-password').set 'loislane'
+					find('.js-password-confirmation').set 'loislane'
 					click_button "Sign up"					
 
 					current_path.should == "/edit"

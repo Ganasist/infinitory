@@ -81,6 +81,10 @@ describe User do
   end
 
   describe 'when it is a group leader' do
+    it 'changes the number of Labs when it is created' do
+      expect{ create(:admin) }.to change{ Lab.count }.by(1)
+    end
+
     it 'returns the gl when gl is called on a gl with a Lab' do
       user = create(:user, lab: @gl.lab)
       expect(user.gl) =~ @gl
@@ -90,10 +94,6 @@ describe User do
       @gl.lab = nil
       @gl.save
       expect(@gl).to be_valid
-    end
-
-    it 'changes the number of Labs when it is created' do
-      expect(create(:admin, email: Faker::Internet.email)).to change{ Lab.count }.by(1)
     end
 
     it 'returns a generic message when the gl method is called on a user without a Lab' do
