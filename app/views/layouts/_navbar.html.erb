@@ -11,22 +11,18 @@
     <% end %>
   <% else %>
     <%= nav_bar brand: "INFINITORY", brand_link: root_path, responsive: false do %>
-      <%= menu_group pull: :right do %>  
-        <%= menu_item " SIGN-IN", new_user_session_path, class: "icon-signin" %>
-        
+      <%= menu_group pull: :right do %>
         <%= drop_down "Sign In" do %>
-            <%= form_for("user", :url => user_session_path) do |f| %>
-              <%= f.text_field :email %>
-              <%= f.password_field :password %>
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-              <%= f.submit 'Sign in' %>
-              <%= link_to "Forgot your password?", new_password_path('user') %>
-            <% end %>
+          <%= form_for("user", :url => new_user_session_path) do |f| %>
+            <%= f.text_field :email %>
+            <%= f.password_field :password %>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+            <%= f.submit 'Sign in' %>
+            <%= link_to "Forgot your password?", new_password_path('user') %>
           <% end %>
-      <% end %>
-
-
-      <% end %>
+        <% end %>
+      <% end %>   
+    <% end %>
   <% end %>
 </div>
