@@ -29,8 +29,12 @@ class Lab < ActiveRecord::Base
   	self.email = gl.email
   end
 
+  def institute_name
+  	self.institute.name
+  end
+
   def gl_count  	
-		users.where(role: 'group_leader').count
+		self.users.where(role: 'group_leader').count
   end
 
   def gl

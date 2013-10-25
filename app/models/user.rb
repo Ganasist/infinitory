@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request_email
-  before_update :update_lab, :transition, :affiliations
+  before_update :update_lab, :change_lab, :affiliations
   
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def transition
+  def change_lab
     if !self.gl? && self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id

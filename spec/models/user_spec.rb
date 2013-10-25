@@ -62,11 +62,14 @@ describe User do
     expect(invalid_user).to_not be_valid
   end
 
+  it 'is not approved until their lab approves them' do
+    user = create(:user, lab: @gl.lab)
+    expect(user.approved).to be_false
+  end
+
   it 'is valid without a lab if it is not a new account' do
     user = create(:user, lab: @gl.lab)
-    user.confirmed? == true
     user.lab = nil
-    user.save
     expect(user).to be_valid
   end
 
@@ -81,8 +84,9 @@ describe User do
   end
 
   describe 'when it is a group leader' do
-    it 'changes the number of Labs when it is created' do
-      expect{ create(:admin) }.to change{ Lab.count }.by(1)
+    xit 'changes the number of Labs when it is created' do
+      gl = build(:admin)
+      expect{ gl.save }.to change{ Lab.count }.by(1)
     end
 
     it 'returns the gl when gl is called on a gl with a Lab' do
@@ -121,6 +125,7 @@ describe User do
     end
   end
 
+  it { should respond_to(:fullname) }
   describe 'it returns the fullname' do
     it 'returns the fullname as email if they have not specified a first and last name' do
       @gl.first_name = "Bob"
@@ -138,5 +143,4 @@ describe User do
   it { should respond_to(:retire) }
   it { should respond_to(:confirmed?) }
   it { should respond_to(:location) }
-  it { should respond_to(:fullname) }
 end

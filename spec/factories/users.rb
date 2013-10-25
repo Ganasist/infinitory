@@ -8,8 +8,7 @@ FactoryGirl.define do
     role 'technician'
     password  'loislane'
     password_confirmation 'loislane'
-  	# required if the Devise Confirmable module is used
-    confirmed_at Time.now
+    confirmed_at Time.now # required if the Devise Confirmable module is used
 
     factory :admin do
       role 'group_leader'
