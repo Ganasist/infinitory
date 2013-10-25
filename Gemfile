@@ -99,15 +99,17 @@ group :development do
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
   gem 'consistency_fail'
+  gem 'parallel_tests'
 end
 
 group :development, :test do
   gem "faker", "~> 1.2.0"
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'spork'
-  gem 'spork-rails', github: 'railstutorial/spork-rails'
-  gem 'guard-spork', github: 'guard/guard-spork'
+  gem 'zeus-parallel_tests'
+  # gem 'spork'
+  # gem 'spork-rails', github: 'railstutorial/spork-rails'
+  # gem 'guard-spork', github: 'guard/guard-spork'
   gem 'growl_notify'
   gem 'turn'
   gem 'rspec-nc'
