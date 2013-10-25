@@ -52,6 +52,12 @@ Spork.prefork do
     config.run_all_when_everything_filtered = true
     config.before(:each) { GC.disable }
     config.after(:each) { GC.enable }
+    config.before(:all) do
+      DeferredGarbageCollection.start
+    end
+    config.after(:all) do
+      DeferredGarbageCollection.reconsider
+    end
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
