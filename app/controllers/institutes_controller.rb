@@ -8,45 +8,13 @@ class InstitutesController < ApplicationController
   def index
     if params[:search].present?
       @institutes = Institute.near(params[:search], 50)
-      @circles_json = @institutes.to_gmaps4rails do |institute|
-                       {lng: "#{ institute.longitude }",
-                        lat: "#{ institute.latitude }",
-                        radius: 20,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 1,
-                        fillColor: "#000",
-                        fillOpacity: 0.35}
-        end
-        @mapped = @institutes.to_gmaps4rails do |institute, marker|
-          marker.infowindow "<h4>#{institute.name}<h4>
-                            <h5>Labs: #{institute.labs.count}</h5>"
-        end
     elsif params[:query].present?
       @institutes = Institute.global_search(params[:query]).page(params[:page]).per_page(10)
-      @circles_json = @institutes.to_gmaps4rails do |institute|
-                       {lng: "#{institute.longitude}",
-                        lat: "#{institute.latitude}",
-                        radius: 20,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 1,
-                        fillColor: "#000",
-                        fillOpacity: 0.35}
-       end
-      @mapped = @institutes.to_gmaps4rails do |institute, marker|
-        marker.infowindow "<h4>#{ institute.name }<h4>
-                          <h5>Labs: #{ institute.labs.count }</h5>"
-      end
     elsif params[:term].present?
       @institutes = Institute.order(:name).where("name ilike ?", "%#{params[:term]}%")
       render json: @institutes.map(&:name)
     else 
       @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(10)
-      @mapped = Institute.order(updated_at: :desc).page(params[:page]).per_page(10).to_gmaps4rails do |institute, marker|
-        marker.infowindow "<h4>#{institute.name}<h4>
-                          <h5>Labs: #{ institute.labs.count }</h5>"
-      end
     end
   end
 
@@ -54,14 +22,15 @@ class InstitutesController < ApplicationController
   # GET /institutes/1.json
   def show
     @institute = Institute.friendly.find(params[:id])
-    @departments = @institute.departments
     
-    @mapped = @institute.to_gmaps4rails  do |institute, marker|
-      marker.infowindow "<h4>#{ institute.name }<h4>
-                        <h5>Labs: #{ institute.labs.count }</h5>"
-      end
-      
-    @labs = Lab.where(institute_id: @institute).order("name ASC")
+    @departments = @institute.departments
+    gon.departments = @departments
+    
+    @labs = @institute.labs.order("name ASC")
+    gon.labs = @labs
+    
+    @users = @institute.users
+    gon.users = @users
   end
 
   # GET /institutes/new

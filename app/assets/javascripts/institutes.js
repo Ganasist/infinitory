@@ -606,5 +606,13 @@ jQuery(function() {
     ],
     "size": 25245
   };
-  return myFlower = new CodeFlower("#visualization", 350, 350).update(jsonData);
+  myFlower = new CodeFlower("#visualization", 350, 350).update(jsonData);
+  if (typeof gon !== "undefined" && gon !== null) {
+    console.log(gon.departments);
+    console.log(gon.departments.length);
+    console.log(gon.labs);
+    console.log(gon.labs.length);
+    console.log(gon.users);
+    return console.log(gon.users.length);
+  }
 });
