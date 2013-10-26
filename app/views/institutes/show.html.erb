@@ -13,9 +13,13 @@
       <%= render 'lab' %>
    <% end %>
 </div>
-<div class="span6">  
-    <br>
+<div class="span6">
 
+    <%= content_tag "div", id: "visualization" do %>
+
+    <% end %>   
+
+    <br>
    <% if @institute.nearbys.present? %>
      <%= render 'nearby' %>
    <% end %>
