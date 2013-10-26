@@ -22,10 +22,11 @@ class InstitutesController < ApplicationController
   # GET /institutes/1.json
   def show
     @institute = Institute.friendly.find(params[:id])
+    gon.institute = @institute
     
     @departments = @institute.departments
     gon.departments = @departments
-    
+
     @labs = @institute.labs.order("name ASC")
     gon.labs = @labs
     
