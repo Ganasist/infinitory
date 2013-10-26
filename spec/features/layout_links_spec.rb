@@ -127,7 +127,7 @@ describe 'LayoutLinks' do
     it 'should have a brand link pointing to their profile page' do      
       expect(page).to have_link("INFINITORY", user_path(@user))
       click_link("INFINITORY")
-      expect(page).to have_content("#{@user.fullname}")
+      expect(page).to have_title("Infinitory | People: #{@user.fullname}")
     end
 
     it 'should have a new root path redirecting to the User profile page' do

@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe User do
-  before :each do
-    @gl = create(:admin)
+  before :all do
+    @gl = build(:admin)
   end
 
   it 'has a valid user factory' do
+    @gl.save
     expect(create(:user, lab: @gl.lab)).to be_valid
   end
 
@@ -27,8 +28,9 @@ describe User do
   end
 
   it 'is invalid with an existing email address' do
-    user = build(:admin, email: @gl.email)
-    expect(user).to have(1).errors_on(:email)
+    user = create(:user, email: Faker::Internet.email, lab: @gl.lab)
+    user2 = build(:user, email: user.email)
+    expect(user2).to have(1).errors_on(:email)
   end
 
   it 'is valid with a valid email address' do
@@ -43,7 +45,7 @@ describe User do
     addresses = %w[user@foo,com user_at_foo.org example@foo.]
     addresses.each do |address|
       invalid_email_user = build(:user, email: address)
-      expect(invalid_email_user).to_not be_valid
+      expect(invalid_email_user).to have(1).errors_on(:email)
     end
   end
 
@@ -68,6 +70,7 @@ describe User do
   end
 
   it 'is valid without a lab if it is not a new account' do
+    @gl.save
     user = create(:user, lab: @gl.lab)
     user.lab = nil
     expect(user).to be_valid

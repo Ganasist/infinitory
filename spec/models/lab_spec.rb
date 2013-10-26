@@ -20,10 +20,6 @@ describe Lab do
     expect(@lab).to_not be_valid
   end
 
-  it 'is invalid without a group leader'
-  it 'is invalid with more than one group leader'
-  it 'is valid with one group leader'
-
   it { should respond_to(:lab_name) }
   its 'lab name should be the same as the group leaders name' do
     expect(@lab.lab_name).to eql @gl.fullname
@@ -33,6 +29,10 @@ describe Lab do
   its 'lab name should be the same as the group leaders name' do
     expect(@lab.lab_email).to eql @gl.email
   end
+
+  it 'is invalid without a group leader'
+  it 'is invalid with more than one group leader'
+  it 'is valid with one group leader'
 
   it { should respond_to(:gl_count) }
   xit 'GL count should always equal 1' do

@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "Users" do
 
-	describe "signup" do
+	describe "Signup" do
 		
-		describe "failure" do
+		describe "Failure" do
 			it "should not create a new User" do
 				lambda do
 					visit "/register"
@@ -20,8 +20,8 @@ describe "Users" do
 			end
 		end
 
-		describe "success" do
-			before(:each) do
+		describe "Success" do
+			before(:all) do
 				@gl  = create(:admin)
 				Sidekiq::Extensions::DelayedMailer.jobs.clear
 	    end
