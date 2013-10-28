@@ -22,16 +22,10 @@ class InstitutesController < ApplicationController
   # GET /institutes/1.json
   def show
     @institute = Institute.friendly.find(params[:id])
-    gon.institute = @institute
-    
     @departments = @institute.departments
-    gon.departments = @departments
-
     @labs = @institute.labs.order("name ASC")
-    gon.labs = @labs
-    
     @users = @institute.users
-    gon.users = @users
+    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
   # GET /institutes/new
@@ -97,8 +91,8 @@ class InstitutesController < ApplicationController
 
     def find_institute
       @institute = Institute.friendly.find(params[:id])
-      if request.path != institute_path(@institute)
-        return redirect_to @institute, :status => :moved_permanently
-      end
+      # if request.path != institute_path(@institute)
+      #   return redirect_to @institute, :status => :moved_permanently
+      # end
     end
 end
