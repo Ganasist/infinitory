@@ -9,7 +9,6 @@ var CodeFlower = function(selector, w, h) {
     .attr('height', h);
 
   this.svg.append("svg:rect")
-    .style("stroke", "#999")
     .style("fill", "#fff")
     .attr('width', w)
     .attr('height', h);

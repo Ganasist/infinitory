@@ -11,7 +11,6 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'coffee-rails', '~> 4.0.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
@@ -19,7 +18,6 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'gon'
 gem 'rabl'
-# gem 'rabl-rails' Doesn't support Rails 4 yet
 
 gem 'redis'
 gem 'dalli'
@@ -30,10 +28,7 @@ gem 'paper_trail', '>= 3.0.0.beta1'
 
 gem 'pg_search'
                              
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
-
-# gem 'jbuilder', '~> 1.2'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 
@@ -46,14 +41,12 @@ gem 'pg_search'
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
 # gem 'debugger', group: [:development, :test]
 
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
 
-# gem 'cancan'
 gem 'devise'
 gem 'devise_invitable', :github => 'scambra/devise_invitable'
 gem 'devise-async'
@@ -105,9 +98,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'zeus-parallel_tests'
-  # gem 'spork'
-  # gem 'spork-rails', github: 'railstutorial/spork-rails'
-  # gem 'guard-spork', github: 'guard/guard-spork'
   gem 'growl_notify'
   gem 'turn'
   gem 'rspec-nc'
