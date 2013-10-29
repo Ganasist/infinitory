@@ -2,7 +2,7 @@
 jQuery(function() {
   var myFlower;
   if (typeof gon !== "undefined" && gon !== null) {
-    myFlower = new CodeFlower("#visualization", 350, 350);
+    myFlower = new CodeFlower("#visualization", 300, 300);
     myFlower.update(gon.institute);
     return console.log(gon.institute);
   }

@@ -5,9 +5,8 @@ child :departments => "children" do
   attribute :name
   child :labs => "children" do
   	attribute :name
-  	child :users => "children" do
-  		attribute :email => :name
-  		node(:size) { 1 }
-  	end
+  	node :size do |u|
+		  u.size
+		end
   end
 end
