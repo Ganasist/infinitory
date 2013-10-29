@@ -10,3 +10,10 @@ child :departments => "children" do
 		end
   end
 end
+
+child :labs => "children" do
+	attribute :name
+	node :size do |u|
+	  u.size
+	end
+end
