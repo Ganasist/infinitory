@@ -22,10 +22,10 @@ class InstitutesController < ApplicationController
   # GET /institutes/1.json
   def show
     @institute = Institute.friendly.find(params[:id])
-    @departments = @institute.departments
-    @labs = @institute.labs.order("name ASC")
+    @departments = Department.includes(:labs).where(institute_id: params[:id])
+    @labs = Lab.includes(:users).where(institute_id: params[:id]).order("name ASC")
     @users = @institute.users
-    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
+    gon.rabl "app/views/institutes/show.json.rabl", as: "institute", include: [:labs, :users]
   end
 
   # GET /institutes/new

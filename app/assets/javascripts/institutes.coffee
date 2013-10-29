@@ -6,9 +6,9 @@ jQuery ->
 				"name":	department.name
 				"children": for lab in department.labs
 					"name": lab.name
-					"size": lab.users.length
+					"size": lab.users.length * 10
 
-		myFlower = new CodeFlower("#visualization", 330, 250)
+		myFlower = new CodeFlower("#visualization", 400, 250)
 		myFlower.update(jsonData)
 
 		console.log gon.institute.name

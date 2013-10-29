@@ -20,7 +20,7 @@ jQuery(function() {
                 lab = _ref1[_j];
                 _results1.push({
                   "name": lab.name,
-                  "size": lab.users.length
+                  "size": lab.users.length * 10
                 });
               }
               return _results1;
@@ -30,7 +30,7 @@ jQuery(function() {
         return _results;
       })()
     };
-    myFlower = new CodeFlower("#visualization", 330, 250);
+    myFlower = new CodeFlower("#visualization", 400, 250);
     myFlower.update(jsonData);
     return console.log(gon.institute.name);
   }
