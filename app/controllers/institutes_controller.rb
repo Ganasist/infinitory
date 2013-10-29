@@ -25,7 +25,7 @@ class InstitutesController < ApplicationController
     @departments = Department.includes(:labs).where(institute_id: params[:id])
     @labs = Lab.includes(:users).where(institute_id: params[:id]).order("name ASC")
     @users = @institute.users
-    gon.rabl "app/views/institutes/show.json.rabl", as: "institute", include: [:labs, :users]
+    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
   # GET /institutes/new
