@@ -21,8 +21,6 @@ class InstitutesController < ApplicationController
   # GET /institutes/1
   # GET /institutes/1.json
 
-  require 'ostruct'
-
   def show
     @institute = Institute.friendly.find(params[:id])
     @departments = Department.includes(:labs).where(institute_id: find_institute)

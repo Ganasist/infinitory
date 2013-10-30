@@ -1,11 +1,7 @@
 object @institute
 attributes :name
 
-child(@test => "children") do
-  attributes :name
-end
-
-child(@departments => "children") do
+child @departments => "children" do
   attribute :name
   child(:labs => "children") do
   	attribute :name
@@ -14,3 +10,11 @@ child(@departments => "children") do
 		end
   end
 end
+
+node :children do
+  @test.map do |t| 
+    { :name => t.name, :size => t.size }
+  end
+end
+
+

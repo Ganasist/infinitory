@@ -78,7 +78,7 @@ jQuery(function() {
         }
       ]
     };
-    myFlower = new CodeFlower("#visualization", 400, 400);
+    myFlower = new CodeFlower("#visualization", 350, 350);
     myFlower.update(gon.institute);
     return console.log(gon.institute);
   }
