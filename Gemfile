@@ -18,6 +18,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'gon'
 gem 'rabl'
+gem 'oj'
 
 gem 'redis'
 gem 'dalli'

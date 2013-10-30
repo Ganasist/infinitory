@@ -79,7 +79,7 @@ jQuery(function() {
       ]
     };
     myFlower = new CodeFlower("#visualization", 400, 400);
-    myFlower.update(test);
+    myFlower.update(gon.institute);
     return console.log(gon.institute);
   }
 });

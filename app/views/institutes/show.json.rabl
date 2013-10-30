@@ -1,12 +1,8 @@
 object @institute
 attributes :name
 
-
-child(@test) do
+child(@test => "children") do
   attributes :name
-  node :size do |u|
-	  u.size
-	end
 end
 
 child(@departments => "children") do
