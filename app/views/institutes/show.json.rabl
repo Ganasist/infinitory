@@ -1,6 +1,7 @@
 object @institute
 attributes :name
 
+
 child(@test) do
   attributes :name
   node :size do |u|
