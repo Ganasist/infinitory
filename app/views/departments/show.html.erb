@@ -4,11 +4,8 @@
      <%= render 'lab' %>
   </div>
   <div class="span8">  
-      <br>
-      <% if !@department.longitude.nil? %>
-        <%= render 'gmap' %>
-        <br>
-      <% end %>
+   <%= content_tag "div", id: "departmentFlower" do %>
+    <% end %>    
   </div>
 
 

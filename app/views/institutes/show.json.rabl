@@ -5,13 +5,8 @@ child @departments => "children" do
   attribute :name
   child(:labs => "children") do
   	attribute :name
-    child(:users => "children") do
-      node :name do |u|
-        u.email
-      end
-      node :size do
-        1
-      end
+    node :size do |l|
+      l.size
     end
   end
 end

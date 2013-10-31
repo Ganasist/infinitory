@@ -3,8 +3,6 @@ class InstitutesController < ApplicationController
   before_action :find_institute, only: [:show]
   before_action :authenticate_user!, except: [:index, :show]
 
-  # GET /institutes
-  # GET /institutes.json
   def index
     if params[:search].present?
       @institutes = Institute.near(params[:search], 50)
@@ -18,29 +16,21 @@ class InstitutesController < ApplicationController
     end
   end
 
-  # GET /institutes/1
-  # GET /institutes/1.json
-
   def show
-    @institute = Institute.friendly.find(params[:id])
     @departments = Department.includes(:labs).where(institute_id: find_institute)
-    @labs = Lab.includes(:users).where(institute_id: find_institute).order("name ASC")
+    @labs = Lab.where(institute_id: find_institute).order("name ASC").page(params[:page]).per_page(15)
     @users = @institute.users
 
     gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
-  # GET /institutes/new
   def new
     @institute = Institute.new
   end
 
-  # GET /institutes/1/edit
   def edit
   end
 
-  # POST /institutes
-  # POST /institutes.json
   def create
     @institute = Institute.new(institute_params)
     respond_to do |format|
@@ -54,8 +44,6 @@ class InstitutesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /institutes/1
-  # PATCH/PUT /institutes/1.json
   def update
     respond_to do |format|
       if @institute.update(institute_params)

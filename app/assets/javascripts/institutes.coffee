@@ -1,6 +1,4 @@
-jQuery ->
-	if gon?
-		myFlower = new CodeFlower("#visualization", 300, 300)
-		myFlower.update(gon.institute)
-
-		console.log gon.institute
+if gon? && ($("#instituteFlower").length)
+	instituteFlower = new CodeFlower("#instituteFlower", 350, 350)
+	instituteFlower.update(gon.institute)
+	console.log gon.institute

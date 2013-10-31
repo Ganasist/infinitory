@@ -6,13 +6,13 @@ namespace :db do
     Rake::Task['db:schema:load'].invoke
     r = Random.new
     
-    5.times do |n|
+    4.times do |n|
       institute = Institute.create!(name:     Faker::Company.name,
                                     address:  Faker::Address.street_address,
                                     city:     Faker::Address.city,
                                     url:      Faker::Internet.url)
 
-      r.rand(2..5).times do |n|   
+      r.rand(2..4).times do |n|   
         gl = User.create!(role: "group_leader",
                           email:                 Faker::Internet.email,
                           institute_name:        institute.name,                  
@@ -43,7 +43,7 @@ namespace :db do
         end
       end
       
-      r.rand(2..5).times do |n|  
+      r.rand(2..10).times do |n|  
         department = Department.create!(name: Faker::Company.name,
                                         institute: institute,
                                         room:      "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
@@ -51,7 +51,7 @@ namespace :db do
                                         city:      institute.city,
                                         url:       Faker::Internet.url )
         
-        r.rand(3..8).times do |n|   
+        r.rand(3..15).times do |n|   
           gl = User.create!(role: "group_leader",
                             email:                 Faker::Internet.email,
                             institute_name:        institute.name,
@@ -65,7 +65,7 @@ namespace :db do
           gl.joined     = gl.created_at
           gl.save
           
-          r.rand(5..12).times do |n|
+          r.rand(5..20).times do |n|
             role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                        master's_student project_student technician other].sample
             user = User.create!(role: role,

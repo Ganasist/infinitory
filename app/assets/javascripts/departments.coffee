@@ -1,7 +1,7 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
+if gon? && ($("#departmentFlower").length)
+	departmentFlower = new CodeFlower("#departmentFlower", 300, 300)
+	departmentFlower.update(gon.department)
+	console.log gon.department
 
 jQuery ->
 	before = $('#user_institute_name').val()
@@ -14,6 +14,3 @@ jQuery ->
     source: $("#department_name").data("autocomplete-source")
     minLength: 3
     delay: 100
-
-
-	  
