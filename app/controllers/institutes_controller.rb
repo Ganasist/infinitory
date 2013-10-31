@@ -24,7 +24,7 @@ class InstitutesController < ApplicationController
   def show
     @institute = Institute.friendly.find(params[:id])
     @departments = Department.includes(:labs).where(institute_id: find_institute)
-    @labs = Lab.where(institute_id: find_institute).order("name ASC")
+    @labs = Lab.includes(:users).where(institute_id: find_institute).order("name ASC")
     @users = @institute.users
 
     gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
@@ -43,7 +43,6 @@ class InstitutesController < ApplicationController
   # POST /institutes.json
   def create
     @institute = Institute.new(institute_params)
-
     respond_to do |format|
       if @institute.save
         format.html { redirect_to @institute, notice: 'Institute was successfully created.' }

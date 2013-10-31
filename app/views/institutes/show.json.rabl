@@ -4,9 +4,7 @@ attributes :name
 child @departments => "children" do
   attribute :name
   child(:labs => "children") do
-  	node :name do |u|
-      u.name + " test"
-    end
+  	attribute :name
     child(:users => "children") do
       node :name do |u|
         u.email
