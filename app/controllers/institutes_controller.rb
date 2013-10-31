@@ -24,7 +24,7 @@ class InstitutesController < ApplicationController
   def show
     @institute = Institute.friendly.find(params[:id])
     @departments = Department.includes(:labs).where(institute_id: find_institute)
-    @labs = Lab.includes(:users).where(institute_id: find_institute).order("name ASC")
+    @labs = Lab.where(institute_id: find_institute).order("name ASC")
     @users = @institute.users
 
     gon.rabl "app/views/institutes/show.json.rabl", as: "institute"

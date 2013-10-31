@@ -69,7 +69,7 @@ CodeFlower.prototype.update = function(json) {
   this.node.enter().append('svg:circle')
     .attr("class", "node")
     .classed('directory', function(d) { return (d._children || d.children) ? 1 : 0; })
-    .attr("r", function(d) { return d.children ? d.size / 7 : 2; })
+    .attr("r", function(d) { return Math.sqrt(d.size) })
     .style("fill", function color(d) {
       return "hsl(" + parseInt(360 / total * d.id, 10) + ",90%,70%)";
     })
