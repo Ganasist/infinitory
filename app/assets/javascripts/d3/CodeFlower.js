@@ -32,7 +32,7 @@ CodeFlower.prototype.update = function(json) {
   var links = d3.layout.tree().links(nodes);
   var total = nodes.length || 1;
 
-  // remove existing text (will readd it afterwards to be sure it's on top)
+  // remove existing text (will read it afterwards to be sure it's on top)
   this.svg.selectAll("text").remove();
 
   // Restart the force layout
