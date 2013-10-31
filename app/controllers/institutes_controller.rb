@@ -27,7 +27,7 @@ class InstitutesController < ApplicationController
     @labs = Lab.includes(:users).where(institute_id: find_institute).order("name ASC")
     @users = @institute.users
 
-    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
+    gon.watch.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
   # GET /institutes/new
