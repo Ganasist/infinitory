@@ -1,7 +1,7 @@
 object @department
 attributes :name
 
-child(:labs => "children") do
+child @labs => "children" do
   attribute :name
   child(:users => "children") do
   	node :name do |n|
