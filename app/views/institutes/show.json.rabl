@@ -5,16 +5,14 @@ child @departments => "children" do
   attribute :name
   child(:labs => "children") do
   	attribute :name
-  	node :size do |u|
-		  u.size
-		end
+    child(:users => "children") do
+      node :name do |u|
+        u.email
+      end
+      node :size do
+        1
+      end
+    end
   end
 end
-
-node :children do
-  @test.map do |t| 
-    { :name => t.name, :size => t.size }
-  end
-end
-
 

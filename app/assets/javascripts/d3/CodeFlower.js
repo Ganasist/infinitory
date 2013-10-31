@@ -9,6 +9,7 @@ var CodeFlower = function(selector, w, h) {
     .attr('height', h);
 
   this.svg.append("svg:rect")
+    .style("stroke", "#FFF")
     .style("fill", "#fff")
     .attr('width', w)
     .attr('height', h);
@@ -68,7 +69,7 @@ CodeFlower.prototype.update = function(json) {
   this.node.enter().append('svg:circle')
     .attr("class", "node")
     .classed('directory', function(d) { return (d._children || d.children) ? 1 : 0; })
-    .attr("r", function(d) { return d.children ? 3.5 : Math.pow(d.size, 2/5) || 1; })
+    .attr("r", function(d) { return d.children ? d.size / 7 : 2; })
     .style("fill", function color(d) {
       return "hsl(" + parseInt(360 / total * d.id, 10) + ",90%,70%)";
     })
@@ -121,7 +122,7 @@ CodeFlower.prototype.click = function(d) {
 
 CodeFlower.prototype.mouseover = function(d) {
   this.text.attr('transform', 'translate(' + d.x + ',' + (d.y - 5 - (d.children ? 3.5 : Math.sqrt(d.size) / 2)) + ')')
-    .text(d.name + (d.size == 1 ? "" : ": " + d.size) + (d.size == 1 ? "" : " members"))
+    .text(d.children ? d.name + ": " + d.size + " members" : d.name)
     .style('display', null);
 };
 
