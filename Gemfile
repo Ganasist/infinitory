@@ -19,6 +19,7 @@ gem 'jquery-ui-rails'
 
 gem 'gon'
 gem 'jbuilder'
+gem 'json_builder'
 gem 'active_model_serializers'
 gem 'rabl'
 gem 'oj'
