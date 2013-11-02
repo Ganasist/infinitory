@@ -10,4 +10,3 @@ child @departments => "children" do
     end
   end
 end
-

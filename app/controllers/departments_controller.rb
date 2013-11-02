@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
-  # before_action :authenticate_user! 
+  before_action :authenticate_user! 
   
   def index
     if params[:term].present?
