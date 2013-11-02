@@ -51,7 +51,7 @@ describe User do
 
   it 'gets sent a confirmation email' do
     # expect { @gl.save }.to change(Devise::Async::Backend::Sidekiq.jobs, :size).by(1)
-    @gl.save
+    # @gl.save
     open_last_email.should be_delivered_to @gl.email
     open_last_email.should have_subject "Confirmation instructions"
   end

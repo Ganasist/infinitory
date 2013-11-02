@@ -102,8 +102,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'zeus-parallel_tests'
-  gem 'growl_notify'
-  gem 'turn'
+  # gem 'growl_notify'
+  # gem 'turn'
   gem 'rspec-nc'
   gem 'minitest'
 end
