@@ -39,12 +39,12 @@ class Institute < ActiveRecord::Base
 	  end
 	end
 
-	acts_as_gmappable validation: false
+	# acts_as_gmappable validation: false
 
 	protected
-		def gmaps4rails_address
-		  "#{self.latitude}, #{self.longitude}" 
-		end
+		# def gmaps4rails_address
+		#   "#{self.latitude}, #{self.longitude}" 
+		# end
 
 		def smart_add_url_protocol
 			if self.url.present?

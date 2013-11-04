@@ -51,17 +51,13 @@ describe User do
 
   it 'gets sent a confirmation email' do
     # expect { @gl.save }.to change(Devise::Async::Backend::Sidekiq.jobs, :size).by(1)
+    @gl.save
     open_last_email.should be_delivered_to @gl.email
     open_last_email.should have_subject "Confirmation instructions"
   end
 
   it 'has a fullname equal to email initially' do
     expect(@gl.fullname).to eql @gl.email
-  end
-
-  it 'is not valid without a lab if it is a new account' do
-    invalid_user = build(:user, lab: nil)
-    expect(invalid_user).to_not be_valid
   end
 
   it 'is not approved until their lab approves them' do
