@@ -33,7 +33,7 @@ gem 'paper_trail', '>= 3.0.0.beta1'
 
 gem 'pg_search'
                              
-# gem 'turbolinks'
+gem 'turbolinks'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 
