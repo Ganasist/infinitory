@@ -1,10 +1,8 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
   before_action :find_institute, only: [:show]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
 
-  # GET /institutes
-  # GET /institutes.json
   def index
     if params[:search].present?
       @institutes = Institute.near(params[:search], 50)
@@ -18,34 +16,24 @@ class InstitutesController < ApplicationController
     end
   end
 
-  # GET /institutes/1
-  # GET /institutes/1.json
   def show
-    @institute = Institute.friendly.find(params[:id])
-    @departments = @institute.departments
-    
-    @mapped = @institute.to_gmaps4rails  do |institute, marker|
-      marker.infowindow "<h4>#{ institute.name }<h4>
-                        <h5>Labs: #{ institute.labs.count }</h5>"
-      end
-      
-    @labs = Lab.where(institute_id: @institute).order(email: :asc)
+    @departments = Department.includes(:labs).where(institute_id: find_institute)
+    @labs = Lab.where(institute_id: find_institute).order("name ASC").page(params[:page]).per_page(15)
+    # @users = @institute.users
+    # @orphans = Lab.where(institute_id: find_institute, department_id: nil)
+
+    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
-  # GET /institutes/new
   def new
     @institute = Institute.new
   end
 
-  # GET /institutes/1/edit
   def edit
   end
 
-  # POST /institutes
-  # POST /institutes.json
   def create
     @institute = Institute.new(institute_params)
-
     respond_to do |format|
       if @institute.save
         format.html { redirect_to @institute, notice: 'Institute was successfully created.' }
@@ -57,8 +45,6 @@ class InstitutesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /institutes/1
-  # PATCH/PUT /institutes/1.json
   def update
     respond_to do |format|
       if @institute.update(institute_params)
@@ -95,8 +81,8 @@ class InstitutesController < ApplicationController
 
     def find_institute
       @institute = Institute.friendly.find(params[:id])
-      if request.path != institute_path(@institute)
-        return redirect_to @institute, :status => :moved_permanently
-      end
+      # if request.path != institute_path(@institute)
+      #   return redirect_to @institute, :status => :moved_permanently
+      # end
     end
 end

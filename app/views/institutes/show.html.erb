@@ -1,5 +1,8 @@
+
+<% title " Institutes: " + @institute.name %>
+
 <%= render 'header' %>
-<div class="span3">
+<div class="span5">
    <%= render 'info' %>
    
    <% if @institute.departments.present? %>
@@ -10,10 +13,10 @@
       <%= render 'lab' %>
    <% end %>
 </div>
-<div class="span8">  
+<div class="span6"> 
+
     <br>
-    <%= render 'gmap' %>
-    <% if @institute.nearbys.present? %>
+   <% if @institute.nearbys.present? %>
      <%= render 'nearby' %>
    <% end %>
     <br>

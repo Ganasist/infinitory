@@ -4,6 +4,7 @@ class Department < ActiveRecord::Base
   validates :institute, presence: true
 
 	has_many :labs
+	has_many :users
 
 	before_validation :smart_add_url_protocol, :default_addresses
 
@@ -13,7 +14,7 @@ class Department < ActiveRecord::Base
 	# 								 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
   
   validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, 
-  						presence: true
+  								 presence: true
 
   validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,

@@ -6,9 +6,14 @@
 		<% end %>
 	</h4>
 	<br>
-	    <% @departments.each do |department| %>
+    <% @departments.each do |department| %>
 	    <div class="department">
-		    <p><%= link_to department.name, department_path(department) %></p>
+		    <p>
+		    	<%= link_to department.name, department_path(department) %>
+		    <br>
+		    	 <%= pluralize(department.labs.count, "group") %> & 
+		    	 <%= pluralize(department.users.count, "member") %>
+		    </p>
 	    </div>
 	  <% end %>
 	  <br>

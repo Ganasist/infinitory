@@ -1,10 +1,9 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
   factory :lab do
-    department_id 1
-    institute_id 1
-    group_leader "MyString"
-    group_leader_email "MyString"
+  	room	"#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}"
+    institute Faker::Company.name
+    email Faker::Internet.email
   end
 end

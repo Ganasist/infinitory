@@ -61,6 +61,10 @@ pickle-email-*.html
 # Mac finder artifacts
 .DS_Store
 
+# Zeus config files
+custom_plan.rb
+zeus.json
+
 # Netbeans project directory
 /nbproject/
 

@@ -35,6 +35,35 @@
 @navbarText: #eee;
 @navbarLinkColor: @navbarText + #777;
 
+// Codeflower Styling
+circle.node {
+  cursor: pointer;
+  stroke: #000;
+  stroke-width: .5px;
+}
+
+circle.node.directory {
+  stroke: #9ecae1;
+  stroke-width: 2px;
+}
+
+circle.node.collapsed {
+  stroke: #555;
+}
+
+.nodetext {
+  fill: #252929;
+  font-weight: bold;
+  text-shadow: 0 0 0.2em white;
+}
+
+line.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px;
+}
+
+
 input.navbar-search {
 	font-size: 1.3em;
 	width: 315px;
@@ -80,6 +109,14 @@ dd a, td a, p a, h2 a, h3 a, h4 a, h5 a, .brand {
 	height: auto;
 }
 
+.splash.form-inputs {
+	margin: 1em;
+}
+
+.splash.form-actions .btn-primary {
+	width: 100%;
+}
+
 .footer {
 border-top-style: solid;
 border-width: 1px;
@@ -90,11 +127,7 @@ left: 0;
 right: 0;
 height: 30px;
 background-color: white;
-	p {
-	text-decoration: none;
-	font-size: 1.2em;	
-	padding: 5px;
-	}
+padding: 5px;
 }
 
 .col-lg-4 h2 {
@@ -102,12 +135,12 @@ background-color: white;
 }
 
 .jumbotron {
-	background-image:url('dandelion.jpg');
+	background-image:url('Dandelion2.jpg');
 	background-size: cover;
 }
 
 #jumbotext {
-	color: @navbarBackground + #111;
+	color: @navbarBackground + #222;
 	text-shadow: 1px 1px 2px @navbarBackground - #333;
 	h1 {
 		text-shadow: 2px 2px 3px @navbarBackground - #333;		

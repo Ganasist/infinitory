@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require d3/d3.js
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs

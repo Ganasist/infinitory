@@ -82,6 +82,7 @@ class LabsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_lab
       @lab = Lab.friendly.find(params[:id])
@@ -90,6 +91,6 @@ class LabsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def lab_params
       params.require(:lab).permit(:email, :room,  :name, :lab_id, :department_id, :institute_id, 
-                                  :department, :institute, :url, :icon, :remove_icon, :remote_icon_url)
+                                  :department, :institute, :url, :icon, :remove_icon, :remote_icon_url, :icon_cache)
     end
 end

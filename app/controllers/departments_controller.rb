@@ -1,53 +1,31 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user! 
   
-  # GET /departments
-  # GET /departments.json
   def index
     if params[:term].present?
       @departments = @institute.departments
       render json: @departments.map { |x| "#{x.name} @ #{x.institute.name}"}
     else
       @institute = Institute.friendly.find(params[:institute_id])
-      @departments = Department.where(institute_id: @institute)  
-      @circles_json = @departments.to_gmaps4rails do |department|
-                         {lng: "#{department.longitude}",
-                          lat: "#{department.latitude}",
-                          radius: 20,
-                          strokeColor: "#FF0000",
-                          strokeOpacity: 0.8,
-                          strokeWeight: 1,
-                          fillColor: "#000",
-                          fillOpacity: 0.35}
-         end
-      @mapped = @departments.to_gmaps4rails do |department, marker|
-        marker.infowindow "<h4>#{department.name}<h4>
-                            <h5>Labs: #{department.labs.count}</h5>"
-      end
+      @departments = Department.where(institute_id: @institute)
     end
   end
 
-  # GET /departments/1
-  # GET /departments/1.json
   def show
-    @labs = Lab.where(department_id: params[:id])
-    @mapped = @department.to_gmaps4rails
+    @labs = Lab.includes(:users).where(department_id: params[:id])
+    gon.rabl "app/views/departments/show.json.rabl", as: "department"
   end
 
-  # GET /departments/new
   def new
     @institute = Institute.friendly.find(params[:institute_id])
     @department = Department.new
   end
 
-  # GET /departments/1/edit
   def edit
     @department = Department.find(params[:id])
   end
 
-  # POST /departments
-  # POST /departments.json
   def create
     @institute = Institute.friendly.find(params[:institute_id])   
     @department = @institute.departments.new(department_params)
@@ -64,8 +42,6 @@ class DepartmentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /departments/1
-  # PATCH/PUT /departments/1.json
   def update
 
     respond_to do |format|
@@ -80,8 +56,6 @@ class DepartmentsController < ApplicationController
     end
   end
 
-  # DELETE /departments/1
-  # DELETE /departments/1.json
   def destroy
     @department.destroy
     respond_to do |format|

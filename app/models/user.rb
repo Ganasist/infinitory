@@ -9,26 +9,28 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable, :confirmable, :async,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   belongs_to :institute
   validates_associated  :institute
-  validates :institute_name, presence: { message: "You must enter your institute's name", if: :gl? }, allow_blank: true
+  validates :institute_name, presence: { message: "You must enter your institute's name" },
+                             allow_blank: true, if: Proc.new{ |f| f.gl? }
   
   belongs_to :department
   validates_associated :department
-  # validates_presence_of :department_id, allow_blank: true
+  validates_presence_of :department_id, allow_blank: true
 
   belongs_to :lab
   validates_associated  :lab
-  validates :lab, presence: { message: "Your group leader must create an account first" }, unless: :gl?, allow_blank: true
+  validates :lab, presence: { message: 'Your group leader must create an account first' },
+                    unless: Proc.new{ |f| f.gl? || !f.new_record? }, allow_blank: true
   
   validates :role, presence: true
 
-  before_create :create_lab, :skip_confirmation!, :skip_confirmation_notification!
-  after_create  :first_request
-  before_update :update_lab, :transition, :affiliations
+  before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
+  after_create  :first_request_email
+  before_update :update_lab, :change_lab, :affiliations
   
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
@@ -65,7 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def fullname
-    if self.last_name.blank?
+    if self.first_name.blank? || self.last_name.blank?
       self.email
     else
       "#{first_name} #{last_name}"
@@ -73,21 +75,23 @@ class User < ActiveRecord::Base
   end
 
   def gl
-    if self.lab_id?
-      User.find(self.lab.users.where(role: "group_leader"))
+    unless self.lab_id.blank?
+      User.find_by(email: self.lab.email)
+    else
+      "#{self.fullname} has no group leader"
     end
   end
 
   def gl?
-    role == "group_leader"
+    role == 'group_leader'
   end
 
   def gl_lm?
-    role == "group_leader" || self.role == "lab_manager"
+    role == 'group_leader' || self.role == 'lab_manager'
   end
 
   def lm?
-    role == "lab_manager"    
+    role == 'lab_manager'    
   end
 
   # def department_name
@@ -122,12 +126,16 @@ class User < ActiveRecord::Base
     end 
   end
 
-  def create_lab
+  def gl_signup
     if gl?
       self.approved = true
       self.joined = Time.now      
       self.send_confirmation_instructions
-      self.lab = Lab.create(email: self.email, name: self.fullname, department: self.department, institute: self.institute)
+      self.lab = Lab.create(email: self.email,
+                            room:  "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
+                            institute: self.institute,
+                            department: self.department,
+                            name: self.fullname)
     end
   end
 
@@ -136,33 +144,40 @@ class User < ActiveRecord::Base
       self.lab_id   = lab_id
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id
-      UserMailer.delay_for(2.seconds).request_email(self.id, self.lab_id)
     end
   end
 
-  def transition
+  def first_request_email  
+    if !self.gl? && !self.confirmed? && !self.approved?  
+      UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
+    end
+  end
+
+  def change_lab
     if !self.gl? && self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id
       self.joined  = nil
-      UserMailer.delay_for(2.seconds, retry: false).request_email(self.id, self.lab_id)
+      UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
     end
   end
 
   def affiliations
-    if self.confirmed? && self.approved?
+    if self.confirmed? && self.approved? && !self.lab.nil?
       self.institute = lab.institute
       self.department = lab.department
     end
   end
 
   def update_lab
-    if self.gl?
+    if self.gl? && self.confirmed?
       if self.institute_id_changed?
         self.department = nil
-      end    
-      self.lab.update_attributes(email: self.email, name: self.fullname,
-                                 department: self.department, institute: self.institute)
+      end
+      unless self.lab_id.blank? 
+        self.lab.update(email: self.email, name: self.fullname,
+                        department: self.department, institute: self.institute)
+      end
     end
   end
 

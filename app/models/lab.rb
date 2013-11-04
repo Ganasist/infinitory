@@ -4,10 +4,7 @@ class Lab < ActiveRecord::Base
 	extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  # include ActiveModel::Validations
-
-	validates :email, uniqueness: { message: "This email address has already been registered" },
-						presence: true
+	validates :email, presence: true
 
 	belongs_to :department
 	validates_associated :department
@@ -16,14 +13,13 @@ class Lab < ActiveRecord::Base
 	validates_associated	:institute
 	validates :institute, presence: true
 
+	# validates_with LabValidator
+
 	has_many :users
 	has_many :reagents
 
-	after_update :lab_name, :lab_email
-
-	def should_generate_new_friendly_id?
-  	name_changed?
-  end
+	before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
+	before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
 
   def lab_name
   	self.name = gl.fullname
@@ -33,20 +29,34 @@ class Lab < ActiveRecord::Base
   	self.email = gl.email
   end
 
+  def institute_name
+  	self.institute.name
+  end
+
   def gl_count  	
-		users.where(role: "group_leader").count
+		self.users.where(role: 'group_leader').count
   end
 
   def gl
-		self.users.find_by(role: "group_leader")
+		User.find_by(email: self.email)
   end
+
+	def size
+		users.count
+	end
 
 	def city
 		institute.city
 	end
 
-	def size
-		users.count
+	def location
+		if self.room.present? && self.department.present?
+			"#{self.room} #{department.address}"
+		elsif self.room.present? && self.department.blank?
+			"#{self.room} #{institute.address}"
+		else
+			"#{institute.address}"
+		end
 	end
 
 	def department_name
@@ -65,22 +75,16 @@ class Lab < ActiveRecord::Base
     self.institute = Institute.find_or_create_by(name: name) if name.present?
   end
 
-	def location
-		if self.room.present? && self.department.present?
-			"#{self.room} #{department.address}"
-		elsif self.room.present? && self.department.blank?
-			"#{self.room} #{institute.address}"
-		else
-			"#{institute.address}"
-		end
-	end
-
 	private
+
+	def should_generate_new_friendly_id?
+  	name_changed?
+  end
 
   def slug_candidates
     [
       :name,
-      [:name, :id]
+      [:name, :city]
     ]
   end
 end
