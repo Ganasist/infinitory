@@ -18,9 +18,9 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'gon'
-gem 'jbuilder'
+# gem 'jbuilder'
 gem 'json_builder'
-gem 'active_model_serializers'
+# gem 'active_model_serializers'
 gem 'rabl'
 gem 'oj'
 
@@ -33,7 +33,7 @@ gem 'paper_trail', '>= 3.0.0.beta1'
 
 gem 'pg_search'
                              
-gem 'turbolinks'
+# gem 'turbolinks'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 
