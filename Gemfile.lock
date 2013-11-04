@@ -7,6 +7,7 @@ GIT
       devise (>= 3.1.0)
 
 GEM
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.0.0)
       actionpack (= 4.0.0)
@@ -129,7 +130,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.1.0)
       railties (>= 3.1.0)
-    json (1.8.0)
+    json (1.8.1)
     json_builder (3.1.7)
       activesupport (>= 2.0.0)
       json
