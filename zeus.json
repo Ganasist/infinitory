@@ -1,0 +1,23 @@
+{
+  "command": "ruby -rubygems -r./custom_plan -eZeus.go",
+
+  "plan": {
+    "boot": {
+      "default_bundle": {
+        "development_environment": {
+          "prerake": {"rake": []},
+          "console": ["c"],
+          "server": ["s"],
+          "generate": ["g"],
+          "parallel_rspec": ["p"]
+        },
+        "test_environment": {
+          "test_helper": {
+                  "test": ["rspec", "testrb"],
+                  "parallel_rspec_worker": []
+          }
+        }
+      }
+    }
+  }
+}
