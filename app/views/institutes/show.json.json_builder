@@ -1,0 +1,5 @@
+array :orphans do
+  name @orphans do |orphan|
+		name orphan.name
+	end
+end

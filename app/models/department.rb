@@ -28,7 +28,7 @@ class Department < ActiveRecord::Base
 	  end
 	end
 
-	acts_as_gmappable validation: false
+	# acts_as_gmappable validation: false
 
 	def location
 		if self.room.present?
@@ -53,10 +53,9 @@ class Department < ActiveRecord::Base
 
 	protected
 
-		def gmaps4rails_address
-		#describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
-		  "#{self.latitude}, #{self.longitude}" 
-		end
+		# def gmaps4rails_address
+		#   "#{self.latitude}, #{self.longitude}" 
+		# end
 
 		def smart_add_url_protocol
 			if self.url.present?
