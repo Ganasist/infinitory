@@ -20,7 +20,7 @@ class InstitutesController < ApplicationController
     @departments = Department.includes(:labs).where(institute_id: find_institute)
     @labs = Lab.where(institute_id: find_institute).order("name ASC").page(params[:page]).per_page(15)
     # @users = @institute.users
-    # @orphans = Lab.where(institute_id: find_institute, department_id: nil)
+    @orphans = Lab.where(institute_id: find_institute, department_id: nil)
 
     gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end

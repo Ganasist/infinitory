@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+# source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.0.0'
@@ -33,7 +33,7 @@ gem 'paper_trail', '>= 3.0.0.beta1'
 
 gem 'pg_search'
                              
-gem 'turbolinks'
+# gem 'turbolinks'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 
