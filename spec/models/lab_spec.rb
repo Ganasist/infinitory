@@ -44,13 +44,6 @@ describe Lab do
     expect(@lab.gl).to eql @gl
   end
 
-  it { should respond_to(:size) }
-  it 'should return the lab size when the size method is called' do
-    @user = create(:user, lab: @gl.lab)
-    @user2 = create(:user, lab: @gl.lab)  
-    expect(@lab.size).to eql 3
-  end
-
   it { should respond_to(:institute_name) }
   it 'should return the name of the host institutes' do
     expect(@lab.institute_name).to eql @gl.institute.name
