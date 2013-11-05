@@ -6,10 +6,10 @@ class Lab < ActiveRecord::Base
 
 	validates :email, presence: true
 
-	belongs_to :department
+	belongs_to :department, counter_cache: true
 	validates_associated :department
 	
-	belongs_to :institute
+	belongs_to :institute, counter_cache: true
 	validates_associated	:institute
 	validates :institute, presence: true
 
@@ -40,10 +40,6 @@ class Lab < ActiveRecord::Base
   def gl
 		User.find_by(email: self.email)
   end
-
-	def size
-		users.count
-	end
 
 	def city
 		institute.city

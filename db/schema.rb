@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021133751) do
+ActiveRecord::Schema.define(version: 20131105134406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20131021133751) do
     t.string   "city"
     t.string   "country"
     t.string   "room"
+    t.integer  "users_count",  default: 0
+    t.integer  "labs_count",   default: 0
   end
 
   add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
@@ -66,6 +68,8 @@ ActiveRecord::Schema.define(version: 20131021133751) do
     t.string   "slug"
     t.string   "icon"
     t.boolean  "icon_processing"
+    t.integer  "users_count",     default: 0
+    t.integer  "labs_count",      default: 0
   end
 
   add_index "institutes", ["latitude", "longitude"], name: "index_institutes_on_latitude_and_longitude", using: :btree
@@ -82,6 +86,7 @@ ActiveRecord::Schema.define(version: 20131021133751) do
     t.string   "slug"
     t.string   "name"
     t.string   "email"
+    t.integer  "users_count",   default: 0
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree

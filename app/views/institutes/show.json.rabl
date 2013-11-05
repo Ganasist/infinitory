@@ -6,7 +6,7 @@ child @departments => "children" do
   child(:labs => "children") do
   	attribute :name
     node :size do |l|
-      l.size
+      l.users.count
     end
   end
 end
