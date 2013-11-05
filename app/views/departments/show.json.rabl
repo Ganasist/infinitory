@@ -3,7 +3,7 @@ attributes :name
 
 child @labs => "children" do
   attribute :name
-  child(:users => "children") do
+  child :users => "children" do
   	node :name do |n|
   		n.fullname
   	end

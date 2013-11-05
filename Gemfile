@@ -13,14 +13,10 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # gem 'therubyracer', platforms: :ruby
 
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'gon'
-# gem 'jbuilder'
-# gem 'json_builder'
-# gem 'active_model_serializers'
 gem 'rabl'
 gem 'oj'
 
@@ -40,10 +36,8 @@ gem 'turbolinks'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # gem 'debugger', group: [:development, :test]
@@ -64,7 +58,6 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
 gem 'high_voltage'
 gem 'geocoder'
-# gem 'gmaps4rails'
 
 gem 'sidekiq'
 gem 'sinatra', require: false
@@ -103,8 +96,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'zeus-parallel_tests'
-  # gem 'growl_notify'
-  # gem 'turn'
   gem 'rspec-nc'
   gem 'minitest'
 end
