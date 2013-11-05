@@ -3,8 +3,6 @@ class InstitutesController < ApplicationController
   before_action :find_institute, only: [:show]
   before_action :authenticate_user!, except: [:index, :show]
 
-  respond_to :json
-
   def index
     if params[:search].present?
       @institutes = Institute.near(params[:search], 50)
@@ -24,9 +22,7 @@ class InstitutesController < ApplicationController
     # @users = @institute.users
     # @orphans = Lab.where(institute_id: find_institute, department_id: nil)
 
-    respond_with @labs
-
-    # gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
+    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
   def new
