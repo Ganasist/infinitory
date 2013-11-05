@@ -29,8 +29,6 @@ class Department < ActiveRecord::Base
 	  end
 	end
 
-	# acts_as_gmappable validation: false
-
 	def location
 		if self.room.present?
 			"#{room} #{address}"
@@ -39,24 +37,7 @@ class Department < ActiveRecord::Base
 		end
 	end
 
-	def default_addresses
-		if self.address.nil?
-			self.address = self.institute.address
-		end
-		if self.url.nil?
-			self.url ||= self.institute.url
-		end
-		if self.longitude.nil?
-			self.longitude = self.institute.longitude
-			self.latitude = self.institute.latitude
-		end
-	end
-
 	protected
-
-		# def gmaps4rails_address
-		#   "#{self.latitude}, #{self.longitude}" 
-		# end
 
 		def smart_add_url_protocol
 			if self.url.present?
@@ -67,9 +48,11 @@ class Department < ActiveRecord::Base
 		end
 
 		def default_addresses
-			if self.institute.present?
-				self.address = self.institute.address if self.address.blank?
-				self.url = self.institute.url if self.url.blank?
+			self.address = self.institute.address if self.address.blank?
+			self.url = self.institute.url if self.url.blank?
+			if self.longitude.nil?
+				self.longitude = self.institute.longitude
+				self.latitude = self.institute.latitude
 			end
 		end
 end

@@ -64,7 +64,7 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
 gem 'high_voltage'
 gem 'geocoder'
-gem 'gmaps4rails'
+# gem 'gmaps4rails'
 
 gem 'sidekiq'
 gem 'sinatra', require: false

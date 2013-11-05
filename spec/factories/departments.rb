@@ -1,11 +1,9 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
   factory :department do
-    name "MyString"
-    institute_id 1
-    address "MyString"
-    longitude 1.5
-    latitude 1.5
+  	room	"#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}"
+  	name 			Faker::Company.name
+    institute Faker::Company.name
   end
 end
