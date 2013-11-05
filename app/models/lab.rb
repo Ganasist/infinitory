@@ -6,10 +6,10 @@ class Lab < ActiveRecord::Base
 
 	validates :email, presence: true
 
-	belongs_to :department, counter_cache: true
+	belongs_to :department, counter_cache: true, touch: true
 	validates_associated :department
 	
-	belongs_to :institute, counter_cache: true
+	belongs_to :institute, counter_cache: true, touch: true
 	validates_associated	:institute
 	validates :institute, presence: true
 

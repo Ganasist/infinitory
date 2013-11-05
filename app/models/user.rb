@@ -12,16 +12,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable, :async,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
-  belongs_to :institute, counter_cache: true
+  belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
   validates :institute_name, presence: { message: "You must enter your institute's name" },
                              allow_blank: true, if: Proc.new{ |f| f.gl? }
   
-  belongs_to :department, counter_cache: true
+  belongs_to :department, counter_cache: true, touch: true
   validates_associated :department
   validates_presence_of :department_id, allow_blank: true
 
-  belongs_to :lab, counter_cache: true
+  belongs_to :lab, counter_cache: true, touch: true
   validates_associated  :lab
   validates :lab, presence: { message: 'Your group leader must create an account first' },
                     unless: Proc.new{ |f| f.gl? || !f.new_record? }, allow_blank: true
