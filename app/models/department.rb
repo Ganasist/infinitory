@@ -21,7 +21,7 @@ class Department < ActiveRecord::Base
   													multiline: true,
   													message: "is not valid" }
 
-	geocoded_by :address  				# can also be an IP address
+	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
 	  if geo = results.first
 	    obj.city    = geo.city
