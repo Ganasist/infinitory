@@ -9,9 +9,9 @@
 	    <% @labs.each do |lab| %>
 	    <div class="lab">
 		    <p>
-		    	<%= link_to lab.lab_name, lab_path(lab) %>
+		    	<%= link_to lab.name, lab_path(lab) %>
 		    <br>
-		    	<%= pluralize(lab.users.count, "member") %>
+		    	<%= pluralize(lab.users.size, "member") %>
 		  	</p>
 	    </div>
 	  <% end %>
