@@ -68,8 +68,9 @@ describe User do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
   it { should validate_confirmation_of(:password) }
-  it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
-                    master's_student project_student technician other]) }
+  it { should ensure_length_of(:password).is_at_least(8).is_at_most(128) }
+  it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
+                                                     doctoral_candidate master's_student project_student technician other]) }
 
   it { should have_db_index(:email).unique(true) }
   it { should have_db_index(:slug).unique(true) }
