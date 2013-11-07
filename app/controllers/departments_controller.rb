@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
-  # before_action :authenticate_user! 
+  before_action :authenticate_user!
   
   def index
     if params[:term].present?
@@ -65,13 +65,11 @@ class DepartmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_department
       @department = Department.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :address, :room, :url, :acronym)
+      params.require(:department).permit(:name, :address, :room, :url, :acronym, :institute)
     end
 end
