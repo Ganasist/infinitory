@@ -13,13 +13,9 @@ class Department < ActiveRecord::Base
 	# after_validation :geocode,
 	# 								 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
   
-  validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, 
-  								 presence: true
+  validates :name, uniqueness: { scope: :institute_id, message: "Department already exists at this institute" }, presence: true
 
-  validates :url, allow_blank: true,
-  								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
-  													multiline: true,
-  													message: "is not valid" }
+	validates :url, allow_blank: true, url: true
 
 	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
@@ -48,11 +44,13 @@ class Department < ActiveRecord::Base
 		end
 
 		def default_addresses
-			self.address = self.institute.address if self.address.blank?
-			self.url = self.institute.url if self.url.blank?
-			if self.longitude.nil?
-				self.longitude = self.institute.longitude
-				self.latitude = self.institute.latitude
+			if self.institute.present?
+				self.address = self.institute.address if self.address.blank?
+				self.url = self.institute.url if self.url.blank?
+				if self.longitude.nil?
+					self.longitude = self.institute.longitude
+					self.latitude = self.institute.latitude
+				end
 			end
 		end
 end

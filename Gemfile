@@ -70,6 +70,8 @@ gem "rmagick"
 gem 'will_paginate'
 gem 'seed_dump'
 
+
+
 group :production do
   gem 'rails_12factor'
 end
