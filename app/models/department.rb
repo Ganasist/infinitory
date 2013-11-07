@@ -13,8 +13,9 @@ class Department < ActiveRecord::Base
 	# after_validation :geocode,
 	# 								 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
   
-  validates :name, presence: true, uniqueness: { scope: :institute_id, message: "FTW"}
-	# validates_uniqueness_of :name, scope: :institute_id, message: "A department with that name is already registered at this institute"
+  validates :name, presence: true, 
+  								 uniqueness: { scope: :institute_id, message: "A department with that name is already registered at this institute." },
+  								 case_sensitive: false
 
 	# validates :url, allow_blank: true, url: true
 
