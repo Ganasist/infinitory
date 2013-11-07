@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe Department do
-  # before :all do
-  #   @department = build(:department)
-  # end
-
   let(:department) { build(:department) }
 
   it 'has a valid department factory' do
@@ -19,15 +15,22 @@ describe Department do
     expect(build(:department, institute: nil)).to have(1).errors_on(:institute)
   end
 
-  it { should belong_to(:institute) }
-  it { should have_many(:labs) }
-  it { should have_many(:users) }
-  it { should validate_presence_of(:institute) }
-  it { should validate_uniqueness_of(:name).case_insensitive.scoped_to(:institute_id).with_message(/A department with that name is already registered at this institute./) }
-  
-  it { should have_db_index([:name, :institute_id]).unique(true) }
-  it { should have_db_index(:institute_id) }  
-  it { should have_db_index([:latitude, :longitude]) }
+  context 'relationships' do
+    it { should belong_to(:institute) }
+    it { should have_many(:labs) }
+    it { should have_many(:users) }
+  end
+
+  context 'validations' do
+    it { should validate_presence_of(:institute) }
+    it { should validate_uniqueness_of(:name).case_insensitive.scoped_to(:institute_id).with_message(/A department with that name is already registered at this institute./) }
+  end
+
+  context 'database indexes' do
+    it { should have_db_index([:name, :institute_id]).unique(true) }
+    it { should have_db_index(:institute_id) }  
+    it { should have_db_index([:latitude, :longitude]) }
+  end
 
   it 'is valid with a valid URL' do
     urls = %w[http://www.foo.bar http://research.com www.foo.bar.baz http://bbb.co.uk]

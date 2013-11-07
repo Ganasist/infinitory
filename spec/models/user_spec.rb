@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe User do
-  # before :all do
-  #   @gl = build(:admin)
-  # end
-
   let(:gl) { build(:admin) }
   let(:user) { build(:user) }
 
@@ -61,24 +57,31 @@ describe User do
     end
   end
 
-  it { should belong_to(:lab) }
-  it { should belong_to(:department) }
-  it { should belong_to(:institute) }
-  it { should validate_presence_of(:role) }
-  it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:password) }
-  it { should validate_confirmation_of(:password) }
-  it { should ensure_length_of(:password).is_at_least(8).is_at_most(128) }
-  it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
-                                                     doctoral_candidate master's_student project_student technician other]) }
+  context 'relationships' do
+    it { should belong_to(:lab) }
+    it { should belong_to(:department) }
+    it { should belong_to(:institute) }
+  end
 
-  it { should have_db_index(:email).unique(true) }
-  it { should have_db_index(:slug).unique(true) }
-  it { should have_db_index(:lab_id) }
-  it { should have_db_index(:department_id) }
-  it { should have_db_index(:institute_id) }
-  it { should have_db_index(:confirmation_token).unique(true) }
-  it { should have_db_index(:reset_password_token).unique(true) }
+  context 'validations' do
+    it { should validate_presence_of(:role) }
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:password) }
+    it { should validate_confirmation_of(:password) }
+    it { should ensure_length_of(:password).is_at_least(8).is_at_most(128) }
+    it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
+                                                       doctoral_candidate master's_student project_student technician other]) }
+  end
+
+  context 'database indexes' do
+    it { should have_db_index(:email).unique(true) }
+    it { should have_db_index(:slug).unique(true) }
+    it { should have_db_index(:lab_id) }
+    it { should have_db_index(:department_id) }
+    it { should have_db_index(:institute_id) }
+    it { should have_db_index(:confirmation_token).unique(true) }
+    it { should have_db_index(:reset_password_token).unique(true) }
+  end
 
   it 'gets sent a confirmation email' do
     # expect { @gl.save }.to change(Devise::Async::Backend::Sidekiq.jobs, :size).by(1)
