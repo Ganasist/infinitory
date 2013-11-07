@@ -27,7 +27,16 @@ describe User do
   end
 
   it 'is invalid without a role' do
-    expect(build(:user, role: "")).to have(1).errors_on(:role)
+    expect(build(:user, role: "")).to have(2).errors_on(:role)
+  end
+
+  it 'is invalid with an unauthorized role' do
+    roles = %w[labmanager mastersstudent phdCandidate]
+    roles.each do |role|
+      invalid_user_role = build(:user, lab: gl.lab, role: role)
+      expect(invalid_user_role).to have(1).errors_on(:role)
+    end
+    expect(build(:user, role: "")).to have(2).errors_on(:role)
   end
 
   it 'is invalid with an existing email address' do
@@ -59,6 +68,8 @@ describe User do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
   it { should validate_confirmation_of(:password) }
+  it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
+                    master's_student project_student technician other]) }
 
   it { should have_db_index(:email).unique(true) }
   it { should have_db_index(:slug).unique(true) }

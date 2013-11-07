@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable, :async,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
+         
+  ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
+                    master's_student project_student technician other]
+
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
   validates :institute_name, presence: { message: "You must enter your institute's name" },
@@ -26,14 +30,11 @@ class User < ActiveRecord::Base
   validates :lab, presence: { message: 'Your group leader must create an account first' },
                     unless: Proc.new{ |f| f.gl? || !f.new_record? }, allow_blank: true
   
-  validates :role, presence: true
+  validates :role, presence: true, inclusion: { in: ROLES }
 
   before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request_email
   before_update :update_lab, :change_lab, :affiliations
-  
-  ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
-                    master's_student project_student technician other]
 
   def should_generate_new_friendly_id?
     first_name_changed? || last_name_changed?  || role_changed?
