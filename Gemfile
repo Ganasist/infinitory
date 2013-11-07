@@ -97,6 +97,7 @@ group :development, :test do
   gem "faker", "~> 1.2.0"
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'zeus-parallel_tests'
   gem 'rspec-nc'
   gem 'minitest'

@@ -19,16 +19,17 @@ describe Department do
     expect(build(:department, institute: nil)).to have(1).errors_on(:institute)
   end
 
-  it 'is valid with the same name as another department if they are at different institutes' do
-    department.save
-    institute = Institute.create!(name: Faker::Company.name)
-    expect(build(:department, institute: institute, name: department.name)).to have(0).errors_on(:name)
-  end
+  it { should validate_uniqueness_of(:name).scoped_to(:institute_id) }
+  # it 'is valid with the same name as another department if they are at different institutes' do
+  #   department.save
+  #   institute = Institute.create!(name: "test")
+  #   expect(build(:department, institute: institute, name: department.name)).to have(0).errors_on(:name)
+  # end
 
-  it 'is invalid with the same name as another department at the same institute' do
-    department.save
-    expect(build(:department, name: department.name)).to have(1).errors_on(:name)
-  end
+  # it 'is invalid with the same name as another department at the same institute' do
+  #   department.save
+  #   expect(build(:department, institute: department.institute, name: department.name)).to have(1).errors_on(:name)
+  # end
 
   it 'is valid with a valid URL' do
     urls = %w[http://www.foo.bar http://research.com www.foo.bar.baz http://bbb.co.uk]
