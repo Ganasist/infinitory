@@ -23,18 +23,22 @@ describe Department do
   it { should have_many(:labs) }
   it { should have_many(:users) }
   it { should validate_presence_of(:institute) }
-  it { should validate_uniqueness_of(:name).scoped_to(:institute_id).with_message(/A department with that name is already registered at this institute./) }
+  it { should validate_uniqueness_of(:name).case_insensitive.scoped_to(:institute_id).with_message(/A department with that name is already registered at this institute./) }
+  
+  it { should have_db_index([:name, :institute_id]).unique(true) }
+  it { should have_db_index(:institute_id) }  
+  it { should have_db_index([:latitude, :longitude]) }
 
   it 'is valid with a valid URL' do
     urls = %w[http://www.foo.bar http://research.com www.foo.bar.baz http://bbb.co.uk]
     urls.each do |url|
       valid_url_department = build(:department, url: url)
-      expect(valid_url_department).to be_valid
+      expect(valid_url_department).to have(0).errors_on(:url)
     end
   end
 
   it 'is invalid with an invalid URL' do
-    urls = %w[htp:/www.foo.bar www.research@com www.foo http://sdjfslfjslfjslfsjflskfj]
+    urls = %w[htp:/www.foo.bar lkjlkjl www.research@com http://sdjfslfjslfjslfsjflskfj]
     urls.each do |url|
       invalid_url_department = build(:department, url: url)
       expect(invalid_url_department).to have(1).errors_on(:url)

@@ -14,10 +14,13 @@ class Department < ActiveRecord::Base
 	# 								 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
   
   validates :name, presence: true, 
-  								 uniqueness: { scope: :institute_id, message: "A department with that name is already registered at this institute." },
-  								 case_sensitive: false
+  								 uniqueness: { scope: :institute_id, case_sensitive: false, message: "A department with that name is already registered at this institute." }
+  								 
 
-	# validates :url, allow_blank: true, url: true
+	validates :url, allow_blank: true,
+  								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+  													multiline: true,
+  													message: "is not valid" }
 
 	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
