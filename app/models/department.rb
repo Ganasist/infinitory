@@ -15,7 +15,7 @@ class Department < ActiveRecord::Base
   
   validates :name, uniqueness: { scope: :institute_id, message: "Department already exists at this institute" }, presence: true
 
-	validates :url, allow_blank: true, url: true
+	# validates :url, allow_blank: true, url: true
 
 	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
