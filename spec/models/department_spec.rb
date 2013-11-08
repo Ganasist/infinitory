@@ -25,7 +25,9 @@ describe Department do
     it { should have_db_column(:created_at).of_type(:datetime) }
     it { should have_db_column(:updated_at).of_type(:datetime) }
     it { should have_db_column(:country).of_type(:string) }
-    it { should have_db_column(:url).of_type(:string) }
+    it { should have_db_column(:url).of_type(:string) }    
+    it { should have_db_column(:icon).of_type(:string) }
+    it { should have_db_column(:icon_processing).of_type(:boolean) }
     it { should have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
     it { should have_db_column(:labs_count).of_type(:integer).with_options(default: 0) }
     it { should have_db_column(:email).of_type(:string) }

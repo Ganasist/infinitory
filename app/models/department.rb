@@ -1,4 +1,7 @@
 class Department < ActiveRecord::Base
+	mount_uploader :icon, IconUploader
+  process_in_background :icon
+
 	belongs_to :institute
 	validates_associated	:institute
   validates :institute, presence: true
