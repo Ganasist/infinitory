@@ -3,18 +3,6 @@ require 'spec_helper'
 describe Department do
   let(:department) { build(:department) }
 
-  it 'has a valid department factory' do
-    expect(department).to be_valid
-  end
-
-  it 'is invalid without a name' do
-    expect(build(:department, name: "")).to have(1).errors_on(:name)
-  end
-
-  it 'is invalid without an institute' do
-    expect(build(:department, institute: nil)).to have(1).errors_on(:institute)
-  end
-
   context 'relationships' do
     it { should belong_to(:institute) }
     it { should have_many(:labs) }
@@ -30,6 +18,18 @@ describe Department do
     it { should have_db_index([:name, :institute_id]).unique(true) }
     it { should have_db_index(:institute_id) }  
     it { should have_db_index([:latitude, :longitude]) }
+  end
+
+  it 'has a valid department factory' do
+    expect(department).to be_valid
+  end
+
+  it 'is invalid without a name' do
+    expect(build(:department, name: "")).to have(1).errors_on(:name)
+  end
+
+  it 'is invalid without an institute' do
+    expect(build(:department, institute: nil)).to have(1).errors_on(:institute)
   end
 
   it 'is valid with a valid URL' do

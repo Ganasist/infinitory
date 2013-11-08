@@ -3,6 +3,32 @@ require 'spec_helper'
 describe User do
   let(:gl) { build(:admin) }
   let(:user) { build(:user) }
+  
+  context 'relationships' do
+    it { should belong_to(:lab) }
+    it { should belong_to(:department) }
+    it { should belong_to(:institute) }
+  end
+
+  context 'validations' do
+    it { should validate_presence_of(:role) }
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:password) }
+    it { should validate_confirmation_of(:password) }
+    it { should ensure_length_of(:password).is_at_least(8).is_at_most(128) }
+    it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
+                                                       doctoral_candidate master's_student project_student technician other]) }
+  end
+
+  context 'database indexes' do
+    it { should have_db_index(:email).unique(true) }
+    it { should have_db_index(:slug).unique(true) }
+    it { should have_db_index(:lab_id) }
+    it { should have_db_index(:department_id) }
+    it { should have_db_index(:institute_id) }
+    it { should have_db_index(:confirmation_token).unique(true) }
+    it { should have_db_index(:reset_password_token).unique(true) }
+  end
 
   it 'has a valid user factory' do
     gl.save
@@ -55,32 +81,6 @@ describe User do
       invalid_email_user = build(:user, email: address)
       expect(invalid_email_user).to have(1).errors_on(:email)
     end
-  end
-
-  context 'relationships' do
-    it { should belong_to(:lab) }
-    it { should belong_to(:department) }
-    it { should belong_to(:institute) }
-  end
-
-  context 'validations' do
-    it { should validate_presence_of(:role) }
-    it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:password) }
-    it { should validate_confirmation_of(:password) }
-    it { should ensure_length_of(:password).is_at_least(8).is_at_most(128) }
-    it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
-                                                       doctoral_candidate master's_student project_student technician other]) }
-  end
-
-  context 'database indexes' do
-    it { should have_db_index(:email).unique(true) }
-    it { should have_db_index(:slug).unique(true) }
-    it { should have_db_index(:lab_id) }
-    it { should have_db_index(:department_id) }
-    it { should have_db_index(:institute_id) }
-    it { should have_db_index(:confirmation_token).unique(true) }
-    it { should have_db_index(:reset_password_token).unique(true) }
   end
 
   it 'gets sent a confirmation email' do
