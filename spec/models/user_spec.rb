@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   let(:gl) { build(:admin) }
   let(:user) { build(:user) }
-  
+
   context 'relationships' do
     it { should belong_to(:lab) }
     it { should belong_to(:department) }
@@ -18,6 +18,36 @@ describe User do
     it { should ensure_length_of(:password).is_at_least(8).is_at_most(128) }
     it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
                                                        doctoral_candidate master's_student project_student technician other]) }
+  end
+
+  context 'database columns' do
+    it { should have_db_column(:email).of_type(:string).with_options(default: "", null: false) }
+    it { should have_db_column(:first_name).of_type(:string) }
+    it { should have_db_column(:last_name).of_type(:string) }
+    it { should have_db_column(:role).of_type(:string) }
+    it { should have_db_column(:slug).of_type(:string) }
+    it { should have_db_column(:reset_password_token).of_type(:string) }
+    it { should have_db_column(:reset_password_sent_at).of_type(:datetime) }
+    it { should have_db_column(:approved).of_type(:boolean).with_options(default: false, null: false) }
+    it { should have_db_column(:joined).of_type(:datetime) }
+    it { should have_db_column(:unconfirmed_email).of_type(:string) }
+    it { should have_db_column(:encrypted_password).of_type(:string).with_options(default: "", null: false) }
+    it { should have_db_column(:remember_created_at).of_type(:datetime) }
+    it { should have_db_column(:current_sign_in_at).of_type(:datetime) }
+    it { should have_db_column(:last_sign_in_at).of_type(:datetime) }
+    it { should have_db_column(:current_sign_in_ip).of_type(:string) }
+    it { should have_db_column(:last_sign_in_ip).of_type(:string) }
+    it { should have_db_column(:sign_in_count).of_type(:integer).with_options(default: 0) }
+    it { should have_db_column(:lab_id).of_type(:integer) }
+    it { should have_db_column(:department_id).of_type(:integer) }
+    it { should have_db_column(:institute_id).of_type(:integer) }
+    it { should have_db_column(:confirmation_token).of_type(:string) }
+    it { should have_db_column(:confirmed_at).of_type(:datetime) }
+    it { should have_db_column(:confirmation_sent_at).of_type(:datetime) }
+    it { should have_db_column(:created_at).of_type(:datetime) }
+    it { should have_db_column(:updated_at).of_type(:datetime) }
+    it { should have_db_column(:icon).of_type(:string) }
+    it { should have_db_column(:icon_processing).of_type(:boolean) }    
   end
 
   context 'database indexes' do
