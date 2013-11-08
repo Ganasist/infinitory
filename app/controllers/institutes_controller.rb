@@ -21,7 +21,7 @@ class InstitutesController < ApplicationController
     @labs = Lab.where(institute_id: find_institute).order("name ASC").page(params[:page]).per_page(15)
     @orphans = Lab.where(institute_id: find_institute, department_id: nil)
 
-    gon.watch.rabl "app/views/institutes/show.json.rabl", as: "institute"
+    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
   def new

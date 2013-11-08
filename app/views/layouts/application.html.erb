@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Infinitory" %></title>
-    <%= include_gon(watch: true) %>
+    <%= include_gon %>
     <%= csrf_meta_tags %>
 
     <script type="text/javascript" src="//use.typekit.net/fin5feo.js"></script>
