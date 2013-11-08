@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108115147) do
+ActiveRecord::Schema.define(version: 20131108120120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 20131108115147) do
     t.string   "room"
     t.integer  "users_count",  default: 0
     t.integer  "labs_count",   default: 0
+    t.string   "email"
   end
 
+  add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
   add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
   add_index "departments", ["latitude", "longitude"], name: "index_departments_on_latitude_and_longitude", using: :btree
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
@@ -67,8 +69,10 @@ ActiveRecord::Schema.define(version: 20131108115147) do
     t.boolean  "icon_processing"
     t.integer  "users_count",     default: 0
     t.integer  "labs_count",      default: 0
+    t.string   "email"
   end
 
+  add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
   add_index "institutes", ["latitude", "longitude"], name: "index_institutes_on_latitude_and_longitude", using: :btree
   add_index "institutes", ["slug"], name: "index_institutes_on_slug", unique: true, using: :btree
 
