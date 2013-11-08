@@ -13,8 +13,6 @@ class Lab < ActiveRecord::Base
 	validates_associated	:institute
 	validates :institute, presence: true
 
-	# validates_with LabValidator
-
 	has_many :users
 	has_many :reagents
 

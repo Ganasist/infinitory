@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108143005) do
+ActiveRecord::Schema.define(version: 20131108154612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,7 +89,8 @@ ActiveRecord::Schema.define(version: 20131108143005) do
     t.string   "slug"
     t.string   "name"
     t.string   "email"
-    t.integer  "users_count",   default: 0
+    t.integer  "users_count",     default: 0
+    t.boolean  "icon_processing"
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
