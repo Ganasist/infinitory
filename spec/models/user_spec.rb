@@ -5,59 +5,59 @@ describe User do
   let(:user) { build(:user) }
 
   context 'relationships' do
-    it { should belong_to(:lab) }
-    it { should belong_to(:department) }
-    it { should belong_to(:institute) }
+    expect_it { to belong_to(:lab) }
+    expect_it { to belong_to(:department) }
+    expect_it { to belong_to(:institute) }
   end
 
   context 'validations' do
-    it { should validate_presence_of(:role) }
-    it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:password) }
-    it { should validate_confirmation_of(:password) }
-    it { should ensure_length_of(:password).is_at_least(8).is_at_most(128) }
-    it { should ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
+    expect_it { to validate_presence_of(:role) }
+    expect_it { to validate_presence_of(:email) }
+    expect_it { to validate_presence_of(:password) }
+    expect_it { to validate_confirmation_of(:password) }
+    expect_it { to ensure_length_of(:password).is_at_least(8).is_at_most(128) }
+    expect_it { to ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
                                                        doctoral_candidate master's_student project_student technician other]) }
   end
 
   context 'database columns' do
-    it { should have_db_column(:email).of_type(:string).with_options(default: "", null: false) }
-    it { should have_db_column(:first_name).of_type(:string) }
-    it { should have_db_column(:last_name).of_type(:string) }
-    it { should have_db_column(:role).of_type(:string) }
-    it { should have_db_column(:slug).of_type(:string) }
-    it { should have_db_column(:reset_password_token).of_type(:string) }
-    it { should have_db_column(:reset_password_sent_at).of_type(:datetime) }
-    it { should have_db_column(:approved).of_type(:boolean).with_options(default: false, null: false) }
-    it { should have_db_column(:joined).of_type(:datetime) }
-    it { should have_db_column(:unconfirmed_email).of_type(:string) }
-    it { should have_db_column(:encrypted_password).of_type(:string).with_options(default: "", null: false) }
-    it { should have_db_column(:remember_created_at).of_type(:datetime) }
-    it { should have_db_column(:current_sign_in_at).of_type(:datetime) }
-    it { should have_db_column(:last_sign_in_at).of_type(:datetime) }
-    it { should have_db_column(:current_sign_in_ip).of_type(:string) }
-    it { should have_db_column(:last_sign_in_ip).of_type(:string) }
-    it { should have_db_column(:sign_in_count).of_type(:integer).with_options(default: 0) }
-    it { should have_db_column(:lab_id).of_type(:integer) }
-    it { should have_db_column(:department_id).of_type(:integer) }
-    it { should have_db_column(:institute_id).of_type(:integer) }
-    it { should have_db_column(:confirmation_token).of_type(:string) }
-    it { should have_db_column(:confirmed_at).of_type(:datetime) }
-    it { should have_db_column(:confirmation_sent_at).of_type(:datetime) }
-    it { should have_db_column(:created_at).of_type(:datetime) }
-    it { should have_db_column(:updated_at).of_type(:datetime) }
-    it { should have_db_column(:icon).of_type(:string) }
-    it { should have_db_column(:icon_processing).of_type(:boolean) }    
+    expect_it { to have_db_column(:email).of_type(:string).with_options(default: "", null: false) }
+    expect_it { to have_db_column(:first_name).of_type(:string) }
+    expect_it { to have_db_column(:last_name).of_type(:string) }
+    expect_it { to have_db_column(:role).of_type(:string) }
+    expect_it { to have_db_column(:slug).of_type(:string) }
+    expect_it { to have_db_column(:reset_password_token).of_type(:string) }
+    expect_it { to have_db_column(:reset_password_sent_at).of_type(:datetime) }
+    expect_it { to have_db_column(:approved).of_type(:boolean).with_options(default: false, null: false) }
+    expect_it { to have_db_column(:joined).of_type(:datetime) }
+    expect_it { to have_db_column(:unconfirmed_email).of_type(:string) }
+    expect_it { to have_db_column(:encrypted_password).of_type(:string).with_options(default: "", null: false) }
+    expect_it { to have_db_column(:remember_created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:current_sign_in_at).of_type(:datetime) }
+    expect_it { to have_db_column(:last_sign_in_at).of_type(:datetime) }
+    expect_it { to have_db_column(:current_sign_in_ip).of_type(:string) }
+    expect_it { to have_db_column(:last_sign_in_ip).of_type(:string) }
+    expect_it { to have_db_column(:sign_in_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:lab_id).of_type(:integer) }
+    expect_it { to have_db_column(:department_id).of_type(:integer) }
+    expect_it { to have_db_column(:institute_id).of_type(:integer) }
+    expect_it { to have_db_column(:confirmation_token).of_type(:string) }
+    expect_it { to have_db_column(:confirmed_at).of_type(:datetime) }
+    expect_it { to have_db_column(:confirmation_sent_at).of_type(:datetime) }
+    expect_it { to have_db_column(:created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:icon).of_type(:string) }
+    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }    
   end
 
   context 'database indexes' do
-    it { should have_db_index(:email).unique(true) }
-    it { should have_db_index(:slug).unique(true) }
-    it { should have_db_index(:lab_id) }
-    it { should have_db_index(:department_id) }
-    it { should have_db_index(:institute_id) }
-    it { should have_db_index(:confirmation_token).unique(true) }
-    it { should have_db_index(:reset_password_token).unique(true) }
+    expect_it { to have_db_index(:email).unique(true) }
+    expect_it { to have_db_index(:slug).unique(true) }
+    expect_it { to have_db_index(:lab_id) }
+    expect_it { to have_db_index(:department_id) }
+    expect_it { to have_db_index(:institute_id) }
+    expect_it { to have_db_index(:confirmation_token).unique(true) }
+    expect_it { to have_db_index(:reset_password_token).unique(true) }
   end
 
   it 'has a valid user factory' do

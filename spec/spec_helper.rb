@@ -1,9 +1,6 @@
 require 'rubygems'
 require 'test/unit'
 
-#uncomment the following line to use spork with the debugger
-#require 'spork/ext/ruby-debug'
-
 ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -22,6 +19,8 @@ Devise::Async.enabled = false
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+
+  config.alias_example_to :expect_it
 
   config.include FactoryGirl::Syntax::Methods
 
@@ -72,4 +71,9 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+end
+
+RSpec::Core::MemoizedHelpers.module_eval do
+  alias to should
+  alias to_not should_not
 end

@@ -6,36 +6,36 @@ describe Lab do
   let(:lab) { gl.lab }
 
   context 'relationships' do
-    it { should belong_to(:institute) }
-    it { should belong_to(:department) }
-    it { should have_many(:users) }
-     it { should have_many(:reagents) }
+    expect_it { to belong_to(:institute) }
+    expect_it { to belong_to(:department) }
+    expect_it { to have_many(:users) }
+    expect_it { to have_many(:reagents) }
   end
 
   context 'validations' do
-    it { should validate_presence_of(:institute) }
-    it { should validate_presence_of(:email) }
+    expect_it { to validate_presence_of(:institute) }
+    expect_it { to validate_presence_of(:email) }
   end
 
   context 'database columns' do
-    it { should have_db_column(:name).of_type(:string) }
-    it { should have_db_column(:department_id).of_type(:integer) }
-    it { should have_db_column(:institute_id).of_type(:integer) }
-    it { should have_db_column(:room).of_type(:string) }
-    it { should have_db_column(:created_at).of_type(:datetime) }
-    it { should have_db_column(:updated_at).of_type(:datetime) }
-    it { should have_db_column(:url).of_type(:string) }    
-    it { should have_db_column(:icon).of_type(:string) }
-    it { should have_db_column(:icon_processing).of_type(:boolean) }
-    it { should have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
-    it { should have_db_column(:email).of_type(:string) }
+    expect_it { to have_db_column(:name).of_type(:string) }
+    expect_it { to have_db_column(:department_id).of_type(:integer) }
+    expect_it { to have_db_column(:institute_id).of_type(:integer) }
+    expect_it { to have_db_column(:room).of_type(:string) }
+    expect_it { to have_db_column(:created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:url).of_type(:string) }    
+    expect_it { to have_db_column(:icon).of_type(:string) }
+    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }
+    expect_it { to have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:email).of_type(:string) }
   end
 
   context 'database indexes' do
-    it { should have_db_index(:email) }
-    it { should have_db_index(:slug).unique(true) }
-    it { should have_db_index(:department_id) }
-    it { should have_db_index(:institute_id) }
+    expect_it { to have_db_index(:email) }
+    expect_it { to have_db_index(:slug).unique(true) }
+    expect_it { to have_db_index(:department_id) }
+    expect_it { to have_db_index(:institute_id) }
   end
 
   it 'is valid with a GL and institute' do
