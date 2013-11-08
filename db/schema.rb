@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108114316) do
+ActiveRecord::Schema.define(version: 20131108115147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 20131108114316) do
     t.datetime "updated_at"
     t.string   "alternate_name"
     t.string   "country"
-    t.integer  "rank"
     t.string   "url"
     t.string   "acronym"
     t.string   "slug"
@@ -104,6 +103,7 @@ ActiveRecord::Schema.define(version: 20131108114316) do
     t.datetime "updated_at"
     t.hstore   "properties"
     t.integer  "lab_id"
+    t.string   "contacts"
   end
 
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
@@ -132,7 +132,6 @@ ActiveRecord::Schema.define(version: 20131108114316) do
     t.string   "role"
     t.integer  "institute_id"
     t.integer  "department_id"
-    t.boolean  "superuser",              default: false
     t.boolean  "approved",               default: false, null: false
     t.string   "icon"
     t.datetime "joined"
