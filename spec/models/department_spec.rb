@@ -14,8 +14,26 @@ describe Department do
     it { should validate_uniqueness_of(:name).case_insensitive.scoped_to(:institute_id).with_message(/A department with that name is already registered at this institute./) }
   end
 
+  context 'database columns' do
+    it { should have_db_column(:name).of_type(:string) }
+    it { should have_db_column(:latitude).of_type(:float) }
+    it { should have_db_column(:longitude).of_type(:float) }
+    it { should have_db_column(:institute_id).of_type(:integer) }
+    it { should have_db_column(:country).of_type(:string) }
+    it { should have_db_column(:room).of_type(:string) }
+    it { should have_db_column(:address).of_type(:text) }
+    it { should have_db_column(:created_at).of_type(:datetime) }
+    it { should have_db_column(:updated_at).of_type(:datetime) }
+    it { should have_db_column(:country).of_type(:string) }
+    it { should have_db_column(:url).of_type(:string) }
+    it { should have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
+    it { should have_db_column(:labs_count).of_type(:integer).with_options(default: 0) }
+    it { should have_db_column(:email).of_type(:string) }
+  end
+
   context 'database indexes' do
     it { should have_db_index([:name, :institute_id]).unique(true) }
+    it { should have_db_index(:email) }  
     it { should have_db_index(:institute_id) }  
     it { should have_db_index([:latitude, :longitude]) }
   end
