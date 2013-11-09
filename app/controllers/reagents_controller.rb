@@ -3,30 +3,22 @@ class ReagentsController < ApplicationController
   before_action :set_lab, except: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /reagents
-  # GET /reagents.json
   def index
     @lab = Lab.friendly.find(params[:lab_id])
     @reagents = Reagent.where(lab_id: @lab)
   end
 
-  # GET /reagents/1
-  # GET /reagents/1.json
   def show
     @lab = @reagent.lab 
   end
 
-  # GET /reagents/new
   def new
     @reagent = Reagent.new
   end
 
-  # GET /reagents/1/edit
   def edit
   end
 
-  # POST /reagents
-  # POST /reagents.json
   def create
     @lab = Lab.friendly.find(params[:lab_id])
     @reagent = @lab.reagents.new(reagent_params)    
@@ -42,8 +34,6 @@ class ReagentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /reagents/1
-  # PATCH/PUT /reagents/1.json
   def update
     respond_to do |format|
       if @reagent.update(reagent_params)
@@ -56,8 +46,6 @@ class ReagentsController < ApplicationController
     end
   end
 
-  # DELETE /reagents/1
-  # DELETE /reagents/1.json
   def destroy
     @lab = @reagent.lab
     @reagent.destroy
@@ -68,7 +56,6 @@ class ReagentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_reagent
       @reagent = Reagent.find(params[:id])
     end
@@ -77,7 +64,6 @@ class ReagentsController < ApplicationController
       @lab = Lab.friendly.find(params[:lab_id])   
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def reagent_params
       params.require(:reagent).permit(:lab_id, :name, :category, :owner, :location, :price, :serial, 
                                       :quantity, :properties, :description, :expiration)
