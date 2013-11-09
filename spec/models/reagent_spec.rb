@@ -17,7 +17,6 @@ describe Reagent do
 		expect_it { to have_db_column(:location).of_type(:string) }    
     expect_it { to have_db_column(:price).of_type(:decimal).with_options(precision: 9, scale: 2) }
     expect_it { to have_db_column(:serial).of_type(:string) }
-    expect_it { to have_db_column(:quantity).of_type(:decimal).with_options(precision: 3, scale: 0) }
     expect_it { to have_db_column(:created_at).of_type(:datetime) }
     expect_it { to have_db_column(:updated_at).of_type(:datetime) }
 		expect_it { to have_db_column(:properties).of_type(:hstore) }
