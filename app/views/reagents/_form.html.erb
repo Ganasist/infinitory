@@ -5,12 +5,17 @@
   <%= f.input :location %>
   <%= f.input :price %>
   <%= f.input :serial %>
-  <%= f.input :quantity %>
   <%= f.input :description %>
   <%= f.input :expiration %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 lab_reagents_path(@lab), :class => 'btn' %>
+
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          reagent_path(@reagent),
+          :method => :delete,
+          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+          :class => 'btn btn-mini btn-danger' %>
   </div>
 <% end %>

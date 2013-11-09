@@ -5,7 +5,7 @@ class ReagentsController < ApplicationController
 
   def index
     @lab = Lab.friendly.find(params[:lab_id])
-    @reagents = Reagent.where(lab_id: @lab)
+    @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC")
   end
 
   def show

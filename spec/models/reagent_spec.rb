@@ -23,4 +23,10 @@ describe Reagent do
     expect_it { to have_db_column(:lab_id).of_type(:integer) }
     expect_it { to have_db_column(:contacts).of_type(:string) }
   end
+
+  context 'database indexes' do
+    expect_it { to have_db_index(:lab_id) }
+    expect_it { to have_db_index(:properties) }
+  end
+
 end
