@@ -31,8 +31,8 @@ namespace :db do
           user = User.create!(role: role,
                               email:                  Faker::Internet.email,
                               lab:                    gl.lab,
-                              password:               "loislane",
-                              password_confirmation:  "loislane")
+                              password:               'loislane',
+                              password_confirmation:  'loislane')
 
           user.first_name = Faker::Name.first_name
           user.last_name  = Faker::Name.last_name
@@ -44,7 +44,7 @@ namespace :db do
       end
       
       r.rand(2..10).times do |n|  
-        department = Department.create!(name: Faker::Company.name,
+        department = Department.create!(name:      Faker::Company.name,
                                         institute: institute,
                                         room:      "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
                                         address:   Faker::Address.street_address,
@@ -71,8 +71,8 @@ namespace :db do
             user = User.create!(role: role,
                                 email:                  Faker::Internet.email,
                                 lab:                    gl.lab,
-                                password:               "loislane",
-                                password_confirmation:  "loislane")
+                                password:               'loislane',
+                                password_confirmation:  'loislane')
 
             user.first_name = Faker::Name.first_name
             user.last_name  = Faker::Name.last_name

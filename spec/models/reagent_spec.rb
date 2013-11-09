@@ -1,5 +1,27 @@
 require 'spec_helper'
 
 describe Reagent do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  context 'relationships' do
+    expect_it { to belong_to(:lab) }
+  end
+
+  context 'validations' do
+    expect_it { to validate_presence_of(:lab) }
+  end
+
+  context 'database columns' do
+  	expect_it { to have_db_column(:name).of_type(:string).with_options(null: false) }
+  	expect_it { to have_db_column(:category).of_type(:string).with_options(null: false) }
+  	expect_it { to have_db_column(:owner).of_type(:string).with_options(null: false) }
+		expect_it { to have_db_column(:location).of_type(:string) }    
+    expect_it { to have_db_column(:price).of_type(:decimal).with_options(precision: 9, scale: 2) }
+    expect_it { to have_db_column(:serial).of_type(:string) }
+    expect_it { to have_db_column(:quantity).of_type(:decimal).with_options(precision: 3, scale: 0) }
+    expect_it { to have_db_column(:created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
+		expect_it { to have_db_column(:properties).of_type(:hstore) }
+    expect_it { to have_db_column(:lab_id).of_type(:integer) }
+    expect_it { to have_db_column(:contacts).of_type(:string) }
+  end
 end
