@@ -79,9 +79,6 @@ describe Lab do
   it 'is valid with one group leader'
 
   it { should respond_to(:gl_count) }
-  xit 'GL count should always equal 1' do
-    expect(lab.gl_count).to eql 1
-  end
 
   it { should respond_to(:gl) }
   it 'should return the GL when the gl method is used' do
