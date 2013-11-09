@@ -40,10 +40,6 @@ describe Department do
     expect_it { to have_db_index([:latitude, :longitude]) }
   end
 
-  it 'has a valid department factory' do
-    expect(department).to be_valid
-  end
-
   it 'is invalid without a name' do
     expect(build(:department, name: "")).to have(1).errors_on(:name)
   end

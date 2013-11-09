@@ -60,15 +60,6 @@ describe User do
     expect_it { to have_db_index(:reset_password_token).unique(true) }
   end
 
-  it 'has a valid user factory' do
-    gl.save
-    expect(create(:user, lab: gl.lab)).to be_valid
-  end
-
-  it 'has a valid admin factory' do
-    expect(gl).to be_valid
-  end
-
   it 'is invalid without an email address' do
     expect(build(:user, email: "")).to have(1).errors_on(:email)
   end

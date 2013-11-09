@@ -13,7 +13,6 @@ describe Reagent do
   context 'database columns' do
   	expect_it { to have_db_column(:name).of_type(:string).with_options(null: false) }
   	expect_it { to have_db_column(:category).of_type(:string).with_options(null: false) }
-  	expect_it { to have_db_column(:owner).of_type(:string).with_options(null: false) }
 		expect_it { to have_db_column(:location).of_type(:string) }    
     expect_it { to have_db_column(:price).of_type(:decimal).with_options(precision: 9, scale: 2) }
     expect_it { to have_db_column(:serial).of_type(:string) }
@@ -21,7 +20,7 @@ describe Reagent do
     expect_it { to have_db_column(:updated_at).of_type(:datetime) }
 		expect_it { to have_db_column(:properties).of_type(:hstore) }
     expect_it { to have_db_column(:lab_id).of_type(:integer) }
-    expect_it { to have_db_column(:contacts).of_type(:string) }
+    expect_it { to have_db_column(:contact).of_type(:string) }
   end
 
   context 'database indexes' do
