@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   def retire
     @user.retire
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
+      flash[:notice] = "#{ @user.fullname } has been retired."
       UserMailer.delay(retry: false).retire_email(@user.id, @lab.id) 
     else
       flash[:alert] = "#{ @user.fullname } couldn't be retired..."
@@ -81,10 +81,10 @@ class UsersController < ApplicationController
       @lab = current_user.lab
     end
 
-    def undo_link
-      view_context.link_to("UNDO", revert_version_path(@user.versions.last), 
-                            method: :post, class: "btn-large")
-    end
+    # def undo_link
+    #   view_context.link_to("UNDO", revert_version_path(@user.versions.last), 
+    #                         method: :post, class: "btn-large")
+    # end
 
     # def user_params
     #   params.require(:lab).permit(:email, :first_name, :last_name,
