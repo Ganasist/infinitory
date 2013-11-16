@@ -27,7 +27,7 @@ gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
 
-gem 'paper_trail', '>= 3.0.0.beta1'
+gem 'paper_trail', '>= 3.0.0.rc1'
 
 gem 'pg_search'
                              

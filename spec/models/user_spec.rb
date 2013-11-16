@@ -83,7 +83,7 @@ describe User do
   end
 
   it 'is invalid with an existing email address' do
-    user = create(:user, email: Faker::Internet.email, lab: gl.lab)
+    user = create(:user, lab: gl.lab)
     user2 = build(:user, email: user.email)
     expect(user2).to have(1).errors_on(:email)
   end

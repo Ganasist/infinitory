@@ -342,7 +342,7 @@ DEPENDENCIES
   less-rails
   minitest
   oj
-  paper_trail (>= 3.0.0.beta1)
+  paper_trail (>= 3.0.0.rc1)
   parallel_tests
   pg
   pg_search

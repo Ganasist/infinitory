@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :lockable, and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :async,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
