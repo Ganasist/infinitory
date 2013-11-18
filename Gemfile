@@ -22,6 +22,8 @@ gem 'gon'
 gem 'rabl'
 gem 'oj'
 
+gem 'whenever', require: false
+
 gem 'redis'
 gem 'dalli'
 
