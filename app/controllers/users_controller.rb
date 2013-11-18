@@ -5,12 +5,11 @@ class UsersController < ApplicationController
 
   def index    
     @lab = Lab.friendly.find(params[:lab_id])
-    @users = User.where(lab_id: @lab, approved: true).order("joined ASC")
-
-    @approval = User.where(lab_id: @lab, approved: false).count
+    @users = @lab.users.where(approved: true).order("joined ASC")
+    
+    @approval = @lab.users.where(approved: false).count
     if @approval > 0 && current_user.gl_lm?
-      @approvals = User.where(lab_id: @lab, approved: false)
-      @users = User.where(lab_id: @lab, approved: true).order(:role, :created_at)
+      @approvals = @lab.users.where(approved: false)
     end
   end
 
@@ -43,7 +42,7 @@ class UsersController < ApplicationController
     @user.reject
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been rejected. #{ undo_link }"
-      UserMailer.delay(retry: false).rejection_email(@user.id, @lab.id)      
+      UserMailer.delay(retry: false).rejection_email(@user.id, @lab.id)
     else
       flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
     end
@@ -56,7 +55,6 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
       UserMailer.delay(retry: false).retire_email(@user.id, @labtemp.id)
-      @lab.id = nil
     else
       flash[:alert] = "#{ @user.fullname } couldn't be retired..."
     end

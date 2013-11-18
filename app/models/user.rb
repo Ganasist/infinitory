@@ -39,10 +39,11 @@ class User < ActiveRecord::Base
   end
 
   def reject
-    self.approved = false
-    self.institute_id = nil
+    self.approved      = false
+    self.lab_id        = nil
+    self.institute_id  = nil
     self.department_id = nil
-    self.joined  = nil
+    self.joined        = nil
   end
 
   def approve
@@ -51,11 +52,11 @@ class User < ActiveRecord::Base
   end 
 
   def retire
-    self.approved = false
-    self.lab_id   = nil
-    self.institute_id = nil
+    self.approved      = false
+    self.lab_id        = nil
+    self.institute_id  = nil
     self.department_id = nil
-    self.joined  = nil
+    self.joined        = nil
   end
 
   def location
@@ -146,7 +147,7 @@ class User < ActiveRecord::Base
   end
 
   def first_request_email  
-    if !self.gl? && !self.confirmed? && !self.approved?  
+    if !self.gl? && !self.confirmed? && !self.approved? && !self.lab.nil?
       UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
     end
   end
@@ -155,14 +156,14 @@ class User < ActiveRecord::Base
     if !self.gl? && self.lab_id_changed?
       self.approved = false
       self.lab_id   = lab_id
-      self.joined  = nil
+      self.joined   = nil
       UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
     end
   end
 
   def affiliations
     if self.confirmed? && self.approved? && !self.lab.nil?
-      self.institute = lab.institute
+      self.institute  = lab.institute
       self.department = lab.department
     end
   end
