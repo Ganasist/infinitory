@@ -51,10 +51,11 @@ class UsersController < ApplicationController
   end
 
   def retire
+    @labtemp = @lab
     @user.retire
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
-      UserMailer.delay(retry: false).retire_email(@user.id, @lab.id)
+      UserMailer.delay(retry: false).retire_email(@user.id, @labtemp.id)
       @lab.id = nil
     else
       flash[:alert] = "#{ @user.fullname } couldn't be retired..."
