@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Reagent do
+  let(:reagent) { build(:reagent) }
 
   context 'relationships' do
     expect_it { to belong_to(:lab) }
@@ -27,5 +28,32 @@ describe Reagent do
     expect_it { to have_db_index(:lab_id) }
     expect_it { to have_db_index(:properties) }
   end
+
+  it 'is invalid without a lab' do
+    reagent.lab = nil
+    expect(reagent).to have(1).errors_on(:lab)
+  end
+
+  it 'is invalid without a category' do
+    reagent.category = nil
+    expect(reagent).to have(2).errors_on(:category)
+  end
+
+  it 'is valid with a valid category' do
+    categories = %w[antibody chemical enzyme kit solution]
+    categories.each do |category|
+      valid_category_reagent = build(:reagent, category: category)
+      expect(valid_category_reagent).to be_valid
+    end
+  end
+
+  it 'is invalid with an invalid category' do
+    categories = %w[foo baz bar nerf bork]
+    categories.each do |category|
+      invalid_category_reagent = build(:reagent, category: category)
+      expect(invalid_category_reagent).to have(1).errors_on(:category)
+    end
+  end
+
 
 end
