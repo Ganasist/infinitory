@@ -40,7 +40,6 @@ class User < ActiveRecord::Base
 
   def reject
     self.approved = false
-    self.lab_id   = nil
     self.institute_id = nil
     self.department_id = nil
     self.joined  = nil
