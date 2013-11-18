@@ -156,6 +156,9 @@ GEM
       mini_portile (~> 0.5.0)
     oj (2.1.7)
     orm_adapter (0.4.0)
+    paper_trail (3.0.0.rc2)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     parallel (0.9.0)
     parallel_tests (0.16.2)
       parallel
@@ -339,6 +342,7 @@ DEPENDENCIES
   less-rails
   minitest
   oj
+  paper_trail (>= 3.0.0.rc2)
   parallel_tests
   pg
   pg_search

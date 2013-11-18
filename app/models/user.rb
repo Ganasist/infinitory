@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   mount_uploader :icon, IconUploader
   process_in_background :icon
 
-  # has_paper_trail
+  has_paper_trail
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]

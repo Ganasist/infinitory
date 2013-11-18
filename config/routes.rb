@@ -23,7 +23,7 @@ Infinitory::Application.routes.draw do
   match 'users/:id/retire' => 'users#retire', :as => 'retire_user', via: :get  
   match 'users/:id/reject' => 'users#reject', :as => 'reject_user', via: :get
 
-  # post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
+  post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 
   mount Sidekiq::Web, at: '/sidekiq'
 end
