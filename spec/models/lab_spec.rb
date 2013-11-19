@@ -9,7 +9,7 @@ describe Lab do
     expect_it { to belong_to(:institute) }
     expect_it { to belong_to(:department) }
     expect_it { to have_many(:users) }
-    expect_it { to have_many(:reagents).dependent(:destroy) }
+    expect_it { to have_many(:reagents).through(:users) }
   end
 
   context 'validations' do

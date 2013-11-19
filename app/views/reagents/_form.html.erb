@@ -6,7 +6,7 @@
     <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, prompt: false %>
     <br>
     <br>
-    <%= f.input :contact, label: "Contacts", input_html: { style: 'width: 350px' } %>
+    <%= f.input :user, label: "Contact", input_html: { style: 'width: 350px' } %>
     <%= f.input :location, input_html: { style: 'width: 350px' } %>
     <%= f.input :price, input_html: { style: 'width: 350px' } %>
     <%= f.input :serial, input_html: { style: 'width: 350px' } %>
