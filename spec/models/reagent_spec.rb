@@ -5,6 +5,7 @@ describe Reagent do
 
   context 'relationships' do
     expect_it { to belong_to(:lab) }
+    expect_it { to belong_to(:user) }
   end
 
   context 'validations' do

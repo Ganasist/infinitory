@@ -1,7 +1,7 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
   <% if @lab %>
-  <h3><%= @lab.name %> Lab Reagents: <%= @lab.reagents.count %> items</h3>
+  <h3><%= @lab.name %> Lab: <%= pluralize(@lab.reagents.count, 'reagent') %></h3>
   <% end %>
 
   <% if params[:tag] %>
@@ -15,7 +15,9 @@
       <th><%= model_class.human_attribute_name(:category) %></th>
       <th><%= model_class.human_attribute_name(:contact) %></th>
       <th><%= model_class.human_attribute_name(:location) %></th>
-      <th><%= model_class.human_attribute_name(:tags) %></th>
+      <% if params[:tag] %>
+        <th><%= model_class.human_attribute_name(:tags) %></th>
+      <% end %>
       <th>Updated</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -24,10 +26,12 @@
     <% @reagents.each do |reagent| %>
       <tr>
         <td><%= link_to reagent.name, reagent_path(reagent) %></td>
-        <td><%= reagent.category %></td>
+        <td><%= reagent.category.capitalize %></td>
         <td><%= reagent.contact %></td>
         <td><%= reagent.location %></td>
-        <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
+        <% if params[:tag] %>
+          <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
+        <% end %>
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

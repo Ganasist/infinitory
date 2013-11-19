@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119113904) do
+ActiveRecord::Schema.define(version: 20131119130653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,18 +100,21 @@ ActiveRecord::Schema.define(version: 20131119113904) do
   add_index "labs", ["slug"], name: "index_labs_on_slug", unique: true, using: :btree
 
   create_table "reagents", force: true do |t|
-    t.string   "name",                               null: false
-    t.string   "category",                           null: false
+    t.string   "name",                                    null: false
+    t.string   "category",                                null: false
     t.string   "location"
-    t.decimal  "price",      precision: 9, scale: 2
+    t.decimal  "price",           precision: 9, scale: 2
     t.string   "serial"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.hstore   "properties"
     t.integer  "lab_id"
     t.string   "contact"
+    t.integer  "consumable_id"
+    t.string   "consumable_type"
   end
 
+  add_index "reagents", ["consumable_id", "consumable_type"], name: "index_reagents_on_consumable_id_and_consumable_type", using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["properties"], name: "reagents_properties", using: :gin
 
