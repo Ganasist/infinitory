@@ -3,6 +3,8 @@ class Reagent < ActiveRecord::Base
 	validates_associated :lab
 	validates_presence_of :lab
 
+	acts_as_taggable
+
 	store_accessor :properties, :description, :expiration
 
 	CATEGORIES = %w[antibody chemical enzyme kit solution]
