@@ -5,10 +5,12 @@
 
     <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, prompt: false %>
     <br>
+    <br>    
+    <%= f.collection_select :user_id, User.where(lab: @reagent.lab), :id, :fullname, {}, { multiple: true } %>
     <br>
-    <%= f.input :user, label: "Contact", input_html: { style: 'width: 350px' } %>
+    <br>
     <%= f.input :location, label: "Location in lab", input_html: { style: 'width: 350px' } %>
-     <%= f.input :url, label: "URL", input_html: { style: 'width: 350px' } %>
+    <%= f.input :url, label: "URL", input_html: { style: 'width: 350px' } %>
     <%= f.input :price, input_html: { style: 'width: 350px' } %>
     <%= f.input :serial, input_html: { style: 'width: 350px' } %>
     <%= f.input :tag_list, label: "Tags", input_html: { style: 'width: 350px' } %>
