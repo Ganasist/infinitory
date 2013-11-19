@@ -39,13 +39,7 @@ describe Reagent do
     expect(reagent).to have(2).errors_on(:category)
   end
 
-  it 'is valid with a valid category' do
-    categories = %w[antibody chemical enzyme kit solution]
-    categories.each do |category|
-      valid_category_reagent = build(:reagent, category: category)
-      expect(valid_category_reagent).to be_valid
-    end
-  end
+  expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody chemical enzyme kit solution]) }
 
   it 'is invalid with an invalid category' do
     categories = %w[foo baz bar nerf bork]
