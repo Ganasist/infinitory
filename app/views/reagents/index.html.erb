@@ -7,7 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:category) %></th>
-      <th><%= model_class.human_attribute_name(:owner) %></th>
+      <th><%= model_class.human_attribute_name(:contact) %></th>
       <th><%= model_class.human_attribute_name(:location) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
       <th>Updated</th>
@@ -19,7 +19,7 @@
       <tr>
         <td><%= link_to reagent.name, reagent_path(reagent) %></td>
         <td><%= reagent.category %></td>
-        <td><%= reagent.owner %></td>
+        <td><%= reagent.contact %></td>
         <td><%= reagent.location %></td>
         <td><%= reagent.price %></td>
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
