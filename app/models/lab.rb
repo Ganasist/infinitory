@@ -14,7 +14,7 @@ class Lab < ActiveRecord::Base
 	validates :institute, presence: true
 
 	has_many :users
-  has_many :reagents, dependent: :destroy
+  has_many :reagents, as: :consumable, dependent: :destroy
 
 	before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
 	before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
