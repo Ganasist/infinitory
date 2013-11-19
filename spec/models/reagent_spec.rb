@@ -24,17 +24,23 @@ describe Reagent do
     expect_it { to have_db_column(:updated_at).of_type(:datetime) }
 		expect_it { to have_db_column(:properties).of_type(:hstore) }
     expect_it { to have_db_column(:lab_id).of_type(:integer) }
-    expect_it { to have_db_column(:contact).of_type(:string) }
+    expect_it { to have_db_column(:user_id).of_type(:integer) }
   end
 
   context 'database indexes' do
     expect_it { to have_db_index(:lab_id) }
+    expect_it { to have_db_index(:user_id) }
     expect_it { to have_db_index(:properties) }
   end
 
   it 'is invalid without a lab' do
     reagent.lab = nil
     expect(reagent).to have(1).errors_on(:lab)
+  end
+
+  it 'is valid without a user' do
+    reagent.user = nil
+    expect(reagent).to have(0).errors_on(:user)
   end
 
   it 'is invalid without a category' do
