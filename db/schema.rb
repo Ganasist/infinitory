@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119133011) do
+ActiveRecord::Schema.define(version: 20131119164301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20131119133011) do
     t.hstore   "properties"
     t.integer  "lab_id"
     t.integer  "user_id"
+    t.string   "url"
   end
 
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
