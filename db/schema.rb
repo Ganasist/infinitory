@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119130653) do
+ActiveRecord::Schema.define(version: 20131119133011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20131119130653) do
     t.datetime "updated_at"
     t.hstore   "properties"
     t.integer  "lab_id"
-    t.string   "contact"
+    t.integer  "user_id"
     t.integer  "consumable_id"
     t.string   "consumable_type"
   end
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20131119130653) do
   add_index "reagents", ["consumable_id", "consumable_type"], name: "index_reagents_on_consumable_id_and_consumable_type", using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["properties"], name: "reagents_properties", using: :gin
+  add_index "reagents", ["user_id"], name: "index_reagents_on_user_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
