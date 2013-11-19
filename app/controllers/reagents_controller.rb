@@ -1,15 +1,19 @@
 class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
-  before_action :set_lab, except: [:show, :edit, :update, :destroy]
+  before_action :set_lab, except: [:show, :edit, :update, :destroy, :index]
   before_action :authenticate_user!
 
   def index
-    @lab = Lab.friendly.find(params[:lab_id])
-    @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC")
+    if params[:tag]
+      @reagents = Reagent.tagged_with(params[:tag])
+    else
+      @lab = Lab.friendly.find(params[:lab_id])
+      @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC") 
+    end
   end
 
   def show
-    @lab = @reagent.lab 
+    @lab = @reagent.lab
   end
 
   def new
@@ -17,6 +21,7 @@ class ReagentsController < ApplicationController
   end
 
   def edit
+    @reagent = Reagent.find(params[:id])
   end
 
   def create

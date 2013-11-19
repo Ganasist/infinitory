@@ -8,7 +8,9 @@ describe Reagent do
   end
 
   context 'validations' do
+    expect_it { to validate_presence_of(:name) }
     expect_it { to validate_presence_of(:lab) }
+    expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody chemical_(powder) chemical_(solution) enzyme kit cell_line]) }
   end
 
   context 'database columns' do
@@ -38,8 +40,6 @@ describe Reagent do
     reagent.category = nil
     expect(reagent).to have(2).errors_on(:category)
   end
-
-  expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody chemical enzyme kit solution]) }
 
   it 'is invalid with an invalid category' do
     categories = %w[foo baz bar nerf bork]

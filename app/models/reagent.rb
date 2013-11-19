@@ -7,7 +7,8 @@ class Reagent < ActiveRecord::Base
 
 	store_accessor :properties, :description, :expiration
 
-	CATEGORIES = %w[antibody chemical enzyme kit solution]
+	CATEGORIES = %w[antibody chemical_(powder) chemical_(solution) enzyme kit cell_line]
 
+	validates :name, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
 end

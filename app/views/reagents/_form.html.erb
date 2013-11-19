@@ -2,15 +2,15 @@
 <%= f.error_notification %>
   <div class="form-inputs">
     <%= f.input :name, input_html: { style: 'width: 350px' } %>
-    
-    <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, prompt: "Category" %>
+
+    <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, prompt: false %>
     <br>
     <br>
-    <%= f.input :contact, input_html: { style: 'width: 350px' } %>
+    <%= f.input :contact, label: "Contacts", input_html: { style: 'width: 350px' } %>
     <%= f.input :location, input_html: { style: 'width: 350px' } %>
     <%= f.input :price, input_html: { style: 'width: 350px' } %>
     <%= f.input :serial, input_html: { style: 'width: 350px' } %>
-    <%= f.input :tag_list, input_html: { style: 'width: 350px' } %>
+    <%= f.input :tag_list, label: "Tags", input_html: { style: 'width: 350px' } %>
     <%= f.input :description, input_html: { style: 'width: 350px' } %>
     <%= f.input :expiration, input_html: { style: 'width: 350px' } %>
     <div class="form-actions">

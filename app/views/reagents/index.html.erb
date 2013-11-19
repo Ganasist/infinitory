@@ -1,6 +1,12 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
+  <% if @lab %>
   <h3><%= @lab.name %> Lab Reagents: <%= @lab.reagents.count %> items</h3>
+  <% end %>
+
+  <% if params[:tag] %>
+    <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
+  <% end %>
 </div>
 <table class="table table-striped">
   <thead>
@@ -9,7 +15,7 @@
       <th><%= model_class.human_attribute_name(:category) %></th>
       <th><%= model_class.human_attribute_name(:contact) %></th>
       <th><%= model_class.human_attribute_name(:location) %></th>
-      <th><%= model_class.human_attribute_name(:price) %></th>
+      <th><%= model_class.human_attribute_name(:tags) %></th>
       <th>Updated</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -21,7 +27,7 @@
         <td><%= reagent.category %></td>
         <td><%= reagent.contact %></td>
         <td><%= reagent.location %></td>
-        <td><%= reagent.price %></td>
+        <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -32,6 +38,8 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lab_reagent_path(@lab),
-            :class => 'btn btn-primary' %>
+<% if @lab %>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_lab_reagent_path(@lab),
+              :class => 'btn btn-primary' %>
+<% end %>
