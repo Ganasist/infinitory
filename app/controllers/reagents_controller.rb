@@ -25,7 +25,6 @@ class ReagentsController < ApplicationController
   end
 
   def create
-    @lab = Lab.friendly.find(params[:lab_id])
     @reagent = @lab.reagents.new(reagent_params)    
 
     respond_to do |format|

@@ -3,7 +3,6 @@
   <% if @lab %>
   <h3><%= @lab.name %> Lab: <%= pluralize(@lab.reagents.size, 'reagent') %></h3>
   <% end %>
-
   <% if params[:tag] %>
     <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
   <% end %>

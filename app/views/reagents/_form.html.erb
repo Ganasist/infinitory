@@ -7,13 +7,22 @@
     <%= f.label "Category" %><br>
     <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, label: "Category" %>
     <br>
-    <br>    
+    <br>
+    <% if params[:lab_id] %>    
+    <%= f.association :users, label: "Contact(s)",
+                              collection: User.where(lab: @lab),
+                              value_method: :id,
+                              label_method: :fullname,
+                              as: :check_boxes,
+                              input_html: { style: 'width: 50px' } %>
+    <% else %>
     <%= f.association :users, label: "Contact(s)",
                               collection: User.where(lab: @reagent.lab),
                               value_method: :id,
                               label_method: :fullname,
                               as: :check_boxes,
                               input_html: { style: 'width: 50px' } %>
+    <% end %>
     <br>
     <br>
     <%= f.input :location, label: "Location in lab"  %>

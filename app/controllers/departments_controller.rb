@@ -1,5 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_action :set_institute, only: [:index, :new, :create]
   before_action :authenticate_user!
   
   def index
@@ -7,7 +8,6 @@ class DepartmentsController < ApplicationController
       @departments = @institute.departments
       render json: @departments.map { |x| "#{x.name} @ #{x.institute.name}"}
     else
-      @institute = Institute.friendly.find(params[:institute_id])
       @departments = Department.where(institute_id: @institute)
     end
   end
@@ -18,7 +18,6 @@ class DepartmentsController < ApplicationController
   end
 
   def new
-    @institute = Institute.friendly.find(params[:institute_id])
     @department = Department.new
   end
 
@@ -27,7 +26,6 @@ class DepartmentsController < ApplicationController
   end
 
   def create
-    @institute = Institute.friendly.find(params[:institute_id])   
     @department = @institute.departments.new(department_params)
 
     respond_to do |format|
@@ -65,6 +63,10 @@ class DepartmentsController < ApplicationController
   end
 
   private
+    def set_institute
+      @institute = Institute.friendly.find(params[:institute_id])
+    end
+
     def set_department
       @department = Department.find(params[:id])
     end
