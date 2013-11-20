@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120150422) do
+ActiveRecord::Schema.define(version: 20131120184102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(version: 20131120150422) do
   end
 
   create_table "reagents", force: true do |t|
-    t.string   "name",                               null: false
-    t.string   "category",                           null: false
+    t.string   "name",                                           null: false
+    t.string   "category",                                       null: false
     t.string   "location"
     t.decimal  "price",      precision: 9, scale: 2
     t.string   "serial"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20131120150422) do
     t.integer  "user_id"
     t.string   "url"
     t.date     "expiration"
+    t.integer  "remaining",                          default: 100, null: false
   end
 
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree

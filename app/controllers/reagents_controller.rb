@@ -70,6 +70,6 @@ class ReagentsController < ApplicationController
 
     def reagent_params
       params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, :category, :location, :price, :url, :serial,
-                                      :properties, :description, :expiration, :tag_list)
+                                      :properties, :description, :expiration, :remaining, :tag_list)
     end
 end
