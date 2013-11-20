@@ -11,10 +11,10 @@ describe Reagent do
   context 'validations' do
     expect_it { to validate_presence_of(:name) }
     expect_it { to validate_presence_of(:lab) }
+    expect_it { to validate_presence_of(:user) }
     expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit]) }
     expect_it { to validate_numericality_of(:price).with_message(/Must be a positive number or 0/) }
     expect_it { to_not allow_value(-1).for(:price) }
-    expect_it { to allow_value(nil).for(:price) }
   end
 
   context 'database columns' do
@@ -41,9 +41,9 @@ describe Reagent do
     expect(reagent).to have(1).errors_on(:lab)
   end
 
-  it 'is valid without a user' do
+  it 'is invalid without a user' do
     reagent.user = nil
-    expect(reagent).to have(0).errors_on(:user)
+    expect(reagent).to have(1).errors_on(:user)
   end
 
   it 'is invalid without a category' do
@@ -59,5 +59,10 @@ describe Reagent do
     end
   end
 
+  it 'defaults to group leader as contact User if the former contact User leaves the lab' do
+    reagent.user = nil
+    reagent.save
+    expect(reagent.user).to eql reagent.lab.gl
+  end
 
 end
