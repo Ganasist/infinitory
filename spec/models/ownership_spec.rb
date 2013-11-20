@@ -6,11 +6,6 @@ describe Ownership do
     expect_it { to belong_to(:reagent) }
   end
 
-  context 'validations' do
-    expect_it { to validate_presence_of(:user) }
-    expect_it { to validate_presence_of(:reagent) }
-  end
-
   context 'database columns' do
     expect_it { to have_db_column(:device_id).of_type(:integer) }
     expect_it { to have_db_column(:reagent_id).of_type(:integer) }
