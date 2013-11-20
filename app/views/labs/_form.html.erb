@@ -1,10 +1,11 @@
-<%= simple_form_for @lab, :html => { :class => 'form-vertical', multipart: true } do |f| %>
+<%= simple_form_for @lab, defaults: { input_html: { style: 'width: 350px' } },
+                          html: { :class => 'form-vertical', multipart: true } do |f| %>
   <div class="row">
     <div class="span4">
       
-    	<%= f.input :name, input_html: { style: 'width: 350px' }, label: "Lab name", placeholder: "Group leader's name is recommended" %>
-      <%= f.input :room, :input_html => { style: 'width: 350px', rows: 4 } %>
-      <%= f.input :url, input_html: { :style=> 'width: 350px' }, label: 'Lab website', placeholder: "Optional" %>
+    	<%= f.input :name, label: "Lab name", placeholder: "Group leader's name is recommended" %>
+      <%= f.input :room, :input_html => { rows: 4 } %>
+      <%= f.input :url, label: 'Lab website', placeholder: "Optional" %>
     </div>
     <div class="span6 pull-right">
       <label>Lab picture</label><br>

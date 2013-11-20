@@ -1,16 +1,19 @@
-<%= simple_form_for [@lab, @reagent], defaults: { input_html: { style: 'width: 350px' } }, :html => { :class => 'form-vertical' } do |f| %>
+<%= simple_form_for [@lab, @reagent], defaults: { input_html: { style: 'width: 350px' } },
+                                      html: { :class => 'form-vertical' } do |f| %>
 <%= f.error_notification %>
   <div class="form-inputs">
     <%= f.input :name %>
 
+    <%= f.label "Category" %><br>
     <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, label: "Category" %>
     <br>
     <br>    
+    <%= f.label "Contact person" %><br>
     <%= f.collection_select :user_id, User.where(lab: @reagent.lab), :id, :fullname, {} %>
     <br>
     <br>
     <%= f.input :location, label: "Location in lab"  %>
-    <%= f.input :url, label: "URL" %>
+    <%= f.input :url, label: "Website" %>
     <%= f.input :price %>
     <%= f.input :serial %>
     <%= f.input :tag_list, label: "Tags" %>
