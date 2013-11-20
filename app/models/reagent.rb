@@ -21,7 +21,4 @@ class Reagent < ActiveRecord::Base
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: "Must be a positive number or 0" }, allow_blank: true
 
-  def self.user
-  	self.user ||= self.lab.gl
-  end
 end
