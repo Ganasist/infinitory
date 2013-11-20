@@ -7,13 +7,9 @@ class Reagent < ActiveRecord::Base
 	has_many :ownerships
 	has_many :users, through: :ownerships
 
-	# belongs_to :user
-	# validates_associated :user
-	# validates_presence_of :user
-
 	acts_as_taggable
 
-	store_accessor :properties, :description, :expiration
+	store_accessor :properties, :description
 
 	CATEGORIES = %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit]
 

@@ -13,6 +13,8 @@
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
   <dd><%= @reagent.location %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:expiration) %>:</strong></dt>
+  <dd><%= time_ago_in_words(@reagent.expiration) %></dd>
   <dt><strong>Website:</strong></dt>
   <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), :target => "_blank" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>

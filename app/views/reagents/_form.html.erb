@@ -18,11 +18,11 @@
     <br>
     <%= f.input :location, label: "Location in lab"  %>
     <%= f.input :url, label: "Website" %>
+    <%= f.input :expiration, as: :date, start_year: Date.today.year, end_year: Date.today.year + 3 %>
     <%= f.input :price %>
     <%= f.input :serial %>
     <%= f.input :tag_list, label: "Tags" %>
     <%= f.input :description %>
-    <%= f.input :expiration %>
     <div class="form-actions">
       <%= f.button :submit, :class => 'btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
