@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
   validates :lab, presence: { message: 'Your group leader must create an account first' },
                     unless: Proc.new{ |f| f.gl? || !f.new_record? }, allow_blank: true
 
-  has_many :reagents
+  has_many :ownerships
+  has_many :reagents, through: :ownerships
   
   validates :role, presence: true, inclusion: { in: ROLES }
 

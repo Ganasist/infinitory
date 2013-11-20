@@ -4,9 +4,12 @@ class Reagent < ActiveRecord::Base
 	validates_associated :lab
 	validates_presence_of :lab
 
-	belongs_to :user
-	validates_associated :user
-	validates_presence_of :user
+	has_many :ownerships
+	has_many :users, through: :ownerships
+
+	# belongs_to :user
+	# validates_associated :user
+	# validates_presence_of :user
 
 	acts_as_taggable
 
@@ -18,7 +21,7 @@ class Reagent < ActiveRecord::Base
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: "Must be a positive number or 0" }, allow_blank: true
 
-  def contact
-  	self.contact ||= self.lab.gl
+  def self.user
+  	self.user ||= self.lab.gl
   end
 end

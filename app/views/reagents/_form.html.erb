@@ -8,8 +8,12 @@
     <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, label: "Category" %>
     <br>
     <br>    
-    <%= f.label "Contact person" %><br>
-    <%= f.collection_select :user_id, User.where(lab: @reagent.lab), :id, :fullname, {} %>
+    <%= f.association :users, label: "Contact(s)",
+                              collection: User.where(lab: @reagent.lab),
+                              value_method: :id,
+                              label_method: :fullname,
+                              as: :check_boxes,
+                              input_html: { style: 'width: 50px' } %>
     <br>
     <br>
     <%= f.input :location, label: "Location in lab"  %>
