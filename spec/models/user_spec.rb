@@ -8,7 +8,8 @@ describe User do
     expect_it { to belong_to(:lab) }
     expect_it { to belong_to(:department) }
     expect_it { to belong_to(:institute) }
-    expect_it { to have_many(:reagents) }
+    expect_it { to have_many(:ownerships) }
+    expect_it { to have_many(:reagents).through(:ownerships) }
   end
 
   context 'validations' do

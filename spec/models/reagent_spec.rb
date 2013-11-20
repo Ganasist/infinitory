@@ -5,7 +5,8 @@ describe Reagent do
 
   context 'relationships' do
     expect_it { to belong_to(:lab) }
-    expect_it { to belong_to(:user) }
+    expect_it { to have_many(:ownerships) }
+    expect_it { to have_many(:users).through(:ownerships) }
   end
 
   context 'validations' do
@@ -20,7 +21,8 @@ describe Reagent do
   context 'database columns' do
   	expect_it { to have_db_column(:name).of_type(:string).with_options(null: false) }
   	expect_it { to have_db_column(:category).of_type(:string).with_options(null: false) }
-		expect_it { to have_db_column(:location).of_type(:string) }    
+		expect_it { to have_db_column(:location).of_type(:string) } 
+    expect_it { to have_db_column(:url).of_type(:string) }    
     expect_it { to have_db_column(:price).of_type(:decimal).with_options(precision: 9, scale: 2) }
     expect_it { to have_db_column(:serial).of_type(:string) }
     expect_it { to have_db_column(:created_at).of_type(:datetime) }
