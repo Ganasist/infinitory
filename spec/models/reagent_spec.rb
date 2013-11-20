@@ -11,7 +11,7 @@ describe Reagent do
   context 'validations' do
     expect_it { to validate_presence_of(:name) }
     expect_it { to validate_presence_of(:lab) }
-    expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody chemical_(powder) chemical_(solution) enzyme kit cell_line]) }
+    expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit]) }
   end
 
   context 'database columns' do

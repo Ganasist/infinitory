@@ -1,21 +1,21 @@
-<%= simple_form_for [@lab, @reagent], :html => { :class => 'form-vertical', input_html: { style: 'width: 350px' } } do |f| %>
+<%= simple_form_for [@lab, @reagent], defaults: { input_html: { style: 'width: 350px' } }, :html => { :class => 'form-vertical' } do |f| %>
 <%= f.error_notification %>
   <div class="form-inputs">
-    <%= f.input :name, input_html: { style: 'width: 350px' } %>
+    <%= f.input :name %>
 
-    <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, prompt: false %>
+    <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize, label: "Category" %>
     <br>
     <br>    
-    <%= f.collection_select :user_id, User.where(lab: @reagent.lab), :id, :fullname, {}, { multiple: true } %>
+    <%= f.collection_select :user_id, User.where(lab: @reagent.lab), :id, :fullname, {} %>
     <br>
     <br>
-    <%= f.input :location, label: "Location in lab", input_html: { style: 'width: 350px' } %>
-    <%= f.input :url, label: "URL", input_html: { style: 'width: 350px' } %>
-    <%= f.input :price, input_html: { style: 'width: 350px' } %>
-    <%= f.input :serial, input_html: { style: 'width: 350px' } %>
-    <%= f.input :tag_list, label: "Tags", input_html: { style: 'width: 350px' } %>
-    <%= f.input :description, input_html: { style: 'width: 350px' } %>
-    <%= f.input :expiration, input_html: { style: 'width: 350px' } %>
+    <%= f.input :location, label: "Location in lab"  %>
+    <%= f.input :url, label: "URL" %>
+    <%= f.input :price %>
+    <%= f.input :serial %>
+    <%= f.input :tag_list, label: "Tags" %>
+    <%= f.input :description %>
+    <%= f.input :expiration %>
     <div class="form-actions">
       <%= f.button :submit, :class => 'btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

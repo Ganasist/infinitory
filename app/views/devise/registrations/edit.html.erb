@@ -1,7 +1,8 @@
 <div><h2 class="text-center"><%= current_user.fullname %>'s Profile</h2>
 <br>
 
-<%= simple_form_for(resource, :as => resource_name, url: registration_path(resource_name), 
+<%= simple_form_for(resource, :as => resource_name, url: registration_path(resource_name),
+                    defaults: { input_html: { style: 'width: 350px' } },
                     html: { method: :put, :class => 'form-vertical' }) do |f| %>
 <%= f.error_notification %>
 <div class="form-inputs">
@@ -19,9 +20,9 @@
        <%= f.hidden_field :icon_cache %>
     </div>
     <div class="span3">
-      <%= f.input :email, required: true, autofocus: true, input_html: { style: 'width: 350px'} %>
-      <%= f.input :first_name, input_html: { style: 'width: 350px' } %>
-      <%= f.input :last_name, input_html: { style: 'width: 350px' } %>
+      <%= f.input :email, required: true, autofocus: true %>
+      <%= f.input :first_name %>
+      <%= f.input :last_name %>
       
       
         <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position",
@@ -30,12 +31,12 @@
       
       <span class="LMform hidden">
         <%= f.association :lab, label_method: :email, label: "Group leader email address",
-                            value_method: :id, input_html: { style: 'width: 350px' } %>
+                            value_method: :id %>
       </span>
 
       <span class="GLform hidden">
         <%= f.input :institute_name, placeholder: "Find or create your institute",
-                      input_html: { style: 'width: 350px', data: { autocomplete_source: institutes_path } } %>
+                      input_html: { data: { autocomplete_source: institutes_path } } %>
         <span id="department_select">
           <%= f.input :department_id, 
                         collection: Institute.where(id: current_user.institute), as: :grouped_select,
@@ -48,14 +49,13 @@
       <% end %>
 
       <%= f.input :password, label: "New password (Optional)", :autocomplete => "off",
-                  :required => false, input_html: { style: 'width: 350px'} %>
+                  :required => false %>
 
       <%= f.input :password_confirmation, label: "New password confirmation", :required => false,
-                    wrapper_html: { style: 'display: none' },
-                    input_html: { style: 'width: 330px' } %>
+                    wrapper_html: { style: 'display: none' } %>
 
       <%= f.input :current_password, :hint => "Enter current password to confirm changes",
-                  :required => true, input_html: { style: 'width: 350px'} %>
+                  :required => true %>
     </div>
   </div>
   <div class="form-actions">

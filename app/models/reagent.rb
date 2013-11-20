@@ -1,17 +1,17 @@
 class Reagent < ActiveRecord::Base
 
-	belongs_to :lab, counter_cache: true, touch: true
+	belongs_to :lab
 	validates_associated :lab
 	validates_presence_of :lab
 
-	belongs_to :user, counter_cache: true, touch: true
+	belongs_to :user
 	validates_associated :user
 
 	acts_as_taggable
 
 	store_accessor :properties, :description, :expiration
 
-	CATEGORIES = %w[antibody chemical_(powder) chemical_(solution) enzyme kit cell_line]
+	CATEGORIES = %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit]
 
 	validates :name, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
