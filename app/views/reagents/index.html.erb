@@ -8,8 +8,8 @@
   <% end %>
 </div>
 
-<%= simple_form_for lab_reagents_path, method: :get do |f| %>
-  <%= f.input :search, label: false, placeholder: "Search reagents" %>
+<%= form_tag lab_reagents_path, method: :get do %>
+  <%= text_field_tag :search, params[:query], placeholder: "Search Reagents"  %>
 <% end %>
 
 

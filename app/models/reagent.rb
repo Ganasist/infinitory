@@ -1,7 +1,7 @@
 class Reagent < ActiveRecord::Base
 
 	include PgSearch
-  pg_search_scope :search, against: [:name, :serial, :url],
+  pg_search_scope :search, against: [:name, :category, :serial, :url],
                   using: { tsearch: { prefix: true,
                   										dictionary: "english" }}
 	belongs_to :lab
@@ -21,4 +21,12 @@ class Reagent < ActiveRecord::Base
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: "Must be a positive number or 0" }, allow_blank: true
 
+  private
+	  def self.text_search(query)
+	    if query.present?
+	      search(query)
+	    else
+	      scoped
+	    end
+	  end
 end

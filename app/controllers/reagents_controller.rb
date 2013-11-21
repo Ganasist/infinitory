@@ -4,10 +4,11 @@ class ReagentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if params[:tag]
+    if params[:tag].present?
       @reagents = Reagent.tagged_with(params[:tag])
-    elsif params[:search]
-      @reagents = Reagent.where(lab_id: @lab)
+    elsif params[:search].present?
+      @lab = Lab.friendly.find(params[:lab_id])
+      @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC").text_search(params[:search]).page(params[:page]).per_page(15)
     else
       @lab = Lab.friendly.find(params[:lab_id]) 
       @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC")
