@@ -9,7 +9,7 @@ class Reagent < ActiveRecord::Base
 
 	acts_as_taggable
 
-	store_accessor :properties, :description
+	# store_accessor :properties, :description
 
 	CATEGORIES = %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit]
 
