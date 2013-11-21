@@ -8,8 +8,16 @@
   <% end %>
 </div>
 
-<%= form_tag lab_reagents_path, method: :get do %>
-  <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search Reagents"  %>
+<% if !params[:tag].present? %>
+  <%= form_tag lab_reagents_path, method: :get do %>
+    <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search Reagents"  %>
+  <% end %>
+<% end %>
+<br><br><br>
+<% if @lab %>
+  <%= link_to "Add new reagent",
+              new_lab_reagent_path(@lab),
+              :class => 'btn btn-primary' %>
 <% end %>
 
 <table class="table table-striped">
@@ -56,9 +64,3 @@
   <% end %>
   </div>
 </h4>
-
-<% if @lab %>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_lab_reagent_path(@lab),
-              :class => 'btn btn-primary' %>
-<% end %>
