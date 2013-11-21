@@ -4,7 +4,8 @@ class Reagent < ActiveRecord::Base
   pg_search_scope :search, against: [:name, :category, :serial, :url],
                   using: { tsearch: { prefix: true,
                   										dictionary: "english" }}
-	belongs_to :lab
+	
+	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
 	validates_presence_of :lab
 

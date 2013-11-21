@@ -11,8 +11,8 @@
 		    <p>
 		    	<%= link_to department.name, department_path(department) %>
 		    <br>
-		    	 <%= pluralize(department.labs.size, "group") %> & 
-		    	 <%= pluralize(department.users.size, "member") %>
+		    	 <%= pluralize department.labs.size, "group" %> & 
+		    	 <%= pluralize department.users.size, "member" %>
 		    </p>
 	    </div>
 	  <% end %>
