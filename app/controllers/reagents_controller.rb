@@ -6,6 +6,8 @@ class ReagentsController < ApplicationController
   def index
     if params[:tag]
       @reagents = Reagent.tagged_with(params[:tag])
+    elsif params[:search]
+      @reagents = Reagent.where(lab_id: @lab)
     else
       @lab = Lab.friendly.find(params[:lab_id]) 
       @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC")

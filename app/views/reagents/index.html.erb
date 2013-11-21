@@ -7,6 +7,12 @@
     <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
   <% end %>
 </div>
+
+<%= simple_form_for lab_reagents_path, method: :get do |f| %>
+  <%= f.input :search, label: false, placeholder: "Search reagents" %>
+<% end %>
+
+
 <table class="table table-striped">
   <thead>
     <tr>
