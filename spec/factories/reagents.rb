@@ -3,10 +3,11 @@ require 'faker'
 FactoryGirl.define do
   factory :reagent do
   	lab
-    name        { Faker::Name.name }
-    category    %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit].sample
+    name        { Faker::Lorem.word }
+    category    { %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit].sample }
     price				{ Random.rand(1000) }
     remaining		{ Random.rand(100) }
-    location    { "Room:#{Random.new.rand(1..999)}" +  "#{Faker::Address.street_address}" }
+    expiration  { Date.today+(1000*rand()) }
+    location    { %w[counter_1 counter_2 fridge_1 fridge_2 fridge_3 freezer_1 freezer_2 freezer_3].sample }
   end
 end

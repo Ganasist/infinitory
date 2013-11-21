@@ -10,7 +10,7 @@ FactoryGirl.define do
     confirmed_at Time.now  # required if the Devise Confirmable module is used
 
     factory :admin do
-      role 'group_leader'
+      role                 'group_leader'
       institute_name      { Faker::Name.name }
     end
   end
