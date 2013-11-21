@@ -17,7 +17,7 @@
 <% if @lab %>
   <%= link_to "Add new reagent",
               new_lab_reagent_path(@lab),
-              :class => 'btn btn-primary' %>
+              :class => 'btn btn-success' %>
 <% end %>
 
 <table class="table table-striped">
@@ -25,13 +25,13 @@
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:category) %></th>
-      <th>Remaining %</th>
+      <th>% Remaining</th>
       <th><%= model_class.human_attribute_name(:location) %></th>
       <% if params[:tag] %>
         <th><%= model_class.human_attribute_name(:tags) %></th>
       <% end %>
       <th>Updated</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>

@@ -7,10 +7,7 @@ namespace :db do
     r = Random.new
     
     4.times do |n|
-      institute = Institute.create!(name:     Faker::Company.name,
-                                    address:  Faker::Address.street_address,
-                                    city:     Faker::Address.city,
-                                    url:      Faker::Internet.url)
+      institute = create!(:institute, city: Faker::Address.city)
 
       r.rand(2..4).times do |n|   
         gl = User.create!(role: "group_leader",
@@ -25,6 +22,23 @@ namespace :db do
         gl.joined     = gl.created_at
         gl.save
         
+        r.rand(5..12).times do |n|
+          role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
+                     master's_student project_student technician other].sample
+          user = User.create!(role: role,
+                              email:                  Faker::Internet.email,
+                              lab:                    gl.lab,
+                              password:               'loislane',
+                              password_confirmation:  'loislane')
+
+          user.first_name = Faker::Name.first_name
+          user.last_name  = Faker::Name.last_name
+          user.created_at = rand(user.gl.created_at..Time.now)
+          user.joined     = user.created_at
+          user.approved   = true
+          user.save
+        end
+
         r.rand(5..12).times do |n|
           role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                      master's_student project_student technician other].sample
