@@ -8,10 +8,11 @@ class ReagentsController < ApplicationController
       @reagents = Reagent.tagged_with(params[:tag])
     elsif params[:search].present?
       @lab = Lab.friendly.find(params[:lab_id])
-      @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC").text_search(params[:search]).page(params[:page]).per_page(15)
+      @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC").
+                    text_search(params[:search]).page(params[:page]).per_page(15)
     else
       @lab = Lab.friendly.find(params[:lab_id]) 
-      @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC")
+      @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC").page(params[:page]).per_page(15)
     end
   end
 
