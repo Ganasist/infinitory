@@ -6,13 +6,13 @@ class ReagentsController < ApplicationController
 
   def index
     if params[:tag].present?
-      @reagents = Reagent.tagged_with(params[:tag]).by_modified_date.page(params[:page]).per_page(15)
+      @reagents = Reagent.tagged_with(params[:tag]).page(params[:page]).per_page(15)
     elsif params[:search].present?
       @lab = Lab.friendly.find(params[:lab_id])
-      @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).by_modified_date.page(params[:page]).per_page(15)
+      @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).page(params[:page]).per_page(15)
     else
       @lab = Lab.friendly.find(params[:lab_id]) 
-      @reagents = Reagent.where(lab_id: @lab).by_modified_date.page(params[:page]).per_page(15)
+      @reagents = Reagent.where(lab_id: @lab).page(params[:page]).per_page(15)
     end
   end
 
@@ -81,6 +81,6 @@ class ReagentsController < ApplicationController
 
     def reagent_params
       params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, :category, :location, :price, :url, :serial,
-                                      :properties, :description, :expiration, :remaining, :tag_list)
+                                      :properties, :description, :expiration, :remaining, :tag_list, :lock_version)
     end
 end
