@@ -27,6 +27,16 @@ class Reagent < ActiveRecord::Base
     User.find_by(email: self.lab.email)
   end
 
+  def update_with_conflict_validation(*args)
+	  update_attributes(*args)
+	rescue ActiveRecord::StaleObjectError
+	  # errors.add(:base, "this is atest")
+	  changes.each do |name, values|
+	    errors.add name, "Another member has modified #{name.capitalize} to #{values.first}"
+	  end
+	  false 
+	end
+
   private
 	  def self.text_search(query)
 	    if query.present?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131122163948) do
+ActiveRecord::Schema.define(version: 20131122181503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20131122163948) do
     t.string   "email"
     t.string   "icon"
     t.boolean  "icon_processing"
+    t.integer  "lock_version",    default: 0, null: false
   end
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 20131122163948) do
     t.integer  "users_count",     default: 0
     t.integer  "labs_count",      default: 0
     t.string   "email"
+    t.integer  "lock_version",    default: 0, null: false
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 20131122163948) do
     t.integer  "users_count",     default: 0
     t.boolean  "icon_processing"
     t.integer  "reagents_count",  default: 0
+    t.integer  "lock_version",    default: 0, null: false
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -111,7 +114,7 @@ ActiveRecord::Schema.define(version: 20131122163948) do
     t.string   "name",                                               null: false
     t.string   "category",                                           null: false
     t.string   "location"
-    t.decimal  "price",        precision: 9, scale: 2
+    t.decimal  "price",                                   precision: 9, scale: 2
     t.string   "serial"
     t.datetime "created_at"
     t.datetime "updated_at"

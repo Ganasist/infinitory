@@ -29,8 +29,7 @@ class ReagentsController < ApplicationController
   end
 
   def create
-    @reagent = @lab.reagents.new(reagent_params)    
-
+    @reagent = @lab.reagents.new(reagent_params)
     respond_to do |format|
       if @reagent.save
         format.html { redirect_to @reagent, notice: 'Reagent was successfully created.' }
