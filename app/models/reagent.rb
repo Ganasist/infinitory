@@ -3,7 +3,7 @@ class Reagent < ActiveRecord::Base
 	include PgSearch
   pg_search_scope :search, against: [:name, :category, :serial],
                    				 using: { tsearch: { prefix: true,
-                  														 dictionary: "english" }}
+                  														 dictionary: 'english' }}
 	
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
