@@ -6,16 +6,13 @@ class ReagentsController < ApplicationController
 
   def index
     if params[:tag].present?
-      @reagents = Reagent.order("updated_at DESC").tagged_with(params[:tag]).
-                    page(params[:page]).per_page(15)
+      @reagents = Reagent.tagged_with(params[:tag]).by_modified_date.page(params[:page]).per_page(15)
     elsif params[:search].present?
       @lab = Lab.friendly.find(params[:lab_id])
-      @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).
-                          order("updated_at DESC").page(params[:page]).per_page(15)
+      @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).by_modified_date.page(params[:page]).per_page(15)
     else
       @lab = Lab.friendly.find(params[:lab_id]) 
-      @reagents = Reagent.where(lab_id: @lab).order("updated_at DESC").
-                    page(params[:page]).per_page(15)
+      @reagents = Reagent.where(lab_id: @lab).by_modified_date.page(params[:page]).per_page(15)
     end
   end
 
@@ -70,7 +67,7 @@ class ReagentsController < ApplicationController
     def check_user!
       if current_user.lab != Reagent.find(params[:id]).lab
         redirect_to current_user
-        flash[:alert] = "You cannot access reagents from another lab"
+        flash[:alert] = "You cannot access reagents from other labs"
       end
     end
 
