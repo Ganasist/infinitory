@@ -36,6 +36,7 @@
     <%= f.input :tag_list, label: "Tags" %>
     <div class="form-actions">
       <%= f.button :submit, :class => 'btn-primary' %>
+
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                   lab_reagents_path(@lab), :class => 'btn' %>
 
@@ -43,6 +44,7 @@
             reagent_path(@reagent),
             :method => :delete,
             :class => 'btn btn-mini btn-danger' %>
+
     </div>
   </div>
 <% end %>
