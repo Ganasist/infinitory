@@ -11,5 +11,6 @@ FactoryGirl.define do
     remaining		{ Random.rand(100) }
     expiration  { Date.today+(1000*rand()) }
     location    { %w[counter_1 counter_2 fridge_1 fridge_2 fridge_3 freezer_1 freezer_2 freezer_3].sample.humanize }
+  	url					{ Faker::Internet.url }
   end
 end

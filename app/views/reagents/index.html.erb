@@ -10,7 +10,7 @@
 
 <% if !params[:tag].present? %>
   <%= form_tag lab_reagents_path, method: :get do %>
-    <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search Reagents"  %>
+    <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search by name, category or serial #"  %>
   <% end %>
 <% end %>
 <br><br><br>
