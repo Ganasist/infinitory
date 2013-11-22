@@ -2,6 +2,7 @@ class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
+  before_action :check_user!, only: :show
 
   def index
     if params[:tag].present?
@@ -66,6 +67,13 @@ class ReagentsController < ApplicationController
   end
 
   private
+    def check_user!
+      if current_user.lab != Reagent.find(params[:id]).lab
+        redirect_to current_user
+        flash[:alert] = "You cannot access reagents from another lab"
+      end
+    end
+
     def set_reagent
       @reagent = Reagent.find(params[:id])
     end

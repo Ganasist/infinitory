@@ -1,7 +1,7 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
   <% if @lab %>
-  <h4><%= link_to "#{@lab.name} Lab:", @lab %> <%= pluralize @lab.reagents.count, 'reagent' %></h4>
+  <h4><%= link_to "#{@lab.name} Lab:", @lab %> <%= pluralize(@lab.reagents.count, 'reagent') %></h4>
   <% end %>
   <% if params[:tag] %>
     <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
@@ -25,7 +25,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:category) %></th>
-      <th>% Remaining</th>
+      <th>% remaining</th>
       <th><%= model_class.human_attribute_name(:location) %></th>
       <% if params[:tag] %>
         <th><%= model_class.human_attribute_name(:tags) %></th>

@@ -10,7 +10,7 @@ namespace :db do
       institute = FactoryGirl.create(:institute, city: Faker::Address.city)
 
       r.rand(2..4).times do |n|   
-        gl = User.create!(role:                  "group_leader",
+        gl = User.create!(role:                  'group_leader',
                           email:                 Faker::Internet.email,
                           institute_name:        institute.name,                  
                           password:              'loislane',
@@ -42,7 +42,8 @@ namespace :db do
         end
 
         r.rand(20..2000).times do |n|
-          reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now)) 
+          reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
+          reagent.user_ids = gl.lab.user_ids.sample(Random.rand(6))
         end
       end
       
@@ -55,7 +56,7 @@ namespace :db do
                                         url:       Faker::Internet.url )
         
         r.rand(3..15).times do |n|   
-          gl = User.create!(role: "group_leader",
+          gl = User.create!(role:                  'group_leader',
                             email:                 Faker::Internet.email,
                             institute_name:        institute.name,
                             department:            department,                    
@@ -86,7 +87,8 @@ namespace :db do
           end
 
           r.rand(20..2000).times do |n|
-            reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now)) 
+            reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
+            reagent.user_ids = gl.lab.user_ids.sample(Random.rand(6))
           end
         end
       end
