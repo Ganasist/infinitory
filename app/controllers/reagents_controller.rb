@@ -6,13 +6,13 @@ class ReagentsController < ApplicationController
 
   def index
     if params[:tag].present?
-      @reagents = Reagent.tagged_with(params[:tag]).page(params[:page]).per_page(15)
+      @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(15)
     elsif params[:search].present?
       @lab = Lab.friendly.find(params[:lab_id])
-      @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).page(params[:page]).per_page(15)
+      @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).modified_recently.page(params[:page]).per_page(15)
     else
       @lab = Lab.friendly.find(params[:lab_id]) 
-      @reagents = Reagent.where(lab_id: @lab).page(params[:page]).per_page(15)
+      @reagents = Reagent.where(lab_id: @lab).modified_recently.page(params[:page]).per_page(15)
     end
   end
 

@@ -13,7 +13,7 @@ class Reagent < ActiveRecord::Base
 	has_many :users, through: :ownerships
 
 	acts_as_taggable
-	default_scope { order("updated_at DESC") }
+	scope :modified_recently, -> { order("updated_at DESC") }
 
 	# store_accessor :properties, :description
 

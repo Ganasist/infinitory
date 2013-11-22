@@ -37,7 +37,7 @@
     <div class="form-actions">
       <%= f.button :submit, :class => 'btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                  lab_reagents_path(@reagent.lab), :class => 'btn' %>
+                  lab_reagents_path(@lab), :class => 'btn' %>
 
       <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
             reagent_path(@reagent),
