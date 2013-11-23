@@ -1,9 +1,5 @@
-# Sample configuration file for Sidekiq.
-# Options here can still be overridden by cmd line args.
-#   sidekiq -C config.yml
----
 :verbose: false
-:concurrency:  25
+:concurrency:  50
 :queues:
   - [often, 7]
   - [default, 5]

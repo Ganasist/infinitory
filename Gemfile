@@ -3,50 +3,39 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.0.0'
 gem 'rails', '4.0.0'
-
 gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
 gem 'coffee-rails', '~> 4.0.0'
 
 # gem 'therubyracer', platforms: :ruby
+# gem 'bcrypt-ruby', '~> 3.0.0'
+# gem 'unicorn'
+# gem 'capistrano', group: :development
+# gem 'debugger', group: [:development, :test]
 
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+gem 'acts-as-taggable-on'
+
 gem 'gon'
-# gem 'jbuilder'
-gem 'json_builder'
-# gem 'active_model_serializers'
 gem 'rabl'
 gem 'oj'
+
+gem 'whenever', require: false
 
 gem 'redis'
 gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
 
-gem 'paper_trail', '>= 3.0.0.beta1'
+gem 'paper_trail', '>= 3.0.0.rc2'
 
 gem 'pg_search'
                              
-# gem 'turbolinks'
-
-# bundle exec rake doc:rails generates the API under doc/api.
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# gem 'debugger', group: [:development, :test]
+gem 'turbolinks'
 
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
@@ -64,11 +53,12 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'thin'
 gem 'high_voltage'
 gem 'geocoder'
-gem 'gmaps4rails'
 
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+
+gem "faker", "~> 1.2.0"
 
 gem 'carrierwave'
 gem 'carrierwave_backgrounder'
@@ -99,12 +89,10 @@ group :development do
 end
 
 group :development, :test do
-  gem "faker", "~> 1.2.0"
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'zeus-parallel_tests'
-  # gem 'growl_notify'
-  # gem 'turn'
   gem 'rspec-nc'
   gem 'minitest'
 end
@@ -115,4 +103,3 @@ group :test do
   gem 'email_spec'
   gem 'launchy'
 end
-

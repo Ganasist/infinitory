@@ -1,4 +1,7 @@
 class Department < ActiveRecord::Base
+	mount_uploader :icon, IconUploader
+  process_in_background :icon
+
 	belongs_to :institute
 	validates_associated	:institute
   validates :institute, presence: true
@@ -13,23 +16,22 @@ class Department < ActiveRecord::Base
 	# after_validation :geocode,
 	# 								 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
   
-  validates :name, uniqueness: {scope: :institute_id, message: "Department already exists at this institute"}, 
-  								 presence: true
+  validates :name, presence: true, 
+  								 uniqueness: { scope: :institute_id, case_sensitive: false, message: "A department with that name is already registered at this institute." }
+  								 
 
-  validates :url, allow_blank: true,
+	validates :url, allow_blank: true,
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   													multiline: true,
   													message: "is not valid" }
 
-	geocoded_by :address  				# can also be an IP address
+	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
 	  if geo = results.first
 	    obj.city    = geo.city
 	    obj.country = geo.country
 	  end
 	end
-
-	# acts_as_gmappable validation: false
 
 	def location
 		if self.room.present?
@@ -39,24 +41,7 @@ class Department < ActiveRecord::Base
 		end
 	end
 
-	def default_addresses
-		if self.address.nil?
-			self.address = self.institute.address
-		end
-		if self.url.nil?
-			self.url ||= self.institute.url
-		end
-		if self.longitude.nil?
-			self.longitude = self.institute.longitude
-			self.latitude = self.institute.latitude
-		end
-	end
-
 	protected
-
-		# def gmaps4rails_address
-		#   "#{self.latitude}, #{self.longitude}" 
-		# end
 
 		def smart_add_url_protocol
 			if self.url.present?
@@ -70,6 +55,10 @@ class Department < ActiveRecord::Base
 			if self.institute.present?
 				self.address = self.institute.address if self.address.blank?
 				self.url = self.institute.url if self.url.blank?
+				if self.longitude.nil?
+					self.longitude = self.institute.longitude
+					self.latitude = self.institute.latitude
+				end
 			end
 		end
 end

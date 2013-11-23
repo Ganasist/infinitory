@@ -19,6 +19,8 @@ Infinitory::Application.routes.draw do
     end
   end
 
+  get 'tags/:tag', to: 'reagents#index', as: :tag
+
   match 'users/:id/activate' => 'users#activate', :as => 'activate_user', via: :get
   match 'users/:id/retire' => 'users#retire', :as => 'retire_user', via: :get  
   match 'users/:id/reject' => 'users#reject', :as => 'reject_user', via: :get
@@ -26,4 +28,6 @@ Infinitory::Application.routes.draw do
   post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 
   mount Sidekiq::Web, at: '/sidekiq'
+
+  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/ }, via: :get
 end

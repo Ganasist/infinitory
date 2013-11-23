@@ -1,14 +1,35 @@
 <%= simple_form_for [@institute, @department], :html => { :class => 'form-inline' } do |f| %>
-  
-  <%= f.input :name, label: "Department name",
-                 placeholder: "Find or create your department",
-                 input_html: { style: 'width: 350px', 
-                 data: { autocomplete_source: institute_departments_path(@institute) }} %>
 
-  <%= f.input :address, :input_html => { style: 'width: 350px', rows: 5 }, as: :text, placeholder: "Optional"  %>
-  <%= f.input :room, :input_html => { style: 'width: 350px', rows: 5 }, placeholder: "Optional"  %>
-  <%= f.input :url, input_html: { style: 'width: 350px' }, 
-  						label: 'Website', placeholder: "Optional" %>
+<%= f.error_notification %>
+<%= f.hidden_field :lock_version %>
+
+  <div class="row">
+    <div class="span4"> 
+      <%= f.input :name, label: "Department name",
+                     placeholder: "Find or create your department",
+                     input_html: { style: 'width: 350px', 
+                     data: { autocomplete_source: institute_departments_path(@institute) }} %>
+
+      <%= f.input :address, :input_html => { style: 'width: 350px', rows: 5 }, as: :text, placeholder: "Optional"  %>
+      <%= f.input :room, :input_html => { style: 'width: 350px', rows: 5 }, placeholder: "Optional"  %>
+      <%= f.input :url, input_html: { style: 'width: 350px' }, 
+      						label: 'Website', placeholder: "Optional" %>
+    </div>
+    <div class="span6 pull-right">
+      <label>Logo</label><br>
+        <% if @department.icon? %>               
+          <%= image_tag(@department.icon_url(:main)) %>
+          <br>
+          <br>
+          Remove image
+          <%= f.check_box :remove_icon %><br><br>
+        <% end %>
+        <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
+        <h4>or</h4>
+        <%= f.input :icon, label: false %>  
+        <%= f.hidden_field :icon_cache %>
+      </div>
+    </div>
 
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

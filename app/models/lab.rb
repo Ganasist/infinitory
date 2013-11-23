@@ -6,17 +6,15 @@ class Lab < ActiveRecord::Base
 
 	validates :email, presence: true
 
-	belongs_to :department
+	belongs_to :department, counter_cache: true, touch: true
 	validates_associated :department
 	
-	belongs_to :institute
+	belongs_to :institute, counter_cache: true, touch: true
 	validates_associated	:institute
 	validates :institute, presence: true
 
-	# validates_with LabValidator
-
 	has_many :users
-	has_many :reagents
+  has_many :reagents
 
 	before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
 	before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
@@ -40,10 +38,6 @@ class Lab < ActiveRecord::Base
   def gl
 		User.find_by(email: self.email)
   end
-
-	def size
-		users.count
-	end
 
 	def city
 		institute.city

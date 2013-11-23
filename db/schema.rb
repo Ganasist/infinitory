@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021133751) do
+ActiveRecord::Schema.define(version: 20131123013732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,12 +26,18 @@ ActiveRecord::Schema.define(version: 20131021133751) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url"
-    t.boolean  "gmaps"
     t.string   "city"
     t.string   "country"
     t.string   "room"
+    t.integer  "users_count",     default: 0
+    t.integer  "labs_count",      default: 0
+    t.string   "email"
+    t.string   "icon"
+    t.boolean  "icon_processing"
+    t.integer  "lock_version",    default: 0, null: false
   end
 
+  add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
   add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
   add_index "departments", ["latitude", "longitude"], name: "index_departments_on_latitude_and_longitude", using: :btree
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
@@ -59,15 +65,18 @@ ActiveRecord::Schema.define(version: 20131021133751) do
     t.datetime "updated_at"
     t.string   "alternate_name"
     t.string   "country"
-    t.integer  "rank"
-    t.boolean  "gmaps"
     t.string   "url"
     t.string   "acronym"
     t.string   "slug"
     t.string   "icon"
     t.boolean  "icon_processing"
+    t.integer  "users_count",     default: 0
+    t.integer  "labs_count",      default: 0
+    t.string   "email"
+    t.integer  "lock_version",    default: 0, null: false
   end
 
+  add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
   add_index "institutes", ["latitude", "longitude"], name: "index_institutes_on_latitude_and_longitude", using: :btree
   add_index "institutes", ["slug"], name: "index_institutes_on_slug", unique: true, using: :btree
 
@@ -82,6 +91,10 @@ ActiveRecord::Schema.define(version: 20131021133751) do
     t.string   "slug"
     t.string   "name"
     t.string   "email"
+    t.integer  "users_count",     default: 0
+    t.boolean  "icon_processing"
+    t.integer  "reagents_count",  default: 0
+    t.integer  "lock_version",    default: 0, null: false
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -89,22 +102,51 @@ ActiveRecord::Schema.define(version: 20131021133751) do
   add_index "labs", ["institute_id"], name: "index_labs_on_institute_id", using: :btree
   add_index "labs", ["slug"], name: "index_labs_on_slug", unique: true, using: :btree
 
+  create_table "ownerships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "reagent_id"
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reagents", force: true do |t|
-    t.string   "name",                               null: false
-    t.string   "category",                           null: false
-    t.string   "owner",                              null: false
+    t.string   "name",                                               null: false
+    t.string   "category",                                           null: false
     t.string   "location"
-    t.decimal  "price",      precision: 9, scale: 2
+    t.decimal  "price",        precision: 9, scale: 2
     t.string   "serial"
-    t.decimal  "quantity",   precision: 3, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.hstore   "properties"
     t.integer  "lab_id"
+    t.integer  "user_id"
+    t.string   "url"
+    t.date     "expiration"
+    t.integer  "remaining",                            default: 100, null: false
+    t.integer  "lock_version",                         default: 0,   null: false
   end
 
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["properties"], name: "reagents_properties", using: :gin
+  add_index "reagents", ["user_id"], name: "index_reagents_on_user_id", using: :btree
+
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string "name"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -129,7 +171,6 @@ ActiveRecord::Schema.define(version: 20131021133751) do
     t.string   "role"
     t.integer  "institute_id"
     t.integer  "department_id"
-    t.boolean  "superuser",              default: false
     t.boolean  "approved",               default: false, null: false
     t.string   "icon"
     t.datetime "joined"

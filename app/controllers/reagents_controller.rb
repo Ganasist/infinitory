@@ -1,36 +1,35 @@
 class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
-  before_action :set_lab, except: [:show, :edit, :update, :destroy]
+  before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
+  before_action :check_user!, only: :show
 
-  # GET /reagents
-  # GET /reagents.json
   def index
-    @lab = Lab.friendly.find(params[:lab_id])
-    @reagents = Reagent.where(lab_id: @lab)
+    if params[:tag].present?
+      @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(15)
+    elsif params[:search].present?
+      @lab = Lab.friendly.find(params[:lab_id])
+      @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).modified_recently.page(params[:page]).per_page(15)
+    else
+      @lab = Lab.friendly.find(params[:lab_id]) 
+      @reagents = Reagent.where(lab_id: @lab).modified_recently.page(params[:page]).per_page(15)
+    end
   end
 
-  # GET /reagents/1
-  # GET /reagents/1.json
   def show
-    @lab = @reagent.lab 
+    @lab = @reagent.lab
   end
 
-  # GET /reagents/new
   def new
     @reagent = Reagent.new
   end
 
-  # GET /reagents/1/edit
   def edit
+    @reagent = Reagent.find(params[:id])
   end
 
-  # POST /reagents
-  # POST /reagents.json
   def create
-    @lab = Lab.friendly.find(params[:lab_id])
-    @reagent = @lab.reagents.new(reagent_params)    
-
+    @reagent = @lab.reagents.new(reagent_params)
     respond_to do |format|
       if @reagent.save
         format.html { redirect_to @reagent, notice: 'Reagent was successfully created.' }
@@ -42,12 +41,11 @@ class ReagentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /reagents/1
-  # PATCH/PUT /reagents/1.json
   def update
     respond_to do |format|
       if @reagent.update(reagent_params)
-        format.html { redirect_to @reagent, notice: 'Reagent was successfully updated.' }
+        flash[:notice] = "#{ @reagent.name } has been updated. #{ undo_link }"
+        format.html { redirect_to @reagent }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,19 +54,29 @@ class ReagentsController < ApplicationController
     end
   end
 
-  # DELETE /reagents/1
-  # DELETE /reagents/1.json
   def destroy
     @lab = @reagent.lab
     @reagent.destroy
     respond_to do |format|
+      flash[:notice] = "#{ @reagent.name } has been removed. #{ undo_link }"
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def check_user!
+      if current_user.lab != Reagent.find(params[:id]).lab
+        redirect_to current_user
+        flash[:alert] = "You cannot access reagents from other labs"
+      end
+    end
+
+    def undo_link
+      view_context.link_to("UNDO", revert_version_path(@reagent.versions.last), 
+                            method: :post, class: "btn-large")
+    end
+
     def set_reagent
       @reagent = Reagent.find(params[:id])
     end
@@ -77,9 +85,8 @@ class ReagentsController < ApplicationController
       @lab = Lab.friendly.find(params[:lab_id])   
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def reagent_params
-      params.require(:reagent).permit(:lab_id, :name, :category, :owner, :location, :price, :serial, 
-                                      :quantity, :properties, :description, :expiration)
+      params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, :category, :location, :price, :url, :serial,
+                                      :properties, :description, :expiration, :remaining, :tag_list, :lock_version)
     end
 end

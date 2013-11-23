@@ -1,6 +1,7 @@
 class LabsController < ApplicationController
   before_action :set_lab, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :check_user!
 
   # GET /labs
   # GET /labs.json
@@ -82,15 +83,20 @@ class LabsController < ApplicationController
   end
 
   private
+    def check_user!
+      if current_user.lab != Lab.friendly.find(params[:id])
+        redirect_to current_user
+        flash[:alert] = "You cannot access that lab"
+      end
+    end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_lab
       @lab = Lab.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lab_params
-      params.require(:lab).permit(:email, :room,  :name, :lab_id, :department_id, :institute_id, 
+      params.require(:lab).permit(:email, :room,  :name, :lab_id, :department_id, :institute_id, :lock_version, 
                                   :department, :institute, :url, :icon, :remove_icon, :remote_icon_url, :icon_cache)
     end
 end

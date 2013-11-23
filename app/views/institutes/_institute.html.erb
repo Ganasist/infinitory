@@ -6,22 +6,20 @@
 	        <td>
 	        	<%= link_to "#{institute.name}".html_safe, institute %>
 	        	<p>
-        			<%= pluralize(institute.labs.count, "group") %> & 
-	    	 			<%= pluralize(institute.users.count, "member") %>
+        			<%= pluralize(institute.labs.size, "group") %> & 
+	    	 			<%= pluralize(institute.users.size, "member") %>
 	    	 		</p>
 	        </td>
 	        <br>
       <% else %>
 	        <td><%= link_to "#{institute.name}".html_safe, institute %><br>
 	        		<p>
-	        			<%= pluralize(institute.labs.count, "group") %> & 
-		    	 			<%= pluralize(institute.users.count, "member") %>
+	        			<%= pluralize institute.labs.size, "group" %> & 
+		    	 			<%= pluralize institute.users.size, "member" %>
 		    	 		</p>
 	        </td>
-
 	        <br>
-   		<% end %>
-		    	 
+   		<% end %>		    	 
 		</table>
 	</div>
 <% end %>

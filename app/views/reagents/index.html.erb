@@ -1,50 +1,66 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
-  <h3><%= @lab.name %> Lab Reagents <%= @lab.reagents.count %></h3>
+  <% if @lab %>
+  <h4><%= link_to "#{@lab.name} Lab:", @lab %> <%= pluralize(@lab.reagents.count, 'reagent') %></h4>
+  <% end %>
+  <% if params[:tag] %>
+    <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
+  <% end %>
 </div>
+
+<% if !params[:tag].present? %>
+  <%= form_tag lab_reagents_path, method: :get do %>
+    <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search by name, category or serial #"  %>
+  <% end %>
+<% end %>
+<br><br><br>
+<% if @lab %>
+  <%= link_to "Add new reagent",
+              new_lab_reagent_path(@lab),
+              :class => 'btn btn-success' %>
+<% end %>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:category) %></th>
-      <th><%= model_class.human_attribute_name(:owner) %></th>
+      <th>% remaining</th>
       <th><%= model_class.human_attribute_name(:location) %></th>
-      <th><%= model_class.human_attribute_name(:price) %></th>
-      <th><%= model_class.human_attribute_name(:serial) %></th>
-      <th><%= model_class.human_attribute_name(:quantity) %></th>
-      <th><%= model_class.human_attribute_name(:properties) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% if params[:tag] %>
+        <th><%= model_class.human_attribute_name(:tags) %></th>
+      <% end %>
+      <th>Updated</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @reagents.each do |reagent| %>
       <tr>
-        <td><%= link_to reagent.id, reagent_path(reagent) %></td>
-        <td><%= reagent.name %></td>
-        <td><%= reagent.category %></td>
-        <td><%= reagent.owner %></td>
+        <td><%= link_to reagent.name, reagent_path(reagent) %></td>
+        <td><%= reagent.category.titleize %></td>
+        <td><%= reagent.remaining %></td>
         <td><%= reagent.location %></td>
-        <td><%= reagent.price %></td>
-        <td><%= reagent.serial %></td>
-        <td><%= reagent.quantity %></td>
-        <td><%= reagent.properties %></td>
-        <td><%=l reagent.created_at %></td>
+        <% if params[:tag] %>
+          <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
+        <% end %>
+        <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_reagent_path(reagent), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      reagent_path(reagent),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lab_reagent_path(@lab),
-            :class => 'btn btn-primary' %>
+<h4 class="text-center">
+  <% if @reagents.previous_page %>
+    <%= link_to "< Previous ", params.merge(page: @reagents.previous_page) %>
+  <% end %>
+  Page <%= @reagents.current_page %> of <%= @reagents.total_pages %>
+  <% if @reagents.next_page %>
+    <%= link_to " Next >", params.merge(page: @reagents.next_page) %>
+  <% end %>
+  </div>
+</h4>

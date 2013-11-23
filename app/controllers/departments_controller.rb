@@ -1,13 +1,13 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user! 
+  before_action :set_institute, only: [:index, :new, :create]
+  before_action :authenticate_user!
   
   def index
     if params[:term].present?
       @departments = @institute.departments
       render json: @departments.map { |x| "#{x.name} @ #{x.institute.name}"}
     else
-      @institute = Institute.friendly.find(params[:institute_id])
       @departments = Department.where(institute_id: @institute)
     end
   end
@@ -18,7 +18,6 @@ class DepartmentsController < ApplicationController
   end
 
   def new
-    @institute = Institute.friendly.find(params[:institute_id])
     @department = Department.new
   end
 
@@ -27,7 +26,6 @@ class DepartmentsController < ApplicationController
   end
 
   def create
-    @institute = Institute.friendly.find(params[:institute_id])   
     @department = @institute.departments.new(department_params)
 
     respond_to do |format|
@@ -65,13 +63,16 @@ class DepartmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def set_institute
+      @institute = Institute.friendly.find(params[:institute_id])
+    end
+
     def set_department
       @department = Department.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name, :address, :room, :url, :acronym)
+      params.require(:department).permit(:name, :address, :room, :url, :acronym, :institute,
+                                         :icon, :remote_icon_url, :remove_icon, :icon_cache, :lock_version)
     end
 end

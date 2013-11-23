@@ -19,7 +19,6 @@ class InstitutesController < ApplicationController
   def show
     @departments = Department.includes(:labs).where(institute_id: find_institute)
     @labs = Lab.where(institute_id: find_institute).order("name ASC").page(params[:page]).per_page(15)
-    # @users = @institute.users
     @orphans = Lab.where(institute_id: find_institute, department_id: nil)
 
     gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
@@ -76,7 +75,7 @@ class InstitutesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def institute_params
       params.require(:institute).permit(:name, :alternate_name, :address, :url, :acronym,
-                                        :icon, :icon_cache, :remote_icon_url, :remove_icon)
+                                        :icon, :icon_cache, :remote_icon_url, :remove_icon, :lock_version)
     end
 
     def find_institute

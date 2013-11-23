@@ -16,7 +16,7 @@ var CodeFlower = function(selector, w, h) {
 
   this.force = d3.layout.force()
     .on("tick", this.tick.bind(this))
-    .charge(function(d) { return d._children ? -d.size : -Math.sqrt(d.size) * 30; })
+    .charge(function(d) { return d._children ? -d.size : -Math.sqrt(d.size) * 25; })
     .linkDistance(function(d) { return d.target._children ? 80 : 5; })
     .size([h, w]);
 };
@@ -37,7 +37,7 @@ CodeFlower.prototype.update = function(json) {
 
   // Restart the force layout
   this.force
-    .gravity(Math.atan(total / 50) / Math.PI * 0.5)
+    .gravity(Math.atan(total) / Math.PI * 0.2)
     .nodes(nodes)
     .links(links)
     .start();
@@ -71,7 +71,7 @@ CodeFlower.prototype.update = function(json) {
     .classed('directory', function(d) { return (d._children || d.children) ? 1 : 0; })
     .attr("r", function(d) { return Math.sqrt(d.size) })
     .style("fill", function color(d) {
-      return "hsl(" + parseInt((360 * 2)/ Math.sqrt(d.size)) + ",90%,50%)";
+      return "hsl(" + parseInt((720)/ Math.sqrt(d.size)) + ",90%,50%)";
     })
     .call(this.force.drag)
     .on("click", this.click.bind(this))
