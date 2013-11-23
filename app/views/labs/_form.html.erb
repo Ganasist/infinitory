@@ -1,5 +1,9 @@
 <%= simple_form_for @lab, defaults: { input_html: { style: 'width: 350px' } },
                           html: { :class => 'form-vertical', multipart: true } do |f| %>
+
+<%= f.error_notification %>
+<%= f.hidden_field :lock_version %>
+
   <div class="row">
     <div class="span4">
       

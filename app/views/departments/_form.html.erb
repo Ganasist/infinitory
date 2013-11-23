@@ -1,4 +1,8 @@
 <%= simple_form_for [@institute, @department], :html => { :class => 'form-inline' } do |f| %>
+
+<%= f.error_notification %>
+<%= f.hidden_field :lock_version %>
+
   <div class="row">
     <div class="span4"> 
       <%= f.input :name, label: "Department name",
