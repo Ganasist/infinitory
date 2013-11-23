@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     @institute = @user.institute
     @department = @user.department
   	@lab = @user.lab
+    @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
   end
 
   def activate

@@ -42,8 +42,7 @@
     <%= link_to @lab do %>
       <i class="icon-group"></i><%= " The #{@lab.lab_name} lab" %>
     <% end %>
-  </h5>
-  
+  </h5>  
   <% if @department.present? %>
     <h5>
       <%= link_to @department do %>
@@ -51,10 +50,42 @@
       <% end %>
     </h5>
   <% end %>
-
   <h5>
     <%= link_to @institute do %>
       <i class="icon-building"></i><%= " #{@institute.name}" %>
     <% end %>
   </h5>
 </dl>
+
+<hr>
+
+<dl class="dl-horizontal">
+
+  <div class='row-fluid'>
+    <%= link_to lab_reagents_path(@lab), class: "btn-large" do %>
+      <i class="icon-beaker"> Reagents</i>
+    <% end %>
+    <%= link_to "#", class: "btn-large" do %>
+      <i class="icon-cogs"> Equipment</i>
+    <% end %>
+    <%= link_to "#", class: "btn-large" do %>
+      <i class="icon-bar-chart"> Statistics</i>
+    <% end %>
+  </div>
+</dl>
+
+<div class="row">
+  <div class="span3">
+    <h4>Recent reagents</h4>
+      <% for reagent in @reagents do %>
+        <p><%= link_to "#{reagent.name} #{reagent.remaining}%", reagent %></p>
+      <% end %>
+  </div>
+  <div class="span3">
+    <h4>Put Recent devices here</h4>
+      <% for reagent in @reagents do %>
+      <p><%= link_to reagent.name, reagent %></p>
+      <% end %>
+  </div>
+</div>
+
