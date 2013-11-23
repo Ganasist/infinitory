@@ -23,9 +23,7 @@
     </span>
 
     <span class="LMform hidden">
-      <%= f.association :lab, label_method: :email,
-                          label: "Group leader email address", value_method: :id,
-                          input_html: { style: 'width: 350px'} %>
+      <%= f.input :lab_email, as: :email, input_html: { style: 'width: 350px' } %>
     </span>
 
       <%= f.input :password, input_html: { style: 'width: 350px', class: "js-password" } %>

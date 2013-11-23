@@ -29,8 +29,7 @@
         <br><br>
       
       <span class="LMform hidden">
-        <%= f.association :lab, label_method: :email, label: "Group leader email address",
-                            value_method: :id %>
+        <%= f.input :lab_email, as: :email, input_html: { style: 'width: 350px' } %>
       </span>
 
       <span class="GLform hidden">

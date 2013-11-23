@@ -95,13 +95,13 @@ class User < ActiveRecord::Base
     role == 'lab_manager'    
   end
 
-  # def department_name
-  #   department.try(:name)
-  # end
-  
-  # def department_name=(name)
-  #   self.department = Department.find_or_create_by(name: name, institute_id: self.institute_id) if name.present?
-  # end
+  def lab_email
+    lab.try(:email)
+  end
+
+  def lab_email=(email)
+    self.lab = Lab.find_by(email: email) if email.present?
+  end
 
 	def institute_name
     institute.try(:name)
@@ -141,10 +141,9 @@ class User < ActiveRecord::Base
   end
 
   def first_request
-    if !self.gl? && !self.confirmed? && !self.approved? && self.lab_id?
-      self.lab_id   = lab_id
-      self.institute_id = lab.institute_id
-      self.department_id = lab.department_id
+    if !self.gl? && !self.confirmed? && !self.approved? && !self.lab.nil?
+      self.institute_id   = lab.institute_id
+      self.department_id  = lab.department_id
     end
   end
 
