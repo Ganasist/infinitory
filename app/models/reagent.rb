@@ -12,6 +12,8 @@ class Reagent < ActiveRecord::Base
 	has_many :ownerships
 	has_many :users, through: :ownerships
 
+	has_paper_trail
+	
 	acts_as_taggable
 	scope :modified_recently, -> { order("updated_at DESC") }
 

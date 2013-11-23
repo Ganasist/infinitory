@@ -28,4 +28,6 @@ Infinitory::Application.routes.draw do
   post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 
   mount Sidekiq::Web, at: '/sidekiq'
+
+  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/ }, via: :get
 end
