@@ -5,7 +5,9 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.use :label
     b.use :icon
+    b.use :tooltip
     b.wrapper tag: 'div', class: 'controls' do |ba|
+      ba.use :typeahead
       ba.use :input
       ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }

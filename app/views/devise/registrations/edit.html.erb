@@ -29,7 +29,10 @@
         <br><br>
       
       <span class="LMform hidden">
-        <%= f.input :lab_email, as: :email, input_html: { style: 'width: 350px' } %>
+        <%= f.input :lab_email, as: :email, label: "Group leader's email address",
+                                placeholder: "Link your account to your lab",
+                                input_html: { style: 'width: 350px' },
+                                tooltip: ['bottom', 'Your group leader must create an account first']  %>
       </span>
 
       <span class="GLform hidden">

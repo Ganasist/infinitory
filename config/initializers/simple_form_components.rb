@@ -10,14 +10,18 @@ module SimpleForm
       end
     end
   end
+end
 
 SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::Icons)
 
+
+module SimpleForm
   module Components
     module Tooltips
       def tooltip
         unless tooltip_text.nil?
           input_html_options[:rel] ||= 'tooltip'
+          input_html_options['data-toggle'] ||= 'tooltip'
           input_html_options['data-placement'] ||= tooltip_position
           input_html_options['data-trigger'] ||= 'focus'
           input_html_options['data-original-title'] ||= tooltip_text
@@ -36,10 +40,13 @@ SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::Icons)
       end
     end
   end
+end
 
 SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::Tooltips)
 
-module Components
+
+module SimpleForm
+  module Components
     module Typeahead
       def typeahead
         unless typeahead_source.empty?
@@ -56,10 +63,13 @@ module Components
       end
     end
   end
+end
 
 SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::Typeahead)
 
-module Inputs
+
+module SimpleForm
+  module Inputs
     class FileInput < Base
       def input
         idf = "#{lookup_model_names.join("_")}_#{reflection_or_attribute_name}"
@@ -71,7 +81,7 @@ module Inputs
         end
 
         script = template.content_tag(:script, type: 'text/javascript') do
-          "$('input[id=#{idf}]').change(function() { s = $(this).val(); $('#pbox_#{idf}').val(s.slice(s.lastIndexOf('\\\\')+1)); });".html_safe
+          "$('input[id=#{idf}]').change(function() { s = $(this).val(); $('#pbox_#{idf}').val(s.slice(s.lastIndexOf('\\\\\\\\')+1)); });".html_safe
         end
 
         @builder.file_field(attribute_name, input_html_options) + button + script
