@@ -58,8 +58,6 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
-gem "faker", "~> 1.2.0"
-
 gem 'carrierwave'
 gem 'carrierwave_backgrounder'
 gem "rmagick"
@@ -88,8 +86,10 @@ group :development do
   gem 'parallel_tests'
 end
 
+gem "faker", "~> 1.2.0"
+gem 'factory_girl_rails'
+
 group :development, :test do
-  gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'zeus-parallel_tests'
