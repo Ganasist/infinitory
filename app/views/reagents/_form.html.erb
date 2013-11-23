@@ -37,8 +37,15 @@
     <div class="form-actions">
       <%= f.button :submit, :class => 'btn-primary' %>
 
+    <% if params[:lab_id] %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                   lab_reagents_path(@lab), :class => 'btn' %>
+    <% else %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  lab_reagents_path(@reagent.lab), :class => 'btn' %>
+    <% end %>
+
+
 
       <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
             reagent_path(@reagent),
