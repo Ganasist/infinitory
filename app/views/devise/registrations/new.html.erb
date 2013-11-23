@@ -19,8 +19,7 @@
     <span class="GLform hidden">
       <%= f.input :institute_name, placeholder: "Find or create your institute",
                                    typeahead: Institute.all.pluck(:name),
-                                   input_html: { style: 'width: 350px',
-                                   data: { autocomplete_source: institutes_path }} %>
+                                   input_html: { style: 'width: 350px' } %>
     </span>
 
     <span class="LMform hidden">
