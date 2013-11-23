@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
+
+  $('body').tooltip({ selector: "[data-toggle~='tooltip']"})
+  
   $('#user_password').focus ->
     $('.user_password_confirmation').show()
 

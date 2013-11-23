@@ -24,24 +24,27 @@
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       
-        <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position",
-                                  required: false %>
-        <br><br>
-      
+        <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
+                                       prompt: "Choose your position",
+                                       required: false %>
+        <br>
+        <br>      
       <span class="LMform hidden">
-        <%= f.input :lab_email, as: :email, label: "Group leader's email address",
+        <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
+                                typeahead: User.where(role: "group_leader").pluck(:email),
                                 placeholder: "Link your account to your lab",
                                 input_html: { style: 'width: 350px' },
-                                tooltip: ['bottom', 'Your group leader must create an account first']  %>
+                                tooltip: ['top', 'Your group leader must first create an account']  %>
       </span>
 
       <span class="GLform hidden">
         <%= f.input :institute_name, placeholder: "Find or create your institute",
-                      input_html: { data: { autocomplete_source: institutes_path } } %>
+                                     typeahead: Institute.all.pluck(:name) %>
         <span id="department_select">
-          <%= f.input :department_id, 
-                        collection: Institute.where(id: current_user.institute), as: :grouped_select,
-                        group_method: :departments, include_blank: "None" %>
+          <%= f.input :department_id, collection: Institute.where(id: current_user.institute), 
+                                      as: :grouped_select,
+                                      group_method: :departments,
+                                      include_blank: "None" %>
         </span>
       </span>
 
