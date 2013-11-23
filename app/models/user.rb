@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def first_request
-    if !self.gl? && !self.confirmed? && !self.approved?
+    if !self.gl? && !self.confirmed? && !self.approved? && self.lab_id?
       self.lab_id   = lab_id
       self.institute_id = lab.institute_id
       self.department_id = lab.department_id

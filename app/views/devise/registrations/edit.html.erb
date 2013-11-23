@@ -24,7 +24,6 @@
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       
-      
         <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position",
                                   required: false %>
         <br><br>

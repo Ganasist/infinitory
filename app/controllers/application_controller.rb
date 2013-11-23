@@ -32,8 +32,8 @@ class ApplicationController < ActionController::Base
         elsif !current_user.approved?
           redirect_to edit_user_registration_path
           flash[:alert] = "You currently don't belong to a lab"
-          if current_user.save && current_user.lab_id != nil
-            flash[:alert] = "Please wait for approval to join the #{current_user.lab.name} lab"
+          if current_user.save && !current_user.lab.blank?
+            flash[:alert] = "Please wait for approval to join the #{current_user.gl.fullname} lab"
           end
         end
       end
