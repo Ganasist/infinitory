@@ -1,4 +1,5 @@
-<%= simple_form_for [@institute, @department], :html => { :class => 'form-inline' } do |f| %>
+<%= simple_form_for [@department], defaults: { input_html: { style: 'width: 350px' } }, 
+                                               html: { class: 'form-inline' } do |f| %>
 
 <%= f.error_notification %>
 <%= f.hidden_field :lock_version %>
@@ -6,14 +7,12 @@
   <div class="row">
     <div class="span4"> 
       <%= f.input :name, label: "Department name",
-                     placeholder: "Find or create your department",
-                     input_html: { style: 'width: 350px', 
-                     data: { autocomplete_source: institute_departments_path(@institute) }} %>
-
-      <%= f.input :address, :input_html => { style: 'width: 350px', rows: 5 }, as: :text, placeholder: "Optional"  %>
-      <%= f.input :room, :input_html => { style: 'width: 350px', rows: 5 }, placeholder: "Optional"  %>
-      <%= f.input :url, input_html: { style: 'width: 350px' }, 
-      						label: 'Website', placeholder: "Optional" %>
+                         placeholder: "Find or create your department", 
+                         typeahead: Department.where(institute: current_user.institute).pluck(:name) %>
+      
+      <%= f.input :address, input_html: { rows: 5 }, as: :text, placeholder: "Optional"  %>
+      <%= f.input :room, input_html: { rows: 5 }, placeholder: "Optional"  %>
+      <%= f.input :url, label: 'Website', placeholder: "Optional" %>
     </div>
     <div class="span6 pull-right">
       <label>Logo</label><br>

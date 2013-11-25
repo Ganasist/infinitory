@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
   after_create  :first_request_email
   before_update :update_lab, :change_lab, :affiliations
 
+  scope :all_gl,  -> { User.where(role: 'group_leader') }
+  scope :user_gl, -> { User.where(email: lab.email) }
+  scope :gl?,     -> { self.role == 'group_leader' }
+
   def should_generate_new_friendly_id?
     first_name_changed? || last_name_changed?  || role_changed?
   end

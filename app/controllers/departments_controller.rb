@@ -22,7 +22,7 @@ class DepartmentsController < ApplicationController
   end
 
   def edit
-    @department = Department.find(params[:id])
+    @institute = @department.institute
   end
 
   def create

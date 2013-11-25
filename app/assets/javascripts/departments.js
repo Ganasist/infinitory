@@ -4,7 +4,6 @@ var departmentFlower;
 if ((typeof gon !== "undefined" && gon !== null) && ($("#departmentFlower").length)) {
   departmentFlower = new CodeFlower("#departmentFlower", 300, 300);
   departmentFlower.update(gon.department);
-  console.log(gon.department);
 }
 
 jQuery(function() {
@@ -15,12 +14,7 @@ jQuery(function() {
     after = $('#user_institute_name').val();
     $('#department_select').val() === "";
     if (before !== after) {
-      $('#department_select').hide();
+      return $('#department_select').hide();
     }
-    return $("#department_name").autocomplete({
-      source: $("#department_name").data("autocomplete-source"),
-      minLength: 3,
-      delay: 100
-    });
   });
 });

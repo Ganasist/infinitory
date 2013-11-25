@@ -29,5 +29,5 @@ Infinitory::Application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq'
 
-  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/ }, via: :get
+  # match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/ }, via: :get
 end
