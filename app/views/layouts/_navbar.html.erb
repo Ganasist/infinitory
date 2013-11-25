@@ -5,9 +5,22 @@
             <%= menu_item " Sign-out #{current_user.fullname}", destroy_user_session_path, :method => :delete ,
                             class: "icon-signout" %>
       <% end %>
-    <%= form_tag institutes_path, method: :get do %>
-        <%= text_field_tag :query, params[:query], class: "navbar-search pull-right", placeholder: "Search"  %>
-    <% end %>
+
+      <%= menu_group pull: :right do %> 
+        <%= link_to "#", class: "btn btn-warning" do %>
+            <i class="icon-bullhorn"></i>
+          <% end %>
+          <%= link_to user_reagents_path(current_user), class: "btn btn-warning" do %>
+            <i class="icon-beaker">(<%= current_user.reagents.size %>)</i>
+          <% end %>
+          <%= link_to "#", class: "btn btn-warning" do %>
+            <i class="icon-cogs"></i>
+          <% end %>
+          <%= link_to "#", class: "btn btn-warning" do %>
+            <i class="icon-bar-chart"></i>
+          <% end %>
+        <% end %>
+
     <% end %>
   <% else %>
     <%= nav_bar brand: "INFINITORY", brand_link: root_path, responsive: false do %>
