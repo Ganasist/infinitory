@@ -62,7 +62,7 @@
 <dl class="dl-horizontal">
 
   <div class='row-fluid'>
-    <%= link_to lab_reagents_path(@lab), class: "btn-large" do %>
+    <%= link_to user_reagents_path(@user), class: "btn-large" do %>
       <i class="icon-beaker"> Reagents (<%= @user.reagents.size %>)</i>
     <% end %>
     <%= link_to "#", class: "btn-large" do %>
@@ -75,17 +75,6 @@
 </dl>
 
 <div class="row">
-  <div class="span3">
-    <h4>Recent reagents</h4>
-      <% for reagent in @reagents do %>
-        <p><%= link_to "#{reagent.name} #{reagent.remaining}%", reagent %></p>
-      <% end %>
-  </div>
-  <div class="span3">
-    <h4>Put Recent devices here</h4>
-      <% for reagent in @reagents do %>
-      <p><%= link_to reagent.name, reagent %></p>
-      <% end %>
-  </div>
+  
 </div>
 

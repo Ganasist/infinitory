@@ -10,9 +10,11 @@ class ReagentsController < ApplicationController
     elsif params[:search].present?
       @lab = Lab.friendly.find(params[:lab_id])
       @reagents = Reagent.where(lab_id: @lab).text_search(params[:search]).modified_recently.page(params[:page]).per_page(15)
-    else
+    elsif params[:lab_id].present?
       @lab = Lab.friendly.find(params[:lab_id]) 
       @reagents = Reagent.where(lab_id: @lab).modified_recently.page(params[:page]).per_page(15)
+    else
+       @reagents = current_user.reagents.modified_recently.page(params[:page]).per_page(15)
     end
   end
 

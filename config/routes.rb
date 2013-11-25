@@ -19,6 +19,10 @@ Infinitory::Application.routes.draw do
     end
   end
 
+  resources :user do
+    resources :reagents, only: [:index, :show]
+  end
+
   get 'tags/:tag', to: 'reagents#index', as: :tag
 
   match 'users/:id/activate' => 'users#activate', :as => 'activate_user', via: :get

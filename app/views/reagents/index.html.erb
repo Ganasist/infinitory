@@ -8,7 +8,7 @@
   <% end %>
 </div>
 
-<% if !params[:tag].present? %>
+<% if !params[:tag].present? && params[:lab_id].present? %>
   <%= form_tag lab_reagents_path, method: :get do %>
     <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search by name, category or serial #"  %>
   <% end %>
