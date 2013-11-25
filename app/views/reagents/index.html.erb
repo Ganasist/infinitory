@@ -46,7 +46,7 @@
         
         <% if reagent.expiration.past? %>
           <td><span class="label label-important"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
-        <% elsif (reagent.expiration - Date.today).to_i < 30 %>    
+        <% elsif expiring?(reagent) %>    
           <td><span class="label label-warning"><%= time_ago_in_words(reagent.expiration) %> from now</dd>
         <% else %>
           <td>in <%= time_ago_in_words(reagent.expiration) %></dd>

@@ -21,7 +21,7 @@
 
   <% if @reagent.expiration.past? %>
     <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd>
-  <% elsif expiring? %>    
+  <% elsif expiring?(@reagent) %>    
     <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd>
   <% else %>
     <dd><span class="label label-success"><%= time_ago_in_words(@reagent.expiration) %> from now</dd>
