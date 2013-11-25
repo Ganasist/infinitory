@@ -3,7 +3,7 @@ class ReagentsController < ApplicationController
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
   before_action :check_user!, only: :show
-  helper_method :expired?
+  helper_method :expiring?
 
   def index
     if params[:tag].present?
@@ -79,8 +79,8 @@ class ReagentsController < ApplicationController
 
   private
 
-    def expired?
-      @reagent.expiration.past?
+    def expiring?
+      (@reagent.expiration - Date.today).to_i < 30
     end
 
     def check_user!

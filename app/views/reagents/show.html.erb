@@ -19,10 +19,12 @@
   <dd><%= @reagent.location %></dd>
   <dt><strong>Expiration:</strong></dt>
 
-  <% if expired? %>
-    <dd><%= time_ago_in_words(@reagent.expiration) %> ago</dd>
+  <% if @reagent.expiration.past? %>
+    <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd>
+  <% elsif expiring? %>    
+    <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd>
   <% else %>
-    <dd><%= time_ago_in_words(@reagent.expiration) %> from now</dd>
+    <dd><span class="label label-success"><%= time_ago_in_words(@reagent.expiration) %> from now</dd>
   <% end %>
 
   <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), :target => "_blank" %></dd>
