@@ -1,30 +1,28 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
   <% if @lab %>
-  <h4><%= link_to "#{@lab.name} Lab:", @lab %> <%= pluralize(@lab.reagents.count, 'reagent') %></h4>
+    <h4><%= link_to "#{@lab.name} Lab:", @lab %> <%= pluralize(@lab.reagents.count, 'reagent') %></h4>  
+  <% elsif params[:user_id].present? %>        
+    <h4><%= link_to "#{current_user.fullname}:", current_user %> <%= pluralize(current_user.reagents.count, 'reagent') %></h4>
   <% end %>
+
   <% if params[:tag] %>
     <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
   <% end %>
 </div>
 
-
-
-<% if !params[:tag].present? && !params[:lab_id].present? %>
-  <%= form_tag lab_reagents_path(current_user.lab), method: :get do %>
+<% if params[:user_id].present? %>
+  <%= form_tag user_reagents_path(current_user.lab), method: :get do %>
     <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search by name, category or serial #"  %>
   <% end %>
-<% elsif !params[:tag].present? && params[:lab_id].present? %>
+<% elsif params[:lab_id].present? %>
   <%= form_tag lab_reagents_path, method: :get do %>
     <%= text_field_tag :search, params[:query], class: "navbar-search", placeholder: "Search by name, category or serial #"  %>
   <% end %>
 <% end %>
 <br><br><br>
-<% if @lab %>
-  <%= link_to "Add new reagent",
-              new_lab_reagent_path(@lab),
-              :class => 'btn btn-success' %>
-<% end %>
+
+  <%= link_to "Add new reagent", new_lab_reagent_path(current_user.lab), class: 'btn btn-success' %>
 
 <table class="table table-striped">
   <thead>
