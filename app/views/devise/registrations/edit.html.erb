@@ -31,7 +31,7 @@
         <br>      
       <span class="LMform hidden">
         <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
-                                typeahead: User.where(role: "group_leader").pluck(:email),
+                                typeahead: User.all_gls.pluck(:email),
                                 placeholder: "Link your account to your lab",
                                 tooltip: ['right', 'Your group leader must first create an account']  %>
       </span>

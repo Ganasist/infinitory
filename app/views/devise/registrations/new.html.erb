@@ -6,7 +6,7 @@
                               defaults: { input_html: { style: 'width: 350px' } },
                               html: { :class => 'form-inline'} ) do |f| %>
   <%= f.error_notification %>
-  <div class="form-inputs">    
+  <div class="form-inputs">
     <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: "Choose your position" %>
     <br>
     <br>
@@ -21,7 +21,7 @@
 
     <span class="LMform hidden">
       <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
-                              typeahead: User.all_gl.pluck(:email),
+                              typeahead: User.all_gls.pluck(:email),
                               placeholder: "Link your account to your lab",
                               tooltip: ['right', 'Your group leader must create an account first'] %>
     </span>

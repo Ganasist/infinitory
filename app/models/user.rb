@@ -36,9 +36,8 @@ class User < ActiveRecord::Base
   after_create  :first_request_email
   before_update :update_lab, :change_lab, :affiliations
 
-  scope :all_gl,  -> { User.where(role: 'group_leader') }
-  scope :user_gl, -> { User.where(email: lab.email) }
-  scope :gl?,     -> { self.role == 'group_leader' }
+  scope :gl,   -> { where(role: 'group_leader') }
+  scope :lm,    -> { where(role:  'lab_manager') }
 
   def should_generate_new_friendly_id?
     first_name_changed? || last_name_changed?  || role_changed?
@@ -53,8 +52,8 @@ class User < ActiveRecord::Base
   end
 
   def approve
-    self.approved = true   
-    self.joined = Time.now
+    self.approved      = true   
+    self.joined        = Time.now
   end 
 
   def retire
@@ -79,13 +78,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def gl
-    unless self.lab_id.blank?
-      User.find_by(email: self.lab.email)
-    else
-      "#{self.fullname} has no group leader"
-    end
-  end
+  # def gl
+  #   unless self.lab_id.blank?
+  #     User.find_by(email: self.lab.email)
+  #   else
+  #     "#{self.fullname} has no group leader"
+  #   end
+  # end
 
   def gl?
     role == 'group_leader'

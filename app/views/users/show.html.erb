@@ -63,7 +63,7 @@
 
   <div class='row-fluid'>
     <%= link_to lab_reagents_path(@lab), class: "btn-large" do %>
-      <i class="icon-beaker"> Reagents</i>
+      <i class="icon-beaker"> Reagents (<%= @user.reagents.size %>)</i>
     <% end %>
     <%= link_to "#", class: "btn-large" do %>
       <i class="icon-cogs"> Equipment</i>
