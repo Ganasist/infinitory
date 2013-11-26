@@ -4,8 +4,6 @@ class ReagentsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user!, only: :show
 
-  helper_method :index_reagent
-
   def index
     if params[:tag].present?
       @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)

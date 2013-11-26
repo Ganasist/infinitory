@@ -74,8 +74,6 @@ GEM
     commonjs (0.2.7)
     connection_pool (1.1.0)
     consistency_fail (0.3.2)
-    css3-progress-bar-rails (0.5.0)
-      rails (>= 3.1)
     daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (1.2.0)
@@ -328,7 +326,6 @@ DEPENDENCIES
   carrierwave_backgrounder
   coffee-rails (~> 4.0.0)
   consistency_fail
-  css3-progress-bar-rails
   dalli
   database_cleaner
   devise

@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap_and_overrides
- *= require 'css3-progress-bar'
  *= require jquery.ui.all
  *= require_self
  *= require_tree .

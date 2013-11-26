@@ -19,8 +19,6 @@ gem 'jquery-ui-rails'
 
 gem 'acts-as-taggable-on'
 
-gem 'css3-progress-bar-rails'
-
 gem 'gon'
 gem 'rabl'
 gem 'oj'

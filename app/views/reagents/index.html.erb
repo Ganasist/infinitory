@@ -43,17 +43,15 @@
     <% @reagents.each do |reagent| %>
       <tr>
         <% if low?(reagent) %>
-          <td><%= link_to "#{reagent.name} (#{reagent.remaining}%)", reagent_path(reagent) %><span class="label label-warning">Low</span></td>
+          <td><%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-warning">Low</span></td>
         <% elsif almost_empty?(reagent) %>
-          <td><%= link_to "#{reagent.name} (#{reagent.remaining}%)", reagent_path(reagent) %><span class="label label-important">Low</span></td>
+          <td><%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-important">Low</span></td>
         <% else %>
           <td>
-            <%= link_to "#{reagent.name} (#{reagent.remaining}%)", reagent_path(reagent) %>
+            <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %><br>
           </td>
         <% end %>
-
-        <td><%= reagent.category.titleize %></td>
-        
+        <td><%= reagent.category.titleize %></td>        
         <% if reagent.expiration.past? %>
           <td><span class="label label-important"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
         <% elsif expiring?(reagent) %>    
