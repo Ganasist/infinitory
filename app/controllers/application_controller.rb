@@ -46,8 +46,8 @@ class ApplicationController < ActionController::Base
                                                                      :department_id, :institute_id, 
                                                                      :institute_name, :password, 
                                                                      :password_confirmation, :current_password, 
-                                                                     :icon, :remote_icon_url, :remove_icon, 
-                                                                     :icon_cache) }
+                                                                     :icon, :remote_icon_url,
+                                                                     :remove_icon, :icon_cache) }
     end
 
 end

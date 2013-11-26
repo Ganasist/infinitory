@@ -7,18 +7,6 @@
 <%= f.error_notification %>
 <div class="form-inputs">
   <div class="row">
-    <div class="span6 pull-right">
-      <label>Picture</label><br>
-       <% if @user.icon? %>
-         <%= image_tag(@user.icon_url(:large)) %><br><br>
-         Remove image
-        <%= f.check_box :remove_icon %><br><br>
-       <% end %>
-       <%= f.input :remote_icon_url, placeholder: "Enter a URL", label: false %>
-       <h4>or</h4>
-       <%= f.input :icon, label: false %>  
-       <%= f.hidden_field :icon_cache %>
-    </div>
     <div class="span3">
       <%= f.input :email, required: true, autofocus: true %>
       <%= f.input :first_name %>
@@ -50,17 +38,28 @@
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
-
-      <%= f.input :password, label: "New password (Optional)", :autocomplete => "off",
-                  :required => false %>
-
-      <%= f.input :password_confirmation, label: "New password confirmation", :required => false,
-                    wrapper_html: { style: 'display: none' } %>
-
-      <%= f.input :current_password, :hint => "Enter current password to confirm changes",
-                  :required => true %>
+    </div>
+    <div class="span6 pull-right">
+      <label>Picture</label><br>
+       <% if @user.icon? %>
+         <%= image_tag(@user.icon_url(:large)) %><br><br>
+         Remove image
+        <%= f.check_box :remove_icon %><br><br>
+       <% end %>
+       <%= f.input :remote_icon_url, placeholder: "Enter a URL", label: false %>
+       <h4>or</h4>
+       <%= f.input :icon, label: false %>  
+       <%= f.hidden_field :icon_cache %>
     </div>
   </div>
+  <%= f.input :password, label: "New password (Optional)", :autocomplete => "off",
+                         required: false %>
+
+  <%= f.input :password_confirmation, label: "New password confirmation", :required => false,
+                                      wrapper_html: { style: 'display: none' } %>
+  
+  <%= f.input :current_password, hint: "Enter current password to confirm changes",
+                                 required: true %>
   <div class="form-actions">
     <%= f.button :submit, "Update" %>
   </div>
