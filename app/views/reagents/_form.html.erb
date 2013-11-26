@@ -29,14 +29,14 @@
       <div class="span4 offset4">
       <% if params[:lab_id] %>    
         <%= f.association :users, label: "Contact(s)",
-                                  collection: User.where(lab: @lab),
+                                  collection: User.where(lab: @lab).order(:joined),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
                                   input_html: { style: 'width: 50px' } %>
       <% else %>
         <%= f.association :users, label: "Contact(s)",
-                                  collection: User.where(lab: @reagent.lab),
+                                  collection: User.where(lab: @reagent.lab).order(:joined),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
