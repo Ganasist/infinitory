@@ -26,13 +26,14 @@
 
       <span class="GLform hidden">
         <%= f.input :institute_name, placeholder: "Find or create your institute",
-                                     typeahead: Institute.all.pluck(:name) %>
+                                     typeahead: Institute.all.pluck(:name).uniq %>
         <span id="department_select">
           <%= f.input :department_id, collection: Institute.where(id: current_user.institute), 
                                       as: :grouped_select,
                                       group_method: :departments,
                                       include_blank: "None" %>
         </span>
+        <br>
       </span>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

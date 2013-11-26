@@ -11,13 +11,13 @@
       <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
       <br>
       <br>
-      <%= f.input :name, placeholder: "Required", typeahead: Reagent.all.pluck(:name) %>
+      <%= f.input :name, placeholder: "Required", typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :serial, label: "Serial number" %>
       <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)",
                               input_html: { step: 5 } %>
       <br>
       <%= f.input :location, label: "Location in lab", placeholder: "'Room 237' or 'Fz3S1B4'",
-                             tooltip: ['right', "We recommend that you develop a location system: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
+                             tooltip: ['right', "We recommend that you develop a location code, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
       <%= f.input :url, label: "Website" %>
       <%= f.input :expiration, as: :string, placeholder: "YYYY-MM-DD" %>
       <%= f.input :price, label: "Price ($USD)" %>
