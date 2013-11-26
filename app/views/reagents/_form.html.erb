@@ -9,9 +9,11 @@
     <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
     <br>
     <br>
-    <%= f.input :name %>
-    <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)" %>
-    
+    <%= f.input :name, placeholder: "Required" %>
+    <%= f.input :serial, label: "Serial number" %>
+    <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)",
+                            input_html: { step: 5 } %>
+    <br>
     <% if params[:lab_id] %>    
       <%= f.association :users, label: "Contact(s)",
                                 collection: User.where(lab: @lab),
@@ -29,11 +31,10 @@
     <% end %>
     <br>
     <%= f.input :location, label: "Location in lab", placeholder: "'Room 237' or 'Fz3S1B4'",
-                           tooltip: ['right', 'It is recommend your lab develops a location code']  %>
+                           tooltip: ['right', "We recommend that you develop a location system: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
     <%= f.input :url, label: "Website" %>
-    <%= f.input :expiration, as: :string%>
-    <%= f.input :price %>
-    <%= f.input :serial %>
+    <%= f.input :expiration, as: :string, placeholder: "YYYY-MM-DD" %>
+    <%= f.input :price, label: "Price ($USD)" %>
     <%= f.input :tag_list, label: "Keywords", placeholder: "Immunology, restriction enzyme, FACS",
                            tooltip: ['right', 'Use a comma separated list of keywords'] %>
 
