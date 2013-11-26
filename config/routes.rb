@@ -19,7 +19,7 @@ Infinitory::Application.routes.draw do
     end
   end
 
-  resources :user do
+  resources :user, except: [:index, :show, :new, :create, :edit, :update, :delete] do
     resources :reagents, only: [:index, :show]
   end
 

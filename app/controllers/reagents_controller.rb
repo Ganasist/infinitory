@@ -4,24 +4,26 @@ class ReagentsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user!, only: :show
 
+  helper_method :index_reagent
+
   def index
     if params[:tag].present?
-      @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(15)
+      @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)
     elsif !params[:search].present?
       if params[:user_id].present?   
         @user = User.friendly.find(params[:user_id])
-        @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(15)
+        @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
       elsif params[:lab_id].present?
         @lab = Lab.friendly.find(params[:lab_id]) 
-        @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(15)
+        @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(25)
       end
     elsif params[:search].present?
       if params[:user_id].present?   
         @user = User.friendly.find(params[:user_id])
-        @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(15)
+        @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
       elsif params[:lab_id].present?
         @lab = Lab.friendly.find(params[:lab_id]) 
-        @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(15)
+        @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
       end
     # else
      # @reagents = current_user.reagents.modified_recently.page(params[:page]).per_page(15)
