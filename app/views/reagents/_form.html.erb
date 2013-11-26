@@ -4,40 +4,46 @@
 <%= f.hidden_field :lock_version %>
   
   <div class="form-inputs">
-    <%= f.label "Category" %>
-    <br>
-    <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
-    <br>
-    <br>
-    <%= f.input :name, placeholder: "Required" %>
-    <%= f.input :serial, label: "Serial number" %>
-    <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)",
-                            input_html: { step: 5 } %>
-    <br>
-    <% if params[:lab_id] %>    
-      <%= f.association :users, label: "Contact(s)",
-                                collection: User.where(lab: @lab),
-                                value_method: :id,
-                                label_method: :fullname,
-                                as: :check_boxes,
-                                input_html: { style: 'width: 50px' } %>
-    <% else %>
-      <%= f.association :users, label: "Contact(s)",
-                                collection: User.where(lab: @reagent.lab),
-                                value_method: :id,
-                                label_method: :fullname,
-                                as: :check_boxes,
-                                input_html: { style: 'width: 50px' } %>
-    <% end %>
-    <br>
-    <%= f.input :location, label: "Location in lab", placeholder: "'Room 237' or 'Fz3S1B4'",
-                           tooltip: ['right', "We recommend that you develop a location system: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
-    <%= f.input :url, label: "Website" %>
-    <%= f.input :expiration, as: :string, placeholder: "YYYY-MM-DD" %>
-    <%= f.input :price, label: "Price ($USD)" %>
-    <%= f.input :tag_list, label: "Keywords", placeholder: "Immunology, restriction enzyme, FACS",
-                           tooltip: ['right', 'Use a comma separated list of keywords'] %>
+    <div class="row">
+      <div class="span3"> 
+      <%= f.label "Category" %>
+      <br>
+      <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
+      <br>
+      <br>
+      <%= f.input :name, placeholder: "Required" %>
+      <%= f.input :serial, label: "Serial number" %>
+      <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)",
+                              input_html: { step: 5 } %>
+      <br>
+      <%= f.input :location, label: "Location in lab", placeholder: "'Room 237' or 'Fz3S1B4'",
+                             tooltip: ['right', "We recommend that you develop a location system: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
+      <%= f.input :url, label: "Website" %>
+      <%= f.input :expiration, as: :string, placeholder: "YYYY-MM-DD" %>
+      <%= f.input :price, label: "Price ($USD)" %>
+      <%= f.input :tag_list, label: "Keywords", placeholder: "Immunology, restriction enzyme, FACS",
+                             tooltip: ['right', 'Use a comma separated list of keywords'] %>
 
+      </div>
+
+      <div class="span4 offset4">
+      <% if params[:lab_id] %>    
+        <%= f.association :users, label: "Contact(s)",
+                                  collection: User.where(lab: @lab),
+                                  value_method: :id,
+                                  label_method: :fullname,
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' } %>
+      <% else %>
+        <%= f.association :users, label: "Contact(s)",
+                                  collection: User.where(lab: @reagent.lab),
+                                  value_method: :id,
+                                  label_method: :fullname,
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' } %>
+      <% end %>
+      </div>
+    </div>
     <div class="form-actions">
       <%= f.button :submit, :class => 'btn-primary' %>
 
