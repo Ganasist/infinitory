@@ -81,7 +81,7 @@ class ReagentsController < ApplicationController
     def check_user!
       if current_user.lab != Reagent.find(params[:id]).lab
         redirect_to current_user
-        flash[:alert] = "You cannot access reagents from other labs"
+        flash[:alert] = "You cannot access reagents from that lab"
       end
     end
 
