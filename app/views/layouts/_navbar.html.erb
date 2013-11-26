@@ -11,10 +11,10 @@
           <i class="icon-user"></i>
         <% end %>
         <%= link_to current_user.lab, class: "btn-large btn-warning" do %>
-          <i class="icon-group"></i>
+          <i class="icon-group"> <small>(<%= current_user.lab.users.size %>)</small></i>
         <% end %>        
         <%= link_to user_reagents_path(current_user), class: "btn-large btn-warning" do %>
-          <i class="icon-beaker">(<%= current_user.reagents.size %>)</i>
+          <i class="icon-beaker"> <small>(<%= current_user.reagents.size %>)</small></i>
         <% end %>
         <%= link_to "#", class: "btn-large btn-warning" do %>
           <i class="icon-cogs"></i>
