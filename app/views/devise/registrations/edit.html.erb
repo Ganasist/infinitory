@@ -20,18 +20,18 @@
       <span class="LMform hidden">
         <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
                                 typeahead: User.all_gls.pluck(:email),
-                                placeholder: "Link your account to your lab",
+                                placeholder: 'Link your account to your lab',
                                 tooltip: ['right', 'Your group leader must first create an account']  %>
       </span>
 
       <span class="GLform hidden">
-        <%= f.input :institute_name, placeholder: "Find or create your institute",
+        <%= f.input :institute_name, placeholder: 'Find or create your institute',
                                      typeahead: Institute.all.pluck(:name).uniq %>
         <span id="department_select">
           <%= f.input :department_id, collection: Institute.where(id: current_user.institute), 
                                       as: :grouped_select,
                                       group_method: :departments,
-                                      include_blank: "None" %>
+                                      include_blank: 'None' %>
         </span>
         <br>
       </span>
@@ -47,19 +47,19 @@
          Remove image
         <%= f.check_box :remove_icon %><br><br>
        <% end %>
-       <%= f.input :remote_icon_url, placeholder: "Enter a URL", label: false %>
+       <%= f.input :remote_icon_url, placeholder: 'Enter a URL', label: false %>
        <h4>or</h4>
        <%= f.input :icon, label: false %>  
        <%= f.hidden_field :icon_cache %>
     </div>
   </div>
-  <%= f.input :password, label: "New password (Optional)", :autocomplete => "off",
+  <%= f.input :password, label: 'New password (Optional)', autocomplete: 'off',
                          required: false %>
 
-  <%= f.input :password_confirmation, label: "New password confirmation", :required => false,
+  <%= f.input :password_confirmation, label: 'New password confirmation', required: false,
                                       wrapper_html: { style: 'display: none' } %>
   
-  <%= f.input :current_password, hint: "Enter current password to confirm changes",
+  <%= f.input :current_password, hint: 'Enter current password to confirm changes',
                                  required: true %>
   <div class="form-actions">
     <%= f.button :submit, "Update" %>
@@ -69,7 +69,7 @@
 <h4><%= link_to "Cancel update", :back %></h4>
 <h5><%= link_to "Delete my account",
                   registration_path(resource_name),
-                  :data => { :confirm => "Are you sure you want to delete your account?" },
-                  :method => :delete %></h5>
+                  data: { confirm: 'Are you sure you want to delete your account?' },
+                  method: :delete %></h5>
 <br>
 </div>

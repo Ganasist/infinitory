@@ -51,7 +51,9 @@
             <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %><br>
           </td>
         <% end %>
-        <td><%= reagent.category.titleize %></td>        
+
+        <td><%= reagent.category.titleize %></td> 
+
         <% if reagent.expiration.past? %>
           <td><span class="label label-important"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
         <% elsif expiring?(reagent) %>    
@@ -61,13 +63,15 @@
         <% end %>
 
         <td><%= reagent.location %></td>
+
         <% if params[:tag] %>
           <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
         <% end %>
+
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_reagent_path(reagent), :class => 'btn btn-mini' %>
+          <%= link_to t('.edit', default: t("helpers.links.edit")),
+                      edit_reagent_path(reagent), class: 'btn btn-mini' %>
         </td>
       </tr>
     <% end %>

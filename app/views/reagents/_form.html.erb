@@ -1,5 +1,5 @@
 <%= simple_form_for [@lab, @reagent], defaults: { input_html: { style: 'width: 350px' } },
-                                      html: { :class => 'form-vertical' } do |f| %>
+                                      html: { class: 'form-vertical' } do |f| %>
 <%= f.error_notification %>
 <%= f.hidden_field :lock_version %>
   
@@ -11,31 +11,30 @@
       <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
       <br>
       <br>
-      <%= f.input :name, placeholder: "Required", typeahead: Reagent.all.pluck(:name).uniq %>
-      <%= f.input :serial, label: "Serial number" %>
+      <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
+      <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)",
                               input_html: { step: 5 } %>
       <br>
-      <%= f.input :location, label: "Location in lab", placeholder: "'Room 237' or 'Fz3S1B4'",
+      <%= f.input :location, label: 'Location in lab', placeholder: "'Room 237' or 'Fz3S1B4'",
                              tooltip: ['right', "We recommend that you develop a location code, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
-      <%= f.input :url, label: "Website" %>
-      <%= f.input :expiration, as: :string, placeholder: "YYYY-MM-DD" %>
-      <%= f.input :price, label: "Price ($USD)" %>
-      <%= f.input :tag_list, label: "Keywords", placeholder: "Immunology, restriction enzyme, FACS",
+      <%= f.input :url, label: 'Website' %>
+      <%= f.input :expiration, as: :string, placeholder: 'YYYY-MM-DD' %>
+      <%= f.input :price, label: 'Price ($USD)' %>
+      <%= f.input :tag_list, label: 'Keywords', placeholder: 'Immunology, restriction enzyme, FACS',
                              tooltip: ['right', 'Use a comma separated list of keywords'] %>
 
       </div>
-
       <div class="span4 offset4">
       <% if params[:lab_id] %>    
-        <%= f.association :users, label: "Contact(s)",
+        <%= f.association :users, label: 'Contact(s)',
                                   collection: User.where(lab: @lab).order(:joined),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
                                   input_html: { style: 'width: 50px' } %>
       <% else %>
-        <%= f.association :users, label: "Contact(s)",
+        <%= f.association :users, label: 'Contact(s)',
                                   collection: User.where(lab: @reagent.lab).order(:joined),
                                   value_method: :id,
                                   label_method: :fullname,
@@ -45,17 +44,17 @@
       </div>
     </div>
     <div class="form-actions">
-      <%= f.button :submit, :class => 'btn-primary' %>
+      <%= f.button :submit, class: 'btn-primary' %>
 
       <% if params[:lab_id] %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+        <%= link_to t('.cancel', default: t("helpers.links.cancel")),
                     lab_reagents_path(@lab), :class => 'btn' %>
       <% else %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+        <%= link_to t('.cancel', default: t("helpers.links.cancel")),
                     lab_reagents_path(@reagent.lab), :class => 'btn' %>
       <% end %>
 
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+      <%= link_to t('.destroy', default: t("helpers.links.destroy")),
             reagent_path(@reagent),
             :method => :delete,
             :class => 'btn btn-mini btn-danger' %>
