@@ -1,6 +1,5 @@
 <%- model_class = User -%>
 <div class="page-header">
-
   <h3>
     <% if params[:tag] %>
       <%= "Nearby scientists interested in #{params[:tag]}" %>
@@ -11,7 +10,6 @@
     <% end %>
   </h3>
 </div>
-
  <% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>
   <table class="table table-striped">
     <thead>

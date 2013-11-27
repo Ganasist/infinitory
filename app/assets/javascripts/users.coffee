@@ -24,7 +24,6 @@ jQuery ->
 	# $('.LMform').addClass('hidden') if $('#user_role').val() is "group_leader"
 
 	$('#user_role').change ->
-
     $('#inner-form input').prop(
       'disabled', false
       $('.GLform').removeClass('hidden') and $('#user_lab_email').val([""]) if $('#user_role').val() is "group_leader"
