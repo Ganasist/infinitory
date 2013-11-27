@@ -66,7 +66,7 @@ describe 'LayoutLinks' do
   it 'should have a Register page at /register' do
     get '/register'
     response.body.should have_select('user[role]')
-    response.body.should have_select('user[lab_id]')
+    response.body.should have_field('user[lab_email]')
     response.body.should have_field('Email address')
     response.body.should have_field('Institute name')
     response.body.should have_field('Password')

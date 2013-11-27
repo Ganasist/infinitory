@@ -35,7 +35,7 @@ describe "Users" do
 					visit "/register"
 					select "Technician", 											from: "user[role]"
 					find('.js-email').set 'tests@factory.com'
-					select @gl.email, match: :first, 	from: 	"user[lab_id]"
+					find('#user_lab_email').set @gl.email
 					find('.js-password').set 'loislane'
 					find('.js-password-confirmation').set 'loislane'
 					click_button "Sign up"					
