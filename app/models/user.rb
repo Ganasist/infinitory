@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base  
   mount_uploader :icon, IconUploader
-  process_in_background :icon
+  # process_in_background :icon
 
   has_paper_trail
 
