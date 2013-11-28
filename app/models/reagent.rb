@@ -1,5 +1,4 @@
 class Reagent < ActiveRecord::Base
-
 	include PgSearch
   pg_search_scope :search, against: [:name, :category, :serial],
                    				 using: { tsearch: { prefix: true,
@@ -11,7 +10,9 @@ class Reagent < ActiveRecord::Base
 
 	has_many :ownerships
 	has_many :users, through: :ownerships
-
+	
+	mount_uploader :icon, IconUploader
+  process_in_background :icon
 	has_paper_trail
 	
 	acts_as_taggable
