@@ -3,7 +3,7 @@
 
 <%= simple_form_for(resource, :as => resource_name, url: registration_path(resource_name),
                     defaults: { input_html: { style: 'width: 350px' } },
-                    html: { method: :put, :class => 'form-vertical' }) do |f| %>
+                    html: { method: :put, class: 'form-vertical', multipart: true }) do |f| %>
 <%= f.error_notification %>
 <div class="form-inputs">
   <div class="row">
@@ -11,10 +11,9 @@
       <%= f.input :email, required: true, autofocus: true %>
       <%= f.input :first_name %>
       <%= f.input :last_name %>
-      
-        <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
-                                       prompt: "Choose your position",
-                                       required: false %>
+      <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
+                                     prompt: 'Choose your position',
+                                     required: false %>
         <br>
         <br>      
       <span class="LMform hidden">
@@ -35,7 +34,6 @@
         </span>
         <br>
       </span>
-
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
@@ -43,20 +41,23 @@
     <div class="span6 pull-right">
       <label>Picture</label><br>
        <% if @user.icon? %>
-         <%= image_tag(@user.icon_url(:large)) %><br><br>
+         <%= image_tag(@user.icon_url(:original)) %><br><br>
          Remove image
         <%= f.check_box :remove_icon %><br><br>
        <% end %>
-       <%= f.input :remote_icon_url, placeholder: 'Enter a URL', label: false %>
+       <%= f.input :remote_icon_url, placeholder: 'Enter a URL',
+                                     label: false %>
        <h4>or</h4>
        <%= f.input :icon, label: false %>  
        <%= f.hidden_field :icon_cache %>
     </div>
   </div>
-  <%= f.input :password, label: 'New password (Optional)', autocomplete: 'off',
+  <%= f.input :password, label: 'New password (Optional)',
+                         autocomplete: 'off',
                          required: false %>
 
-  <%= f.input :password_confirmation, label: 'New password confirmation', required: false,
+  <%= f.input :password_confirmation, label: 'New password confirmation',
+                                      required: false,
                                       wrapper_html: { style: 'display: none' } %>
   
   <%= f.input :current_password, hint: 'Enter current password to confirm changes',

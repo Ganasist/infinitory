@@ -1,5 +1,5 @@
 <%= simple_form_for [@lab, @reagent], defaults: { input_html: { style: 'width: 350px' } },
-                                      html: { class: 'form-vertical' } do |f| %>
+                                      html: { class: 'form-vertical', multipart: true } do |f| %>
 <%= f.error_notification %>
 <%= f.hidden_field :lock_version %>
   
@@ -26,6 +26,17 @@
 
       </div>
       <div class="span4 offset4">
+        <label>Image</label><br>
+          <% if @reagent.icon? %>               
+            <%= image_tag(@reagent.icon_url(:original)) %><br><br>
+            Remove image
+            <%= f.check_box :remove_icon %><br><br>
+          <% end %>
+          <%= f.input :remote_icon_url, placeholder: 'Enter image URL', label: false %>
+          <h4>or</h4>
+          <%= f.input :icon, label: false %>  
+          <%= f.hidden_field :icon_cache %>
+
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Contact(s)',
                                   collection: User.where(lab: @lab).order(:joined),

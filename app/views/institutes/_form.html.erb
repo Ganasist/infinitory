@@ -1,25 +1,25 @@
 <%= simple_form_for @institute,  defaults: { input_html: { style: 'width: 350px' } },
-                                 html: { :class => 'form-vertical', multipart: true } do |f| %>
+                                 html: { class: 'form-vertical', multipart: true } do |f| %>
   
 <%= f.error_notification %>
 <%= f.hidden_field :lock_version %>
 
   <div class="row">
     <div class="span4">      
-      <%= f.input :name, label: "Institute name" %>
-      <%= f.input :alternate_name, placeholder: "Optional" %>
-      <%= f.input :acronym, placeholder: "Optional", label: "Acronym" %>
+      <%= f.input :name, label: 'Institute name' %>
+      <%= f.input :alternate_name, placeholder: 'Optional' %>
+      <%= f.input :acronym, placeholder: 'Optional', label: 'Acronym' %>
       <%= f.input :address, input_html: { rows: 4 }, as: :text %>
-      <%= f.input :url, label: 'Website', placeholder: "Optional" %>
+      <%= f.input :url, label: 'Website', placeholder: 'Optional' %>
     </div>
     <div class="span6 pull-right">
       <label>Logo</label><br>
       <% if @institute.icon? %>               
-        <%= image_tag(@institute.icon_url(:main)) %><br><br>
+        <%= image_tag(@institute.icon_url(:original)) %><br><br>
         Remove image
         <%= f.check_box :remove_icon %><br><br>
       <% end %>
-      <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
+      <%= f.input :remote_icon_url, placeholder: 'Enter image URL', label: false %>
       <h4>or</h4>
       <%= f.input :icon, label: false %>  
       <%= f.hidden_field :icon_cache %>
@@ -28,7 +28,7 @@
   
   <div class="form-actions">
     <%= f.button :submit, class: 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+    <%= link_to t('.cancel', default: t("helpers.links.cancel")),
                 institute_path(@institute), :class => 'btn' %>
   </div>
 <% end %>

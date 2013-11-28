@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class IconUploader < CarrierWave::Uploader::Base
-  include ::CarrierWave::Backgrounder::Delay
+  # include ::CarrierWave::Backgrounder::Delay
 
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
@@ -30,11 +30,11 @@ class IconUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb, from_version: :main do
+  version :thumb, from_version: :original do
     process resize_to_limit: [50, 50]
   end
 
-  version :portrait, from_version: :main do
+  version :portrait, from_version: :original do
     process resize_to_limit: [200, 120]
   end
 
