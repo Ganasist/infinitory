@@ -11,7 +11,7 @@
   </h3>
 </div>
  <% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>
-  <table class="table table-striped">
+  <table class="table">
     <thead>
       <% if current_user.gl_lm? && @approval > 0 %>
         <h4>Members awaiting authorization</h4>
