@@ -13,6 +13,9 @@ class Reagent < ActiveRecord::Base
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: "Must be a positive number or 0" }, allow_blank: true
   validates :remaining, numericality: true, allow_blank: true
+
+  before_create :set_expiration
+  before_update :set_expiration
 	
 	include PgSearch
   pg_search_scope :search, against: [:name, :category, :serial],
@@ -30,6 +33,13 @@ class Reagent < ActiveRecord::Base
   end
 
   private
+  	def set_expiration
+  		if self.expiration.nil?
+  			self.expiration = 5.years.from_now
+  		end
+  	end
+
+
 	  def self.text_search(query)
 	    if query.present?
 	      search(query)

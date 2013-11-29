@@ -11,10 +11,6 @@ module ReagentsHelper
   def almost_empty?(reagent)
   	reagent.remaining.between?(0, 10)
   end
-
-  def test
-  	
-  end
 end
 
 
