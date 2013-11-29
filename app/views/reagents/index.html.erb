@@ -24,9 +24,5 @@
 
   <%= link_to 'Add new reagent', new_lab_reagent_path(current_user.lab), class: 'btn btn-warning' %>
   <br><br>
-
-<div id="reagents">
   <%= render 'reagents' %>
-</div>
-
-<%= will_paginate @reagents, class: 'text-center lead' %>
+<%= will_paginate @reagents %>
