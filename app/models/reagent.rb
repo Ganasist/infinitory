@@ -22,6 +22,8 @@ class Reagent < ActiveRecord::Base
                    				 using: { tsearch: { prefix: true,
                   														 dictionary: 'english' }}
 	mount_uploader :icon, IconUploader
+	process_in_background :icon
+	
 	has_paper_trail skip: [:icon, :icon_cache, :remote_icon_url, :remove_icon] 
 	acts_as_taggable
 	scope :modified_recently, -> { order("updated_at DESC") }
