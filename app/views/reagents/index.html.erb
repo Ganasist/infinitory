@@ -25,66 +25,8 @@
   <%= link_to 'Add new reagent', new_lab_reagent_path(current_user.lab), class: 'btn btn-warning' %>
   <br><br>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:category) %></th>
-      <th><%= model_class.human_attribute_name(:expiration) %></th>
-      <th><%= model_class.human_attribute_name(:location) %></th>
-      <% if params[:tag] %>
-        <th><%= model_class.human_attribute_name(:tags) %></th>
-      <% end %>
-      <th>Updated</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reagents.each do |reagent| %>
-      <tr>
-        <% if low?(reagent) %>
-          <td><%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-warning">Low</span></td>
-        <% elsif almost_empty?(reagent) %>
-          <td><%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-important">Low</span></td>
-        <% else %>
-          <td>
-            <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %><br>
-          </td>
-        <% end %>
+<div id="reagents">
+  <%= render 'reagents' %>
+</div>
 
-        <td><%= reagent.category.titleize %></td> 
-
-        <% if reagent.expiration.past? %>
-          <td><span class="label label-important"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
-        <% elsif expiring?(reagent) %>    
-          <td><span class="label label-warning"><%= time_ago_in_words(reagent.expiration) %> from now</dd>
-        <% else %>
-          <td>in <%= time_ago_in_words(reagent.expiration) %></dd>
-        <% end %>
-
-        <td><%= reagent.location %></td>
-
-        <% if params[:tag] %>
-          <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
-        <% end %>
-
-        <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
-        <td>
-          <%= link_to t('.edit', default: t("helpers.links.edit")),
-                      edit_reagent_path(reagent), class: 'btn btn-mini' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<h4 class="text-center">
-  <% if @reagents.previous_page %>
-    <%= link_to "< Previous ", params.merge(page: @reagents.previous_page) %>
-  <% end %>
-  Page <%= @reagents.current_page %> of <%= @reagents.total_pages %>
-  <% if @reagents.next_page %>
-    <%= link_to " Next >", params.merge(page: @reagents.next_page) %>
-  <% end %>
-  </div>
-</h4>
+<%= will_paginate @reagents, class: 'text-center lead' %>

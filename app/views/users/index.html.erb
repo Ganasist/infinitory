@@ -10,63 +10,8 @@
     <% end %>
   </h3>
 </div>
- <% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>
-  <table class="table">
-    <thead>
-      <% if current_user.gl_lm? && @approval > 0 %>
-        <h4>Members awaiting authorization</h4>
-      <% end %>
-    </thead>
-    <tbody>
-      <% @approvals.each do |user| %>
-        <tr>
-          <td><%= user.fullname %></td>
-          <td>
-            <%= link_to 'Authorize', activate_user_path(user), class: 'btn btn-info' %>
-          </td>
-          <td>
-            <%= link_to 'Decline', reject_user_path(user), class: 'btn btn-danger' %>
-          </td> 
-          <% end %>    
-        </tr>
-    </tbody>
-  </table>
-<% end %>
-<table class="table">
-  <tbody id="approved">      
-    <% @users.each do |user| %>
-      <tr>
-        <td>            
-          <% if user.icon.blank? %> 
-          <h4 class="text-left">             
-              <% if user.gl? %>
-                <i class="icon-lightbulb"></i>
-              <% elsif user.lm? %>
-                <i class="icon-eye-open"></i>
-              <% else %>
-                <i class="icon-user"></i>
-              <% end %>
-          </h4>
-          <% else %>
-            <span class="text-center"><%= link_to image_tag(user.icon_url(:thumb).to_s).html_safe, user %></span>
-          <% end %>
-        </td>
-        <td><%= link_to user.fullname, user %></td>
-        <% if user.role.present? %>
-          <td><%= user.role.humanize %></td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if user.joined %>
-          <td>Joined <%= time_ago_in_words(user.joined) %> ago</td> 
-        <% end %> 
-        <% if current_user.gl_lm? && current_user.lab == @lab && !user.gl? && current_user != user %>
-          <td>
-            <%= link_to 'Retire', retire_user_path(user), class: 'btn btn-info' %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+ 
+<%= render 'approvals' %>
+
+<%= render 'users' %>
 

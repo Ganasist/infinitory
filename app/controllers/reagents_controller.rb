@@ -23,8 +23,8 @@ class ReagentsController < ApplicationController
         @lab = Lab.friendly.find(params[:lab_id]) 
         @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
       end
-    # else
-     # @reagents = current_user.reagents.modified_recently.page(params[:page]).per_page(15)
+    else
+     @reagents = current_user.reagents.modified_recently.page(params[:page]).per_page(15)
     end
   end
 

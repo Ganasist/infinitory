@@ -16,23 +16,13 @@
 		<%= render @institutes %>
 	</div>
 	<br>
-	<div class="span6">
-		<%= render 'gmap' %>
-	</div>
 <% else %>
 	<div class="span5">
 	<%= render @institutes %>
-	<h4 class="text-center">
-		<% if @institutes.previous_page %>
-		  <%= link_to "< Previous ", params.merge(page: @institutes.previous_page) %>
-		<% end %>
-	  Page <%= @institutes.current_page %> of <%= @institutes.total_pages %>
-		<% if @institutes.next_page %>
-		  <%= link_to " Next >", params.merge(page: @institutes.next_page) %>
-		<% end %>
-		</div>
-	</h4>
+	
+	<%= will_paginate @institutes, class: 'text-center lead' %>
 	<br><br>
+	
 		<div class="span6">
 		</div>
 <% end %>

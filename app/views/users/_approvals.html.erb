@@ -1,0 +1,22 @@
+<% if @approval > 0 && current_user.gl_lm? && current_user.lab_id == @lab.id %>
+  <table class="table">
+    <thead>
+      <% if current_user.gl_lm? && @approval > 0 %>
+        <h4>Members awaiting authorization</h4>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @approvals.each do |user| %>
+        <tr>
+          <td><%= user.fullname %></td>
+          <td>
+            <%= link_to 'Authorize', activate_user_path(user), class: 'btn btn-info' %>
+          </td>
+          <td>
+            <%= link_to 'Decline', reject_user_path(user), class: 'btn btn-danger' %>
+          </td> 
+          <% end %>    
+        </tr>
+    </tbody>
+  </table>
+<% end %>
