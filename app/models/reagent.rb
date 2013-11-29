@@ -11,20 +11,22 @@ class Reagent < ActiveRecord::Base
 
 	validates :name, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
-  validates :price, numericality: { greater_than_or_equal_to: 0, message: "Must be a positive number or 0" }, allow_blank: true
+  validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :remaining, numericality: true, allow_blank: true
 
-  before_create :set_expiration
-  before_update :set_expiration
+  validates_date :expiration, after: lambda { Date.today }, after_message: 'Expiration date must be set after today',
+  														if: Proc.new { |reagent| reagent.expiration_changed? }
+
+
+  before_save :set_expiration, if: Proc.new { |reagent| reagent.expiration.blank? }
 	
 	include PgSearch
   pg_search_scope :search, against: [:name, :category, :serial],
-                   				 using: { tsearch: { prefix: true,
-                  														 dictionary: 'english' }}
+                   				 using: { tsearch: { prefix: true, dictionary: 'english' }}
+
 	mount_uploader :icon, IconUploader
 	process_in_background :icon
 	
-	has_paper_trail skip: [:icon, :icon_cache, :remote_icon_url, :remove_icon] 
 	acts_as_taggable
 	scope :modified_recently, -> { order("updated_at DESC") }
 
@@ -36,11 +38,8 @@ class Reagent < ActiveRecord::Base
 
   private
   	def set_expiration
-  		if self.expiration.nil?
-  			self.expiration = 5.years.from_now
-  		end
+			self.expiration = 3.years.from_now
   	end
-
 
 	  def self.text_search(query)
 	    if query.present?

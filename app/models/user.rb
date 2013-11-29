@@ -1,17 +1,10 @@
-class User < ActiveRecord::Base  
-  mount_uploader :icon, IconUploader
-  process_in_background :icon
-
-  has_paper_trail
-
-  extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
-
-  devise :database_authenticatable, :registerable, :confirmable, :async,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
+class User < ActiveRecord::Base
 
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
+
+  devise :database_authenticatable, :registerable, :confirmable, :async,
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
@@ -35,6 +28,14 @@ class User < ActiveRecord::Base
   before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request_email
   before_update :update_lab, :change_lab, :affiliations
+
+  mount_uploader :icon, IconUploader
+  process_in_background :icon
+
+  has_paper_trail
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
 
   scope :all_gls,   -> { where(role: 'group_leader') }
   scope :lm,        -> { where(role:  'lab_manager') }

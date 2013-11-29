@@ -1,7 +1,4 @@
 class Department < ActiveRecord::Base
-	mount_uploader :icon, IconUploader
-  process_in_background :icon
-
 	belongs_to :institute
 	validates_associated	:institute
   validates :institute, presence: true
@@ -24,6 +21,9 @@ class Department < ActiveRecord::Base
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   													multiline: true,
   													message: "is not valid" }
+
+	mount_uploader :icon, IconUploader
+  process_in_background :icon
 
 	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|

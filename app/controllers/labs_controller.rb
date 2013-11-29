@@ -3,8 +3,6 @@ class LabsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user!
 
-  # GET /labs
-  # GET /labs.json
   def index
     @institute = Institute.friendly.find(params[:institute_id])
     @labs = @institute.labs
@@ -15,8 +13,6 @@ class LabsController < ApplicationController
     end
   end
 
-  # GET /labs/1
-  # GET /labs/1.json
   def show
     if request.path != lab_path(@lab)
       redirect_to @lab, status: :moved_permanently
@@ -27,17 +23,13 @@ class LabsController < ApplicationController
     @institute = @lab.institute
   end
 
-  # GET /labs/new
   def new
     @lab = Lab.new
   end
 
-  # GET /labs/1/edit
   def edit
   end
 
-  # POST /labs
-  # POST /labs.json
   def create
     if lab_params[:institute_id].present?
       @institute = Institute.find(params[lab_params])
@@ -57,8 +49,6 @@ class LabsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /labs/1
-  # PATCH/PUT /labs/1.json
   def update
     respond_to do |format|
       if @lab.update(lab_params)
@@ -72,8 +62,6 @@ class LabsController < ApplicationController
     end
   end
 
-  # DELETE /labs/1
-  # DELETE /labs/1.json
   def destroy
     @lab.destroy
     respond_to do |format|
@@ -94,7 +82,6 @@ class LabsController < ApplicationController
       @lab = Lab.friendly.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def lab_params
       params.require(:lab).permit(:email, :room,  :name, :lab_id, :department_id, :institute_id, :lock_version, 
                                   :department, :institute, :url, :icon, :remove_icon, :remote_icon_url, :icon_cache)

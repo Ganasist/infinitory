@@ -56,7 +56,7 @@ class ReagentsController < ApplicationController
   def update
     respond_to do |format|
       if @reagent.update(reagent_params)
-        flash[:notice] = "#{ @reagent.name } has been updated. #{ undo_link }"
+        flash[:notice] = "#{ @reagent.name } has been updated."
         format.html { redirect_to @reagent }
         format.json { head :no_content }
       else
@@ -70,7 +70,7 @@ class ReagentsController < ApplicationController
     @lab = @reagent.lab
     @reagent.destroy
     respond_to do |format|
-      flash[:notice] = "#{ @reagent.name } has been removed. #{ undo_link }"
+      flash[:notice] = "#{ @reagent.name } has been removed."
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
     end
@@ -83,11 +83,6 @@ class ReagentsController < ApplicationController
         redirect_to current_user
         flash[:alert] = "You cannot access reagents from that lab"
       end
-    end
-
-    def undo_link
-      view_context.link_to("UNDO", revert_version_path(@reagent.versions.last), 
-                            method: :post, class: "btn-large")
     end
 
     def set_reagent

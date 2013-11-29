@@ -32,6 +32,8 @@ gem 'friendly_id', '5.0.0.beta1'
 
 gem 'paper_trail', '>= 3.0.0.rc2'
 
+gem 'validates_timeliness', '~> 3.0'
+
 gem 'pg_search'
                              
 gem 'turbolinks'

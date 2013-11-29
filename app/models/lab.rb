@@ -1,10 +1,4 @@
 class Lab < ActiveRecord::Base
-	mount_uploader :icon, IconUploader
-  process_in_background :icon
-
-	extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
-
 	validates :email, presence: true
 
 	belongs_to :department, counter_cache: true, touch: true
@@ -17,8 +11,14 @@ class Lab < ActiveRecord::Base
 	has_many :users
   has_many :reagents
 
-	before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
-	before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
+  mount_uploader :icon, IconUploader
+  process_in_background :icon
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
+  before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
+  before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
 
   def lab_name
   	self.name = gl.fullname

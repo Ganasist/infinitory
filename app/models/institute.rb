@@ -1,15 +1,4 @@
 class Institute < ActiveRecord::Base
-	mount_uploader :icon, IconUploader
-	process_in_background :icon
-
-	extend FriendlyId
-	friendly_id :acronym_and_name, use: [:slugged, :history]
-
-	include PgSearch
-  pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
-                  using: { tsearch: { prefix: true,
-                  										dictionary: "english" }}
-
 	has_many :departments
 	has_many :labs
 	has_many :users
@@ -31,6 +20,17 @@ class Institute < ActiveRecord::Base
   								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
   													multiline: true,
   													message: "is not valid" }
+
+	mount_uploader :icon, IconUploader
+	process_in_background :icon
+
+	extend FriendlyId
+	friendly_id :acronym_and_name, use: [:slugged, :history]
+
+	include PgSearch
+  pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
+                  using: { tsearch: { prefix: true,
+                  										dictionary: "english" }}
 
 	geocoded_by :address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
