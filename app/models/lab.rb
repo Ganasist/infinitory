@@ -1,5 +1,6 @@
 class Lab < ActiveRecord::Base
 	mount_uploader :icon, IconUploader
+  process_in_background :icon
 
 	extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
