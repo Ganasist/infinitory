@@ -6,18 +6,21 @@
   <div class="form-inputs">
     <div class="row">
       <div class="span3"> 
-      <%= f.label "Category" %>
+      <%= f.label "Category (required)" %>
       <br>
       <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
       <br>
       <br>
       <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :serial, label: 'Serial number' %>
+      <%= f.input :lot_number, label: 'Lot number' %>
+      <%= f.input :uid, label: 'Unique ID', 
+                        tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
       <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)",
                               input_html: { step: 5 } %>
       <br>
       <%= f.input :location, label: 'Location in lab', placeholder: "'Room 237' or 'Fz3S1B4'",
-                             tooltip: ['right', "We recommend that you develop a location code, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
+                             tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
       <%= f.input :url, label: 'Website' %>
       <%= f.input :expiration, as: :string, placeholder: 'YYYY-MM-DD',
       tooltip: ['right', "If an expiration date is not set it will automatically default to 3 years from now"] %>

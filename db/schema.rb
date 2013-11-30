@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131130103738) do
+ActiveRecord::Schema.define(version: 20131130110714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,12 +127,11 @@ ActiveRecord::Schema.define(version: 20131130103738) do
     t.string   "icon"
     t.boolean  "icon_processing"
     t.integer  "lock_version",                            default: 0,   null: false
-    t.string   "UID"
+    t.string   "uid"
     t.string   "lot_number"
   end
 
-  add_index "reagents", ["lab_id", "name", "UID"], name: "index_reagents_on_lab_id_and_name_and_UID", unique: true, using: :btree
-  add_index "reagents", ["lab_id", "serial", "UID"], name: "index_reagents_on_lab_id_and_serial_and_UID", unique: true, using: :btree
+  add_index "reagents", ["lab_id", "name", "uid"], name: "index_reagents_on_lab_id_and_name_and_uid", unique: true, using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["properties"], name: "reagents_properties", using: :gin
   add_index "reagents", ["user_id"], name: "index_reagents_on_user_id", using: :btree
