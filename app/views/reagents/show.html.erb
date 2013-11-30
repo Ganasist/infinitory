@@ -5,7 +5,7 @@
 </div>
 
 <dl class="dl-horizontal">
-  <div class="span5">
+  <div class="span5 pull-left">
     <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
     <dd><%= @reagent.category.titleize %></dd>
     <dt><strong>Percent remaining:</strong></dt>
@@ -61,11 +61,11 @@
       <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
       <dd><%= raw @reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd>
     <% end %>
+     <br>
   </div>
 
   <% if @reagent.icon.present? %>
-    <br>
-    <div class="span6 pull-right">
+    <div class="span5 pull-right">
       <%= image_tag(@reagent.icon_url(:large).to_s).html_safe %><br>
     </div>
   <% end %>
