@@ -15,6 +15,7 @@ describe Reagent do
     expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit]) }
     expect_it { to validate_numericality_of(:price).with_message(/Must be a positive number or 0/) }
     expect_it { to_not allow_value(-1).for(:price) }
+    expect_it { to validate_numericality_of(:remaining) }
   end
 
   context 'database columns' do
@@ -66,4 +67,9 @@ describe Reagent do
     expect(reagent.user).to eql reagent.lab.gl
   end
 
+  it 'defaults to expiring 3 years into the future if expiration is not explicitly set' do
+    reagent.expiration = nil
+    reagent.save
+    expect(reagent.expiration).to eql (Date.today + 3.years)
+  end
 end

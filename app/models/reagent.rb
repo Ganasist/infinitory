@@ -17,7 +17,6 @@ class Reagent < ActiveRecord::Base
   validates_date :expiration, after: lambda { Date.today }, after_message: 'Expiration date must be set after today',
   														if: Proc.new { |reagent| reagent.expiration_changed? }
 
-
   before_save :set_expiration, if: Proc.new { |reagent| reagent.expiration.blank? }
 	
 	include PgSearch
