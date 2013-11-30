@@ -7,14 +7,6 @@ class ReagentsController < ApplicationController
   def index
     if params[:tag].present?
       @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)
-    elsif !params[:search].present?
-      if params[:user_id].present?   
-        @user = User.friendly.find(params[:user_id])
-        @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
-      elsif params[:lab_id].present?
-        @lab = Lab.friendly.find(params[:lab_id]) 
-        @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(25)
-      end
     elsif params[:search].present?
       if params[:user_id].present?   
         @user = User.friendly.find(params[:user_id])
@@ -23,8 +15,12 @@ class ReagentsController < ApplicationController
         @lab = Lab.friendly.find(params[:lab_id]) 
         @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
       end
-    else
-     @reagents = current_user.reagents.modified_recently.page(params[:page]).per_page(15)
+    elsif params[:user_id].present?
+      @user = User.friendly.find(params[:user_id])
+      @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
+    elsif params[:lab_id].present?
+      @lab = Lab.friendly.find(params[:lab_id]) 
+      @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(25)
     end
   end
 
