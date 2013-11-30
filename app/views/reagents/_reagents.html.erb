@@ -6,6 +6,7 @@
       <th>Category</th>
       <th>Expiration</th>
       <th>Location</th>
+      <th>Unique ID</th>
       <% if params[:tag] %>
         <th><%= model_class.human_attribute_name(:tags) %></th>
       <% end %>
@@ -39,6 +40,7 @@
         <% end %>
         
         <td><%= reagent.location %></td>
+        <td><%= reagent.uid %></td>
 
         <% if params[:tag] %>
           <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
