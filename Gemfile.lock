@@ -104,6 +104,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    font-awesome-rails (4.0.3.0)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.4)
     friendly_id (5.0.0.beta1)
     geocoder (1.1.8)
@@ -338,6 +340,7 @@ DEPENDENCIES
   factory_girl_rails
   faker (~> 1.2.0)
   figaro
+  font-awesome-rails
   friendly_id (= 5.0.0.beta1)
   geocoder
   gon
