@@ -35,6 +35,7 @@ gem 'paper_trail', '>= 3.0.0.rc2'
 gem 'validates_timeliness', '~> 3.0'
 
 gem 'pg_search'
+gem 'ransack'
                              
 gem 'turbolinks'
 

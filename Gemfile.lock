@@ -172,6 +172,8 @@ GEM
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
+    polyamorous (0.6.4)
+      activerecord (>= 3.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -207,6 +209,10 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.1.0)
+    ransack (1.1.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      polyamorous (~> 0.6.0)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.3)
@@ -364,6 +370,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (= 4.0.0)
   rails_12factor
+  ransack
   rb-fchange
   rb-fsevent
   rb-inotify
