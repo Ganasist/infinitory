@@ -23,8 +23,8 @@ class Reagent < ActiveRecord::Base
   before_save :set_expiration, if: Proc.new { |reagent| reagent.expiration.blank? }
 	
 	include PgSearch
-  pg_search_scope :search, against: [:name, :category, :serial],
-                   				 using: { tsearch: { prefix: true, dictionary: 'english' }}
+  pg_search_scope :pg_search, against: [:name, :category, :serial],
+                   				 		using: { tsearch: { prefix: true, dictionary: 'english' }}
 
 	mount_uploader :icon, IconUploader
 	process_in_background :icon
@@ -46,7 +46,7 @@ class Reagent < ActiveRecord::Base
 
 	  def self.text_search(query)
 	    if query.present?
-	      search(query)
+	      pg_search(query)
 	    else
 	      scoped
 	    end

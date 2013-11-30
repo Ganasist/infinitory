@@ -18,7 +18,7 @@
     <% @reagents.each do |reagent| %>
       <tr>
         <% if low?(reagent) %>
-          <td><%= fa_icon "camera-retro" if reagent.icon.present? %> <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-warning">Low</span></td>
+          <td><%= fa_icon "camera-retro" if reagent.icon.present? %> <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-warning"> Low</span></td>
         <% elsif almost_empty?(reagent) %>
           <td><%= fa_icon "camera-retro" if reagent.icon.present? %> <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-important">Low</span></td>
         <% else %>
