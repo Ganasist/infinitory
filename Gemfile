@@ -88,8 +88,8 @@ group :development do
   gem 'parallel_tests'
 end
 
-group :development, :test do
-  gem "faker", "~> 1.2.0"
+gem 'faker', '~> 1.2.0'
+group :development, :test do  
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
