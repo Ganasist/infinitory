@@ -1,6 +1,17 @@
 <h3>Reagents activities</h3>
 
-<% @activities.each do |activity| %>
-	<%= activity.inspect %>
-<% end %>
+<div class="activity">
+	<ul>
+		<% @activities.each do |activity| %>
+			<% if activity.owner && activity %>
+				<li>
+					<%= link_to activity.owner.fullname, activity.owner if activity.owner %>
+					<%= render_activity activity %>
+					<%= time_ago_in_words(activity.created_at) %> ago
+				</li>
+			<% end %>
+		<% end %>
+	</ul>
+</div>
+
 
