@@ -19,6 +19,8 @@ gem 'jquery-ui-rails'
 
 gem 'acts-as-taggable-on'
 
+gem 'public_activity'
+
 gem 'gon'
 gem 'rabl'
 gem 'oj'
