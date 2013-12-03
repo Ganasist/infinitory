@@ -74,7 +74,7 @@
     <% @activities.each do |activity| %>
       <% if activity.owner && activity %>      
           <tr>
-            <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <% activity.inspect %>
+            <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
           </tr>
           <br><br>
       <% else %>
