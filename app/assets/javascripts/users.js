@@ -4,9 +4,21 @@ jQuery(function() {
     selector: "[data-toggle~='tooltip']"
   });
   $('#inner-form input').prop('disabled', true);
-  return $('#user_password').focus(function() {
+  $('#user_password').focus(function() {
     return $('.user_password_confirmation').show();
   });
+  if ($('#user_role').val() === "group_leader") {
+    $('.GLform').removeClass('hidden');
+  }
+  if ($('#user_role').val() !== "group_leader") {
+    $('.GLform').addClass('hidden');
+  }
+  if ($('#user_role').val() !== "group_leader") {
+    $('.LMform').removeClass('hidden');
+  }
+  if ($('#user_role').val() === "group_leader") {
+    return $('.LMform').addClass('hidden');
+  }
 });
 
 $('#user_role').change(function() {
