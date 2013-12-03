@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
 
   has_paper_trail
 
+  include PublicActivity::Common
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 

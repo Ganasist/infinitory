@@ -67,6 +67,7 @@ class ReagentsController < ApplicationController
 
   def destroy
     @lab = @reagent.lab
+    @reagent.create_activity :delete, owner: current_user
     @reagent.destroy
     respond_to do |format|
       flash[:notice] = "#{ @reagent.name } has been removed."

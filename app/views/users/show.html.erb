@@ -75,5 +75,15 @@
 
 <div class="row">
   
+    <table class="activity">
+      <% @activities.each do |activity| %>
+        <% if activity.owner && activity %>
+            <tr>You <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago
+            <% activity.inspect %>
+            </tr>
+            <br><br>
+        <% end %>
+      <% end %>        
+    </table>
 </div>
 
