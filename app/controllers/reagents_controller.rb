@@ -26,6 +26,7 @@ class ReagentsController < ApplicationController
 
   def show
     @lab = @reagent.lab
+    @activities = PublicActivity::Activity.includes(:owner, :trackable).where(trackable_id: params[:id])
   end
 
   def new
@@ -40,6 +41,7 @@ class ReagentsController < ApplicationController
     @reagent = @lab.reagents.new(reagent_params)
     respond_to do |format|
       if @reagent.save
+        @reagent.create_activity :create, owner: current_user
         format.html { redirect_to @reagent, notice: 'Reagent was successfully created.' }
         format.json { render action: 'show', status: :created, location: @reagent }
       else
@@ -52,6 +54,7 @@ class ReagentsController < ApplicationController
   def update
     respond_to do |format|
       if @reagent.update(reagent_params)
+        @reagent.create_activity :update, owner: current_user
         flash[:notice] = "#{ @reagent.name } has been updated."
         format.html { redirect_to @reagent }
         format.json { head :no_content }

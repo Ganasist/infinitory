@@ -22,8 +22,7 @@ class Reagent < ActiveRecord::Base
 
   before_save :set_expiration, if: Proc.new { |reagent| reagent.expiration.blank? }
 	
-	include PublicActivity::Model
-  tracked owner: Proc.new{ |controller, model| controller.current_user }
+	include PublicActivity::Common
 
 	include PgSearch
   pg_search_scope :pg_search, against: [:name, :category, :serial],

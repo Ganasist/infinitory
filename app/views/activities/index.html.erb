@@ -9,6 +9,7 @@
 					<%= render_activity activity %>
 					<%= time_ago_in_words(activity.created_at) %> ago
 				</li>
+				<%= activity.inspect %>
 			<% end %>
 		<% end %>
 	</ul>
