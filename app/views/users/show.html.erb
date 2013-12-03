@@ -57,8 +57,6 @@
   </h5>
 </dl>
 
-<hr>
-
 <dl class="dl-horizontal">
   <div class='row-fluid'>
     <%= link_to user_reagents_path(@user), class: "btn-large" do %>
@@ -73,17 +71,21 @@
   </div>
 </dl>
 
-<div class="row">
-  
-    <table class="activity">
-      <% @activities.each do |activity| %>
-        <% if activity.owner && activity %>
-            <tr>You <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago
-            <% activity.inspect %>
-            </tr>
-            <br><br>
-        <% end %>
-      <% end %>        
-    </table>
+<hr>
+
+<div class="row">  
+  <table class="activity">
+    <p>You...</p>
+    <% @activities.each do |activity| %>
+      <% if activity.owner && activity %>      
+          <tr>
+            <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <% activity.inspect %>
+          </tr>
+          <br><br>
+      <% else %>
+          <tr>have no recent activities.</tr>
+      <% end %>
+    <% end %>        
+  </table>
 </div>
 
