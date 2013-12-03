@@ -26,7 +26,7 @@ class ReagentsController < ApplicationController
 
   def show
     @lab = @reagent.lab
-    @activities = PublicActivity::Activity.includes(:owner, :trackable).where(trackable_id: params[:id])
+    @activities = PublicActivity::Activity.includes(:owner).where(trackable_id: params[:id])
   end
 
   def new

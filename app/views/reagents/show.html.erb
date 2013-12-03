@@ -1,4 +1,5 @@
 <%- model_class = Reagent -%>
+<% title "Reagents: " + @reagent.name %>
 <div class="page-header">
   <h3><%= @reagent.name %></h3>
   <h4><%= @reagent.lab.name %> lab</h4>
@@ -71,27 +72,24 @@
   <% end %>
 </dl>
 <div class="form-actions">
-  <%= link_to t('.back', default: t("helpers.links.back")),
-              lab_reagents_path(@lab), :class => 'btn'  %>
-  <%= link_to t('.edit', default: t("helpers.links.edit")),
-              edit_reagent_path(@reagent), :class => 'btn' %>
-  <%= link_to t('.destroy', default: t("helpers.links.destroy")),
-              reagent_path(@reagent),
+  <%= link_to t('.back', default: t("helpers.links.back")), lab_reagents_path(@lab), :class => 'btn'  %>
+  <%= link_to t('.edit', default: t("helpers.links.edit")), edit_reagent_path(@reagent), :class => 'btn' %>
+  <%= link_to t('.destroy', default: t("helpers.links.destroy")), reagent_path(@reagent),
               method: 'delete',
               data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
               class: 'btn btn-danger' %>
 </div>
-
-<div class="activity">
-  <ul>
+<div class="row span6 pull-left">  
+  <table>
     <% @activities.each do |activity| %>
-      <% if activity.owner && activity %>
-        <li>
-          <%= link_to activity.owner.fullname, activity.owner if activity.owner %>
-          <%= render_activity activity %>
-          <%= time_ago_in_words(activity.created_at) %> ago
-        </li>
+      <% if activity.owner && activity %>      
+          <tr>
+            <%= link_to activity.owner.fullname, activity.owner if activity.owner %>
+            update this
+            <%= time_ago_in_words(activity.created_at) %> ago
+          </tr>
+          <br><br>
       <% end %>
-    <% end %>
-  </ul>
+    <% end %>        
+  </table>
 </div>
