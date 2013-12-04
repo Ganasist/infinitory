@@ -76,7 +76,7 @@
   <%= link_to t('.edit', default: t("helpers.links.edit")), edit_reagent_path(@reagent), :class => 'btn btn-warning' %>
   <%= link_to t('.destroy', default: t("helpers.links.destroy")), reagent_path(@reagent),
                             method: 'delete', class: 'btn btn-danger' %>
-  <%= link_to 'Duplicate', duplicate_reagent_path(@reagent), class: 'btn btn-info' %>
+  <%= link_to 'Clone', duplicate_reagent_path(@reagent), class: 'btn btn-info' %>
 
 </div>
 <div class="row">

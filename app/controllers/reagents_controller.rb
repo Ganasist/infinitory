@@ -42,7 +42,7 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @duplicate.save
         @duplicate.create_activity :create, owner: current_user
-        format.html { redirect_to @duplicate, notice: 'Reagent was successfully duplicated.' }
+        format.html { redirect_to @duplicate, notice: 'Reagent was successfully cloned.' }
         format.json { render action: 'show', status: :created, location: @duplicate }
       else
         format.html { render action: 'new' }
