@@ -80,14 +80,13 @@
 
 </div>
 <div class="row">
-  <div class="span5">  
+  <div class="span6">  
     <table>
       <% @activities.each do |activity| %>
         <% if activity.owner && activity %>      
             <tr>
               <%= link_to activity.owner.fullname, activity.owner if activity.owner %>
-              updated this
-              <%= time_ago_in_words(activity.created_at) %> ago
+              <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
             </tr>
             <br><br>
         <% end %>

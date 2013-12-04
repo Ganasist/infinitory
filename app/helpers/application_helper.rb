@@ -17,5 +17,4 @@ module ApplicationHelper
 	  	raw('<span class="badge">+3</span>')
 	  end
 	end
-
 end
