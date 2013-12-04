@@ -1,5 +1,5 @@
 class ReagentsController < ApplicationController
-  before_action :set_reagent, only: [:show, :edit, :update, :destroy]
+  before_action :set_reagent, only: [:show, :edit, :update, :destroy, :duplicate]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
   before_action :check_user!, only: :show
@@ -35,6 +35,21 @@ class ReagentsController < ApplicationController
 
   def edit
     @reagent = Reagent.find(params[:id])
+  end
+
+  def duplicate
+    @duplicate = @reagent.amoeba_dup
+    @duplicate.save
+    respond_to do |format|
+      if @duplicate.save
+        @duplicate.create_activity :create, owner: current_user
+        format.html { redirect_to @duplicate, notice: 'Reagent was successfully duplicated.' }
+        format.json { render action: 'show', status: :created, location: @duplicate }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @duplicate.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def create
