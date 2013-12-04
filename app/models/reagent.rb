@@ -24,6 +24,17 @@ class Reagent < ActiveRecord::Base
 	
 	include PublicActivity::Common
 
+	amoeba do
+    enable
+    customize(lambda { |original_reagent,new_reagent|
+    	new_reagent.uid       = SecureRandom.hex(2)
+    	new_reagent.remaining = 100
+      if original_reagent.expiration.past?
+        new_reagent.expiration = Date.today + 3.years
+      end
+    })
+  end
+
 	include PgSearch
   pg_search_scope :pg_search, against: [:name, :category, :serial],
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' }}
