@@ -21,6 +21,8 @@ gem 'acts-as-taggable-on'
 
 gem 'public_activity'
 
+gem 'amoeba'
+
 gem 'gon'
 gem 'rabl'
 gem 'oj'
