@@ -75,9 +75,7 @@
   <%= link_to t('.back', default: t("helpers.links.back")), lab_reagents_path(@lab), :class => 'btn'  %>
   <%= link_to t('.edit', default: t("helpers.links.edit")), edit_reagent_path(@reagent), :class => 'btn btn-warning' %>
   <%= link_to t('.destroy', default: t("helpers.links.destroy")), reagent_path(@reagent),
-              method: 'delete',
-              data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
-              class: 'btn btn-danger' %>
+                            method: 'delete', class: 'btn btn-danger' %>
   <%= link_to 'Duplicate', duplicate_reagent_path(@reagent), class: 'btn btn-info' %>
 
 </div>

@@ -26,7 +26,7 @@ class ReagentsController < ApplicationController
 
   def show
     @lab = @reagent.lab
-    @activities = PublicActivity::Activity.includes(:owner).where(trackable_id: params[:id])
+    @activities = PublicActivity::Activity.includes(:owner).where(trackable_id: params[:id]).order('created_at desc')
   end
 
   def new
@@ -42,7 +42,6 @@ class ReagentsController < ApplicationController
     @duplicate.save
     respond_to do |format|
       if @duplicate.save
-        @duplicate.create_activity :create, owner: current_user
         format.html { redirect_to @duplicate, notice: 'Reagent was successfully duplicated.' }
         format.json { render action: 'show', status: :created, location: @duplicate }
       else

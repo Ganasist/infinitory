@@ -32,6 +32,9 @@ class Reagent < ActiveRecord::Base
       if original_reagent.expiration.past?
         new_reagent.expiration = Date.today + 3.years
       end
+      if original_reagent.icon.present?
+      	new_reagent.icon = original_reagent.icon
+     	end
     })
   end
 
