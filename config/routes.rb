@@ -9,14 +9,17 @@ Infinitory::Application.routes.draw do
   root :to => 'high_voltage/pages#show', id: 'splash'
 
   devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
-                                  :controllers => { registrations: 'registrations' }
+                                  :controllers => { registrations: 'registrations', :invitations => 'devise/invitations' }
  
   resources :institutes, shallow: true do
-    resources :departments
     resources :labs do
       resources :reagents
       resources :users
     end
+  end
+
+  resources :institutes do
+    resources :departments
   end
 
   resources :user, except: [:index, :show, :new, :create, :edit, :update, :delete] do

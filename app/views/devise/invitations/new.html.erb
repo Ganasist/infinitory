@@ -1,0 +1,11 @@
+<h3>Invitation to Infinitory</h3>
+
+<%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f| %>
+  <%= devise_error_messages! %>
+
+<% resource.class.invite_key_fields.each do |field| -%>
+  <%= f.input field %>
+<% end -%>
+
+<%= f.button :submit, "Send invitation", class: "btn btn-warning" %>
+<% end %>

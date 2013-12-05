@@ -49,6 +49,9 @@ class ApplicationController < ActionController::Base
                                                                      :password_confirmation, :current_password, 
                                                                      :icon, :remote_icon_url,
                                                                      :remove_icon, :icon_cache) }
+      
+      devise_parameter_sanitizer.for(:accept_invitation) { |u| u.permit(:email, :role, :invitation_token,
+                                                                        :password, :password_confirmation)}
     end
 
 end

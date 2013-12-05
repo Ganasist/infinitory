@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
-  before_action :set_institute, only: [:index, :new, :create]
+  before_action :set_institute, only: [:index, :new, :create, :update]
   before_action :authenticate_user!
   
   def index
@@ -30,7 +30,7 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to department_path(@department), 
+        format.html { redirect_to institute_department_path(@institute, @department), 
                       notice: 'Department was successfully created.' }
         format.json { render action: 'show', status: :created, location: @department }
       else
@@ -41,10 +41,9 @@ class DepartmentsController < ApplicationController
   end
 
   def update
-
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to department_path(@department), 
+        format.html { redirect_to institute_department_path(@institute, @department), 
                       notice: 'Department was successfully updated.' }
         format.json { head :no_content }
       else
