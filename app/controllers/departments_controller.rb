@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
-  before_action :set_institute, only: [:index, :new, :create, :update]
+  before_action :set_institute, only: [:index, :new, :create, :update, :destroy]
   before_action :authenticate_user!
   
   def index
@@ -56,7 +56,7 @@ class DepartmentsController < ApplicationController
   def destroy
     @department.destroy
     respond_to do |format|
-      format.html { redirect_to departments_url }
+      format.html { redirect_to institute_departments_path(@institute) }
       format.json { head :no_content }
     end
   end

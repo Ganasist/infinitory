@@ -1,9 +1,9 @@
 <div id="push">
   <% if user_signed_in? %>
-    <%= nav_bar brand: 'INFINITORY', brand_link: user_path(current_user), responsive: false do %>
+    <%= nav_bar brand: 'INFINITORY', brand_link: user_path(current_user), responsive: false, class: 'inactive' do %>
       <%= menu_group do %>        
-            <%= menu_item " Sign-out #{current_user.fullname}", destroy_user_session_path, method: :delete ,
-                            class: "icon-signout" %>
+            <%= menu_item " Sign-out", destroy_user_session_path, method: :delete, class: "icon-signout" %>
+            <%= menu_item " Invite other scientists", new_user_invitation_path, class: "icon-link", id: "invitation" %>
       <% end %>
       <%= menu_group pull: :right do %>
         <%= link_to current_user, class: 'btn-large btn-warning' do %>

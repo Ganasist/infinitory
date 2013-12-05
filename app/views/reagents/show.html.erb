@@ -72,11 +72,11 @@
   <% end %>
 </dl>
 <div class="form-actions">
-  <%= link_to t('.back', default: t("helpers.links.back")), lab_reagents_path(@lab), :class => 'btn'  %>
-  <%= link_to t('.edit', default: t("helpers.links.edit")), edit_reagent_path(@reagent), :class => 'btn btn-warning' %>
-  <%= link_to t('.destroy', default: t("helpers.links.destroy")), reagent_path(@reagent),
-                            method: 'delete', class: 'btn btn-danger' %>
-  <%= link_to 'Clone', duplicate_reagent_path(@reagent), class: 'btn btn-info' %>
+  <%= link_to ' Back', lab_reagents_path(@lab), class: 'btn'  %>
+  <%= link_to ' Edit', edit_reagent_path(@reagent), class: 'icon-edit btn btn-warning' %>
+  <%= link_to ' Destroy', reagent_path(@reagent),
+                            method: 'delete', class: 'icon-trash btn btn-danger' %>
+  <%= link_to ' Clone', duplicate_reagent_path(@reagent), class: 'icon-code-fork btn btn-info' %>
 
 </div>
 <div class="row">
