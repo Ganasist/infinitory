@@ -2,7 +2,8 @@
 <br>
 
 <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
-  <%= devise_error_messages! %>
+  <%= f.error_notification %>
+  
   <%= f.hidden_field :invitation_token %>
 
 

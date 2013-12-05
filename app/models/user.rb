@@ -121,6 +121,10 @@ class User < ActiveRecord::Base
     super && approved? || lab_id = 1
   end
 
+  def send_reset_password_instructions
+    super if invitation_token.nil?
+  end
+  
   def skip_confirmation!
     true
   end
