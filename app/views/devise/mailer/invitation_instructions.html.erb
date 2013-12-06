@@ -1,6 +1,6 @@
 <p>Hello <%= @resource.email %>!</p>
 
-<p>Someone has invited you to Infinitory! You can accept this invitation via the link below.</p>
+<p>You have been invited to Infinitory! You can accept this invitation via the link below.</p>
 
 <p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @token) %></p>
 

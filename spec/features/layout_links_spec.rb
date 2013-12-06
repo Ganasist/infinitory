@@ -95,7 +95,7 @@ describe 'LayoutLinks' do
     end
 
     it 'should not have a link to send invitations' do
-      expect(page).to_not have_link("Invite other scientists", new_user_invitation_path)
+      expect(page).to_not have_link("Invite a scientist", new_user_invitation_path)
     end
   end
 
@@ -145,7 +145,7 @@ describe 'LayoutLinks' do
     end
 
     it 'should have a link to send invitations' do
-      expect(page).to have_link("Invite other scientists", new_user_invitation_path)
+      expect(page).to have_link("Invite a scientist", new_user_invitation_path)
     end
 
     it 'should not have sign-in or sign-up links at the root path' do

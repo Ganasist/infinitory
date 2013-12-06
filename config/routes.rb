@@ -28,6 +28,8 @@ Infinitory::Application.routes.draw do
 
   get 'tags/:tag', to: 'reagents#index', as: :tag
 
+  
+
   match 'users/:id/activate' => 'users#activate', :as => 'activate_user', via: :get
   match 'users/:id/retire' => 'users#retire', :as => 'retire_user', via: :get  
   match 'users/:id/reject' => 'users#reject', :as => 'reject_user', via: :get
