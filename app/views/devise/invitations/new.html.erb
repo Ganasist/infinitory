@@ -1,11 +1,14 @@
-<h3>Invite a scientist</h3>
-
-<%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f| %>
+<br>
+<%= simple_form_for resource, as: resource_name,
+															url: invitation_path(resource_name),
+															defaults: { input_html: { style: 'width: 310px' } },
+															html: {method: :post} do |f| %>
+															
   <%= f.error_notification %>
 
 <% resource.class.invite_key_fields.each do |field| -%>
-  <%= f.input field %>
+  <%= f.input field, label: false,  placeholder: "Enter their e-mail address" %>
 <% end -%>
 
-<%= f.button :submit, "Send!", class: "btn btn-warning" %>
+<%= f.button :submit, "Send Invitation!", class: "btn btn-warning" %>
 <% end %>
