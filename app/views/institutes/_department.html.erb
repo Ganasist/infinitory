@@ -9,7 +9,7 @@
     <% @departments.each do |department| %>
 	    <div class="department">
 		    <p>
-		    	<%= link_to department.name, department_path(department) %>
+		    	<%= link_to department.name, institute_department_path(@institute, department) %>
 		    <br>
 		    	 <%= pluralize(department.labs.size, "group") %> & 
 		    	 <%= pluralize(department.users.size, "member") %>

@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
 
   before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request_email
-  before_update :update_lab, :change_lab, :affiliations
+  before_update :change_lab, :affiliations
+  after_update  :update_lab
 
   mount_uploader :icon, IconUploader
   process_in_background :icon
@@ -173,7 +174,7 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if self.confirmed? && self.approved? && !self.lab.nil?
+    if !self.gl? && self.confirmed? && self.approved? && !self.lab.nil?
       self.institute  = lab.institute
       self.department = lab.department
     end
@@ -181,14 +182,23 @@ class User < ActiveRecord::Base
 
   def update_lab
     if self.gl? && self.confirmed?
+      self.approved = true
       if self.institute_id_changed?
         self.department = nil
       end
-      unless self.lab_id.blank? 
-        self.lab.update(email: self.email, name: self.fullname,
-                        department: self.department, institute: self.institute)
+      if !self.lab_id.blank? && (self.department_id_changed? || self.institute_id_changed?)
+        self.lab = Lab.create(email: self.email,
+                            room:  "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
+                            institute: self.institute,
+                            department: self.department,
+                            name: self.fullname)
       end
     end
+  end
+
+  def headers_for(action)
+    return {} unless invited_by && action == :invitation_instructions
+    { subject: "#{invited_by.fullname} has given you access to their account" }
   end
 
   private

@@ -42,7 +42,7 @@
   </h5>  
   <% if @department.present? %>
     <h5>
-      <%= link_to institute_department_path(@institute, @department) do %>
+      <%= link_to institute_department_path(@institute, @user.department) do %>
         <i class="icon-sitemap"></i><%= " #{@department.name}" %>
       <% end %>
     </h5>
@@ -56,7 +56,7 @@
 <dl class="dl-horizontal">
   <div class='row-fluid'>
     <%= link_to user_reagents_path(@user), class: "btn-large" do %>
-      <i class="icon-beaker"> Reagents (<%= @user.reagents.size %>)</i>
+      <i class="icon-beaker"> Reagents (<%= @user.reagents.length %>)</i>
     <% end %>
     <%= link_to "#", class: "btn-large" do %>
       <i class="icon-cogs"> Equipment</i>
