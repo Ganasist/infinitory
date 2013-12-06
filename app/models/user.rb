@@ -187,18 +187,13 @@ class User < ActiveRecord::Base
         self.department = nil
       end
       if !self.lab_id.blank? && (self.department_id_changed? || self.institute_id_changed?)
-        self.lab = Lab.create(email: self.email,
-                            room:  "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
-                            institute: self.institute,
-                            department: self.department,
-                            name: self.fullname)
+        self.lab = Lab.update(email: self.email,
+                              room:  "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
+                              institute: self.institute,
+                              department: self.department,
+                              name: self.fullname)
       end
     end
-  end
-
-  def headers_for(action)
-    return {} unless invited_by && action == :invitation_instructions
-    { subject: "#{invited_by.fullname} has given you access to their account" }
   end
 
   private
