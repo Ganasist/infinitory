@@ -78,8 +78,6 @@ describe Lab do
   it 'is invalid with more than one group leader'
   it 'is valid with one group leader'
 
-  it { should respond_to(:gl_count) }
-
   it { should respond_to(:gl) }
   it 'should return the GL when the gl method is used' do
     expect(lab.gl).to eql gl

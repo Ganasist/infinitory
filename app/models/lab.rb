@@ -32,10 +32,6 @@ class Lab < ActiveRecord::Base
   	self.institute.name
   end
 
-  def gl_count  	
-		self.users.where(role: 'group_leader').count
-  end
-
   def gl
 		User.find_by(email: self.email)
   end
