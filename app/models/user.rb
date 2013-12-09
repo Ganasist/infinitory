@@ -25,12 +25,13 @@ class User < ActiveRecord::Base
   
   validates :role, presence: true, inclusion: { in: ROLES }
 
-  before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
+  before_create :first_request, :skip_confirmation!, :skip_confirmation_notification!
+  before_create :gl_signup, if: Proc.new { |f| f.gl? }
   after_create  :first_request_email
   before_update :change_lab, :affiliations
-  after_update  :update_lab, if: Proc.new { gl? && confirmed? && lab.present? }
+  after_update  :update_lab, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
 
-  after_invitation_accepted :gl_invited, if: Proc.new { gl? }
+  after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
 
   mount_uploader :icon, IconUploader
   process_in_background :icon
@@ -42,8 +43,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  scope :all_gls,   -> { where(role: 'group_leader') }
-  scope :lm,        -> { where(role:  'lab_manager') }
+  scope :all_gls, -> { where(role: 'group_leader') }
+  scope :lm,      -> { where(role:  'lab_manager') }
 
   def should_generate_new_friendly_id?
     first_name_changed? || last_name_changed?  || role_changed?
@@ -70,8 +71,6 @@ class User < ActiveRecord::Base
     self.joined        = nil
   end
 
-  # current_user.gl_lm? && current_user.lab == @lab && !user.gl? && current_user != user
-
   def retire_permissions?(user, lab)
     self.gl_lm?
     self.lab = lab
@@ -86,8 +85,8 @@ class User < ActiveRecord::Base
   end
 
   def fullname
-    if self.first_name.blank? || self.last_name.blank?
-      self.email
+    if first_name.blank? || last_name.blank?
+      email
     else
       "#{first_name} #{last_name}"
     end
@@ -106,7 +105,7 @@ class User < ActiveRecord::Base
   end
 
   def gl_lm?
-    role == 'group_leader' || self.role == 'lab_manager'
+    role == 'group_leader' || role == 'lab_manager'
   end
 
   def lm?
@@ -150,15 +149,13 @@ class User < ActiveRecord::Base
   end
 
   def gl_signup
-    if self.gl?
-      self.approved = true
-      self.joined = Time.now      
-      self.send_confirmation_instructions
-      self.lab = Lab.create(email: self.email,
-                            institute: self.institute,
-                            department: self.department,
-                            name: self.fullname)
-    end
+    self.approved = true
+    self.joined = Time.now      
+    self.send_confirmation_instructions
+    self.lab = Lab.create(email: self.email,
+                          institute: self.institute,
+                          department: self.department,
+                          name: self.fullname)
   end
 
   def first_request
@@ -184,7 +181,7 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if !gl? && confirmed? && approved? && !lab.nil?
+    if !gl? && confirmed? && approved? && !lab.nil? && self.lab_id_changed?
       self.institute  = lab.institute
       self.department = lab.department
     end

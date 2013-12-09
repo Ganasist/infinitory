@@ -20,9 +20,17 @@ class Lab < ActiveRecord::Base
   before_update :lab_name, if: Proc.new{ |l| l.gl.present? && name_changed? }
   before_update :lab_email, if: Proc.new{ |l| l.gl.present? && name_changed? }
 
-  def lab_name
-  	name = gl.fullname
+  def name
+    gl.fullname
   end
+
+  # def email
+  #   gl.email
+  # end
+
+  # def lab_name
+  # 	name = gl.fullname
+  # end
 
   def lab_email
   	email = gl.email
