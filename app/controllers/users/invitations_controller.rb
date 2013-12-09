@@ -1,17 +1,19 @@
 class Users::InvitationsController < Devise::InvitationsController
   def create
-  	flash[:alert] = "This is a test #{current_user.fullname}"
+  	# User.invite!({:email => params[:user_email]}, current_user)
+    flash[:alert] = "This is a #{current_user.fullname}"
   	super
   end
 
   def edit
-  	flash[:alert] = "This is a test #{current_user.fullname}"
+  	flash[:alert] = "This is a test"
   	super
   end
 
   def update
     if params[:role] == "group_leader"
-      redirect_to root_path
+      self.approved = true
+      super
     else
       super
     end
