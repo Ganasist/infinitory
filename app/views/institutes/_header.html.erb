@@ -1,4 +1,3 @@
-<% cache @institute do %>
   <div class="page-header">
       <h3><i class="icon-building"></i>        
         <%= " #{@institute.name}" %>
@@ -31,7 +30,9 @@
       <% end %>
       <br><br>
 
-      <%= content_tag "div", id: "instituteFlower" do %>
+      <% if @institute.departments.present? %>
+        <%= content_tag "div", id: "instituteFlower" do %>
+      <% end %>
+
       <% end %>        
   </div>
-<% end %>

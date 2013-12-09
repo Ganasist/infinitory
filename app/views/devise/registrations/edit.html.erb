@@ -50,15 +50,17 @@
        <h4>or</h4>
        <%= f.input :icon, label: false %>  
        <%= f.hidden_field :icon_cache %>
-    </div>
-  </div>
-  <%= f.input :password, label: 'New password (Optional)',
+
+       <%= f.input :password, label: 'New password (Optional)',
                          autocomplete: 'off',
                          required: false %>
 
-  <%= f.input :password_confirmation, label: 'New password confirmation',
-                                      required: false,
-                                      wrapper_html: { style: 'display: none' } %>
+       <%= f.input :password_confirmation, label: 'New password confirmation',
+                                           required: false,
+                                           wrapper_html: { style: 'display: none' } %>
+    </div>
+  </div>
+  
   
   <%= f.input :current_password, hint: 'Enter current password to confirm changes',
                                  required: true %>

@@ -9,10 +9,15 @@
 			<%= render 'department' %>
    <% end %>
 
+   <% if !@institute.departments.present? %>
+    <%= link_to "Add Department", new_institute_department_path(@institute), :class => 'btn-large' %> 
+   <% end %>
+
    <% if @institute.labs.present? %>
       <%= render 'lab' %>
    <% end %>
 </div>
+
 <div class="span6">
     <br>
    <% if @institute.nearbys.present? %>
