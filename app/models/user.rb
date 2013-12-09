@@ -28,7 +28,9 @@ class User < ActiveRecord::Base
   before_create :gl_signup, :first_request, :skip_confirmation!, :skip_confirmation_notification!
   after_create  :first_request_email
   before_update :change_lab, :affiliations
-  after_update  :update_lab
+  after_update  :update_lab, if: Proc.new { gl? && confirmed? && lab.present? }
+
+  after_invitation_accepted :gl_invited, if: Proc.new { gl? }
 
   mount_uploader :icon, IconUploader
   process_in_background :icon
@@ -66,6 +68,15 @@ class User < ActiveRecord::Base
     self.institute_id  = nil
     self.department_id = nil
     self.joined        = nil
+  end
+
+  # current_user.gl_lm? && current_user.lab == @lab && !user.gl? && current_user != user
+
+  def retire_permissions?(user, lab)
+    self.gl_lm?
+    self.lab = lab
+    !user.gl?
+    user != self
   end
 
   def location
@@ -144,7 +155,6 @@ class User < ActiveRecord::Base
       self.joined = Time.now      
       self.send_confirmation_instructions
       self.lab = Lab.create(email: self.email,
-                            room:  "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
                             institute: self.institute,
                             department: self.department,
                             name: self.fullname)
@@ -174,25 +184,34 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if !self.gl? && self.confirmed? && self.approved? && !self.lab.nil?
+    if !gl? && confirmed? && approved? && !lab.nil?
       self.institute  = lab.institute
       self.department = lab.department
     end
   end
 
+  def gl_invited
+    self.approved = true
+    self.joined   = Time.now
+    self.lab      = Lab.create(email: self.email,
+                               institute: self.institute)
+  end
+
   def update_lab
-    if self.gl? && self.confirmed?
-      self.approved = true
-      if self.institute_id_changed?
-        self.department = nil
-      end
-      if !self.lab_id.blank? && (self.department_id_changed? || self.institute_id_changed?)
-        self.lab = Lab.update(email: self.email,
-                              room:  "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
-                              institute: self.institute,
-                              department: self.department,
-                              name: self.fullname)
-      end
+    self.approved = true
+    if self.institute_id_changed?
+      self.department = nil
+    end
+    if (first_name_changed? ||
+        last_name_changed? ||
+        email_changed? ||
+        department_id_changed? ||
+        institute_id_changed?)
+
+      self.lab.update(email: self.email,
+                      institute: self.institute,
+                      department: self.department,
+                      name: self.fullname)
     end
   end
 

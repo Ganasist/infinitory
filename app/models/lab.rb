@@ -17,15 +17,15 @@ class Lab < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  before_update :lab_name, if: Proc.new{ |l| l.gl.present? }
-  before_update :lab_email, if: Proc.new{ |l| l.gl.present? }
+  before_update :lab_name, if: Proc.new{ |l| l.gl.present? && name_changed? }
+  before_update :lab_email, if: Proc.new{ |l| l.gl.present? && name_changed? }
 
   def lab_name
-  	self.name = gl.fullname
+  	name = gl.fullname
   end
 
   def lab_email
-  	self.email = gl.email
+  	email = gl.email
   end
 
   def institute_name

@@ -7,14 +7,31 @@
 															html: { method: :put } do |f| %>
 															
   <%= f.error_notification %>
-
   <%= f.hidden_field :invitation_token %>
 
 
-  <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: 'Choose your position' %>
-  <br><br>
-  <%= f.input :password %>
-  <%= f.input :password_confirmation %>
+  <div class="form-inputs">
+    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: 'Choose your position' %>
+    <br>
+    <br>    
+  <div id="inner-form">
+    
+    <span class="GLform hidden">
+      <%= f.input :institute_name, placeholder: 'Find or create your institute',
+                                   typeahead: Institute.all.pluck(:name) %>
+    </span>
+
+    <span class="LMform hidden">
+      <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
+                              typeahead: User.all_gls.pluck(:email),
+                              placeholder: 'Link your account to your lab',
+                              tooltip: ['right', 'Your group leader must create an account first'] %>
+    </span>
+
+      <%= f.input :password, input_html: { class: 'js-password' } %>
+      <%= f.input :password_confirmation, input_html: { class: 'js-password-confirmation' } %>
+  </div>
+</div>
 
 	<%= f.button :submit, "Accept invitation", class: "btn btn-warning" %>
 <% end %>

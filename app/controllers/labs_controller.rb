@@ -83,7 +83,7 @@ class LabsController < ApplicationController
     end
 
     def lab_params
-      params.require(:lab).permit(:email, :room,  :name, :lab_id, :department_id, :institute_id, :lock_version, 
+      params.require(:lab).permit(:email, :room, :lab_id, :department_id, :institute_id, 
                                   :department, :institute, :url, :icon, :remove_icon, :remote_icon_url, :icon_cache)
     end
 end

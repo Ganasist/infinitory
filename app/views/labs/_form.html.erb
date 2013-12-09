@@ -2,10 +2,8 @@
                           html: { :class => 'form-vertical', multipart: true } do |f| %>
 
 <%= f.error_notification %>
-
   <div class="row">
     <div class="span4">
-      
       <%= f.input :room, :input_html => { rows: 4 } %>
       <%= f.input :url, label: 'Lab website', placeholder: "Optional" %>
     </div>

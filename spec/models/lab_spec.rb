@@ -95,18 +95,21 @@ describe Lab do
 
   it { should respond_to(:location) }
   describe 'it should respond to the location method' do
-    it 'should return blank if the lab does not have a room' do
-      lab.room = nil
-      expect(lab.location).to eql ""
-    end
-
+    
     it 'should return lab and institute location if the lab does not have a department' do
+      lab.room = "420a"
       expect(lab.location).to eql "#{lab.room} #{lab.institute.address}"
     end
 
     it 'should return the lab and department location if the lab has a department' do
+      lab.room = "420a"
       department = Department.create(institute: gl.institute)
       expect(lab.location).to eql "#{lab.room} #{department.address}"
+    end
+
+    it 'should return blank if the lab does not have a room' do
+      lab.room = nil
+      expect(lab.location).to eql "#{lab.institute.address}"
     end
   end
 end

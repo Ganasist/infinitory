@@ -25,8 +25,9 @@
         <% end %>
         <% if user.joined %>
           <td>Joined <%= time_ago_in_words(user.joined) %> ago</td> 
-        <% end %> 
-        <% if current_user.gl_lm? && current_user.lab == @lab && !user.gl? && current_user != user %>
+        <% end %>
+
+        <% if current_user.retire_permissions?(user, @lab) %>
           <td>
             <%= link_to 'Retire', retire_user_path(user), class: 'btn btn-info' %>
           </td>

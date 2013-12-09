@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index    
     @lab = Lab.friendly.find(params[:lab_id])
-    @users = @lab.users.where(approved: true).order("joined ASC")
+    @users = @lab.users.where(approved: true).order("joined DESC")
     
     @approval = @lab.users.where(approved: false).count
     if @approval > 0 && current_user.gl_lm?
