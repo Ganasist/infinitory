@@ -180,7 +180,7 @@ class User < ActiveRecord::Base
   end
 
   def affiliations
-    if !gl? && confirmed? && approved? && !lab_id.nil? && self.lab_id_changed?
+    if !gl? && confirmed? && approved? && !lab_id.nil?
       self.institute  = self.lab.institute
       self.department = self.lab.department
     end

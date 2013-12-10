@@ -7,7 +7,7 @@
   <%= f.error_notification %>
 
 <% resource.class.invite_key_fields.each do |field| -%>
-  <%= f.input field, label: false,  placeholder: "Enter their e-mail address" %>
+  <%= f.input field, label: false,  placeholder: "Enter their e-mail address", autofocus: true %>
 <% end -%>
 
 <%= f.button :submit, "Send Invitation!", class: "btn btn-warning" %>
