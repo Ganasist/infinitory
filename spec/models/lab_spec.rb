@@ -64,9 +64,9 @@ describe Lab do
   it { should have_db_index(:department_id) }
   it { should have_db_index(:institute_id) }  
 
-  it { should respond_to(:lab_name) }
+  it { should respond_to(:name) }
   its 'lab name should be the same as the group leaders name' do
-    expect(lab.lab_name).to eql gl.fullname
+    expect(lab.name).to eql gl.fullname
   end
 
   it { should respond_to(:lab_email) }

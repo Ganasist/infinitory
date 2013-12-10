@@ -86,8 +86,8 @@ class User < ActiveRecord::Base
   end
 
   def fullname
-    if first_name.blank? || last_name.blank?
-      email
+    if self.first_name.blank? || self.last_name.blank?
+      self.email
     else
       "#{first_name} #{last_name}"
     end
@@ -155,8 +155,7 @@ class User < ActiveRecord::Base
     self.send_confirmation_instructions
     self.lab = Lab.create(email: self.email,
                           institute: self.institute,
-                          department: self.department,
-                          name: self.fullname)
+                          department: self.department)
   end
 
   def first_request
