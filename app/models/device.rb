@@ -1,5 +1,5 @@
 class Device < ActiveRecord::Base
-	CATEGORIES = %w[microscope pcr]
+	CATEGORIES = %w[Calocages FACS microscope PCR_machine]
 
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab

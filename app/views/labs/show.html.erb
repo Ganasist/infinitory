@@ -44,8 +44,8 @@
         <%= link_to lab_reagents_path(@lab), class: "btn-large" do %>
           <i class="icon-beaker"> Reagents (<%= @lab.reagents.size %>)</i>
         <% end %>
-        <%= link_to "#", class: "btn-large" do %>
-          <i class="icon-cogs"> Equipment</i>
+        <%= link_to lab_devices_path(@lab), class: "btn-large" do %>
+          <i class="icon-cogs"> Equipment (<%= @lab.devices.size %>)</i>
         <% end %>
         <%= link_to "#", class: "btn-large" do %>
           <i class="icon-bar-chart"> Statistics</i>

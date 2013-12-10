@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131210125348) do
+ActiveRecord::Schema.define(version: 20131210145558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20131210125348) do
     t.string   "url"
     t.string   "icon"
     t.boolean  "icon_processing"
-    t.integer  "lock_version"
+    t.integer  "lock_version",    default: 0, null: false
     t.string   "uid"
     t.text     "description"
     t.decimal  "price"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20131210125348) do
     t.integer  "users_count",     default: 0
     t.boolean  "icon_processing"
     t.integer  "reagents_count",  default: 0
+    t.integer  "devices_count",   default: 0
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree

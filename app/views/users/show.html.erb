@@ -58,8 +58,8 @@
     <%= link_to user_reagents_path(@user), class: "btn-large" do %>
       <i class="icon-beaker"> Reagents (<%= @user.reagents.length %>)</i>
     <% end %>
-    <%= link_to "#", class: "btn-large" do %>
-      <i class="icon-cogs"> Equipment</i>
+    <%= link_to user_devices_path(@user), class: "btn-large" do %>
+      <i class="icon-cogs"> Equipment (<%= @user.devices.length %>)</i>
     <% end %>
     <%= link_to "#", class: "btn-large" do %>
       <i class="icon-calendar"> Bookings</i>
