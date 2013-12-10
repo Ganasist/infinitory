@@ -27,11 +27,12 @@ class User < ActiveRecord::Base
 
   before_create :first_request, :skip_confirmation!, :skip_confirmation_notification!
   before_create :gl_signup, if: Proc.new { |f| f.gl? }
-  after_create  :first_request_email
+  after_create  :first_request_email, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
   before_update :change_lab, :affiliations
   after_update  :update_lab, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
 
   after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
+  after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
 
   mount_uploader :icon, IconUploader
   process_in_background :icon
@@ -165,14 +166,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def first_request_email  
-    if !self.gl? && !self.confirmed? && !self.approved? && !self.lab.nil?
-      UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
-    end
+  def first_request_email
+    UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
   end
 
   def change_lab
-    if !self.gl? && self.lab_id_changed?
+    if !self.gl? && self.lab_id? && self.lab_id_changed? && invited_by_id != self.gl.id
       self.approved = false
       self.lab_id   = lab_id
       self.joined   = nil
@@ -182,8 +181,8 @@ class User < ActiveRecord::Base
 
   def affiliations
     if !gl? && confirmed? && approved? && !lab.nil? && self.lab_id_changed?
-      self.institute  = lab.institute
-      self.department = lab.department
+      self.institute  = self.lab.institute
+      self.department = self.lab.department
     end
   end
 
@@ -192,6 +191,15 @@ class User < ActiveRecord::Base
     self.joined   = Time.now
     self.lab      = Lab.create(email: self.email,
                                institute: self.institute)
+  end
+
+  def approve_user
+    self.approved = true if invited_by_id == self.gl.id
+    if self.approved?
+      self.joined     = Time.now
+      self.institute  = lab.institute
+      self.department = lab.department
+    end
   end
 
   def update_lab
