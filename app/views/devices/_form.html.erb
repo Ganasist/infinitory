@@ -1,0 +1,67 @@
+<%= simple_form_for [@lab, @device], defaults: { input_html: { style: 'width: 350px' } },
+                                      html: { class: 'form-vertical', multipart: true } do |f| %>
+<%= f.error_notification %>
+<%= f.hidden_field :lock_version %>
+  
+  <div class="form-inputs">
+    <div class="row">
+      <div class="span3"> 
+      <%= f.label "Category (required)" %>
+      <br>
+      <%= f.collection_select :category, Device::CATEGORIES, :to_s, :humanize %>
+      <br>
+      <br>
+      <%= f.input :name, placeholder: 'Required', typeahead: Device.all.pluck(:name).uniq %>
+      <%= f.input :serial, label: 'Serial number' %>
+      <%= f.input :uid, label: 'Unique ID', 
+                        tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
+      <br>
+      <%= f.input :location, label: 'Location in lab', placeholder: "'Room 237' or 'Fz3S1B4'",
+                             tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
+      <%= f.input :url, label: 'Website' %>
+
+      <%= f.input :price, label: 'Price ($USD)' %>
+      <%= f.input :tag_list, label: 'Keywords', placeholder: 'Immunology, restriction enzyme, FACS',
+                             tooltip: ['right', 'Use a comma separated list of keywords'] %>
+
+      </div>
+      <div class="span4 offset4">
+        <label>Image</label><br>
+          <% if @device.icon? %>               
+            <%= image_tag(@device.icon_url(:original)) %><br><br>
+            Remove image
+            <%= f.check_box :remove_icon %><br><br>
+          <% end %>
+          <%= f.input :remote_icon_url, placeholder: 'Enter image URL', label: false %>
+          <h4>or</h4>
+          <%= f.input :icon, label: false %>  
+          <%= f.hidden_field :icon_cache %>
+
+      <% if params[:lab_id] %>    
+        <%= f.association :users, label: 'Contact(s)',
+                                  collection: User.where(lab: @lab).order(:joined),
+                                  value_method: :id,
+                                  label_method: :fullname,
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' } %>
+      <% else %>
+        <%= f.association :users, label: 'Contact(s)',
+                                  collection: User.where(lab: @device.lab).order(:joined),
+                                  value_method: :id,
+                                  label_method: :fullname,
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' } %>
+      <% end %>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn-success' %>
+      <% if params[:lab_id] %>
+        <%= link_to 'Cancel', lab_devices_path(@lab), class: 'btn' %>
+      <% else %>
+        <%= link_to 'Cancel', lab_devices_path(@device.lab), class: 'btn' %>
+      <% end %>
+      <%= link_to ' Destroy', device_path(@device), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+    </div>
+  </div>
+<% end %>

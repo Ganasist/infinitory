@@ -1,0 +1,96 @@
+<%- model_class = device -%>
+<% title "Devices: " + @device.name %>
+<div class="page-header">
+  <h3><%= @device.name %></h3>
+  <h4><%= @device.lab.name %> lab</h4>
+</div>
+
+<dl class="dl-horizontal">
+  <div class="span6 pull-left">
+    <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
+    <dd><%= @device.category.titleize %></dd>
+    <dt><strong>Percent remaining:</strong></dt>
+    <dd><%= @device.remaining %>%</dd>
+    
+    <% if !@device.users.empty? %>
+      <dt><strong>Contact(s):</strong></dt>
+      <% @device.users.each do |user| %>
+      <dd><%= link_to user.fullname, user %></dd>
+      <% end %>
+    <% end %>
+
+    <% if @device.location? %>
+      <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
+      <dd><%= @device.location %></dd>
+    <% end %>
+
+    <% if @device.serial? %>
+      <dt><strong><%= model_class.human_attribute_name(:serial) %> #:</strong></dt>
+      <dd><%= @device.serial %></dd>
+    <% end %>
+
+    <% if @device.uid? %>
+      <dt>Unique ID:</dt>
+      <dd><%= @device.uid %></dd>
+    <% end %>
+
+    <% if @device.lot_number? %>
+      <dt>Lot number:</dt>
+      <dd><%= @device.lot_number %></dd>
+    <% end %>
+
+    <dt><strong>Expiration:</strong></dt>
+    <% if @device.expiration.past? %>
+      <dd><span class="label label-important"><%= "#{time_ago_in_words(@device.expiration)}" %> ago</span></dd>
+    <% elsif expiring?(@device) %>    
+      <dd><span class="label label-warning"><%= time_ago_in_words(@device.expiration) %> from now</dd>
+    <% else %>
+      <dd><span class="label label-success"><%= time_ago_in_words(@device.expiration) %> from now</dd>
+    <% end %>
+
+    <% if @device.url? %>
+      <dt>Website:</dt>
+      <dd><%= link_to "#{@device.url}", url_with_protocol(@device.url), :target => "_blank" %></dd>
+    <% end %>
+
+    <% if @device.price? %>
+      <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
+      <dd><%= number_to_currency(@device.price) %></dd>
+    <% end %>
+
+    <% if !@device.tag_list.empty? %>
+      <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
+      <dd><%= raw @device.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd>
+    <% end %>
+     <br>
+  </div>
+
+  <% if @device.icon.present? %>
+    <div class="span5 pull-right">
+      <%= image_tag(@device.icon_url(:large).to_s).html_safe %><br>
+    </div>
+  <% end %>
+</dl>
+<div class="form-actions">
+  <%= link_to ' Back', lab_devices_path(@lab), class: 'btn'  %>
+  <%= link_to ' Edit', edit_device_path(@device), class: 'icon-edit btn btn-warning' %>
+  <%= link_to ' Destroy', device_path(@device),
+                            method: 'delete', class: 'icon-trash btn btn-danger' %>
+  <%= link_to ' Clone', duplicate_device_path(@device), class: 'icon-code-fork btn btn-info' %>
+
+</div>
+<div class="row">
+  <div class="span6">  
+    <table>
+      <% @activities.each do |activity| %>
+        <% if activity.owner && activity %>      
+            <tr>
+              <%= link_to activity.owner.fullname, activity.owner if activity.owner %>
+              <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
+            </tr>
+            <br><br>
+        <% end %>
+      <% end %>        
+    </table>
+  </div>
+</div>

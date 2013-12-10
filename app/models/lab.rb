@@ -10,6 +10,7 @@ class Lab < ActiveRecord::Base
 
 	has_many :users
   has_many :reagents
+  has_many :devices
 
   mount_uploader :icon, IconUploader
   process_in_background :icon

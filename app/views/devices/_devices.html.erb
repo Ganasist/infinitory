@@ -1,0 +1,44 @@
+<%- model_class = Device -%>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Location</th>
+      <th>Unique ID</th>
+      <% if params[:tag] %>
+        <th><%= model_class.human_attribute_name(:tags) %></th>
+      <% end %>
+      <th>Updated</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @devices.each do |device| %>
+      <tr>
+        <% if low?(device) %>
+          <td><%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %> <span class="label label-warning"> Low</span></td>
+        <% elsif almost_empty?(device) %>
+          <td><%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %> <span class="label label-important">Low</span></td>
+        <% else %>
+          <td><%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %><br>
+          </td>
+        <% end %>
+
+        <td><%= device.category.titleize %></td>  
+        <td><%= device.location %></td>
+        <td><%= device.uid %></td>
+
+        <% if params[:tag] %>
+          <td><%= raw device.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
+        <% end %>
+
+        <td><%= time_ago_in_words(device.updated_at) %> ago</td>
+        <td>
+          <%= link_to ' Edit',
+                      edit_device_path(device), class: 'icon-edit btn btn-mini' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

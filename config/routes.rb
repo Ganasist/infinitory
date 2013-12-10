@@ -13,6 +13,7 @@ Infinitory::Application.routes.draw do
  
   resources :institutes, shallow: true do
     resources :labs do
+      resources :devices
       resources :reagents
       resources :users
     end
@@ -24,17 +25,17 @@ Infinitory::Application.routes.draw do
 
   resources :user, except: [:index, :show, :new, :create, :edit, :update, :delete] do
     resources :reagents, only: [:index, :show]
+    resources :devices,  only: [:index, :show]
   end
 
   get 'tags/:tag', to: 'reagents#index', as: :tag
-
-  
 
   match 'users/:id/activate' => 'users#activate', :as => 'activate_user', via: :get
   match 'users/:id/retire' => 'users#retire', :as => 'retire_user', via: :get  
   match 'users/:id/reject' => 'users#reject', :as => 'reject_user', via: :get
 
   match 'reagents/:id/duplicate' => 'reagents#duplicate', :as => 'duplicate_reagent', via: :get
+  match 'devices/:id/duplicate' => 'devices#duplicate', :as => 'duplicate_device', via: :get
 
   post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 
