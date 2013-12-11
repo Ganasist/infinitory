@@ -14,7 +14,7 @@ class Device < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
-  validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another reagent in the lab with that category, name and UID' }
+  validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another device in the lab with that category, name and UID' }
 
   include PublicActivity::Common
 
@@ -38,7 +38,6 @@ class Device < ActiveRecord::Base
 	
 	acts_as_taggable
 	scope :modified_recently, -> { order("updated_at DESC") }
-
 
 	# store_accessor :properties, :description
 
