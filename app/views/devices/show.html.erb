@@ -9,7 +9,6 @@
   <div class="span6 pull-left">
     <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
     <dd><%= @device.category.titleize %></dd>
-    <dt><strong>Percent remaining:</strong></dt>
     
     <% if !@device.users.empty? %>
       <dt><strong>Contact(s):</strong></dt>
@@ -18,7 +17,7 @@
       <% end %>
     <% end %>
 
-    <% if @device.location? %>
+    <% if !@device.location.empty? %>
       <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
       <dd><%= @device.location %></dd>
     <% end %>
