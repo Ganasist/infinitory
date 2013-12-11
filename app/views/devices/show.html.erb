@@ -1,4 +1,4 @@
-<%- model_class = device -%>
+<%- model_class = Device -%>
 <% title "Devices: " + @device.name %>
 <div class="page-header">
   <h3><%= @device.name %></h3>
@@ -10,7 +10,6 @@
     <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
     <dd><%= @device.category.titleize %></dd>
     <dt><strong>Percent remaining:</strong></dt>
-    <dd><%= @device.remaining %>%</dd>
     
     <% if !@device.users.empty? %>
       <dt><strong>Contact(s):</strong></dt>
@@ -34,19 +33,6 @@
       <dd><%= @device.uid %></dd>
     <% end %>
 
-    <% if @device.lot_number? %>
-      <dt>Lot number:</dt>
-      <dd><%= @device.lot_number %></dd>
-    <% end %>
-
-    <dt><strong>Expiration:</strong></dt>
-    <% if @device.expiration.past? %>
-      <dd><span class="label label-important"><%= "#{time_ago_in_words(@device.expiration)}" %> ago</span></dd>
-    <% elsif expiring?(@device) %>    
-      <dd><span class="label label-warning"><%= time_ago_in_words(@device.expiration) %> from now</dd>
-    <% else %>
-      <dd><span class="label label-success"><%= time_ago_in_words(@device.expiration) %> from now</dd>
-    <% end %>
 
     <% if @device.url? %>
       <dt>Website:</dt>

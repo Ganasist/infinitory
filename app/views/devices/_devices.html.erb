@@ -16,15 +16,10 @@
   <tbody>
     <% @devices.each do |device| %>
       <tr>
-        <% if low?(device) %>
-          <td><%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %> <span class="label label-warning"> Low</span></td>
-        <% elsif almost_empty?(device) %>
-          <td><%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %> <span class="label label-important">Low</span></td>
-        <% else %>
-          <td><%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %><br>
-          </td>
-        <% end %>
-
+        
+        <td>
+          <%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %><br>
+        </td>
         <td><%= device.category.titleize %></td>  
         <td><%= device.location %></td>
         <td><%= device.uid %></td>
