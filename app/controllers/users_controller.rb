@@ -18,14 +18,15 @@ class UsersController < ApplicationController
       redirect_to @user, status: :moved_permanently
     end
     @activities = PublicActivity::Activity.includes(:owner, :trackable).where(owner: @user).limit(25).order("created_at desc")
-    @institute = @user.institute
-    @department = @user.department
-  	@lab = @user.lab
+    @institute = @user.gl.institute
+    @department = @user.gl.department
+  	@lab = @user.gl.lab
     @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
   end
 
   def activate
-    @user.approve
+    @user.approved = true
+    @user.joined = Time.now
     if @user.save
       flash[:notice] = "#{ @user.fullname } has joined your lab #{ undo_link }"
       if !@user.confirmed?

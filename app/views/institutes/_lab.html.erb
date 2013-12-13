@@ -1,4 +1,3 @@
-<% cache @labs do %>
 <hr>           
 	<h4>
 		<%= link_to institute_labs_path(@institute) do %>
@@ -6,24 +5,12 @@
 		<% end %>
 	</h4>
 	<br>
-	    <% @labs.each do |lab| %>
-	    <div class="lab">
-		    <p>
-		    	<%= link_to lab.name, lab_path(lab) %>
-		    <br>
-		    	<%= pluralize(lab.users.size, "member") %>
-		  	</p>
-	    </div>
-	  <% end %>
-
-	  <h4 class="text-center">
-			<% if @labs.previous_page %>
-			  <%= link_to "< Previous ", params.merge(page: @labs.previous_page) %>
-			<% end %>
-		  Page <%= @labs.current_page %> of <%= @labs.total_pages %>
-			<% if @labs.next_page %>
-			  <%= link_to " Next >", params.merge(page: @labs.next_page) %>
-			<% end %>
-			</div>
-		</h4>
-<% end %>
+  <% @labs.each do |lab| %>
+  	<div class="lab">
+	    <p>
+	    	<%= link_to lab.gl.fullname, lab_path(lab) %>
+	    <br>
+	    	<%= pluralize(lab.users.size, "member") %>
+	  	</p>
+    </div>
+  <% end %>

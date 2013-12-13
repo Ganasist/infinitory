@@ -43,13 +43,13 @@
   <% if @department.present? %>
     <h5>
       <%= link_to institute_department_path(@institute, @user.department) do %>
-        <i class="icon-sitemap"></i><%= " #{@department.name}" %>
+        <i class="icon-sitemap"></i><%= " #{@user.gl.department.name}" %>
       <% end %>
     </h5>
   <% end %>
   <h5>
     <%= link_to @institute do %>
-      <i class="icon-building"></i><%= " #{@institute.name}" %>
+      <i class="icon-building"></i><%= " #{@user.gl.institute.name}" %>
     <% end %>
   </h5>
 </dl>
@@ -66,21 +66,20 @@
     <% end %>
   </div>
 </dl>
-<hr>
 <div class="row">
-<div class="span6">  
-  <table>
-    <% @activities.each do |activity| %>
-      <% if activity.owner && activity %>      
-          <tr>
-            <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
-          </tr>
-          <br><br>
-      <% else %>
-          <tr>You have no recent activities.</tr>
-      <% end %>
-    <% end %>        
-  </table>
-</div>
+  <div class="span6">  
+    <table>
+      <% @activities.each do |activity| %>
+        <% if activity.owner && activity %>      
+            <tr>
+              <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
+            </tr>
+            <br><br>
+        <% else %>
+            <tr>You have no recent activities.</tr>
+        <% end %>
+      <% end %>        
+    </table>
+  </div>
 </div>
 

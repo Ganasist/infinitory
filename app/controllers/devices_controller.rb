@@ -12,14 +12,14 @@ class DevicesController < ApplicationController
         @user = User.friendly.find(params[:user_id])
         @devices = @user.devices.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
       elsif params[:lab_id].present?
-        @lab = Lab.friendly.find(params[:lab_id]) 
+        @lab = Lab.find(params[:lab_id]) 
         @devices = @lab.devices.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
       end
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
       @devices = @user.devices.modified_recently.page(params[:page]).per_page(25)
     elsif params[:lab_id].present?
-      @lab = Lab.friendly.find(params[:lab_id]) 
+      @lab = Lab.find(params[:lab_id]) 
       @devices = @lab.devices.modified_recently.page(params[:page]).per_page(25)
     end
   end

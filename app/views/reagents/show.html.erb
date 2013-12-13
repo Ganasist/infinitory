@@ -2,7 +2,7 @@
 <% title "Reagents: " + @reagent.name %>
 <div class="page-header">
   <h3><%= @reagent.name %></h3>
-  <h4><%= @reagent.gl.fullname %> lab</h4>
+  <h4><%= link_to "#{@reagent.gl.fullname}", @reagent.lab %> lab</h4>
 </div>
 
 <dl class="dl-horizontal">

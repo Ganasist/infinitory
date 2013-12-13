@@ -1,27 +1,28 @@
-
 <% title " Institutes: " + @institute.name %>
 
 <%= render "header" %>
-<div class="span5">
-   <%= render 'info' %>
+
+<div class="span4">
+  <%= render 'info' %>
    
-   <% if @institute.departments.present? %>
-			<%= render 'department' %>
-   <% end %>
+  <% if @institute.departments.present? %>
+	  <%= render 'department' %>
+  <% else %>
+    <%= link_to "Add Department", new_institute_department_path(@institute), class: 'btn-large' %>
 
-   <% if !@institute.departments.present? %>
-    <%= link_to "Add Department", new_institute_department_path(@institute), :class => 'btn-large' %> 
-   <% end %>
-
-   <% if @institute.labs.present? %>
+    <% if @institute.labs.present? %>
       <%= render 'lab' %>
-   <% end %>
-</div>
+    <% end %>
 
-<div class="span6">
-    <br>
+  <% end %>
+</div>
+<div class="span7">
+     <% if @institute.departments.present? %>
+        <%= content_tag "div", id: "instituteFlower" do %>
+        <% end %>
+      <% end %>  
+
    <% if @institute.nearbys.present? %>
      <%= render 'nearby' %>
    <% end %>
-    <br>
 </div>

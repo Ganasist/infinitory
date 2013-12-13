@@ -8,5 +8,8 @@ child @departments => "children" do
     node :size do |l|
       l.users.count
     end
+    node :name do |n|
+    	n.gl.fullname
+    end
   end
 end

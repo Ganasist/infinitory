@@ -5,7 +5,7 @@
 <div class="page-header">
   <h3>
     <%= link_to lab_users_path(@lab) do %>
-     <i class="icon-group"></i><%= " The #{ @lab.gl.fullname }Lab" %>
+     <i class="icon-group"></i><%= " The #{ @lab.gl.fullname } Lab" %>
     <% end %>
     <% if current_user.gl_lm? && current_user.lab == @lab %>
       <div class="btn-group">

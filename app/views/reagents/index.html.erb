@@ -3,7 +3,8 @@
   <% if @lab %>
     <h4>The <%= link_to "#{@lab.name} Lab's", @lab %> reagents</h4>  
   <% elsif params[:user_id].present? %>        
-    <h4><%= link_to "#{current_user.fullname}'s", current_user %> reagents</h4>
+    <h3>My reagents</h3>
+    <p><%= link_to "My lab's reagents", lab_reagents_path(current_user.lab) %></p>
   <% end %>
 
   <% if params[:tag] %>
