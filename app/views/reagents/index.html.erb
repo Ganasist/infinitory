@@ -1,7 +1,7 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
   <% if @lab %>
-    <h4>The <%= link_to "#{@lab.name} Lab's", @lab %> reagents</h4>  
+    <h4>The <%= link_to "#{@lab.gl.fullname} Lab's", @lab %> reagents</h4>  
   <% elsif params[:user_id].present? %>        
     <h3>My reagents</h3>
     <p><%= link_to "My lab's reagents", lab_reagents_path(current_user.lab) %></p>
@@ -16,7 +16,7 @@
   <%= form_tag user_reagents_path(current_user.lab), method: :get do %>
     <%= text_field_tag :search, params[:query],
                                 class: "navbar-search",
-                                placeholder: "Search by name, tag, UID or serial"  %>
+                                placeholder: "Search by name, tag, UID or serial" %>
   <% end %>
 <% elsif params[:lab_id].present? %>
   <%= form_tag lab_reagents_path, method: :get do %>
