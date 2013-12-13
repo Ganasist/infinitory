@@ -26,11 +26,14 @@ class User < ActiveRecord::Base
   
   validates :role, presence: true, inclusion: { in: ROLES }
 
-  before_create :first_request, :skip_confirmation!, :skip_confirmation_notification!
-  before_create :gl_signup, if: Proc.new { |f| f.gl? }
+  before_create :skip_confirmation!, :skip_confirmation_notification!
+  before_create :gl_signup, if: Proc.new { |f| f.gl? }  
+  before_create :first_request, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
+  
   after_create  :first_request_email, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
+  
   before_update :change_lab, :affiliations
-  after_update  :update_lab, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
+  after_update  :update_lab, if: Proc.new { |f| f.gl? && f.confirmed? }
 
   after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
   after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
@@ -150,6 +153,15 @@ class User < ActiveRecord::Base
     end 
   end
 
+  def first_request
+    self.institute_id   = lab.institute_id
+    self.department_id  = lab.department_id
+  end
+
+  def first_request_email
+    UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
+  end
+
   def gl_signup
     self.approved = true
     self.joined = Time.now      
@@ -157,33 +169,6 @@ class User < ActiveRecord::Base
     self.lab = Lab.create(email: self.email,
                           institute: self.institute,
                           department: self.department)
-  end
-
-  def first_request
-    if !self.gl? && !self.confirmed? && !self.approved? && !self.lab.nil?
-      self.institute_id   = lab.institute_id
-      self.department_id  = lab.department_id
-    end
-  end
-
-  def first_request_email
-    UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
-  end
-
-  def change_lab
-    if !self.gl? && self.lab_id? && self.lab_id_changed? && invited_by_id != self.gl.id
-      self.approved = false
-      self.lab_id   = lab_id
-      self.joined   = nil
-      UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
-    end
-  end
-
-  def affiliations
-    if !gl? && confirmed? && approved? && !lab_id.nil?
-      self.institute  = self.lab.institute
-      self.department = self.lab.department
-    end
   end
 
   def gl_invited
@@ -202,21 +187,32 @@ class User < ActiveRecord::Base
     end
   end
 
+  def affiliations
+    if !self.gl? && confirmed? && approved? && !lab_id.nil?
+      self.institute  = self.lab.institute
+      self.department = self.lab.department
+    end
+  end
+
   def update_lab
     self.approved = true
     if self.institute_id_changed?
       self.department = nil
     end
-    if (first_name_changed? ||
-        last_name_changed? ||
-        email_changed? ||
-        department_id_changed? ||
+    if (department_id_changed? ||
         institute_id_changed?)
 
-      self.lab.update(email: self.email,
-                      institute: self.institute,
-                      department: self.department,
-                      name: self.fullname)
+      self.lab.update(institute: self.institute,
+                      department: self.department)
+    end
+  end
+
+  def change_lab
+    if !self.gl? && self.lab_id? && self.lab_id_changed? && invited_by_id != self.gl.id
+      self.approved = false
+      self.lab_id   = lab_id
+      self.joined   = nil
+      UserMailer.delay_for(1.second, retry: false).request_email(self.id, self.lab_id)
     end
   end
 

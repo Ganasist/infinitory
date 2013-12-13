@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index    
-    @lab = Lab.friendly.find(params[:lab_id])
+    @lab = Lab.find(params[:lab_id])
     @users = @lab.users.where(approved: true).order("joined ASC")
     
     @approval = @lab.users.where(approved: false).count

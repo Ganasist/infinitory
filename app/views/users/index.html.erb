@@ -5,7 +5,7 @@
       <%= "Nearby scientists interested in #{params[:tag]}" %>
     <% else %>
       <%= link_to @lab do %>
-       <i class="icon-group"></i><%= " #{@lab.name} lab members" %>
+       <i class="icon-group"></i><%= " #{@lab.gl.fullname} lab members" %>
        <% end %>
     <% end %>
   </h3>

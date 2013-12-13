@@ -4,7 +4,7 @@ class LabsController < ApplicationController
   before_action :check_user!
 
   def index
-    @institute = Institute.friendly.find(params[:institute_id])
+    @institute = Institute.find(params[:institute_id])
     @labs = @institute.labs
 
     if params[:department_id].present?
@@ -72,14 +72,14 @@ class LabsController < ApplicationController
 
   private
     def check_user!
-      if current_user.lab != Lab.friendly.find(params[:id])
+      if current_user.lab != Lab.find(params[:id])
         redirect_to current_user
         flash[:alert] = "You cannot access that lab"
       end
     end
 
     def set_lab
-      @lab = Lab.friendly.find(params[:id])
+      @lab = Lab.find(params[:id])
     end
 
     def lab_params

@@ -9,7 +9,7 @@ namespace :db do
     1.times do |n|
       institute = FactoryGirl.create(:institute, city: Faker::Address.city)
 
-      r.rand(2..4).times do |n|   
+      r.rand(1..2).times do |n|   
         gl = User.create!(role:                  'group_leader',
                           email:                 Faker::Internet.email,
                           institute_name:        institute.name,                  
@@ -24,7 +24,7 @@ namespace :db do
         gl.lab.created_at  = gl.created_at
         gl.lab.save
         
-        r.rand(5..12).times do |n|
+        r.rand(6..12).times do |n|
           role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                      master's_student project_student technician other].sample
           user = User.create!(role:                   role,
@@ -41,13 +41,18 @@ namespace :db do
           user.save
         end
 
-        r.rand(20..2000).times do |n|
+        r.rand(20..200).times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           reagent.user_ids = gl.lab.user_ids.sample(Random.rand(6))
         end
+
+        r.rand(20..200).times do |n|
+          device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
+          device.user_ids = gl.lab.user_ids.sample(Random.rand(6))
+        end
       end
       
-      r.rand(2..10).times do |n|  
+      r.rand(2..3).times do |n|  
         department = Department.create!(name:      Faker::Company.name,
                                         institute: institute,
                                         room:      "#{Random.new.rand(1..999)}" + "#{[*('A'..'Z')].sample}",
@@ -55,7 +60,7 @@ namespace :db do
                                         city:      institute.city,
                                         url:       Faker::Internet.url )
         
-        r.rand(3..15).times do |n|   
+        r.rand(3..5).times do |n|   
           gl = User.create!(role:                  'group_leader',
                             email:                 Faker::Internet.email,
                             institute_name:        institute.name,
@@ -69,7 +74,7 @@ namespace :db do
           gl.joined     = gl.created_at
           gl.save
           
-          r.rand(5..20).times do |n|
+          r.rand(6..20).times do |n|
             role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                        master's_student project_student technician other].sample
             user = User.create!(role: role,
@@ -86,9 +91,14 @@ namespace :db do
             user.save
           end
 
-          r.rand(20..2000).times do |n|
+          r.rand(20..200).times do |n|
             reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
             reagent.user_ids = gl.lab.user_ids.sample(Random.rand(6))
+          end
+
+          r.rand(20..200).times do |n|
+            device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
+            device.user_ids = gl.lab.user_ids.sample(Random.rand(6))
           end
         end
       end

@@ -15,27 +15,8 @@ class Lab < ActiveRecord::Base
   mount_uploader :icon, IconUploader
   process_in_background :icon
 
-  extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
-
-  before_update :lab_name, if: Proc.new{ |l| l.gl.present? && name_changed? }
-  before_update :lab_email, if: Proc.new{ |l| l.gl.present? && name_changed? }
-
-  def name
-    name ||= gl.fullname
-  end
-
-  # def email
-  #   gl.email
-  # end
-
-  # def lab_name
-  # 	name = gl.fullname
-  # end
-
-  def lab_email
-  	email = gl.email
-  end
+  # extend FriendlyId
+  # friendly_id :slug_candidates, use: [:slugged, :history]
 
   def institute_name
   	self.institute.name
@@ -75,16 +56,20 @@ class Lab < ActiveRecord::Base
     self.institute = Institute.find_or_create_by(name: name) if name.present?
   end
 
+  def size
+    users.count
+  end
+
 	private
 
 	def should_generate_new_friendly_id?
   	name_changed?
   end
 
-  def slug_candidates
-    [
-      :name,
-      [:name, :city]
-    ]
-  end
+  # def slug_candidates
+  #   [
+  #     :name,
+  #     [:name, :city]
+  #   ]
+  # end
 end
