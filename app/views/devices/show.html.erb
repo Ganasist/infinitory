@@ -59,13 +59,12 @@
 <div>
   <%= link_to ' Back', lab_devices_path(@lab), class: 'btn'  %>
   <%= link_to ' Edit', edit_device_path(@device), class: 'icon-edit btn btn-warning' %>
-  <%= link_to ' Destroy', device_path(@device),
-                            method: 'delete', class: 'icon-trash btn btn-danger' %>
+  <%= link_to ' Destroy', device_path(@device), method: 'delete', class: 'icon-trash btn btn-danger' %>
   <%= link_to ' Clone', duplicate_device_path(@device), class: 'icon-code-fork btn btn-info' %>
-
 </div>
 <div class="row">
-  <div class="span6">  
+  <div class="span6">
+  <br> 
     <table>
       <% @activities.each do |activity| %>
         <% if activity.owner && activity %>      

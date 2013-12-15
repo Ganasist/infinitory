@@ -12,7 +12,7 @@
   <% end %>
 </div>
 
-<div class="span5">
+<div class="span6">
 <% if params[:user_id].present? %>
   <%= form_tag user_devices_path(current_user.lab), method: :get do %>
     <%= text_field_tag :search, params[:query],
