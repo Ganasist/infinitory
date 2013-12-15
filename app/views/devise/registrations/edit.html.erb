@@ -2,12 +2,11 @@
 <br>
 
 <%= simple_form_for(resource, :as => resource_name, url: registration_path(resource_name),
-                    defaults: { input_html: { style: 'width: 350px' } },
                     html: { method: :put, class: 'form-vertical', multipart: true }) do |f| %>
 <%= f.error_notification %>
 <div class="form-inputs">
   <div class="row">
-    <div class="span3">
+    <div class="span5">
       <%= f.input :email, required: true, autofocus: true %>
       <%= f.input :first_name %>
       <%= f.input :last_name %>
@@ -38,7 +37,7 @@
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
     </div>
-    <div class="span6 pull-right">
+    <div class="span5 pull-right">
       <label>Picture</label><br>
        <% if @user.icon? %>
          <%= image_tag(@user.icon_url(:original)) %><br><br>
@@ -60,12 +59,12 @@
                                            wrapper_html: { style: 'display: none' } %>
     </div>
   </div>
-  
-  
+
+<div class="span5">
   <%= f.input :current_password, hint: 'Enter current password to confirm changes',
                                  required: true %>
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+  <div>
+    <%= f.button :submit, "Update", class: "btn btn-warning" %>
   </div>
 <% end %>
 
@@ -73,6 +72,8 @@
 <h5><%= link_to "Delete my account",
                   registration_path(resource_name),
                   data: { confirm: 'Are you sure you want to delete your account?' },
-                  method: :delete %></h5>
+                  method: :delete %></h5><br><br>
+
+</div>
 <br>
 </div>
