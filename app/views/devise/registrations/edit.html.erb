@@ -63,9 +63,7 @@
 <div class="span5">
   <%= f.input :current_password, hint: 'Enter current password to confirm changes',
                                  required: true %>
-  <div>
-    <%= f.button :submit, "Update", class: "btn btn-warning" %>
-  </div>
+    <%= f.button :submit, "Update", class: "btn-primary" %>
 <% end %>
 
 <h4><%= link_to "Cancel update", :back %></h4>
@@ -73,7 +71,6 @@
                   registration_path(resource_name),
                   data: { confirm: 'Are you sure you want to delete your account?' },
                   method: :delete %></h5><br><br>
-
 </div>
 <br>
 </div>

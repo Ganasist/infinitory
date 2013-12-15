@@ -1,13 +1,12 @@
-<%= simple_form_for @lab, defaults: { input_html: { style: 'width: 350px' } },
-                          html: { :class => 'form-vertical', multipart: true } do |f| %>
+<%= simple_form_for @lab, html: { :class => 'form-vertical', multipart: true } do |f| %>
 
 <%= f.error_notification %>
   <div class="row">
-    <div class="span4">
+    <div class="span5">
       <%= f.input :room, :input_html => { rows: 4 } %>
       <%= f.input :url, label: 'Lab website', placeholder: "Optional" %>
     </div>
-    <div class="span6 pull-right">
+    <div class="span5 pull-right">
       <label>Lab picture</label><br>
       <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
       <% if @lab.icon? %>        
@@ -20,8 +19,8 @@
       <%= f.hidden_field :icon_cache %>
     </div>
   </div>
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn-primary' %>
+  <div class="span5">
+    <%= f.button :submit, class: 'btn btn-primary' %><br><br>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 lab_path(@lab), :class => 'btn' %>
   </div>

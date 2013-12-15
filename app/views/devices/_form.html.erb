@@ -1,11 +1,10 @@
-<%= simple_form_for [@lab, @device], defaults: { input_html: { style: 'width: 350px' } },
-                                      html: { class: 'form-vertical', multipart: true } do |f| %>
+<%= simple_form_for [@lab, @device], html: { class: 'form-vertical', multipart: true } do |f| %>
 <%= f.error_notification %>
 <%= f.hidden_field :lock_version %>
   
   <div class="form-inputs">
     <div class="row">
-      <div class="span3"> 
+      <div class="span5"> 
       <%= f.label "Category (required)" %>
       <br>
       <%= f.collection_select :category, Device::CATEGORIES, :to_s, :humanize %>
@@ -25,7 +24,7 @@
                              tooltip: ['right', 'Use a comma separated list of keywords'] %>
 
       </div>
-      <div class="span4 offset4">
+      <div class="span5 pull-right">
         <label>Image</label><br>
           <% if @device.icon? %>               
             <%= image_tag(@device.icon_url(:original)) %><br><br>
@@ -54,8 +53,8 @@
       <% end %>
       </div>
     </div>
-    <div class="form-actions">
-      <%= f.button :submit, class: 'btn-success' %>
+    <div class="span5">
+      <%= f.button :submit, class: 'btn-primary' %><br><br>
       <% if params[:lab_id] %>
         <%= link_to 'Cancel', lab_devices_path(@lab), class: 'btn' %>
       <% else %>

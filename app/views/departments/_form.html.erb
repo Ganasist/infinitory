@@ -30,8 +30,8 @@
       </div>
     </div>
 
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+  <%= f.button :submit, class: 'btn-primary' %>
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
               institute_path(@institute), :class => 'btn' %>
 <% end %>
 

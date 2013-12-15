@@ -1,18 +1,17 @@
-<%= simple_form_for @institute,  defaults: { input_html: { style: 'width: 350px' } },
-                                 html: { class: 'form-vertical', multipart: true } do |f| %>
+<%= simple_form_for @institute, html: { class: 'form-vertical', multipart: true } do |f| %>
   
 <%= f.error_notification %>
 <%= f.hidden_field :lock_version %>
 
   <div class="row">
-    <div class="span4">      
+    <div class="span5">      
       <%= f.input :name, label: 'Institute name' %>
       <%= f.input :alternate_name, placeholder: 'Optional' %>
       <%= f.input :acronym, placeholder: 'Optional', label: 'Acronym' %>
       <%= f.input :address, input_html: { rows: 4 }, as: :text %>
       <%= f.input :url, label: 'Website', placeholder: 'Optional' %>
     </div>
-    <div class="span6 pull-right">
+    <div class="span5 pull-right">
       <label>Logo</label><br>
       <% if @institute.icon? %>               
         <%= image_tag(@institute.icon_url(:original)) %><br><br>
@@ -25,10 +24,9 @@
       <%= f.hidden_field :icon_cache %>
     </div>
   </div>
-  
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn-primary' %>
+    <div class="span5">
+    <%= f.button :submit, class: 'btn-primary' %><br><br>
     <%= link_to t('.cancel', default: t("helpers.links.cancel")),
                 institute_path(@institute), :class => 'btn' %>
-  </div>
+    </div>
 <% end %>
