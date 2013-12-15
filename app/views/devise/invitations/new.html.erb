@@ -1,14 +1,15 @@
 <br>
 <%= simple_form_for resource, as: resource_name,
 															url: invitation_path(resource_name),
-															defaults: { input_html: { style: 'width: 310px' } },
 															html: {method: :post} do |f| %>
-															
-  <%= f.error_notification %>
+			
+<div class="span4">													
+	<%= f.error_notification %>
 
-<% resource.class.invite_key_fields.each do |field| -%>
-  <%= f.input field, label: false,  placeholder: "Enter their e-mail address", autofocus: true %>
-<% end -%>
+	<% resource.class.invite_key_fields.each do |field| -%>
+	  <%= f.input field, label: false,  placeholder: "Enter their e-mail address", autofocus: true %>
+	<% end -%>
 
-<%= f.button :submit, "Send Invitation!", class: "btn btn-warning" %>
+	<%= f.button :submit, "Send Invitation!", class: "btn btn-warning" %>
+</div>
 <% end %>

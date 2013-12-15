@@ -11,23 +11,23 @@
     <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
   <% end %>
 </div>
-
+<div class="span5">
 <% if params[:user_id].present? %>
   <%= form_tag user_reagents_path(current_user.lab), method: :get do %>
     <%= text_field_tag :search, params[:query],
-                                class: "navbar-search",
+                                class: "search-field",
                                 placeholder: "Search by name, tag, UID or serial" %>
   <% end %>
 <% elsif params[:lab_id].present? %>
   <%= form_tag lab_reagents_path, method: :get do %>
     <%= text_field_tag :search, params[:query],
-                                class: "navbar-search",
+                                class: "search-field",
                                 placeholder: "Search by name, tag, UID or serial"  %>
   <% end %>
 <% end %>
-<br><br><br>
-  <%= link_to " Add new reagent", new_lab_reagent_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %>
+<%= link_to " Add new reagent", new_lab_reagent_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %>
   <br><br>
-  <%= render 'reagents' %>
+</div>
 
+<%= render 'reagents' %>
 <%= will_paginate @reagents, class: 'text-center lead' %>
