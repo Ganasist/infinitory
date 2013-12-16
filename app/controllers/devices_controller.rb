@@ -104,7 +104,7 @@ class DevicesController < ApplicationController
     end
 
     def set_lab
-      @lab = Lab.friendly.find(params[:lab_id])   
+      @lab = Lab.find(params[:lab_id])   
     end
 
     def device_params

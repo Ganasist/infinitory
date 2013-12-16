@@ -2,7 +2,6 @@
 <%= f.error_notification %>
 <%= f.hidden_field :lock_version %>
   
-  <div class="form-inputs">
     <div class="row">
       <div class="span5"> 
       <%= f.label "Category (required)" %>
@@ -67,5 +66,4 @@
       <% end %>
       <%= link_to ' Destroy', reagent_path(@reagent), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
     </div>
-  </div>
 <% end %>
