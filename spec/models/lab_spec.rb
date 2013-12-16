@@ -18,7 +18,6 @@ describe Lab do
   end
 
   context 'database columns' do
-    expect_it { to have_db_column(:name).of_type(:string) }
     expect_it { to have_db_column(:department_id).of_type(:integer) }
     expect_it { to have_db_column(:institute_id).of_type(:integer) }
     expect_it { to have_db_column(:room).of_type(:string) }
@@ -33,7 +32,6 @@ describe Lab do
 
   context 'database indexes' do
     expect_it { to have_db_index(:email) }
-    expect_it { to have_db_index(:slug).unique(true) }
     expect_it { to have_db_index(:department_id) }
     expect_it { to have_db_index(:institute_id) }
   end
@@ -63,16 +61,6 @@ describe Lab do
   it { should have_db_index(:slug).unique(true) }
   it { should have_db_index(:department_id) }
   it { should have_db_index(:institute_id) }  
-
-  it { should respond_to(:name) }
-  its 'lab name should be the same as the group leaders name' do
-    expect(lab.name).to eql gl.fullname
-  end
-
-  it { should respond_to(:lab_email) }
-  its 'lab name should be the same as the group leaders name' do
-    expect(lab.lab_email).to eql gl.email
-  end
 
   it 'is invalid without a group leader'
   it 'is invalid with more than one group leader'

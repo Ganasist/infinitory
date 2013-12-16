@@ -195,7 +195,6 @@ describe User do
   end  
 
   it { should respond_to(:reject) }
-  it { should respond_to(:approve) }
   it { should respond_to(:retire) }
   it { should respond_to(:confirmed?) }
   it { should respond_to(:location) }

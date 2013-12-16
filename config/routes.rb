@@ -2,6 +2,9 @@ require 'sidekiq/web'
 
 Infinitory::Application.routes.draw do
 
+  resources :resources do
+	  resources :bookings
+	end
   authenticated :user do
     root :to => 'users#show', as: :authenticated_root
   end
