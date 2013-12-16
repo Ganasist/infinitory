@@ -7,7 +7,7 @@
         <% if user_signed_in? && current_user.gl? && current_user.institute == @institute %>
           <div class="btn-group">
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_institute_path(@institute), :class => 'btn-small btn-success' %>
+                          edit_institute_path(@institute), class: 'btn btn-warning' %>
           </div>
         <% end %>
       </h3>
@@ -18,17 +18,7 @@
         <br>
         </h4>
       <% end %>
-      <br>
-      <p><%= pluralize(@institute.labs.size, "group") + " & " + pluralize(@institute.users.size, "member") %></p>
 
-
-      <%= link_to "#", class: "btn-large" do %>
-        <i class="icon-bullhorn"> Announcements</i>
-      <% end %>
-      <%= link_to "#", class: "btn-large" do %>
-        <i class="icon-bar-chart"> Statistics</i>
-      <% end %>
-      <br><br>
-
-           
+      <h4><%= pluralize(@institute.labs.size, "group") + " & " + pluralize(@institute.users.size, "member") %></h4>
+               
   </div>

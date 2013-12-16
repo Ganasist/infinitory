@@ -1,4 +1,3 @@
-<% cache @departments do %>
 <hr>           
 	<h4>
 		<%= link_to institute_departments_path(@institute) do %>
@@ -17,5 +16,4 @@
 	    </div>
 	  <% end %>
 	  <br>
-    <%= link_to "Add Department", new_institute_department_path(@institute), :class => 'btn-large' %>      
-<% end %>
+    <%= link_to "Add Department", new_institute_department_path(@institute), class: 'btn-large btn-warning' %>      

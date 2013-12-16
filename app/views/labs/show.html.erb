@@ -10,7 +10,7 @@
     <% if current_user.gl_lm? && current_user.lab == @lab %>
       <div class="btn-group">
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_lab_path(@lab), :class => 'btn-mini btn-success' %>
+                      edit_lab_path(@lab), class: 'btn btn-warning' %>
       </div>
     <% end %>
   </h3>
@@ -38,16 +38,16 @@
   </dl>
 
     <div class='row-fluid'>
-        <%= link_to "#", class: "btn-large" do %>
+        <%= link_to "#", class: "btn-large btn-warning" do %>
           <i class="icon-bullhorn"> Announcements</i>
         <% end %>
-        <%= link_to lab_reagents_path(@lab), class: "btn-large" do %>
+        <%= link_to lab_reagents_path(@lab), class: "btn-large btn-warning" do %>
           <i class="icon-beaker"> Reagents (<%= @lab.reagents.size %>)</i>
         <% end %>
-        <%= link_to lab_devices_path(@lab), class: "btn-large" do %>
+        <%= link_to lab_devices_path(@lab), class: "btn-large btn-warning" do %>
           <i class="icon-cogs"> Devices (<%= @lab.devices.size %>)</i>
         <% end %>
-        <%= link_to "#", class: "btn-large" do %>
+        <%= link_to "#", class: "btn-large btn-warning" do %>
           <i class="icon-bar-chart"> Statistics</i>
         <% end %>
     </div>

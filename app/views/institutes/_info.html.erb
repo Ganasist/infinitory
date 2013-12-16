@@ -1,15 +1,13 @@
 <%- model_class = Institute -%>
-  <dl class="dl-vertical">
-    <% if @institute.url.present? && @institute.icon.present? %>
-    	<dd class="text-center"><%= link_to image_tag(@institute.icon_url(:large).to_s).html_safe, @institute.url %></dd>
-    <% elsif @institute.url.present? && @institute.icon.blank? %>
-    	<dt><strong>Website</strong></dt>
-      <dd><%= link_to "#{@institute.url}", @institute.url, :only_path => false  %></dd>
-      <br>
-    <% end %>
+  <% if @institute.url.present? && @institute.icon.present? %>
+  	<dd class="text-center"><%= link_to image_tag(@institute.icon_url(:large).to_s).html_safe, @institute.url %></dd>
+  <% elsif @institute.url.present? && @institute.icon.blank? %>
+  	<dt><strong>Website</strong></dt>
+    <dd><%= link_to "#{@institute.url}", @institute.url, only_path: false  %></dd>
     <br>
-    <% if @institute.address.present? %>
-    <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
-    <dd><%= @institute.address %></dd>
-    <% end %>
-  </dl>
+  <% end %>
+  <br>
+  <% if @institute.address.present? %>
+  <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
+  <dd><%= @institute.address %></dd>
+  <% end %>
