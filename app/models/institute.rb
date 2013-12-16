@@ -17,7 +17,7 @@ class Institute < ActiveRecord::Base
   validates :name, presence: true, allow_blank: false
  
 	validates :url, allow_blank: true,
-  								format: { with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+  								format: { with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix,
   													multiline: true,
   													message: "is not valid" }
 
