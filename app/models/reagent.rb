@@ -21,7 +21,7 @@ class Reagent < ActiveRecord::Base
   														if: Proc.new { |reagent| reagent.expiration_changed? }
 
   before_save :set_expiration, if: Proc.new { |reagent| reagent.expiration.blank? }
-	
+
 	include PublicActivity::Common
 
 	amoeba do

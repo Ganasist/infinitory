@@ -1,7 +1,7 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe LabsController do
-  describe "routing" do
+  describe 'routing' do
 
     # it "routes to #index" do
     #   get("/labs").should route_to("labs#index")

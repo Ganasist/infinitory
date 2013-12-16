@@ -14,260 +14,260 @@
 ActiveRecord::Schema.define(version: 20131216143555) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "hstore"
+  enable_extension 'plpgsql'
+  enable_extension 'hstore'
 
-  create_table "activities", force: true do |t|
-    t.integer  "trackable_id"
-    t.string   "trackable_type"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "key"
-    t.text     "parameters"
-    t.integer  "recipient_id"
-    t.string   "recipient_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'activities', force: true do |t|
+    t.integer  'trackable_id'
+    t.string   'trackable_type'
+    t.integer  'owner_id'
+    t.string   'owner_type'
+    t.string   'key'
+    t.text     'parameters'
+    t.integer  'recipient_id'
+    t.string   'recipient_type'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+  add_index 'activities', %w['owner_id', 'owner_type'], name: 'index_activities_on_owner_id_and_owner_type', using: :btree
+  add_index 'activities', %w['recipient_id', 'recipient_type'], name: 'index_activities_on_recipient_id_and_recipient_type', using: :btree
+  add_index 'activities', %w['trackable_id', 'trackable_type'], name: 'index_activities_on_trackable_id_and_trackable_type', using: :btree
 
-  create_table "bookings", force: true do |t|
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer  "length"
-    t.integer  "device_id"
+  create_table 'bookings', force: true do |t|
+    t.datetime 'start_time'
+    t.datetime 'end_time'
+    t.integer  'length'
+    t.integer  'device_id'
   end
 
-  add_index "bookings", ["device_id"], name: "index_bookings_on_device_id", using: :btree
+  add_index 'bookings', ['device_id'], name: 'index_bookings_on_device_id', using: :btree
 
-  create_table "departments", force: true do |t|
-    t.string   "name"
-    t.integer  "institute_id"
-    t.text     "address"
-    t.float    "longitude"
-    t.float    "latitude"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "url"
-    t.string   "city"
-    t.string   "country"
-    t.string   "room"
-    t.integer  "users_count",     default: 0
-    t.integer  "labs_count",      default: 0
-    t.string   "email"
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "lock_version",    default: 0, null: false
+  create_table 'departments', force: true do |t|
+    t.string   'name'
+    t.integer  'institute_id'
+    t.text     'address'
+    t.float    'longitude'
+    t.float    'latitude'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string   'url'
+    t.string   'city'
+    t.string   'country'
+    t.string   'room'
+    t.integer  'users_count',     default: 0
+    t.integer  'labs_count',      default: 0
+    t.string   'email'
+    t.string   'icon'
+    t.boolean  'icon_processing'
+    t.integer  'lock_version',    default: 0, null: false
   end
 
-  add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
-  add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
-  add_index "departments", ["latitude", "longitude"], name: "index_departments_on_latitude_and_longitude", using: :btree
-  add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
+  add_index 'departments', ['email'], name: 'index_departments_on_email', using: :btree
+  add_index 'departments', ['institute_id'], name: 'index_departments_on_institute_id', using: :btree
+  add_index 'departments', %w['latitude', 'longitude'], name: 'index_departments_on_latitude_and_longitude', using: :btree
+  add_index 'departments', %w['name', 'institute_id'], name: 'index_departments_on_name_and_institute_id', unique: true, using: :btree
 
-  create_table "devices", force: true do |t|
-    t.string   "name"
-    t.string   "category"
-    t.string   "location"
-    t.string   "serial"
-    t.integer  "lab_id"
-    t.integer  "user_id"
-    t.string   "url"
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "lock_version",    default: 0, null: false
-    t.string   "uid"
-    t.text     "description"
-    t.decimal  "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'devices', force: true do |t|
+    t.string   'name'
+    t.string   'category'
+    t.string   'location'
+    t.string   'serial'
+    t.integer  'lab_id'
+    t.integer  'user_id'
+    t.string   'url'
+    t.string   'icon'
+    t.boolean  'icon_processing'
+    t.integer  'lock_version',    default: 0, null: false
+    t.string   'uid'
+    t.text     'description'
+    t.decimal  'price'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
-  add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree
-  add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
+  add_index 'devices', %w['lab_id', 'name', 'uid', 'category'], name: 'index_devices_on_lab_id_and_name_and_uid_and_category', unique: true, using: :btree
+  add_index 'devices', ['lab_id'], name: 'index_devices_on_lab_id', using: :btree
+  add_index 'devices', ['user_id'], name: 'index_devices_on_user_id', using: :btree
 
-  create_table "events", force: true do |t|
-    t.string   "name"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'events', force: true do |t|
+    t.string   'name'
+    t.datetime 'start_at'
+    t.datetime 'end_at'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  create_table "friendly_id_slugs", force: true do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type", limit: 40
-    t.string   "scope"
-    t.datetime "created_at"
+  create_table 'friendly_id_slugs', force: true do |t|
+    t.string   'slug',                      null: false
+    t.integer  'sluggable_id',              null: false
+    t.string   'sluggable_type', limit: 40
+    t.string   'scope'
+    t.datetime 'created_at'
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  add_index 'friendly_id_slugs', %w['slug', 'sluggable_type', 'scope'], name: 'index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope', unique: true, using: :btree
+  add_index 'friendly_id_slugs', %w['slug', 'sluggable_type'], name: 'index_friendly_id_slugs_on_slug_and_sluggable_type', using: :btree
+  add_index 'friendly_id_slugs', ['sluggable_id'], name: 'index_friendly_id_slugs_on_sluggable_id', using: :btree
+  add_index 'friendly_id_slugs', ['sluggable_type'], name: 'index_friendly_id_slugs_on_sluggable_type', using: :btree
 
-  create_table "institutes", force: true do |t|
-    t.string   "name"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "city"
-    t.text     "address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "alternate_name"
-    t.string   "country"
-    t.string   "url"
-    t.string   "acronym"
-    t.string   "slug"
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "users_count",     default: 0
-    t.integer  "labs_count",      default: 0
-    t.string   "email"
-    t.integer  "lock_version",    default: 0, null: false
+  create_table 'institutes', force: true do |t|
+    t.string   'name'
+    t.float    'latitude'
+    t.float    'longitude'
+    t.string   'city'
+    t.text     'address'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string   'alternate_name'
+    t.string   'country'
+    t.string   'url'
+    t.string   'acronym'
+    t.string   'slug'
+    t.string   'icon'
+    t.boolean  'icon_processing'
+    t.integer  'users_count',     default: 0
+    t.integer  'labs_count',      default: 0
+    t.string   'email'
+    t.integer  'lock_version',    default: 0, null: false
   end
 
-  add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
-  add_index "institutes", ["latitude", "longitude"], name: "index_institutes_on_latitude_and_longitude", using: :btree
-  add_index "institutes", ["name", "address"], name: "index_institutes_on_name_and_address", unique: true, using: :btree
-  add_index "institutes", ["slug"], name: "index_institutes_on_slug", unique: true, using: :btree
+  add_index 'institutes', ['email'], name: 'index_institutes_on_email', using: :btree
+  add_index 'institutes', %w['latitude', 'longitude'], name: 'index_institutes_on_latitude_and_longitude', using: :btree
+  add_index 'institutes', %w['name', 'address'], name: 'index_institutes_on_name_and_address', unique: true, using: :btree
+  add_index 'institutes', ['slug'], name: 'index_institutes_on_slug', unique: true, using: :btree
 
-  create_table "labs", force: true do |t|
-    t.integer  "department_id"
-    t.integer  "institute_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "room"
-    t.string   "url"
-    t.string   "icon"
-    t.string   "slug"
-    t.string   "email"
-    t.integer  "users_count",     default: 0
-    t.boolean  "icon_processing"
-    t.integer  "reagents_count",  default: 0
-    t.integer  "devices_count",   default: 0
+  create_table 'labs', force: true do |t|
+    t.integer  'department_id'
+    t.integer  'institute_id'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string   'room'
+    t.string   'url'
+    t.string   'icon'
+    t.string   'slug'
+    t.string   'email'
+    t.integer  'users_count',     default: 0
+    t.boolean  'icon_processing'
+    t.integer  'reagents_count',  default: 0
+    t.integer  'devices_count',   default: 0
   end
 
-  add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
-  add_index "labs", ["email"], name: "index_labs_on_email", using: :btree
-  add_index "labs", ["institute_id"], name: "index_labs_on_institute_id", using: :btree
+  add_index 'labs', %w['department_id'], name: 'index_labs_on_department_id', using: :btree
+  add_index 'labs', ['email'], name: 'index_labs_on_email', using: :btree
+  add_index 'labs', %w['institute_id'], name: 'index_labs_on_institute_id', using: :btree
 
-  create_table "ownerships", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "reagent_id"
-    t.integer  "device_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'ownerships', force: true do |t|
+    t.integer  'user_id'
+    t.integer  'reagent_id'
+    t.integer  'device_id'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  create_table "reagents", force: true do |t|
-    t.string   "name",                                                  null: false
-    t.string   "category",                                              null: false
-    t.string   "location"
-    t.decimal  "price",           precision: 9, scale: 2
-    t.string   "serial"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.hstore   "properties"
-    t.integer  "lab_id"
-    t.integer  "user_id"
-    t.string   "url"
-    t.date     "expiration"
-    t.integer  "remaining",                               default: 100, null: false
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "lock_version",                            default: 0,   null: false
-    t.string   "uid"
-    t.string   "lot_number"
+  create_table 'reagents', force: true do |t|
+    t.string   'name',                                                  null: false
+    t.string   'category',                                              null: false
+    t.string   'location'
+    t.decimal  'price',           precision: 9, scale: 2
+    t.string   'serial'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.hstore   'properties'
+    t.integer  'lab_id'
+    t.integer  'user_id'
+    t.string   'url'
+    t.date     'expiration'
+    t.integer  'remaining',                               default: 100, null: false
+    t.string   'icon'
+    t.boolean  'icon_processing'
+    t.integer  'lock_version',                            default: 0,   null: false
+    t.string   'uid'
+    t.string   'lot_number'
   end
 
-  add_index "reagents", ["lab_id", "uid", "name", "category"], name: "index_reagents_on_lab_id_and_uid_and_name_and_category", unique: true, using: :btree
-  add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
-  add_index "reagents", ["properties"], name: "reagents_properties", using: :gin
-  add_index "reagents", ["user_id"], name: "index_reagents_on_user_id", using: :btree
+  add_index 'reagents', %w['lab_id', 'uid', 'name', 'category'], name: 'index_reagents_on_lab_id_and_uid_and_name_and_category', unique: true, using: :btree
+  add_index 'reagents', ['lab_id'], name: 'index_reagents_on_lab_id', using: :btree
+  add_index 'reagents', ['properties'], name: 'reagents_properties', using: :gin
+  add_index 'reagents', ['user_id'], name: 'index_reagents_on_user_id', using: :btree
 
-  create_table "resources", force: true do |t|
-    t.string "name"
+  create_table 'resources', force: true do |t|
+    t.string 'name'
   end
 
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
+  create_table 'taggings', force: true do |t|
+    t.integer  'tag_id'
+    t.integer  'taggable_id'
+    t.string   'taggable_type'
+    t.integer  'tagger_id'
+    t.string   'tagger_type'
+    t.string   'context',       limit: 128
+    t.datetime 'created_at'
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  add_index 'taggings', ['tag_id'], name: 'index_taggings_on_tag_id', using: :btree
+  add_index 'taggings', %w['taggable_id', 'taggable_type', 'context'], name: 'index_taggings_on_taggable_id_and_taggable_type_and_context', using: :btree
 
-  create_table "tags", force: true do |t|
-    t.string "name"
+  create_table 'tags', force: true do |t|
+    t.string 'name'
   end
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "lab_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "role"
-    t.integer  "institute_id"
-    t.integer  "department_id"
-    t.boolean  "approved",               default: false, null: false
-    t.string   "icon"
-    t.datetime "joined"
-    t.string   "slug"
-    t.boolean  "icon_processing"
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
+  create_table 'users', force: true do |t|
+    t.string   'email',                  default: '',    null: false
+    t.string   'encrypted_password',     default: '',    null: false
+    t.string   'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.integer  'sign_in_count',          default: 0
+    t.datetime 'current_sign_in_at'
+    t.datetime 'last_sign_in_at'
+    t.string   'current_sign_in_ip'
+    t.string   'last_sign_in_ip'
+    t.string   'confirmation_token'
+    t.datetime 'confirmed_at'
+    t.datetime 'confirmation_sent_at'
+    t.string   'unconfirmed_email'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.integer  'lab_id'
+    t.string   'first_name'
+    t.string   'last_name'
+    t.string   'role'
+    t.integer  'institute_id'
+    t.integer  'department_id'
+    t.boolean  'approved',               default: false, null: false
+    t.string   'icon'
+    t.datetime 'joined'
+    t.string   'slug'
+    t.boolean  'icon_processing'
+    t.string   'invitation_token'
+    t.datetime 'invitation_created_at'
+    t.datetime 'invitation_sent_at'
+    t.datetime 'invitation_accepted_at'
+    t.integer  'invitation_limit'
+    t.integer  'invited_by_id'
+    t.string   'invited_by_type'
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["department_id"], name: "index_users_on_department_id", using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["institute_id"], name: "index_users_on_institute_id", using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
-  add_index "users", ["lab_id"], name: "index_users_on_lab_id", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+  add_index 'users', ['confirmation_token'], name: 'index_users_on_confirmation_token', unique: true, using: :btree
+  add_index 'users', ['department_id'], name: 'index_users_on_department_id', using: :btree
+  add_index 'users', ['email'], name: 'index_users_on_email', unique: true, using: :btree
+  add_index 'users', ['institute_id'], name: 'index_users_on_institute_id', using: :btree
+  add_index 'users', ['invitation_token'], name: 'index_users_on_invitation_token', unique: true, using: :btree
+  add_index 'users', ['invited_by_id'], name: 'index_users_on_invited_by_id', using: :btree
+  add_index 'users', ['lab_id'], name: 'index_users_on_lab_id', using: :btree
+  add_index 'users', ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true, using: :btree
+  add_index 'users', ['slug'], name: 'index_users_on_slug', unique: true, using: :btree
 
-  create_table "versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
+  create_table 'versions', force: true do |t|
+    t.string   'item_type',  null: false
+    t.integer  'item_id',    null: false
+    t.string   'event',      null: false
+    t.string   'whodunnit'
+    t.text     'object'
+    t.datetime 'created_at'
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+  add_index 'versions', %w['item_type', 'item_id'], name: 'index_versions_on_item_type_and_item_id', using: :btree
 
 end

@@ -136,13 +136,13 @@ describe User do
 
   it 'changes the number of Users' do
     user = build(:user, lab: gl.lab)
-    expect{ user.save }.to change{ User.count }.by(1)
+    expect { user.save }.to change { User.count }.by(1)
   end
 
   describe 'when it is a group leader' do
     xit 'changes the number of Labs when it is created' do
       gl = build(:admin)
-      expect{ gl.save }.to change{ Lab.count }.by(1)
+      expect { gl.save }.to change { Lab.count }.by(1)
     end
 
     it 'returns the gl when gl is called on a gl with a Lab' do

@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
-
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
-  devise :invitable, :database_authenticatable, :registerable, :confirmable, :async,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
+  devise :invitable, :database_authenticatable, :registerable,
+         :confirmable, :async, :recoverable, :rememberable,
+         :trackable, :validatable, :timeoutable
 
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
