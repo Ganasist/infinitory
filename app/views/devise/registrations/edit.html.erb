@@ -15,24 +15,28 @@
                                      required: false %>
         <br>
         <br>      
-      <span class="LMform hidden">
+
+      <span class="LMform">
         <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
                                 typeahead: User.all_gls.pluck(:email),
                                 placeholder: 'Link your account to your lab',
                                 tooltip: ['right', 'Your group leader must first create an account']  %>
       </span>
 
-      <span class="GLform hidden">
+      <span class="GLform">
         <%= f.input :institute_name, placeholder: 'Find or create your institute',
                                      typeahead: Institute.all.pluck(:name).uniq %>
         <span id="department_select">
-          <%= f.input :department_id, collection: Institute.where(id: current_user.institute), 
+          <%= f.input :department_id, collection: Institute.where(id: current_user.institute.id), 
                                       as: :grouped_select,
+                                      label_method: :name,
                                       group_method: :departments,
+                                      required: false,
                                       include_blank: 'None' %>
         </span>
         <br>
       </span>
+
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
@@ -40,7 +44,7 @@
     <div class="span5 pull-right">
       <label>Picture</label><br>
        <% if @user.icon? %>
-         <%= image_tag(@user.icon_url(:original)) %><br><br>
+         <%= image_tag(@user.icon_url(:portrait)) %><br><br>
          Remove image
         <%= f.check_box :remove_icon %><br><br>
        <% end %>

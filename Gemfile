@@ -23,8 +23,6 @@ gem 'public_activity'
 
 gem 'amoeba'
 
-gem 'bookable', '~> 0.0.52'
-
 gem 'gon'
 gem 'rabl'
 gem 'oj'

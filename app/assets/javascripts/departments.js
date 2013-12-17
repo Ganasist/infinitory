@@ -12,7 +12,7 @@ jQuery(function() {
   return $('#user_institute_name').blur(function() {
     var after;
     after = $('#user_institute_name').val();
-    $('#department_select').val() === "";
+    $('#user_department_id').val() === "";
     if (before !== after) {
       return $('#department_select').hide();
     }
