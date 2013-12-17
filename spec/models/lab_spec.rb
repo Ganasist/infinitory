@@ -58,7 +58,6 @@ describe Lab do
   it { should validate_presence_of(:email) }
   
   it { should have_db_index(:email) }
-  it { should have_db_index(:slug).unique(true) }
   it { should have_db_index(:department_id) }
   it { should have_db_index(:institute_id) }  
 

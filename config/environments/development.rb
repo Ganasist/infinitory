@@ -31,3 +31,10 @@ Infinitory::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 end
+
+Infinitory::Application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[Whatever] ",
+      :sender_address => 'johntrichereau@gmail.com',
+      :exception_recipients => 'johntrichereau@gmail.com'
+    }
