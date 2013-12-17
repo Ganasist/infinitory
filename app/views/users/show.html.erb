@@ -5,7 +5,7 @@
     <div class="row">
       <% if @user.icon.present? %>
         <div class="span2 pull-left user-icon-portrait">
-            <%= image_tag(@user.icon_url(:large).to_s).html_safe %><br>
+            <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %><br>
         </div>
       <% end %>
      <%= "#{@user.fullname}" %>
