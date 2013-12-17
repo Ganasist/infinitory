@@ -41,7 +41,7 @@ describe 'Users' do
 					click_button 'Sign up'					
 
 					current_path.should == '/edit'
-					page.should have_content('Please wait for approval to join the #{@gl.fullname} lab')
+					page.should have_content("Please wait for approval to join the #{@gl.fullname} lab")
 					open_last_email.should be_delivered_to @gl.email
 					assert_equal 1, Sidekiq::Extensions::DelayedMailer.jobs.size
 					open_last_email.should have_subject 'Confirmation instructions'
