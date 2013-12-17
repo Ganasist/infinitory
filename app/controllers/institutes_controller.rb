@@ -17,10 +17,10 @@ class InstitutesController < ApplicationController
   end
 
   def show
-    @departments = Department.includes(:labs).where(institute_id: find_institute)
+    @departments = Department.where(institute_id: find_institute)
     @labs = Lab.where(institute_id: find_institute).order("created_at ASC")
 
-    gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
+    # gon.rabl "app/views/institutes/show.json.rabl", as: "institute"
   end
 
   def new
