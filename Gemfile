@@ -25,8 +25,6 @@ gem 'amoeba'
 
 gem 'bookable', '~> 0.0.52'
 
-gem 'exception_notification'
-
 gem 'gon'
 gem 'rabl'
 gem 'oj'
