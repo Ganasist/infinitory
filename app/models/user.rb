@@ -197,8 +197,11 @@ class User < ActiveRecord::Base
     if institute_id_changed?
       self.lab.update(institute: self.institute,
                       department: nil)
+      self.lab.users.update_all(institute_id: self.institute_id,
+                                department_id: nil)
     elsif department_id_changed?
-      self.lab.update(department: self.department)      
+      self.lab.update(department: self.department)
+      self.lab.users.update_all(department_id: self.department_id)    
     end
   end
 

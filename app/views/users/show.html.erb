@@ -43,13 +43,13 @@
   <% if @department.present? %>
     <h5>
       <%= link_to institute_department_path(@institute, @department) do %>
-        <i class="icon-sitemap"></i><%= " #{@user.gl.department.name}" %>
+        <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
       <% end %>
     </h5>
   <% end %>
   <h5>
     <%= link_to @institute do %>
-      <i class="icon-building"></i><%= " #{@user.gl.institute.name}" %>
+      <i class="icon-building"></i><%= " #{@user.institute.name}" %>
     <% end %>
   </h5>
 </dl>
