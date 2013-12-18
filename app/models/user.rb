@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
   
   after_create  :first_request_email, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
   
-  before_update :change_lab, :affiliations
-  after_update  :update_lab, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
+  before_update :switch_labs
+  after_update  :update_lab_affiliations, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
 
   after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
   after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
@@ -183,17 +183,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def affiliations
-    if !self.gl? && confirmed? && approved? && !lab_id.nil?
-      self.institute  = self.lab.institute
-      self.department = self.lab.department
-    end
-    if self.gl? && institute_id_changed?
-      self.department = nil
-    end
-  end
-
-  def update_lab
+  def update_lab_affiliations
     if institute_id_changed?
       self.lab.update(institute: self.institute,
                       department: nil)
@@ -205,7 +195,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def change_lab
+  def switch_labs
     if !self.gl? && self.lab_id? && self.lab_id_changed? && invited_by_id != self.gl.id
       self.approved = false
       self.lab_id   = lab_id
