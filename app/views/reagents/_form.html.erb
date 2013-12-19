@@ -9,7 +9,7 @@
       <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
       <br>
       <br>
-      <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
+      <%= f.input :name, placeholder: 'Required', typeahead: @lab.reagents.pluck(:name) %>
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :lot_number, label: 'Lot number' %>
       <%= f.input :uid, label: 'Unique ID', 
@@ -42,14 +42,14 @@
 
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Contact(s)',
-                                  collection: User.where(lab: @lab).order(:joined),
+                                  collection: User.where(lab: @lab).order(:first_name),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
                                   input_html: { style: 'width: 50px' } %>
       <% else %>
         <%= f.association :users, label: 'Contact(s)',
-                                  collection: User.where(lab: @reagent.lab).order(:joined),
+                                  collection: User.where(lab: @reagent.lab).order(:first_name),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
@@ -64,6 +64,8 @@
       <% else %>
         <%= link_to 'Cancel', lab_reagents_path(@reagent.lab), class: 'btn' %>
       <% end %>
-      <%= link_to ' Destroy', reagent_path(@reagent), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+      <% unless @reagent.id.nil? %>
+        <%= link_to ' Destroy', reagent_path(@reagent), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+      <% end %>
     </div>
 <% end %>

@@ -37,14 +37,14 @@
 
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Contact(s)',
-                                  collection: User.where(lab: @lab).order(:joined),
+                                  collection: User.where(lab: @lab).order(:first_name),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
                                   input_html: { style: 'width: 50px' } %>
       <% else %>
         <%= f.association :users, label: 'Contact(s)',
-                                  collection: User.where(lab: @device.lab).order(:joined),
+                                  collection: User.where(lab: @device.lab).order(:first_name),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
@@ -59,7 +59,9 @@
       <% else %>
         <%= link_to 'Cancel', lab_devices_path(@device.lab), class: 'btn' %>
       <% end %>
-      <%= link_to ' Destroy', device_path(@device), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+      <% unless @device.id.nil? %>
+        <%= link_to ' Destroy', device_path(@device), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+      <% end %>
     </div>
   
 <% end %>

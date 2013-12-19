@@ -1,6 +1,6 @@
 <div id="push">
   <% if user_signed_in? %>
-    <%= nav_bar brand: 'INFINITORY', brand_link: user_path(current_user), responsive: false, class: 'inactive' do %>
+    <%= nav_bar brand: "INFINITORY", brand_link: user_path(current_user), responsive: false, class: 'inactive' do %>
       <% if current_user.lab.present? %>
         <%= menu_group do %>
           <%= menu_item " Invite a scientist", new_user_invitation_path, class: "icon-link", id: "invitation" %>
