@@ -81,10 +81,11 @@ Infinitory::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  Infinitory::Application.config.middleware.use ExceptionNotification::Rack,
-  email: {
-    email_prefix: "[ERRORR] ",
-    sender_address: %{"Admin" <admin@infinitory.com>},
-    exception_recipients: %w{exceptions@example.com}
-  }
+  # Infinitory::Application.config.middleware.use ExceptionNotification::Rack,
+  # email: {
+  #   email_prefix: "[Error!] ",
+  #   sender_address: %{"ERROR" <exceptions@infinitory.com>},
+  #   exception_recipients: %w{admin@infinitory.com},
+  #   email_format: :html
+  # }
 end

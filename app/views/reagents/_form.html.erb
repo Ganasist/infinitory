@@ -9,7 +9,7 @@
       <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
       <br>
       <br>
-      <%= f.input :name, placeholder: 'Required', typeahead: @lab.reagents.pluck(:name) %>
+      <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :lot_number, label: 'Lot number' %>
       <%= f.input :uid, label: 'Unique ID', 
