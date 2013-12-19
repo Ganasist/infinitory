@@ -21,6 +21,8 @@ gem 'acts-as-taggable-on'
 
 gem 'public_activity'
 
+gem 'exception_notification'
+
 gem 'amoeba'
 
 gem 'gon'

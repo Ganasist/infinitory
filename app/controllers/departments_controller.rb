@@ -14,7 +14,7 @@ class DepartmentsController < ApplicationController
 
   def show
     @labs = Lab.includes(:users).where(department_id: params[:id])
-    gon.rabl "app/views/departments/show.json.rabl", as: "department"
+    # gon.rabl "app/views/departments/show.json.rabl", as: "department"
   end
 
   def new
