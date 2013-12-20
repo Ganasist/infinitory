@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates_presence_of :department_id, allow_blank: true
 
   belongs_to :lab, counter_cache: true, touch: true
-  validates_associated  :lab
+  validates_associated :lab
   validates :lab, presence: { message: 'Your group leader must create an account first' },
                     unless: Proc.new{ |f| f.gl? || !f.new_record? }, allow_blank: true
 

@@ -33,6 +33,7 @@ describe Reagent do
   end
 
   context 'database indexes' do
+    expect_it { to have_db_index([:lab_id, :uid, :name, :category]).unique(true) }
     expect_it { to have_db_index(:lab_id) }
     expect_it { to have_db_index(:user_id) }
     expect_it { to have_db_index(:properties) }
@@ -43,9 +44,9 @@ describe Reagent do
     expect(reagent).to have(1).errors_on(:lab)
   end
 
-  it 'is invalid without a user' do
+  it 'is valid without a user' do
     reagent.users = nil
-    expect(reagent).to have(1).errors_on(:user)
+    expect(reagent).to have(0).errors_on(:user)
   end
 
   it 'is invalid without a category' do
@@ -59,12 +60,6 @@ describe Reagent do
       invalid_category_reagent = build(:reagent, category: category)
       expect(invalid_category_reagent).to have(1).errors_on(:category)
     end
-  end
-
-  it 'defaults to group leader as contact User if the former contact User leaves the lab' do
-    reagent.user = nil
-    reagent.save
-    expect(reagent.user).to eql reagent.lab.gl
   end
 
   it 'defaults to expiring 3 years into the future if expiration is not explicitly set' do
