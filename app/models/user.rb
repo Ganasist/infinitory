@@ -187,6 +187,7 @@ class User < ActiveRecord::Base
   def update_lab_affiliations
     if email_changed?
       self.lab.update(email: self.email)
+    end
     if institute_id_changed?
       self.lab.update(institute: self.institute,
                       department: nil)
