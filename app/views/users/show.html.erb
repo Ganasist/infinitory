@@ -34,39 +34,44 @@
   </h3>
 </div>
 
-<dl class="dl-horizontal">
-  <h5>
-    <%= link_to @lab do %>
-      <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
-    <% end %>
-  </h5>  
-  <% if @department.present? %>
-    <h5>
-      <%= link_to institute_department_path(@institute, @department) do %>
-        <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
-      <% end %>
-    </h5>
-  <% end %>
-  <h5>
-    <%= link_to @institute do %>
-      <i class="icon-building"></i><%= " #{@user.institute.name}" %>
-    <% end %>
-  </h5>
-</dl>
 
 <div class="row">
-  <div class="span6">  
+  <div class="span8">
+    <dl class="dl-horizontal">
+      <h5>
+        <%= link_to @lab do %>
+          <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
+        <% end %>
+      </h5>  
+      <% if @department.present? %>
+        <h5>
+          <%= link_to institute_department_path(@institute, @department) do %>
+            <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
+          <% end %>
+        </h5>
+      <% end %>
+      <h5>
+        <%= link_to @institute do %>
+          <i class="icon-building"></i><%= " #{@user.institute.name}" %>
+        <% end %>
+      </h5>
+    </dl>
+    <hr>
+  </div>
+
+  <div class="span4">  
     <table>
-      <% @activities.each do |activity| %>
-        <% if activity.owner && activity %>      
+      <h4>Recent Activity</h4><br>
+        <% if @activities.present? %> 
+          <% @activities.each do |activity| %>     
             <tr>
               <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
             </tr>
             <br><br>
+          <% end %>
         <% else %>
-            <tr>You have no recent activities.</tr>
+            <tr>No recent activities.</tr>
         <% end %>
-      <% end %>        
     </table>
   </div>
 </div>

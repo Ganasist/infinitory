@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if request.path != user_path(@user)
       redirect_to @user, status: :moved_permanently
     end
-    @activities = PublicActivity::Activity.includes(:owner, :trackable).where(owner: @user).limit(25).order("created_at desc")
+    @activities = PublicActivity::Activity.includes(:trackable).where(owner: @user).limit(25).order("created_at desc")
     @institute = @user.institute
     @department = @user.department
   	@lab = @user.lab

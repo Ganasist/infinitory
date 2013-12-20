@@ -7,22 +7,16 @@
     <title><%= content_for?(:title) ? yield(:title) : "Infinitory" %></title>
     <%= include_gon %>
     <%= csrf_meta_tags %>
-
     <script type="text/javascript" src="//use.typekit.net/fin5feo.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
     <%= render 'layouts/header' %>
   </head>
   <body>
     <%= render 'layouts/navbar' %>
-      <div class="container-fluid">
-          <div class="span12">
-            <%= bootstrap_flash %>
-            <%= yield %>
-          </div>
-      </div>
-    <%= render 'layouts/footer' %>
-    </div> <!-- /container -->    
+     
+    <%= render 'layouts/main' %>
+
+    <%= render 'layouts/footer' %>  
     <!-- Javascripts -->
     <%= javascript_include_tag "application" %>
     <%= yield :scripts %>

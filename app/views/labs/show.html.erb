@@ -38,8 +38,8 @@
   </dl>
 
     <div class='row-fluid'>
-        <%= link_to "#", class: "btn-large btn-warning" do %>
-          <i class="icon-bullhorn"> Announcements</i>
+        <%= link_to lab_users_path(@lab), class: "btn-large btn-warning" do %>
+          <i class="icon-group"> Members <%= "(#{@lab.users.length})" %></i>
         <% end %>
         <%= link_to lab_reagents_path(@lab), class: "btn-large btn-warning" do %>
           <i class="icon-beaker"> Reagents (<%= @lab.reagents.size %>)</i>

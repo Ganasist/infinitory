@@ -14,15 +14,13 @@
                                      prompt: 'Choose your position',
                                      required: false %>
         <br>
-        <br>      
-
+        <br>
       <span class="LMform">
         <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
                                 typeahead: User.all_gls.pluck(:email),
                                 placeholder: 'Link your account to your lab',
                                 tooltip: ['right', 'Your group leader must first create an account']  %>
       </span>
-
       <span class="GLform">
         <%= f.input :institute_name, placeholder: 'Find or create your institute',
                                      typeahead: Institute.all.pluck(:name).uniq %>
@@ -64,17 +62,17 @@
     </div>
   </div>
 
-<div class="span5">
-  <%= f.input :current_password, hint: 'Enter current password to confirm changes',
-                                 required: true %>
-    <%= f.button :submit, "Update", class: "btn-warning" %>
-<% end %>
+<div class="row">
+  <div class="span5">
+    <%= f.input :current_password, hint: 'Enter current password to confirm changes',
+                                   required: true %>
+      <%= f.button :submit, "Update", class: "btn-warning" %>
+  <% end %>
 
-<h4><%= link_to "Cancel update", :back %></h4>
-<h5><%= link_to "Delete my account",
-                  registration_path(resource_name),
-                  data: { confirm: 'Are you sure you want to delete your account?' },
-                  method: :delete %></h5><br><br>
-</div>
-<br>
+  <h4><%= link_to "Cancel update", :back %></h4>
+  <h5><%= link_to "Delete my account",
+                    registration_path(resource_name),
+                    data: { confirm: 'Are you sure you want to delete your account?' },
+                    method: :delete %></h5><br><br>
+  </div>
 </div>

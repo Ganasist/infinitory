@@ -52,16 +52,17 @@
       <% end %>
       </div>
     </div>
-    <div class="span5">
-      <%= f.button :submit, class: 'btn-large btn-warning' %><br><br>
-      <% if params[:lab_id] %>
-        <%= link_to 'Cancel', lab_devices_path(@lab), class: 'btn' %>
-      <% else %>
-        <%= link_to 'Cancel', lab_devices_path(@device.lab), class: 'btn' %>
-      <% end %>
-      <% unless @device.id.nil? %>
-        <%= link_to ' Destroy', device_path(@device), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
-      <% end %>
+    <div class="row">
+      <div class="span5">
+        <%= f.button :submit, class: 'btn-large btn-warning' %><br><br>
+        <% if params[:lab_id] %>
+          <%= link_to 'Cancel', lab_devices_path(@lab), class: 'btn' %>
+        <% else %>
+          <%= link_to 'Cancel', lab_devices_path(@device.lab), class: 'btn' %>
+        <% end %>
+        <% unless @device.id.nil? %>
+          <%= link_to ' Destroy', device_path(@device), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+        <% end %>
+      </div>
     </div>
-  
 <% end %>
