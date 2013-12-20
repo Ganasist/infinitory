@@ -18,9 +18,9 @@ class UsersController < ApplicationController
       redirect_to @user, status: :moved_permanently
     end
     @activities = PublicActivity::Activity.includes(:owner, :trackable).where(owner: @user).limit(25).order("created_at desc")
-    @institute = @user.gl.institute
-    @department = @user.gl.department
-  	@lab = @user.gl.lab
+    @institute = @user.institute
+    @department = @user.department
+  	@lab = @user.lab
     @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
   end
 
