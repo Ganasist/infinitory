@@ -35,7 +35,7 @@ class IconUploader < CarrierWave::Uploader::Base
   end
 
   version :portrait, from_version: :original do
-    process resize_to_limit: [200, 120]
+    process resize_to_limit: [300, 300]
   end
 
   version :large, from_version: :original do

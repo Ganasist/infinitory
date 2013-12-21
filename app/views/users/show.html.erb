@@ -1,6 +1,8 @@
 <%- model_class = User -%>
 <% title 'People: ' + @user.fullname %>
-<div class="page-header">
+  
+<div class="row">
+  <div class="span8">
   <h3>
     <div class="row">
       <% if @user.icon.present? %>
@@ -30,35 +32,31 @@
             <%= " #{@user.role.humanize}" %>
           </small>
         <% end %>
-    </div>
-  </h3>
-</div>
-
-
-<div class="row">
-  <div class="span8">
-    <dl class="dl-horizontal">
-      <h5>
-        <%= link_to @lab do %>
-          <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
-        <% end %>
-      </h5>  
-      <% if @department.present? %>
+      
+      <dl class="dl-horizontal">
         <h5>
-          <%= link_to institute_department_path(@institute, @department) do %>
-            <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
+          <%= link_to @lab do %>
+            <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
+          <% end %>
+        </h5>  
+        <% if @department.present? %>
+          <h5>
+            <%= link_to institute_department_path(@institute, @department) do %>
+              <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
+            <% end %>
+          </h5>
+        <% end %>
+        <h5>
+          <%= link_to @institute do %>
+            <i class="icon-building"></i><%= " #{@user.institute.name}" %>
           <% end %>
         </h5>
-      <% end %>
-      <h5>
-        <%= link_to @institute do %>
-          <i class="icon-building"></i><%= " #{@user.institute.name}" %>
-        <% end %>
-      </h5>
-    </dl>
-    <hr>
+      </dl>
+    </div>
+    <br>
+    <span id="calendar_view"></span>
+  </h3>
   </div>
-
   <div class="span4">  
     <table>
       <h4>Recent Activity</h4><br>
