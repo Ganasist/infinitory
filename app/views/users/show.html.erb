@@ -34,27 +34,26 @@
         <% end %>
       
       <dl class="dl-horizontal">
-        <h5>
-          <%= link_to @lab do %>
-            <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
-          <% end %>
-        </h5>  
-        <% if @department.present? %>
           <h5>
-            <%= link_to institute_department_path(@institute, @department) do %>
-              <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
+            <%= link_to @lab do %>
+              <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
+            <% end %>
+          </h5>  
+          <% if @department.present? %>
+            <h5>
+              <%= link_to institute_department_path(@institute, @department) do %>
+                <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
+              <% end %>
+            </h5>
+          <% end %>
+          <h5>
+            <%= link_to @institute do %>
+              <i class="icon-building"></i><%= " #{@user.institute.name}" %>
             <% end %>
           </h5>
-        <% end %>
-        <h5>
-          <%= link_to @institute do %>
-            <i class="icon-building"></i><%= " #{@user.institute.name}" %>
-          <% end %>
-        </h5>
-      </dl>
+        </dl>
     </div>
-    <br>
-    <span id="calendar_view"></span>
+     <span id="calendar_view"></span>
   </h3>
   </div>
   <div class="span4">  
