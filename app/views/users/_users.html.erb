@@ -29,7 +29,7 @@
 
         <% if current_user.retire_permissions?(user, @lab) %>
           <td>
-            <%= link_to 'Retire', retire_user_path(user), class: 'btn btn-info' %>
+            <%= link_to '  Retire', retire_user_path(user), class: 'btn btn-info fa fa-chain-broken fa-lg' %>
           </td>
         <% end %>
       </tr>

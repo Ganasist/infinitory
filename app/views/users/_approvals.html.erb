@@ -10,10 +10,10 @@
         <tr>
           <td><%= user.fullname %></td>
           <td>
-            <%= link_to 'Authorize', activate_user_path(user), class: 'btn btn-info' %>
+            <%= link_to ' Authorize', activate_user_path(user), class: 'btn btn-info fa fa-lg fa-check-square-o' %>
           </td>
           <td>
-            <%= link_to 'Decline', reject_user_path(user), class: 'btn btn-danger' %>
+            <%= link_to ' Decline', reject_user_path(user), class: 'btn btn-danger fa fa-lg fa-minus-square-o' %>
           </td> 
           <% end %>    
         </tr>

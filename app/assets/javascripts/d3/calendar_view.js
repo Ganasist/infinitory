@@ -15,10 +15,10 @@ var d = new Date()
 
 var svg = d3.select("#calendar_view").selectAll("svg")
     .data(d3.range(d.getFullYear(), d.getFullYear() + 1))
-  .enter().append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("class", "RdYlGn");
+    .enter().append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "RdYlGn");
 
 // svg.append("text")
 //     .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
