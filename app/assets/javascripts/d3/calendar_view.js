@@ -44,17 +44,17 @@ svg.selectAll(".month")
     .attr("class", "month")
     .attr("d", monthPath);
 
-d3.csv("dji.csv", function(error, csv) {
-  var data = d3.nest()
-    .key(function(d) { return d.Date; })
-    .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
-    .map(csv);
+// d3.csv("dji.csv", function(error, csv) {
+//   var data = d3.nest()
+//     .key(function(d) { return d.Date; })
+//     .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+//     .map(csv);
 
-  rect.filter(function(d) { return d in data; })
-      .attr("class", function(d) { return "day " + color(data[d]); })
-    .select("title")
-      .text(function(d) { return d + ": " + percent(data[d]); });
-});
+//   rect.filter(function(d) { return d in data; })
+//       .attr("class", function(d) { return "day " + color(data[d]); })
+//     .select("title")
+//       .text(function(d) { return d + ": " + percent(data[d]); });
+// });
 
 function monthPath(t0) {
   var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
