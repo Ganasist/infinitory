@@ -2,63 +2,60 @@
 <% title 'People: ' + @user.fullname %>
   
 <div class="row">
-  <div class="span8">
+  <div class="span7">
   <h3>
-    <div class="row">
-      <% if @user.icon.present? %>
-        <div class="span2 pull-left user-icon-portrait">
-            <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %><br>
-        </div>
-      <% end %>
-     <%= "#{@user.fullname}" %>
-        <% if current_user == @user %>
-          <%= link_to t('.edit', :default => t('helpers.links.edit')),
-                      edit_user_registration_path, class: 'btn btn-warning' %>
-        <% end %>
-      <br>
-        <% if @user.icon.blank? %>
-          <small class="lead">
-            <% if @user.gl? %>
-              <i class="icon-lightbulb"></i>
-            <% elsif @user.lm? %>
-              <i class="icon-eye-open"></i>
-            <% else %>
-              <i class="icon-user"></i>
-            <% end %>
-            <%= " #{@user.role.humanize}" %>
-          </small>
-        <% else %>
-          <small class="lead">
-            <%= " #{@user.role.humanize}" %>
-          </small>
-        <% end %>
-      
-      <dl class="dl-horizontal">
-          <h5>
-            <%= link_to @lab do %>
-              <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
-            <% end %>
-          </h5>  
-          <% if @department.present? %>
-            <h5>
-              <%= link_to institute_department_path(@institute, @department) do %>
-                <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
-              <% end %>
-            </h5>
+    <% if @user.icon.present? %>
+      <div class="pull-left user-icon-portrait">
+          <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %>
+      </div>
+    <% end %>
+   <%= "#{@user.fullname}" %>
+    <br>
+      <% if @user.icon.blank? %>
+        <small class="lead">
+          <% if @user.gl? %>
+            <i class="icon-lightbulb"></i>
+          <% elsif @user.lm? %>
+            <i class="icon-eye-open"></i>
+          <% else %>
+            <i class="icon-user"></i>
           <% end %>
-          <h5>
-            <%= link_to @institute do %>
-              <i class="icon-building"></i><%= " #{@user.institute.name}" %>
-            <% end %>
-          </h5>
-        </dl>
-    </div>
-     <span id="calendar_view"></span>
+          <%= " #{@user.role.humanize}" %>
+        </small>
+      <% else %>
+        <small class="lead">
+          <%= " #{@user.role.humanize}" %>
+        </small>
+      <% end %>
+      <% if current_user == @user %>
+        <%= link_to t('.edit', :default => t('helpers.links.edit')),
+                    edit_user_registration_path, class: 'btn-small btn-warning' %>
+      <% end %>
+      <dl class="dl-horizontal">
+      <h5>
+        <%= link_to @lab do %>
+          <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
+        <% end %>
+      </h5>  
+      <% if @department.present? %>
+        <h5>
+          <%= link_to institute_department_path(@institute, @department) do %>
+            <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
+          <% end %>
+        </h5>
+      <% end %>
+      <h5>
+        <%= link_to @institute do %>
+          <i class="icon-building"></i><%= " #{@user.institute.name}" %>
+        <% end %>
+      </h5>
+    </dl>
   </h3>
-  </div>
-  <div class="span4">  
+   <span id="calendar_view"></span>    
+  </div>  
+  <div class="span5">
     <table>
-      <h4>Recent Activity</h4><br>
+      <h3>Recent Activity</h3><br>
         <% if @activities.present? %> 
           <% @activities.each do |activity| %>     
             <tr>
