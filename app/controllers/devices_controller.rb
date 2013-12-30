@@ -42,7 +42,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @duplicate.save
         @duplicate.create_activity :create, owner: current_user
-        format.html { redirect_to @duplicate, notice: 'device was successfully cloned.' }
+        format.html { redirect_to @duplicate, notice: 'Device was successfully cloned.' }
         format.json { render action: 'show', status: :created, location: @duplicate }
       else
         format.html { render action: 'edit' }
@@ -56,7 +56,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         @device.create_activity :create, owner: current_user
-        format.html { redirect_to @device, notice: 'device was successfully created.' }
+        format.html { redirect_to @device, notice: 'Device was successfully created.' }
         format.json { render action: 'show', status: :created, location: @device }
       else
         format.html { render action: 'new' }

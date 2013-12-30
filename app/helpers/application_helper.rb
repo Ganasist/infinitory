@@ -9,12 +9,18 @@ module ApplicationHelper
   end
 	
 	def badging(activity)
-		if activity.key ==	"reagent.create"
+		if activity.key == "reagent.create"
 			raw('<span class="badge">+1</span>')
 		elsif activity.key == "reagent.update"
 	  	raw('<span class="badge badge-warning">+2</span>')
-	  elsif activity.key == "reagent.delete"              
-	  	raw('<span class="badge">+3</span>')
+	  elsif activity.key == "reagent.delete"
+	   	raw('<span class="badge">+3</span>')
+		elsif activity.key == "device.create"
+			raw('<span class="badge">+1</span>')
+		elsif activity.key == "device.update"
+	  	raw('<span class="badge badge-warning">+2</span>')
+	  elsif activity.key == "device.delete"
+	   	raw('<span class="badge">+3</span>')
 	  end
 	end
 end

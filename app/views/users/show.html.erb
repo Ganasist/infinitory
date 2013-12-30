@@ -31,6 +31,8 @@
         <%= link_to t('.edit', :default => t('helpers.links.edit')),
                     edit_user_registration_path, class: 'btn-small btn-warning' %>
       <% end %>
+      <br>
+      <small class="lead"><%= @user.points %> pts</small>
       <dl class="dl-horizontal">
       <h5>
         <%= link_to @lab do %>

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_merit
+
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
