@@ -4,7 +4,7 @@
     <div class="form-inputs">                          
       <%= f.error_notification %>
       <%= f.input :email %>
-      <%= f.input :comment, as: :text, input_html: { rows: 4 } %>
+      <%= f.input :comment, as: :text, input_html: { rows: 6, class: "span4" } %>
       <%= f.button :submit, "Send!", class: "btn btn-warning" %>
     </div>
   <% end %>

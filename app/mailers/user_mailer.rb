@@ -24,4 +24,10 @@ class UserMailer < ActionMailer::Base
     @lab  = Lab.find(lab_id)
     mail(to: @user.email, subject: "Farewell from the #{@lab.name} lab")
   end
+
+  def feedback_email(feedback)
+    @feedback = feedback
+    mail(to: "admin@infinitory.com", subject: "Feedback from #{@feedback.email}")
+  end
+
 end

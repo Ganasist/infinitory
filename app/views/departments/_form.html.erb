@@ -9,7 +9,7 @@
                          placeholder: "Find or create your department", 
                          typeahead: Department.where(institute: current_user.institute).pluck(:name) %>
       
-      <%= f.input :address, input_html: { rows: 5 }, as: :text, placeholder: "Optional"  %>
+      <%= f.input :address, input_html: { rows: 5, class: "span5" }, as: :text, placeholder: "Optional"  %>
       <%= f.input :room, placeholder: "Optional"  %>
       <%= f.input :url, label: 'Website', placeholder: "Optional" %>
 
