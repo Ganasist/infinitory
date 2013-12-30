@@ -1,0 +1,11 @@
+<div class="row span4">
+  <h3>Your feedback is valued!</h3>
+  <%= simple_form_for @message, html: { class: 'form-vertical', multipart: true } do |f| %>
+    <div class="form-inputs">                          
+      <%= f.error_notification %>
+      <%= f.input :email %>
+      <%= f.input :comment, as: :text, input_html: { rows: 4 } %>
+      <%= f.button :submit, "Send!", class: "btn btn-warning" %>
+    </div>
+  <% end %>
+</div>

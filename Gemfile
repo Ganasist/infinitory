@@ -25,6 +25,8 @@ gem 'exception_notification'
 
 gem 'amoeba'
 
+gem 'active_attr'
+
 gem 'gon'
 gem 'rabl'
 gem 'oj'

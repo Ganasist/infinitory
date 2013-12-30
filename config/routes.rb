@@ -5,6 +5,9 @@ Infinitory::Application.routes.draw do
   resources :resources do
 	  resources :bookings
 	end
+
+  resources :messages, only: [:new, :create]
+
   authenticated :user do
     root :to => 'users#show', as: :authenticated_root
   end
