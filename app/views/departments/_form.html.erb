@@ -12,6 +12,10 @@
       <%= f.input :address, input_html: { rows: 5 }, as: :text, placeholder: "Optional"  %>
       <%= f.input :room, placeholder: "Optional"  %>
       <%= f.input :url, label: 'Website', placeholder: "Optional" %>
+
+      <%= f.button :submit, class: 'btn-warning' %><br><br>
+      <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+                  institute_path(@institute), class: 'btn' %>
     </div>
     <div class="span5 pull-right">
       <label>Logo</label><br>
@@ -28,12 +32,6 @@
         <%= f.hidden_field :icon_cache %>
     </div>
   </div>
-  <div class="span5">
-  <%= f.button :submit, class: 'btn-warning' %><br><br>
-  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
-              institute_path(@institute), class: 'btn' %>
-  </div>
-
 <% end %>
 
 

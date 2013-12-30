@@ -66,7 +66,7 @@
           <%= link_to 'Cancel', lab_reagents_path(@reagent.lab), class: 'btn' %>
         <% end %>
         <% unless @reagent.id.nil? %>
-          <%= link_to ' Destroy', reagent_path(@reagent), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+          <%= link_to ' Destroy', reagent_path(@reagent), method: :delete, class: 'fa fa-trash-o btn btn-mini btn-danger' %>
         <% end %>
       </div>
     </div>
