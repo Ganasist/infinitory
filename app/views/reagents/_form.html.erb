@@ -14,8 +14,8 @@
       <%= f.input :lot_number, label: 'Lot number' %>
       <%= f.input :uid, label: 'Unique ID', 
                         tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
-      <%= f.input :remaining, as: :range, label: "Amount remaining (#{@reagent.remaining}%)",
-                              input_html: { step: 5 } %>
+      <%= f.input :remaining, as: :range, label_html: { value: "Test", id: "reagent_remaining_feedback" },
+                              input_html: { step: 5 }, label: "Amount remaining: #{@reagent.remaining}%" %>
       <br>
       <%= f.input :location, label: 'Location in lab', placeholder: "'Room 237' or 'Fz3S1B4'",
                              tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
