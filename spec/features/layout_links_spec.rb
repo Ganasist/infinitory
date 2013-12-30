@@ -9,7 +9,7 @@ describe 'LayoutLinks' do
 
   it 'should have a Root link' do
     get '/'
-    response.body.should have_link('Infinitory', root_path)
+    response.body.should have_link('INFINITORY', root_path)
   end
 
   it 'should have a Register link' do
@@ -24,12 +24,22 @@ describe 'LayoutLinks' do
 
   it 'should have an About link' do
     get '/'
-    response.body.should have_link('About Infinitory', page_path('about'))
+    response.body.should have_link('About', page_path('about'))
+  end
+
+  it 'should have a Feedback link' do
+    get '/'
+    response.body.should have_link('Feedback', page_path('feedback'))
+  end
+
+  it 'should have a Feedback page at /feedback' do
+    get '/feedback'
+    response.body.should have_content('Feedback')
   end
 
   it 'should have an About page at /about' do
     get '/about'
-    response.body.should have_content('About Infinitory')
+    response.body.should have_content('About')
   end
 
   it 'should have a Privacy Policy link' do
@@ -48,9 +58,13 @@ describe 'LayoutLinks' do
     expect(page).to have_content 'Privacy Policy'
     expect(page).to have_content("INFINITORY", root_path)
 
-    click_link('About Infinitory', page_path('about'))
+    click_link('About', page_path('about'))
     expect(page).to have_content("INFINITORY", root_path)
-    expect(page).to have_content 'About Infinitory'    
+    expect(page).to have_content 'About Infinitory'
+
+    click_link('Feedback', page_path('feedback'))
+    expect(page).to have_content("INFINITORY", root_path)
+    expect(page).to have_content 'Feedback'    
   end
 
   it 'should have an sign-in page at /login' do
