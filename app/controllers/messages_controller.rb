@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     if @message.valid?
       UserMailer.delay(retry: false).feedback_email(@message)
-      redirect_to current_user, notice: "Message sent! Thank you for contacting us."
+      redirect_to current_user, notice: "Feedback sent. Your input is appreciated!"
     else
       render "new"
     end
