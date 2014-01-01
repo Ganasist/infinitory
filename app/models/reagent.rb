@@ -27,8 +27,8 @@ class Reagent < ActiveRecord::Base
 	amoeba do
     enable
     customize(lambda { |original_reagent,new_reagent|
-    	new_reagent.uid       = SecureRandom.hex(2)
-    	new_reagent.remaining = 100
+    	new_reagent.uid        = SecureRandom.hex(2)
+    	new_reagent.remaining  = 100
     	new_reagent.activities = []
       if original_reagent.expiration.past?
         new_reagent.expiration = Date.today + 3.years

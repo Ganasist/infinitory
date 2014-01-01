@@ -1,5 +1,5 @@
 class ReagentsController < ApplicationController
-  before_action :set_reagent, only: [:show, :edit, :update, :destroy, :duplicate]
+  before_action :set_reagent, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
   before_action :check_user!, only: :show
@@ -37,30 +37,30 @@ class ReagentsController < ApplicationController
     @reagent = Reagent.find(params[:id])
   end
 
-  def duplicate
-    @duplicate = @reagent.amoeba_dup
-    respond_to do |format|
-      if @duplicate.save
-        @duplicate.create_activity :create, owner: current_user
-        format.html { redirect_to @duplicate, notice: 'Reagent was successfully cloned.' }
-        format.json { render action: 'show', status: :created, location: @duplicate }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @duplicate.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def create
     @reagent = @lab.reagents.new(reagent_params)
     respond_to do |format|
       if @reagent.save
         @reagent.create_activity :create, owner: current_user
-        format.html { redirect_to @reagent, notice: 'Reagent was successfully created.' }
+        format.html { redirect_to @reagent, notice: "#{@clone.name} was successfully created." }
         format.json { render action: 'show', status: :created, location: @reagent }
       else
         format.html { render action: 'new' }
         format.json { render json: @reagent.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def clone
+    @clone = @reagent.amoeba_dup
+    respond_to do |format|
+      if @clone.save
+        @clone.create_activity :create, owner: current_user
+        format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
+        format.json { render action: 'show', status: :created, location: @clone }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @clone.errors, status: :unprocessable_entity }
       end
     end
   end

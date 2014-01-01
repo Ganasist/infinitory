@@ -1,5 +1,5 @@
 class DevicesController < ApplicationController
-	before_action :set_device, only: [:show, :edit, :update, :destroy, :duplicate]
+	before_action :set_device, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
   before_action :check_user!, only: :show
@@ -37,30 +37,30 @@ class DevicesController < ApplicationController
     @device = Device.find(params[:id])
   end
 
-  def duplicate
-    @duplicate = @device.amoeba_dup
-    respond_to do |format|
-      if @duplicate.save
-        @duplicate.create_activity :create, owner: current_user
-        format.html { redirect_to @duplicate, notice: 'Device was successfully cloned.' }
-        format.json { render action: 'show', status: :created, location: @duplicate }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @duplicate.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def create
     @device = @lab.devices.new(device_params)
     respond_to do |format|
       if @device.save
         @device.create_activity :create, owner: current_user
-        format.html { redirect_to @device, notice: 'Device was successfully created.' }
+        format.html { redirect_to @device, notice: "#{@clone.name} was successfully created." }
         format.json { render action: 'show', status: :created, location: @device }
       else
         format.html { render action: 'new' }
         format.json { render json: @device.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def clone
+    @clone = @device.amoeba_dup
+    respond_to do |format|
+      if @clone.save
+        @clone.create_activity :create, owner: current_user
+        format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
+        format.json { render action: 'show', status: :created, location: @clone }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @clone.errors, status: :unprocessable_entity }
       end
     end
   end

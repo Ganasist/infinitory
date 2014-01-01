@@ -9,13 +9,13 @@ Infinitory::Application.routes.draw do
   resources :messages, only: [:new, :create]
 
   authenticated :user do
-    root :to => 'users#show', as: :authenticated_root
+    root to: 'users#show', as: :authenticated_root
   end
 
   root :to => 'high_voltage/pages#show', id: 'splash'
 
-  devise_for :users, :path => '', :path_names => { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
-                                  :controllers => { registrations: 'registrations', invitations: 'users/invitations' }
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
+                                  controllers: { registrations: 'registrations', invitations: 'users/invitations' }
  
   resources :institutes, shallow: true do
     resources :labs do
@@ -36,12 +36,12 @@ Infinitory::Application.routes.draw do
 
   get 'tags/:tag', to: 'reagents#index', as: :tag
 
-  match 'users/:id/activate' => 'users#activate', :as => 'activate_user', via: :get
-  match 'users/:id/retire' => 'users#retire', :as => 'retire_user', via: :get  
-  match 'users/:id/reject' => 'users#reject', :as => 'reject_user', via: :get
+  match 'users/:id/activate' => 'users#activate', as: 'activate_user', via: :get
+  match 'users/:id/retire' => 'users#retire', as: 'retire_user', via: :get  
+  match 'users/:id/reject' => 'users#reject', as: 'reject_user', via: :get
 
-  match 'reagents/:id/duplicate' => 'reagents#duplicate', :as => 'duplicate_reagent', via: :get
-  match 'devices/:id/duplicate' => 'devices#duplicate', :as => 'duplicate_device', via: :get
+  match 'reagents/:id/clone' => 'reagents#clone', as: 'clone_reagent', via: :get
+  match 'devices/:id/clone' => 'devices#clone', as: 'clone_device', via: :get
 
   post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 

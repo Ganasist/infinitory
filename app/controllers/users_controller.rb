@@ -85,7 +85,7 @@ class UsersController < ApplicationController
 
     def undo_link
       view_context.link_to("UNDO", revert_version_path(@user.versions.last), 
-                            method: :post, class: "btn-large")
+                            method: :post, class: "btn btn-warning")
     end
 
     # def user_params
