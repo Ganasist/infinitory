@@ -7,7 +7,7 @@
         <% if user_signed_in? && current_user.gl? && current_user.institute == @institute %>
           <div class="btn-group">
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_institute_path(@institute), class: 'btn btn-warning' %>
+                          edit_institute_path(@institute), class: 'btn-small btn-warning' %>
           </div>
         <% end %>
       </h3>

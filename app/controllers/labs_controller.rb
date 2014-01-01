@@ -17,8 +17,8 @@ class LabsController < ApplicationController
     if request.path != lab_path(@lab)
       redirect_to @lab, status: :moved_permanently
     end
-
     @user = User.where(lab_id: @lab, role: "group_leader").first
+    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(owner_id: @lab.user_ids).limit(25).order('created_at desc')
     @department = @lab.department
     @institute = @lab.institute
   end
