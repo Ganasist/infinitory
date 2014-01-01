@@ -175,6 +175,8 @@ class User < ActiveRecord::Base
     self.joined   = Time.now
     self.lab      = Lab.create(email: self.email,
                                institute: self.institute)
+    self.create_activity :gl_invitation, owner: self.invited_by
+    self.invited_by.add_points(25)
   end
 
   def approve_user
@@ -183,6 +185,8 @@ class User < ActiveRecord::Base
       self.joined     = Time.now
       self.institute  = lab.institute
       self.department = lab.department
+      self.create_activity :invitation, owner: self.invited_by
+      self.invited_by.add_points(10)
     end
   end
 
