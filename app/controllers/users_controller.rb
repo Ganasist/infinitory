@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if request.path != user_path(@user)
       redirect_to @user, status: :moved_permanently
     end
-    @activities = PublicActivity::Activity.includes(:trackable).where(owner: @user).limit(25).order("created_at desc")
+    @activities = PublicActivity::Activity.includes(:trackable).where(owner: @user).limit(25).order('created_at desc')
     @institute = @user.institute
     @department = @user.department
   	@lab = @user.lab
@@ -28,14 +28,14 @@ class UsersController < ApplicationController
     @user.approved = true
     @user.joined = Time.now
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has joined your lab #{ undo_link }"
+      flash[:notice] = "#{@user.fullname} has joined your lab #{ undo_link }"
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
       else
         UserMailer.delay(retry: false).welcome_email(@user.id, current_user.lab_id)
       end
     else
-      flash[:alert] = "#{ @user.fullname } couldn't be added..."
+      flash[:alert] = "#{@user.fullname} couldn't be added..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
@@ -43,10 +43,10 @@ class UsersController < ApplicationController
   def reject
     @user.reject
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has been rejected. #{ undo_link }"
+      flash[:notice] = "#{@user.fullname} has been rejected. #{undo_link}"
       UserMailer.delay(retry: false).rejection_email(@user.id, @lab.id)
     else
-      flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
+      flash[:alert] = "#{@user.fullname} couldn't be rejected..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
@@ -55,10 +55,10 @@ class UsersController < ApplicationController
     @labtemp = @lab
     @user.retire
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
+      flash[:notice] = "#{@user.fullname} has been retired. #{undo_link}"
       UserMailer.delay(retry: false).retire_email(@user.id, @labtemp.id)
     else
-      flash[:alert] = "#{ @user.fullname } couldn't be retired..."
+      flash[:alert] = "#{@user.fullname} couldn't be retired..."
     end
     redirect_to lab_users_path(current_user.lab)
   end

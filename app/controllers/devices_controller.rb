@@ -55,7 +55,7 @@ class DevicesController < ApplicationController
     @clone = @device.amoeba_dup
     respond_to do |format|
       if @clone.save
-        @clone.create_activity :create, owner: current_user
+        @clone.create_activity :clone, owner: current_user
         format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
