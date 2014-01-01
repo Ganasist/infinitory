@@ -42,7 +42,7 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @reagent.save
         @reagent.create_activity :create, owner: current_user
-        format.html { redirect_to @reagent, notice: "#{@clone.name} was successfully created." }
+        format.html { redirect_to @reagent, notice: "#{@reagent.name} was successfully created." }
         format.json { render action: 'show', status: :created, location: @reagent }
       else
         format.html { render action: 'new' }

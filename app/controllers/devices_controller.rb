@@ -42,7 +42,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         @device.create_activity :create, owner: current_user
-        format.html { redirect_to @device, notice: "#{@clone.name} was successfully created." }
+        format.html { redirect_to @device, notice: "#{@device.name} was successfully created." }
         format.json { render action: 'show', status: :created, location: @device }
       else
         format.html { render action: 'new' }
