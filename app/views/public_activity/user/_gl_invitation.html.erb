@@ -1,6 +1,6 @@
-Invited group leader
+Invited
 <% if activity.trackable %>
-	<%= link_to activity.trackable.fullname, activity.trackable %>
+	group leader <%= link_to activity.trackable.fullname, activity.trackable %>
 <% else %>
-  a (who has since been quit) 
+  a group leader (who has since been quit) 
 <% end %>

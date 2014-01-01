@@ -17,7 +17,7 @@
             <span class="text-center"><%= link_to image_tag(user.icon_url(:thumb).to_s).html_safe, user %></span>
           <% end %>
         </td>
-        <td><%= link_to user.fullname, user %> <%= "(#{user.points})" %></td>
+        <td><%= link_to user.fullname, user %> <%= "#{user.points}" %></td>
         <% if user.role.present? %>
           <td><%= user.role.humanize %></td>
         <% else %>

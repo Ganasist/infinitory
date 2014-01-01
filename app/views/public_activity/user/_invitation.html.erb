@@ -1,6 +1,6 @@
-Invited lab member
+Invited
 <% if activity.trackable %>
-	<%= link_to activity.trackable.fullname, activity.trackable %>
+	<%= activity.trackable.role.humanize.downcase %> <%= link_to activity.trackable.fullname, activity.trackable %>
 <% else %>
-  (who has since been quit) 
+  a lab member (who has since been quit) 
 <% end %>
