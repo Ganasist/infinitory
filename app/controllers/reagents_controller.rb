@@ -26,22 +26,11 @@ class ReagentsController < ApplicationController
     data_table.new_column('string', 'Category')
     data_table.new_column('number', 'Relative amount')
     data_table.add_rows(Reagent::CATEGORIES.length)
-    data_table.set_cell(0, 0, 'Antibody'     )
-    data_table.set_cell(0, 1, @lab.relative_percentage('antibody') )
-    data_table.set_cell(1, 0, 'Cell culture'      )
-    data_table.set_cell(1, 1, @lab.relative_percentage('cell_culture')  )
-    data_table.set_cell(2, 0, 'Cell line'  )
-    data_table.set_cell(2, 1, @lab.relative_percentage('cell_line')  )
-    data_table.set_cell(3, 0, 'Chemical (powder)' )
-    data_table.set_cell(3, 1, @lab.relative_percentage('chemical_(powder)')  )
-    data_table.set_cell(4, 0, 'Chemical (solution)'    )
-    data_table.set_cell(4, 1, @lab.relative_percentage('chemical_(solution)')  )
-    data_table.set_cell(5, 0, 'Enzyme'    )
-    data_table.set_cell(5, 1, @lab.relative_percentage('enzyme')  )
-    data_table.set_cell(6, 0, 'Kit'    )
-    data_table.set_cell(6, 1, @lab.relative_percentage('kit')  )
-   
-    opts   = { width: 400, height: 400, legend: 'none' }
+    Reagent::CATEGORIES.each_with_index do |val, index| 
+      data_table.set_cell(index, 0, "#{val}".humanize )
+      data_table.set_cell(index, 1, @lab.relative_percentage("#{val}") )
+    end   
+    opts   = { width: 400, height: 400, pieSliceText: 'none', fontSize: 14, legend: { position: "left" }, chartArea: { width: "80%", height: "80%" } }
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
   end
 
