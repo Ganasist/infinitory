@@ -27,16 +27,6 @@ describe 'LayoutLinks' do
     response.body.should have_link('About', page_path('about'))
   end
 
-  it 'should have a Feedback link' do
-    get '/'
-    response.body.should have_link('Feedback', page_path('feedback'))
-  end
-
-  it 'should have a Feedback page at /feedback' do
-    get '/feedback'
-    response.body.should have_content('Feedback')
-  end
-
   it 'should have an About page at /about' do
     get '/about'
     response.body.should have_content('About')
@@ -60,11 +50,7 @@ describe 'LayoutLinks' do
 
     click_link('About', page_path('about'))
     expect(page).to have_content("INFINITORY", root_path)
-    expect(page).to have_content 'About Infinitory'
-
-    click_link('Feedback', page_path('feedback'))
-    expect(page).to have_content("INFINITORY", root_path)
-    expect(page).to have_content 'Feedback'    
+    expect(page).to have_content 'About Infinitory'   
   end
 
   it 'should have an sign-in page at /login' do
@@ -111,6 +97,16 @@ describe 'LayoutLinks' do
     it 'should not have a link to send invitations' do
       expect(page).to_not have_link("Invite a scientist", new_user_invitation_path)
     end
+
+    it 'should not have a Feedback link' do
+      get '/'
+      expect(page).to_not have_link('Feedback', new_message_path)
+    end
+
+    it 'should not have a Feedback page at /messages/new', focus: true do
+      get '/messages/new'
+      assert_redirected_to '/login'
+    end
   end
 
   describe 'when signed in' do
@@ -152,6 +148,16 @@ describe 'LayoutLinks' do
     it 'should have a new root path redirecting to the User profile page' do
       visit root_path
       expect(page).to have_content("#{user.fullname}")
+    end
+
+    it 'should have a Feedback link' do
+      get '/'
+      expect(page).to have_link("Feedback", new_message_path)
+    end
+
+    it 'should have a Feedback page at /messages/new' do
+      get '/messages/new'
+      expect(page).to have_content('Feedback')
     end
 
     it 'should have a sign out link' do
