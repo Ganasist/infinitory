@@ -18,6 +18,10 @@ class Lab < ActiveRecord::Base
   # extend FriendlyId
   # friendly_id :slug_candidates, use: [:slugged, :history]
 
+  def relative_percentage(category)
+    self.reagents.where(category: category).count
+  end
+
   def institute_name
   	self.institute.name
   end

@@ -22,6 +22,27 @@ class ReagentsController < ApplicationController
       @lab = Lab.find(params[:lab_id]) 
       @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(25)
     end
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column('string', 'Category')
+    data_table.new_column('number', 'Relative amount')
+    data_table.add_rows(Reagent::CATEGORIES.length)
+    data_table.set_cell(0, 0, 'Antibody'     )
+    data_table.set_cell(0, 1, @lab.relative_percentage('antibody') )
+    data_table.set_cell(1, 0, 'Cell culture'      )
+    data_table.set_cell(1, 1, @lab.relative_percentage('cell_culture')  )
+    data_table.set_cell(2, 0, 'Cell line'  )
+    data_table.set_cell(2, 1, @lab.relative_percentage('cell_line')  )
+    data_table.set_cell(3, 0, 'Chemical (powder)' )
+    data_table.set_cell(3, 1, @lab.relative_percentage('chemical_(powder)')  )
+    data_table.set_cell(4, 0, 'Chemical (solution)'    )
+    data_table.set_cell(4, 1, @lab.relative_percentage('chemical_(solution)')  )
+    data_table.set_cell(5, 0, 'Enzyme'    )
+    data_table.set_cell(5, 1, @lab.relative_percentage('enzyme')  )
+    data_table.set_cell(6, 0, 'Kit'    )
+    data_table.set_cell(6, 1, @lab.relative_percentage('kit')  )
+   
+    opts   = { width: 400, height: 400, legend: 'none' }
+    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
   end
 
   def show

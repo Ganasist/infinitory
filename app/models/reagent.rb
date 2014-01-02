@@ -56,6 +56,10 @@ class Reagent < ActiveRecord::Base
     User.find_by(email: self.lab.email)
   end
 
+  def relative_percentage(category)
+    self.reagents.where(category: category).count
+  end
+
   private
   	def set_expiration
 			self.expiration = 3.years.from_now

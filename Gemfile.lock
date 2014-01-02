@@ -133,6 +133,7 @@ GEM
     gon (4.1.1)
       actionpack (>= 2.3.0)
       json
+    google_visualr (2.2.0)
     guard (2.2.3)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -386,6 +387,7 @@ DEPENDENCIES
   friendly_id (= 5.0.0.beta1)
   geocoder
   gon
+  google_visualr (>= 2.1)
   guard-bundler
   guard-rails
   guard-rspec
