@@ -26,7 +26,7 @@
                                 placeholder: "Search by name, tag, UID or serial"  %>
   <% end %>
 <% end %>
-  <%= link_to " Add new device", new_lab_device_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %>
+  <%= link_to " Add device", new_lab_device_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %>
 <br><br>
 </div>
   <%= render 'devices' %>

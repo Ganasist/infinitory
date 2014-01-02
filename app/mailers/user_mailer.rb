@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: 'admin@infinitory.com'
- 
+
   def request_email(user_id, lab_id)
     @user = User.find(user_id)
     @lab   = Lab.find(lab_id)
@@ -27,7 +27,8 @@ class UserMailer < ActionMailer::Base
 
   def feedback_email(feedback)
     @feedback = feedback
-    mail(to: "admin@infinitory.com", subject: "Feedback from #{@feedback.email}")
+    mail(to: "feedback@infinitory.com", subject: "Feedback from #{@feedback.email}")
+    User.find_by(email: @feedback.email).add_points(5)
   end
 
 end

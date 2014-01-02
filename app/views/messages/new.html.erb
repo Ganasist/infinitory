@@ -3,7 +3,6 @@
   <%= simple_form_for @message, html: { class: 'form-vertical', multipart: true } do |f| %>
     <div class="form-inputs">                          
       <%= f.error_notification %>
-      <%= f.input :email, label: "Your email address" %>
       <%= f.input :comment, as: :text, label_html: { id: "comment_feedback" },
                             input_html: { rows: 6, class: "span4", id: "comment" } %>
       <%= f.button :submit, "Send!", class: "btn btn-warning" %>
