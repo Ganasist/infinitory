@@ -17,6 +17,8 @@ module ApplicationHelper
 	  	raw('<span class="badge badge-3">+3</span>')
 	  elsif (activity.key == "reagent.clone") || (activity.key == "device.clone")
 	   	raw('<span class="badge badge-4">+4</span>')
+	  elsif (activity.key == "user.feedback")
+	   	raw('<span class="badge badge-5">+5</span>')
 	  elsif (activity.key == "user.invitation")
 	   	raw('<span class="badge badge-10">+10</span>')
 	  elsif (activity.key == "user.gl_invitation")

@@ -28,6 +28,7 @@ module Merit
       score 2, on: ['reagents#update', 'devices#update']
       score 3, on: ['reagents#destroy', 'devices#destroy']
       score 4, on: ['reagents#clone', 'devices#clone']
+      score 5, on: ['messages#create']
     end
   end
 end
