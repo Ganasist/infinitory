@@ -30,7 +30,7 @@ class ReagentsController < ApplicationController
       data_table.set_cell(index, 0, "#{val}".humanize )
       data_table.set_cell(index, 1, @lab.relative_percentage("#{val}") )
     end   
-    opts   = { width: 400, height: 400, pieSliceText: 'none', fontSize: 14, legend: { position: "left" }, chartArea: { width: "80%", height: "80%" } }
+    opts   = { width: 400, height: 400, pieSliceText: 'none', fontSize: 14, legend: { position: "left", textStyle: { fontSize: 14 } }, chartArea: { width: "80%", height: "80%" } }
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
   end
 
