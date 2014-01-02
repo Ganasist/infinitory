@@ -9,7 +9,7 @@ namespace :db do
     1.times do |n|
       institute = FactoryGirl.create(:institute, city: Faker::Address.city)
 
-      r.rand(1..2).times do |n|   
+      r.rand(1).time do |n|   
         gl = User.create!(role:                  'group_leader',
                           email:                 Faker::Internet.email,
                           institute_name:        institute.name,                  
@@ -41,12 +41,12 @@ namespace :db do
           user.save
         end
 
-        r.rand(20..100).times do |n|
+        r.rand(20..500).times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           reagent.user_ids = gl.lab.user_ids.sample((gl.lab.size / 3))
         end
 
-        r.rand(20..100).times do |n|
+        r.rand(20..500).times do |n|
           device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           device.user_ids = gl.lab.user_ids.sample((gl.lab.size / 3))
         end
@@ -91,12 +91,12 @@ namespace :db do
             user.save
           end
 
-          r.rand(20..100).times do |n|
+          r.rand(20..500).times do |n|
             reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
             reagent.user_ids = gl.lab.user_ids.sample((gl.lab.size / 3))
           end
 
-          r.rand(20..100).times do |n|
+          r.rand(20..500).times do |n|
             device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
             device.user_ids = gl.lab.user_ids.sample((gl.lab.size / 3))
           end

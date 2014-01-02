@@ -5,6 +5,11 @@ class DevicesController < ApplicationController
   before_action :check_user!, only: :show
 
   def index
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column('string', 'Category')
+    data_table.new_column('number', 'Relative amount')
+    data_table.add_rows(Device::CATEGORIES.length)
+
     if params[:tag].present?
       @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)
     elsif params[:search].present?
@@ -18,10 +23,23 @@ class DevicesController < ApplicationController
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
       @devices = @user.devices.modified_recently.page(params[:page]).per_page(25)
+      Device::CATEGORIES.each_with_index do |val, index| 
+        data_table.set_cell(index, 0, "#{val}".humanize )
+        data_table.set_cell(index, 1, @user.relative_devices_percentage("#{val}") )
+      end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
       @devices = @lab.devices.modified_recently.page(params[:page]).per_page(25)
+      Device::CATEGORIES.each_with_index do |val, index| 
+        data_table.set_cell(index, 0, "#{val}".humanize )
+        data_table.set_cell(index, 1, @lab.relative_devices_percentage("#{val}") )
+      end
     end
+    opts   = { width: 300, height: 300, pieSliceText: 'none', fontSize: 14,
+               legend: 'none', 
+               chartArea: { width: "80%", height: "80%" },
+               tooltip: { textStyle: { fontSize: 18}} }
+    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
   end
 
   def show

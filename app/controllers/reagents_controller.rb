@@ -5,6 +5,11 @@ class ReagentsController < ApplicationController
   before_action :check_user!, only: :show
 
   def index
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column('string', 'Category')
+    data_table.new_column('number', 'Relative amount')
+    data_table.add_rows(Reagent::CATEGORIES.length)
+
     if params[:tag].present?
       @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)
     elsif params[:search].present?
@@ -18,19 +23,23 @@ class ReagentsController < ApplicationController
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
       @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
+      Reagent::CATEGORIES.each_with_index do |val, index| 
+        data_table.set_cell(index, 0, "#{val}".humanize )
+        data_table.set_cell(index, 1, @user.relative_reagents_percentage("#{val}") )
+      end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
       @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(25)
-    end
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Category')
-    data_table.new_column('number', 'Relative amount')
-    data_table.add_rows(Reagent::CATEGORIES.length)
-    Reagent::CATEGORIES.each_with_index do |val, index| 
-      data_table.set_cell(index, 0, "#{val}".humanize )
-      data_table.set_cell(index, 1, @lab.relative_percentage("#{val}") )
-    end   
-    opts   = { width: 400, height: 400, pieSliceText: 'none', fontSize: 14, legend: { position: "left", textStyle: { fontSize: 14 } }, chartArea: { width: "80%", height: "80%" } }
+      Reagent::CATEGORIES.each_with_index do |val, index| 
+        data_table.set_cell(index, 0, "#{val}".humanize )
+        data_table.set_cell(index, 1, @lab.relative_reagents_percentage("#{val}") )
+      end   
+    end 
+    
+    opts   = { width: 300, height: 300, pieSliceText: 'none', fontSize: 14,
+               legend: 'none', 
+               chartArea: { width: "80%", height: "80%" },
+               tooltip: { textStyle: { fontSize: 18}} }
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
   end
 

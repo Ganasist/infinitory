@@ -1,6 +1,6 @@
 class Device < ActiveRecord::Base
 
-	CATEGORIES = %w[calocages FACS microscope PCR_machine]
+	CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
 
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
@@ -40,6 +40,10 @@ class Device < ActiveRecord::Base
 	scope :modified_recently, -> { order("updated_at DESC") }
 
 	# store_accessor :properties, :description
+
+	def relative_percentage(category)
+    self.devices.where(category: category).count
+  end
 
 	def gl
     User.find_by(email: self.lab.email)

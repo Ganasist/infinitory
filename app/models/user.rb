@@ -54,6 +54,14 @@ class User < ActiveRecord::Base
   scope :all_gls, -> { where(role: 'group_leader') }
   scope :lm,      -> { where(role:  'lab_manager') }
 
+  def relative_reagents_percentage(category)
+    self.reagents.where(category: category).count
+  end
+
+  def relative_devices_percentage(category)
+    self.devices.where(category: category).count
+  end
+
   def should_generate_new_friendly_id?
     first_name_changed? || last_name_changed?  || role_changed?
   end
