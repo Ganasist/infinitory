@@ -1,7 +1,9 @@
 <%- model_class = Reagent -%>
 <div class="page-header">
+  
   <div id='chart'></div>
   <%= render_chart(@chart, 'chart') %>
+
   <% if @lab %>
     <h4>The <%= link_to "#{@lab.gl.fullname} Lab's", @lab %> reagents</h4>  
   <% elsif params[:user_id].present? %>        
