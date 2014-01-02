@@ -7,13 +7,13 @@
       <%= f.label "Category (required)" %>
       <br>
       <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
-      <br>
-      <br>
+      <br><br>
       <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :lot_number, label: 'Lot number' %>
       <%= f.input :uid, label: 'Unique ID', 
                         tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
+      <%= f.input :quantity, label: "Original quantity" %>
       <%= f.input :remaining, as: :range, label_html: { id: "reagent_remaining_feedback" },
                               input_html: { step: 5 }, label: "Amount remaining: #{@reagent.remaining}%" %>
       <br>

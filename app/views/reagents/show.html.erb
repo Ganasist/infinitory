@@ -12,6 +12,12 @@
     <dl class="dl-vertical">
       <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
       <dd><%= @reagent.category.titleize %></dd><br>
+      
+      <% if @reagent.quantity? %>
+        <dt><strong>Original quantity:</strong></dt>
+        <dd><%= @reagent.quantity %></dd><br>
+      <% end %>
+
       <dt><strong>Percent remaining:</strong></dt>
       <dd><%= @reagent.remaining %>%</dd><br>
       

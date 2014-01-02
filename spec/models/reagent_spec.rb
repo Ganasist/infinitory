@@ -30,6 +30,7 @@ describe Reagent do
 		expect_it { to have_db_column(:properties).of_type(:hstore) }
     expect_it { to have_db_column(:lab_id).of_type(:integer) }
     expect_it { to have_db_column(:user_id).of_type(:integer) }
+    expect_it { to have_db_column(:quantity).of_type(:string) }
   end
 
   context 'database indexes' do
