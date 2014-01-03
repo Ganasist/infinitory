@@ -14,11 +14,11 @@
       <% if @user.icon.blank? %>
         <small class="lead">
           <% if @user.gl? %>
-            <i class="icon-lightbulb"></i>
+            <i class="fa fa-lg fa-lightbulb-o"></i>
           <% elsif @user.lm? %>
-            <i class="icon-eye-open"></i>
+            <i class="fa fa-lg fa-eye"></i>
           <% else %>
-            <i class="icon-user"></i>
+            <i class="fa fa-lg fa-user"></i>
           <% end %>
           <%= " #{@user.role.humanize}" %>
         </small>
@@ -29,26 +29,26 @@
       <% end %>
       <% if current_user == @user %>
         <%= link_to t('.edit', :default => t('helpers.links.edit')),
-                    edit_user_registration_path, class: 'btn-small btn-warning' %>
+                    edit_user_registration_path, class: 'fa fa-edit btn btn-warning' %>
       <% end %>
       <br>
       <small class="lead"><%= @user.points %> pts</small>
       <dl class="dl-horizontal">
       <h5>
         <%= link_to @lab do %>
-          <i class="icon-group"></i><%= " The #{@lab.gl.fullname} lab" %>
+          <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@lab.gl.fullname} lab" %>
         <% end %>
-      </h5>  
+      </h5>
       <% if @department.present? %>
         <h5>
           <%= link_to institute_department_path(@institute, @department) do %>
-            <i class="icon-sitemap"></i><%= " #{@user.department.name}" %>
+            <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>
           <% end %>
         </h5>
       <% end %>
       <h5>
         <%= link_to @institute do %>
-          <i class="icon-building"></i><%= " #{@user.institute.name}" %>
+          <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
         <% end %>
       </h5>
     </dl>

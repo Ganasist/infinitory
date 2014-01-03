@@ -1,10 +1,10 @@
 class LabsController < ApplicationController
   before_action :set_lab, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :check_user!
+  before_action :check_user!, except: :index
 
   def index
-    @institute = Institute.find(params[:institute_id])
+    @institute = Institute.friendly.find(params[:institute_id])
     @labs = @institute.labs
 
     if params[:department_id].present?

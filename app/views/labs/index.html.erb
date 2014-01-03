@@ -1,7 +1,5 @@
 <%- model_class = Lab -%>
-<div class="page-header">
   <h3><%= "Labs at the #{@institute.name}" %></h3>
-</div>
 <table class="table">
   <thead>
     <tr>
@@ -13,11 +11,7 @@
   <tbody>
     <% @labs.each do |lab| %>
       <tr>
-        <% if lab.name? %>
-          <td><%= link_to lab.name, lab_path(lab) %></td>
-        <% else %>
-          <td><%= link_to "lab.email", lab_path(lab) %></td>
-        <% end %>
+        <td><%= link_to lab.gl.fullname, lab_path(lab) %></td>
         <td><%= time_ago_in_words(lab.created_at) %> ago</td>
         <td><%= lab.users.count %></td>
       </tr>

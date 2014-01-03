@@ -18,34 +18,40 @@
       <dl class="dl-horizontal">
         <h5>
           <%= link_to @user do %>
-           <i class="icon-lightbulb"></i><%= " #{@user.fullname}" %>
+           <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@user.fullname}" %>
            <% end %>
         </h5>
+
+        <% if @lab.room.present? %>
+          <%= link_to "#" do %>
+            <i class="fa fa-fw fa-lg fa-compass"></i> Room: <%= @lab.room %></h5>
+          <% end %>
+        <% end %>
 
         <% if @department.present? %>
           <h5>
             <%= link_to institute_department_path(@institute, @department) do %>
-             <i class="icon-sitemap"></i><%= " #{@department.name}" %>
+             <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@department.name}" %>
              <% end %>
           </h5>
         <% end %>
 
         <h5>
           <%= link_to @institute do %>
-           <i class="icon-building"></i><%= " #{@institute.name}" %>
+           <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@institute.name}" %>
            <% end %>
         </h5>
       </dl>
 
         <div class='row-fluid'>
             <%= link_to lab_users_path(@lab), class: "btn btn-warning" do %>
-              <i class="icon-group"> Members <%= "(#{@lab.users.length})" %></i>
+              <i class="fa fa-lg fa-users"> Members <%= "(#{@lab.users.length})" %></i>
             <% end %>
             <%= link_to lab_reagents_path(@lab), class: "btn btn-warning" do %>
-              <i class="icon-beaker"> Reagents (<%= @lab.reagents.size %>)</i>
+              <i class="fa fa-lg fa-flask"> Reagents (<%= @lab.reagents.size %>)</i>
             <% end %>
             <%= link_to lab_devices_path(@lab), class: "btn btn-warning" do %>
-              <i class="icon-cogs"> Devices (<%= @lab.devices.size %>)</i>
+              <i class="fa fa-lg fa-cogs"> Devices (<%= @lab.devices.size %>)</i>
             <% end %>
         </div>
       <hr>
