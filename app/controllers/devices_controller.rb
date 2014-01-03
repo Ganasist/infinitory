@@ -37,11 +37,7 @@ class DevicesController < ApplicationController
         data_table.set_cell(index, 1, @lab.relative_devices_percentage("#{val}"))
       end
     end
-    opts   = { width: 300, height: 300, pieSliceText: 'none', fontSize: 14,
-               legend: 'none', 
-               chartArea: { width: "80%", height: "80%" },
-               tooltip: { textStyle: { fontSize: 18}} }
-    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
+    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, pie_options)
   end
 
   def show

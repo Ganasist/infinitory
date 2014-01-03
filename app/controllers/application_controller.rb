@@ -12,6 +12,15 @@ class ApplicationController < ActionController::Base
 
   protected
 
+    def pie_options
+      {width: 400, height: '100%', pieSliceText: 'none', fontSize: 12,
+       legend: {position: 'labeled', alignment: 'center'}, 
+       chartArea: {width: "92%", height: "92%"},
+       tooltip: {textStyle: {fontSize: 18}, text: 'value'}}
+    end
+    helper_method :pie_options
+
+
     def after_sign_in_path_for(resource)
       user_path(current_user)
     end
