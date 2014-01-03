@@ -45,13 +45,13 @@
 
         <div class='row-fluid'>
             <%= link_to lab_users_path(@lab), class: "btn btn-warning" do %>
-              <i class="fa fa-lg fa-users"> Members <%= "(#{@lab.users.length})" %></i>
+              <i class="fa fa-users"> Members <%= "(#{@lab.users.length})" %></i>
             <% end %>
             <%= link_to lab_reagents_path(@lab), class: "btn btn-warning" do %>
-              <i class="fa fa-lg fa-flask"> Reagents (<%= @lab.reagents.size %>)</i>
+              <i class="fa fa-flask"> Reagents (<%= @lab.reagents.size %>)</i>
             <% end %>
             <%= link_to lab_devices_path(@lab), class: "btn btn-warning" do %>
-              <i class="fa fa-lg fa-cogs"> Devices (<%= @lab.devices.size %>)</i>
+              <i class="fa fa-cogs"> Devices (<%= @lab.devices.size %>)</i>
             <% end %>
         </div>
       <hr>
