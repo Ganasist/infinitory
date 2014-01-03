@@ -10,31 +10,31 @@
     <h4><%= link_to "#{@reagent.gl.fullname}", @reagent.lab %> lab</h4>
 
     <dl class="dl-vertical">
-      <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
+      <dt><strong><%= model_class.human_attribute_name(:category) %></strong></dt>
       <dd><%= @reagent.category.titleize %></dd><br>
       
       <% if @reagent.quantity.present? %>
-        <dt><strong>Original quantity:</strong></dt>
+        <dt><strong>Original quantity</strong></dt>
         <dd><%= @reagent.quantity %></dd><br>
       <% end %>
 
-      <dt><strong>Percent remaining:</strong></dt>
+      <dt><strong>Percent remaining</strong></dt>
       <dd><%= @reagent.remaining %>%</dd><br>
       
       <% if !@reagent.users.empty? %>
-        <dt><strong>Contact(s):</strong></dt>
+        <dt><strong>Contact(s)</strong></dt>
         <% @reagent.users.each do |user| %>
         <dd><%= link_to user.fullname, user %></dd>
         <% end %><br>
       <% end %>
 
       <% if @reagent.location? %>
-        <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
+        <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
         <dd><%= @reagent.location %></dd><br>
       <% end %>
 
       <% if @reagent.serial? %>
-        <dt><strong><%= model_class.human_attribute_name(:serial) %> #:</strong></dt>
+        <dt><strong><%= model_class.human_attribute_name(:serial) %> #</strong></dt>
         <dd><%= @reagent.serial %></dd><br>
       <% end %>
 
