@@ -103,7 +103,7 @@ describe 'LayoutLinks' do
       expect(page).to_not have_link('Feedback', new_message_path)
     end
 
-    it 'should not have a Feedback page at /messages/new', focus: true do
+    it 'should not have a Feedback page at /messages/new' do
       get '/messages/new'
       assert_redirected_to '/login'
     end

@@ -9,7 +9,7 @@ namespace :db do
     1.times do |n|
       institute = FactoryGirl.create(:institute, city: Faker::Address.city)
 
-      r.rand(1).time do |n|   
+      r.rand(1).times do |n|   
         gl = User.create!(role:                  'group_leader',
                           email:                 Faker::Internet.email,
                           institute_name:        institute.name,                  
