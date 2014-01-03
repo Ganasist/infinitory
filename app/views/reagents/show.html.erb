@@ -13,7 +13,7 @@
       <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
       <dd><%= @reagent.category.titleize %></dd><br>
       
-      <% if @reagent.quantity? %>
+      <% if @reagent.quantity.present? %>
         <dt><strong>Original quantity:</strong></dt>
         <dd><%= @reagent.quantity %></dd><br>
       <% end %>
