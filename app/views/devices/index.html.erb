@@ -30,9 +30,11 @@
 <br><br>
 </div>
   <div class="span5">
-    <div id='chart'></div>
-      <%= render_chart(@chart, 'chart') %>
-    </div>
+    <% cache @chart do %>
+      <div id='chart'></div>
+        <%= render_chart(@chart, 'chart') %>
+      </div>
+    <% end %>
   </div>
 </div>
 <br><br>

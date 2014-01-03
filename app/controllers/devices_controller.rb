@@ -9,7 +9,7 @@ class DevicesController < ApplicationController
     data_table.new_column('string', 'Category')
     data_table.new_column('number', 'Relative amount')
     data_table.add_rows(Device::CATEGORIES.length)
-
+    
     if params[:tag].present?
       @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)
     elsif params[:search].present?
@@ -37,6 +37,7 @@ class DevicesController < ApplicationController
         data_table.set_cell(index, 1, @lab.relative_devices_percentage("#{val}"))
       end
     end
+    
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, pie_options)
   end
 

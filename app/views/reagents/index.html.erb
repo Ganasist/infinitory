@@ -31,10 +31,12 @@
 <br><br>
 </div>
   <div class="span5">
-    <div id='chart'></div>
-      <%= render_chart(@chart, 'chart') %>
-    </div>
-  </div>
+    <% cache @chart do %>
+      <div id='chart'></div>
+        <%= render_chart(@chart, 'chart') %>
+      </div>
+    <% end %>
+</div>
 <br><br>
 <%= render 'reagents' %>
 <%= will_paginate @reagents, class: 'text-center lead' %>
