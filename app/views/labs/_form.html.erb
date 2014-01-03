@@ -4,7 +4,7 @@
   <div class="row">
     <div class="span5">
       <%= f.input :room, :input_html => { rows: 4 } %>
-      <%= f.input :url, label: 'Lab website', placeholder: "Optional" %>
+      <%= f.input :url, label: 'Lab website' %>
     </div>
     <div class="span5 pull-right">
       <label>Lab picture</label><br>
@@ -19,9 +19,11 @@
       <%= f.hidden_field :icon_cache %>
     </div>
   </div>
-  <div class="span5">
-    <%= f.button :submit, class: 'btn btn-warning' %><br><br>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                lab_path(@lab), :class => 'btn' %>
-  </div>
+  <div class="row">  
+    <div class="span5">
+      <%= f.button :submit, class: 'btn btn-warning' %><br><br>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  lab_path(@lab), :class => 'btn' %>
+    </div>
+  </div> 
 <% end %>
