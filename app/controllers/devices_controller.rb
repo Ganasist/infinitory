@@ -23,7 +23,7 @@ class DevicesController < ApplicationController
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
       @devices = @user.devices.modified_recently.page(params[:page]).per_page(25)
-      
+
       Device::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
         data_table.set_cell(index, 1, @user.relative_devices_percentage("#{val}"))
