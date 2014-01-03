@@ -9,13 +9,13 @@
       <% end %>
       <%= menu_group pull: :right do %>
         <%= link_to current_user.lab, class: 'btn-large btn-warning' do %>
-          <i class="fa fa-users"> <small>(<%= current_user.lab.users.length %>)</small></i>
+          <i class="fa fa-users"> <small>(<%= current_user.lab.users.count %>)</small></i>
         <% end %>        
         <%= link_to user_reagents_path(current_user), class: 'btn-large btn-warning' do %>
-          <i class="fa fa-flask"> <small>(<%= current_user.reagents.length %>)</small></i>
+          <i class="fa fa-flask"> <small>(<%= current_user.reagent_count %>)</small></i>
         <% end %>
         <%= link_to user_devices_path(current_user), class: 'btn-large btn-warning' do %>
-          <i class="fa fa-cogs"> <small>(<%= current_user.devices.length %>)</small></i>
+          <i class="fa fa-cogs"> <small>(<%= current_user.device_count %>)</small></i>
         <% end %>
         <%= link_to "bookings", class: 'btn-large btn-warning' do %>
           <i class="fa fa-calendar"><small> (4)</small></i>

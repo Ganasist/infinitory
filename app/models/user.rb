@@ -55,11 +55,19 @@ class User < ActiveRecord::Base
   scope :lm,      -> { where(role:  'lab_manager') }
 
   def relative_reagents_percentage(category)
-    self.reagents.where(category: category).count
+    self.reagents.where(category: category).length
   end
 
   def relative_devices_percentage(category)
-    self.devices.where(category: category).count
+    self.devices.where(category: category).length
+  end
+
+  def device_count
+    self.devices.length
+  end
+
+  def reagent_count
+    self.reagents.length
   end
 
   def should_generate_new_friendly_id?

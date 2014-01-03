@@ -58,15 +58,11 @@
   <div class="span5 pull-left">
     <table>
       <h3>Recent Activity</h3><br>
-        <% if @activities.present? %> 
-          <% @activities.each do |activity| %>     
-            <tr>
-              <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
-            </tr>
-            <br><br>
-          <% end %>
-        <% else %>
-            <tr>No recent activities.</tr>
+        <% @activities.each do |activity| %>     
+          <tr>
+            <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
+          </tr>
+          <br><br>
         <% end %>
     </table>
   </div>
