@@ -30,5 +30,4 @@ class UserMailer < ActionMailer::Base
     mail(to: "feedback@infinitory.com", subject: "Feedback from #{@feedback.email}")
     User.find_by(email: @feedback.email).add_points(5)
   end
-
 end
