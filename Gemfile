@@ -18,7 +18,7 @@ gem 'jquery-ui-rails'
 gem 'google_visualr', '>= 2.1'
 
 gem 'acts-as-taggable-on'
-# gem 'acts_as_commentable_with_threading'
+# gem 'acts_as_commentable_with_threading', '~> 1.1.3'
 
 gem 'public_activity'
 
@@ -41,7 +41,7 @@ gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
 
-gem 'paper_trail', '>= 3.0.0.rc2'
+gem 'paper_trail', '>= 3.0.0'
 
 gem 'validates_timeliness', '~> 3.0'
 
@@ -61,7 +61,7 @@ gem 'devise-async'
 gem 'figaro'
 gem 'pg'
 gem 'rolify'
-gem 'simple_form', '>= 3.0.0.rc'
+gem 'simple_form'
 
 gem 'thin'
 gem 'high_voltage'

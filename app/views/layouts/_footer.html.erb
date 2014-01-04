@@ -2,6 +2,6 @@
 <footer class="footer">
   <small>&copy;<%= Time.now.year %> | <i class="fa fa-question-circle fa-lg"> <%= link_to 'About ', page_path('about') %></i> | <i class="fa fa-lock fa-lg"> <%= link_to "Privacy Policy ", page_path('privacy') %></i>
   <% if user_signed_in? %>
-  | <i class="fa fa-envelope fa-lg"> <%= link_to "Feedback", new_message_path %></i></small>
+  | <i class="fa fa-bullhorn fa-lg"> <%= link_to "Feedback", new_message_path %></i></small>
   <% end %>
 </footer>
