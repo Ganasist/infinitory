@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem "google_visualr", ">= 2.1"
+gem 'google_visualr', '>= 2.1'
 
 gem 'acts-as-taggable-on'
 
