@@ -18,6 +18,7 @@ gem 'jquery-ui-rails'
 gem 'google_visualr', '>= 2.1'
 
 gem 'acts-as-taggable-on'
+# gem 'acts_as_commentable_with_threading'
 
 gem 'public_activity'
 
