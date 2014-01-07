@@ -9,7 +9,8 @@
           <%= image_tag(@user.icon_url(:portrait).to_s).html_safe %>
       </div>
     <% end %>
-   <%= "#{@user.fullname}" %>
+    <span class="inline-block">
+      <%= "#{@user.fullname}" %>
     <br>
       <% if @user.icon.blank? %>
         <small class="lead">
@@ -23,19 +24,20 @@
           <%= " #{@user.role.humanize}" %>
         </small>
       <% else %>
-        <small class="lead">
-          <%= " #{@user.role.humanize}" %>
-        </small>
-      <% end %>
-      <% if current_user == @user %>
-        <%= link_to t('.edit', :default => t('helpers.links.edit')),
-                    edit_user_registration_path, class: 'fa fa-edit btn btn-warning' %>
-      <% end %>
-      <br>
-      <small class="lead"><%= @user.points %> pts</small>
+          <small class="lead">
+            <%= " #{@user.role.humanize}" %>
+          </small>
+        <% end %>
+        <% if current_user == @user %>
+          <%= link_to t('.edit', :default => t('helpers.links.edit')),
+                      edit_user_registration_path, class: 'fa fa-edit btn btn-warning' %>
+        <% end %>
+        <br>
+        <small class="lead"><%= @user.points %> pts</small>
+      </span>
       <dl class="dl-horizontal">
       <h5>
-        <%= link_to @lab do %>
+        <%= link_to @lab, class: " inline-block" do %>
           <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@lab.gl.fullname} lab" %>
         <% end %>
       </h5>

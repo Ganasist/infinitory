@@ -94,14 +94,10 @@ describe 'LayoutLinks' do
       expect(page).to_not have_link("Sign-out", destroy_user_session_path)
     end
 
-    it 'should not have a link to send invitations' do
-      expect(page).to_not have_link("Invite a scientist", new_user_invitation_path)
-    end
-
-    it 'should not have a Feedback link' do
-      get '/'
-      expect(page).to_not have_link('Feedback', new_message_path)
-    end
+    it 'should not have an Invitation page at /invitation/new' do
+      get '/invitation/new'
+      assert_redirected_to '/login'
+    end    
 
     it 'should not have a Feedback page at /messages/new' do
       get '/messages/new'
@@ -150,22 +146,29 @@ describe 'LayoutLinks' do
       expect(page).to have_content("#{user.fullname}")
     end
 
-    it 'should have a Feedback link' do
+    it 'should have a Feedback link on the current User profile page' do
       get '/'
       expect(page).to have_link("Feedback", new_message_path)
     end
 
+    # it 'should not have a Feedback link on other Users profile pages' do
+    #   get '/'
+    #   expect(page).to have_link("Feedback", new_message_path)
+    # end
+
     it 'should have a Feedback page at /messages/new' do
       get '/messages/new'
-      expect(page).to have_content('Feedback')
+      expect(page).to have_content('Send feedback')
     end
+
+    it 'should have an Invitation page at /invitation/new' do
+      visit new_user_invitation_path
+      expect(page).to have_content('Invite another scientist or lab member')
+    end 
 
     it 'should have a sign out link' do
+      visit new_messages_path
       expect(page).to have_link("Sign-out", destroy_user_session_path)
-    end
-
-    it 'should have a link to send invitations' do
-      expect(page).to have_link("Invitations", new_user_invitation_path)
     end
 
     it 'should not have sign-in or sign-up links at the root path' do
