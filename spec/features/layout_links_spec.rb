@@ -34,7 +34,7 @@ describe 'LayoutLinks' do
 
   it 'should have a Privacy Policy link' do
     get '/'
-    response.body.should have_link('Privacy Policy', page_path('privacy'))
+    response.body.should have_link('Privacy', page_path('privacy'))
   end
 
   it 'should have a Privacy Policy at /privacy' do
@@ -44,7 +44,7 @@ describe 'LayoutLinks' do
 
   it 'should have the right links in the layout' do
     visit root_path
-    click_link 'Privacy Policy'
+    click_link 'Privacy'
     expect(page).to have_content 'Privacy Policy'
     expect(page).to have_content("INFINITORY", root_path)
 
@@ -165,7 +165,7 @@ describe 'LayoutLinks' do
     end
 
     it 'should have a link to send invitations' do
-      expect(page).to have_link("Invite a scientist", new_user_invitation_path)
+      expect(page).to have_link("Invitations", new_user_invitation_path)
     end
 
     it 'should not have sign-in or sign-up links at the root path' do

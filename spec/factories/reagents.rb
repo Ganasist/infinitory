@@ -5,7 +5,7 @@ FactoryGirl.define do
   factory :reagent do
   	lab
     name        { Faker::Lorem.word }
-    category    { %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit].sample }
+    category    { %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit vector].sample }
     price				{ Random.rand(1000) }
     serial			{ SecureRandom.hex(Random.rand(2..8)) }
     remaining		{ Random.rand(100) }
