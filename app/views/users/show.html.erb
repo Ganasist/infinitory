@@ -60,7 +60,15 @@
     <%= link_to "Invitations", new_user_invitation_path, class: 'fa fa-chain btn btn-warning' %>
   <% end %>
    <!-- <span id="calendar_view"></span>     -->
-  </div>  
+    <br><br>
+    <div>
+      <h4>Notifications section here</h4>
+      <%= simple_format(LoremIpsum.random(paragraphs: 3), class: "comments") %>
+    </div>
+
+  </div>
+
+
   <div class="span5 pull-left">
     <table>
       <h3>Recent Activity</h3><br>
