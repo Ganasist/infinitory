@@ -15,7 +15,7 @@
 // Font Awesome
 @import "fontawesome/font-awesome";
 
-@linkHover: #FF0000;
+@linkHover: orange;
 @navbarBackground: #4169E1;
 @navbarBackgroundHighlight: @navbarBackground + #222;
 @navbarText: #eee;
@@ -61,13 +61,27 @@ body td {
  	line-height: 1.3em;
 }
 
-a, .brand {
+a.btn-success, .btn-large, .btn {
+	margin: 2px;
+	display: inline-block;
+	// background-color: @navbarBackgroundHighlight;
+	&:hover {
+		color: @linkHover;
+    text-decoration: none;
+    background-color: @navbarBackground;
+	}
+	&:visited {
+		// color: #FFF;
+	}	
+}
+
+a, .brand, #invitation, #sign-out {
 	font-size: 1.2em;
 	&:hover {
 		color: @linkHover;
 		background: none;
 	  text-decoration: none;
-	} 
+	}
   img {
 		background-color: white;
 		margin: 3px 10px 3px 0px;
@@ -80,28 +94,14 @@ input.search-field {
 	width: 100%;
 }
 
-a.btn-success, .btn-large, .btn {
-	margin: 2px;
-	display: inline-block;
-	// background-color: @navbarBackgroundHighlight;
-	&:hover {
-		color: #000;
-    text-decoration: none;
-    background-color: @navbarBackground;
-	}
-	&:visited {
-		// color: #FFF;
-	}	
-}
-
-a#invitation {
-	color: #FFF;
-	text-decoration: none;
-	background: none;
-	&:hover {
-		color: #000;
-	} 
-}
+// a#invitation {
+// 	color: #FFF;
+// 	text-decoration: none;
+// 	background: none;
+// 	&:hover {
+// 		color: #000;
+// 	} 
+// }
 
 .user-icon-portrait {
 	padding: 0px 5px 5px 0px;
