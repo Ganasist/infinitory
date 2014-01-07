@@ -56,12 +56,12 @@ class IconUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
 
   # If you do recreate_versions! this method will encode the filename of the previously encoded name, 
-  #   which will result in a new name.  
+  #   which will resul t in a new name.  
   # The new name will not be stored in the database!
   # In order to save the newly generated filename you have to call save! on the model after recreate_versions!.
 
   def filename
-     "#{secure_token}.#{file.extension}" if original_filename.present?
+    "#{secure_token}.#{file.extension}" if original_filename.present?
   end
 
   protected
