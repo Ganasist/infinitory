@@ -2,8 +2,7 @@ $(document).ready ->
   text_max = 300
   $("#comment_feedback").html "* " + text_max + " characters remaining"
   $("#comment").keyup ->
-    text_length = $("#comment").val().length
-    text_remaining = text_max - text_length
+    text_remaining = text_max - $("#comment").val().length
     $("#comment_feedback").html "* " + text_remaining + " characters remaining"
 
     $('#comment_feedback').addClass("overlimit") &&

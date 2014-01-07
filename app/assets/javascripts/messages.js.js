@@ -4,9 +4,8 @@ $(document).ready(function() {
   text_max = 300;
   $("#comment_feedback").html("* " + text_max + " characters remaining");
   return $("#comment").keyup(function() {
-    var text_length, text_remaining;
-    text_length = $("#comment").val().length;
-    text_remaining = text_max - text_length;
+    var text_remaining;
+    text_remaining = text_max - $("#comment").val().length;
     $("#comment_feedback").html("* " + text_remaining + " characters remaining");
     if (text_remaining < 0) {
       $('#comment_feedback').addClass("overlimit") && $('#feedback_submit').attr("disabled", true);

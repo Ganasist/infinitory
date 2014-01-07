@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
       current_user.create_activity :feedback, owner: current_user
       redirect_to current_user, notice: "Feedback sent. Your input is appreciated!"
     else
-      @message
+      @message = Message.new
       render "new"
     end
   end
