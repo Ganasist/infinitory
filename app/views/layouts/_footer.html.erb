@@ -2,11 +2,6 @@
 <footer class="footer">
   <small>&copy;<%= Time.now.year %>
   -	<%= link_to 'About ', page_path('about') %>
-  -	<%= link_to "Privacy ", page_path('privacy') %>
-  <% if user_signed_in? %>
-  - <%= link_to "Feedback", new_message_path %>
-  - <%= link_to "Invitations", new_user_invitation_path %></small>
-  <% else %>
-  	</small>
-  <% end %>
+  -	<%= link_to 'Privacy Policy', page_path('privacy') %>
+	</small>
 </footer>
