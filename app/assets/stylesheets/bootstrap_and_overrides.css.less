@@ -150,17 +150,29 @@ span.badge-25 {
 }
 
 .footer {
-font-size: 0.85em;
-border-top-style: solid;
-border-width: 1px;
-border-color: grey;
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
-height: 30px;
-background-color: white;
-padding: 5px;
+	font-size: 0.90em;
+	color: #FFF;
+	// border-top-style: solid;
+	// border-width: 1px;
+	// border-color: grey;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+	background-color: @navbarBackground;
+	padding: 5px;
+	a {
+		font-weight: bold;
+		&:visited {
+			color: #fff;
+		}
+		&:hover {
+			color: orange;
+			background: none;
+		  text-decoration: none;
+	  }
+	}
 }
 
 .col-lg-4 h2 {
