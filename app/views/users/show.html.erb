@@ -2,7 +2,7 @@
 <% title 'People: ' + @user.fullname %>
   
 <div class="row">
-  <div class="span7">
+  <div class="span6">
   <h3>
     <% if @user.icon.present? %>
       <div class="pull-left user-icon-portrait">
@@ -37,7 +37,7 @@
       </span>
       <dl class="dl-horizontal">
       <h5>
-        <%= link_to @lab, class: " inline-block" do %>
+        <%= link_to @lab, class: "inline-block" do %>
           <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@lab.gl.fullname} lab" %>
         <% end %>
       </h5>
@@ -65,11 +65,9 @@
       <h4>Notifications section here</h4>
       <%= simple_format(LoremIpsum.random(paragraphs: 3), class: "comments") %>
     </div>
-
   </div>
 
-
-  <div class="span5 pull-left">
+  <div class="span6 pull-left">
     <table>
       <h3>Recent Activity</h3><br>
         <% @activities.each do |activity| %>     
