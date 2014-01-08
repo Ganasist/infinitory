@@ -2,7 +2,7 @@
 <div class="row">
  <div class="span6"> 
   <% if @lab %>
-    <h4>The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>'s devices</h4>  
+    <h4>The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>: <%= @lab.devices_count %> Devices</h4>  
   <% elsif params[:user_id].present? %>        
     <h3>My devices</h3>
     <p><%= link_to "My lab's devices", lab_devices_path(current_user.lab) %></p>
