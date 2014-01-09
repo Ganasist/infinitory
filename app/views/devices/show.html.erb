@@ -4,7 +4,7 @@
 <div class="row">
   <div class="span6">
     <% if @device.icon.present? %>
-      <%= image_tag(@device.icon_url(:large).to_s).html_safe %><br>
+      <%= image_tag(@device.icon_url(:large).to_s, class: "img-rounded").html_safe %><br>
     <% end %>
     <h3><%= @device.name %></h3>
     <h4><%= link_to "#{@device.gl.fullname} lab", @device.lab %></h4>

@@ -4,7 +4,7 @@
 <div class="row">
   <div class="span6">
     <% if @reagent.icon.present? %>
-      <%= image_tag(@reagent.icon_url(:large).to_s).html_safe %><br>
+      <%= image_tag(@reagent.icon_url(:large).to_s, class: "img-rounded").html_safe %><br>
     <% end %>
     <h3><%= @reagent.name %></h3>
     <h4><%= link_to "#{@reagent.gl.fullname}", @reagent.lab %> lab</h4>
