@@ -1,5 +1,5 @@
 $(document).ready ->
-  text_max = 300
+  text_max = 223
   $("#comment_feedback").html "* " + text_max + " characters remaining"
   $("#comment").keyup ->
     text_remaining = text_max - $("#comment").val().length
