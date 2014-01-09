@@ -18,7 +18,8 @@ gem 'jquery-ui-rails'
 gem 'google_visualr', '>= 2.1'
 
 gem 'acts-as-taggable-on'
-# gem 'acts_as_commentable_with_threading', '~> 1.1.3'
+
+gem 'acts_as_commentable'
 
 gem 'lorem_ipsum_amet'
 

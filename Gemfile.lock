@@ -38,6 +38,7 @@ GEM
       tzinfo (~> 0.3.37)
     acts-as-taggable-on (3.0.0)
       rails (>= 3, < 5)
+    acts_as_commentable (4.0.1)
     addressable (2.3.5)
     ambry (0.3.1)
     amoeba (2.0.0)
@@ -365,6 +366,7 @@ PLATFORMS
 DEPENDENCIES
   active_attr
   acts-as-taggable-on
+  acts_as_commentable
   amoeba
   better_errors
   binding_of_caller
