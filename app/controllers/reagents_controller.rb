@@ -71,6 +71,9 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @clone.save
         @clone.create_activity :clone, owner: current_user
+        @clone.users.each do |u|
+          u.comments.create(title: "Reagent cloned", comment: "A new copy of #{@clone.name} was cloned by #{current_user.fullname}")
+        end 
         format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
@@ -83,8 +86,13 @@ class ReagentsController < ApplicationController
   def update
     respond_to do |format|
       if @reagent.update(reagent_params)
-        @reagent.create_activity :update, owner: current_user
-        flash[:notice] = "#{ @reagent.name } has been updated."
+        @reagent.create_activity :update, owner: current_user 
+        if @reagent.remaining < 21
+          @reagent.users.each do |u|
+            u.comments.create(title: "Reagent level low", comment: "#{@reagent.name} has only #{@reagent.remaining}% remaining.")
+          end
+        end        
+        flash[:notice] = "#{@reagent.name} has been updated."
         format.html { redirect_to @reagent }
         format.json { head :no_content }
       else
@@ -97,16 +105,18 @@ class ReagentsController < ApplicationController
   def destroy
     @lab = @reagent.lab
     @reagent.create_activity :delete, owner: current_user
+    @reagent.users.each do |u|
+        u.comments.create(title: "Reagent removed", comment: "#{@reagent.name} was deleted by #{current_user.fullname}.")
+      end
     @reagent.destroy
     respond_to do |format|
-      flash[:notice] = "#{ @reagent.name } has been removed."
+      flash[:notice] = "#{@reagent.name} has been removed."
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
     end
   end
 
   private
-
     def check_user!
       if current_user.lab != Reagent.find(params[:id]).lab
         redirect_to current_user

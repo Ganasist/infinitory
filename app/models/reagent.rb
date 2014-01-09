@@ -47,6 +47,7 @@ class Reagent < ActiveRecord::Base
 	process_in_background :icon
 	
 	acts_as_taggable
+
 	scope :modified_recently, -> { order("updated_at DESC") }
 	scope :expired, 					-> { where("expiration < ?", Date.today )}
 

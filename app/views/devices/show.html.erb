@@ -35,7 +35,6 @@
         <dd><%= @device.uid %></dd><br>
       <% end %>
 
-
       <% if @device.url? %>
         <dt>Website:</dt>
         <dd><%= link_to "#{@device.url}", url_with_protocol(@device.url), :target => "_blank" %></dd><br>

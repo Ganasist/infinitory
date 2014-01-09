@@ -1,6 +1,6 @@
 <div id="push">
   <% if user_signed_in? %>
-    <%= nav_bar brand: "∞ INFINITORY", brand_link: user_path(current_user), responsive: false do %>
+    <%= nav_bar brand: "INFINITORY", brand_link: user_path(current_user), responsive: false do %>
       <% if current_user.lab.present? %>
         <%= menu_group do %>
           <%= menu_item " Sign-out", destroy_user_session_path, method: :delete, class: "fa fa-sign-out", id: "sign-out" %>
