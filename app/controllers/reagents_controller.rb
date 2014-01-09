@@ -74,7 +74,7 @@ class ReagentsController < ApplicationController
         format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit', notice: "There was a problem cloning" }
         format.json { render json: @clone.errors, status: :unprocessable_entity }
       end
     end
