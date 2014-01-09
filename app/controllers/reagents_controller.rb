@@ -72,7 +72,7 @@ class ReagentsController < ApplicationController
       if @clone.save
         @clone.create_activity :clone, owner: current_user
         @clone.users.each do |u|
-          u.comments.create(title: "Reagent cloned", comment: "A new copy of #{@clone.name} was cloned by #{current_user.fullname}")
+          u.comments.create(comment: "A new copy of #{@clone.name} was cloned by #{current_user.fullname}")
         end 
         format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
@@ -89,7 +89,7 @@ class ReagentsController < ApplicationController
         @reagent.create_activity :update, owner: current_user 
         if @reagent.remaining < 21
           @reagent.users.each do |u|
-            u.comments.create(title: "Reagent level low", comment: "#{@reagent.name} has only #{@reagent.remaining}% remaining.")
+            u.comments.create(comment: "#{@reagent.name} had only #{@reagent.remaining}% remaining")
           end
         end        
         flash[:notice] = "#{@reagent.name} has been updated."
@@ -106,7 +106,7 @@ class ReagentsController < ApplicationController
     @lab = @reagent.lab
     @reagent.create_activity :delete, owner: current_user
     @reagent.users.each do |u|
-        u.comments.create(title: "Reagent removed", comment: "#{@reagent.name} was deleted by #{current_user.fullname}.")
+        u.comments.create(comment: "#{@reagent.name} was deleted by #{current_user.fullname}")
       end
     @reagent.destroy
     respond_to do |format|

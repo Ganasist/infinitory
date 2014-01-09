@@ -74,7 +74,7 @@ class DevicesController < ApplicationController
       if @clone.save
         @clone.create_activity :clone, owner: current_user
         @clone.users.each do |u|
-          u.comments.create(title: "Device cloned", comment: "#{@clone.name} was cloned by #{current_user.fullname}.")
+          u.comments.create(comment: "#{@clone.name} was cloned by #{current_user.fullname}")
         end
         format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
@@ -115,7 +115,7 @@ class DevicesController < ApplicationController
     @lab = @device.lab
     @device.create_activity :delete, owner: current_user
     @device.users.each do |u|
-        u.comments.create(title: "Device removed", comment: "#{@device.name} was deleted by #{current_user.fullname}.")
+        u.comments.create(comment: "#{@device.name} was deleted by #{current_user.fullname}")
       end
     @device.destroy
     respond_to do |format|
