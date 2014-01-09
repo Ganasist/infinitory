@@ -1,4 +1,5 @@
 jQuery ->
+
 	$('#reagent_expiration').datepicker
 		dateFormat: 'yy-mm-dd',
 		minDate: 0,

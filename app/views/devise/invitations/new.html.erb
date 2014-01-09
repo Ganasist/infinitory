@@ -9,6 +9,8 @@
 	<% resource.class.invite_key_fields.each do |field| -%>
 	  <%= f.input field, label: false,  placeholder: "Enter e-mail address", autofocus: true %>
 	<% end -%>
-	<%= f.button :submit, "Send Invitation!", class: "btn btn-warning" %>
+	<%= button_tag(type: 'submit', class: "btn btn-warning") do %>
+    <i class="fa fa-chain"></i> Send Invitation!
+  <% end %>
 </div>
 <% end %>
