@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :activate, :retire, :reject]
-  before_action :set_lab, only: [:retire, :reject]
+  before_action :set_lab, only: [:retire, :reject, :activate]
   before_action :authenticate_user!
 
   def index    
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
     @user.joined = Time.now
     if @user.save
       flash[:notice] = "#{@user.fullname} has joined your lab #{ undo_link }"
+      @lab.comments.create(comment: "#{@user.fullname} joined the lab")
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
       else
@@ -57,6 +58,7 @@ class UsersController < ApplicationController
     @user.retire
     if @user.save
       flash[:notice] = "#{@user.fullname} has been retired. #{undo_link}"
+      @lab.comments.create(comment: "#{@user.fullname} retired from the lab")
       UserMailer.delay(retry: false).retire_email(@user.id, @lab.id)
     else
       flash[:alert] = "#{@user.fullname} couldn't be retired..."
