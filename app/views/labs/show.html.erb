@@ -55,22 +55,12 @@
             <% end %>
         </div>
       <hr>
+
+      <%= render 'notifications' %>
     </div>
+  
   <div class="span6 pull-left">
-    <table>
-      <h3>Recent Activity</h3><br>
-        <% if @activities.present? %> 
-          <% @activities.each do |activity| %>     
-            <tr>
-              <%= link_to activity.owner.fullname, activity.owner if activity.owner %> -
-              <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
-            </tr>
-            <br><br>
-          <% end %>
-        <% else %>
-            <tr>No recent activities.</tr>
-        <% end %>
-    </table>
+    <%= render 'activities' %>
   </div>
 </div>
 

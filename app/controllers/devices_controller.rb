@@ -117,6 +117,7 @@ class DevicesController < ApplicationController
     @device.users.each do |u|
         u.comments.create(comment: "#{@device.name} was deleted by #{current_user.fullname}")
       end
+    @lab.comments.create(comment: "#{@device.name} was deleted by #{current_user.fullname}")
     @device.destroy
     respond_to do |format|
       flash[:notice] = "#{ @device.name } has been removed."

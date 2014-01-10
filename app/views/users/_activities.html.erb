@@ -1,0 +1,8 @@
+<h3>Activity</h3><br>
+  <% @activities.each do |activity| %>     
+    <tr>
+      <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
+    </tr>
+    <br><br>
+  <% end %>
+</table>
