@@ -72,7 +72,7 @@ class ReagentsController < ApplicationController
       if @clone.save
         @clone.create_activity :clone, owner: current_user
         @clone.users.each do |u|
-          u.comments.create(comment: "A new copy of #{@clone.name} was cloned by #{current_user.fullname}")
+          u.comments.create(comment: "#{@clone.name} was cloned by #{current_user.fullname}")
         end 
         format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
