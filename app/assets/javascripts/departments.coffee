@@ -1,8 +1,3 @@
-if gon? && ($("#departmentFlower").length)
-	departmentFlower = new CodeFlower("#departmentFlower", 300, 300)
-	departmentFlower.update(gon.department)
-	# console.log gon.department
-
 jQuery ->
 	before = $('#user_institute_name').val()
 	$('#user_institute_name').blur ->
