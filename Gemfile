@@ -50,7 +50,7 @@ gem 'validates_timeliness', '~> 3.0'
 
 gem 'pg_search'
                       
-# gem 'turbolinks'
+gem 'turbolinks'
 
 gem 'therubyracer'
 gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
