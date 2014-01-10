@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @institute = @user.institute
     @department = @user.department
   	@lab = @user.lab
-    @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
+    # @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
     @comments = @user.comments.recent.limit(25)
   end
 

@@ -21,7 +21,7 @@ class LabsController < ApplicationController
     @activities = PublicActivity::Activity.includes(:trackable, :owner).where(owner_id: @lab.user_ids).limit(25).order('created_at desc')
     @department = @lab.department
     @institute = @lab.institute
-    @comments = @lab.comments.recent.limit(25)
+    # @comments = @lab.comments.recent.limit(25)
   end
 
   def new

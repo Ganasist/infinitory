@@ -91,7 +91,7 @@ class ReagentsController < ApplicationController
           @reagent.users.each do |u|
             u.comments.create(comment: "#{@reagent.name} had only #{@reagent.remaining}% remaining")
           end
-          @reagent.lab.comments.create(comment: "#{@reagent.name} had only #{@reagent.remaining}% remaining")
+          # @reagent.lab.comments.create(comment: "#{@reagent.name} had only #{@reagent.remaining}% remaining")
         end        
         flash[:notice] = "#{@reagent.name} has been updated."
         format.html { redirect_to @reagent }
@@ -109,7 +109,7 @@ class ReagentsController < ApplicationController
     @reagent.users.each do |u|
         u.comments.create(comment: "#{@reagent.name} was deleted by #{current_user.fullname}")
       end
-    @lab.comments.create(comment: "#{@reagent.name} was deleted by #{current_user.fullname}")
+    # @lab.comments.create(comment: "#{@reagent.name} was deleted by #{current_user.fullname}")
     @reagent.destroy
     respond_to do |format|
       flash[:notice] = "#{@reagent.name} has been removed."

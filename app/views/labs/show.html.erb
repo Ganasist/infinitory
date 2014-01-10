@@ -3,62 +3,60 @@
 
 <div class="row">
   <div class="span6">
-      <h3>
-        <%= link_to lab_users_path(@lab) do %>
-         <i class="icon-group"></i><%= " The #{@lab.gl.fullname} Lab" %>
-        <% end %>
-        <% if current_user.gl_lm? && current_user.lab == @lab %>
-          <div class="btn-group">
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_lab_path(@lab), class: 'btn-small btn-warning' %>
-          </div>
-        <% end %>
-      </h3>
-
-      <dl class="dl-horizontal">
-        <h5>
-          <%= link_to @user do %>
-           <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@user.fullname}" %>
-           <% end %>
-        </h5>
-
-        <% if @lab.room.present? %>
-          <%= link_to "#" do %>
-            <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %></h5>
-          <% end %>
-        <% end %>
-
-        <% if @department.present? %>
-          <h5>
-            <%= link_to institute_department_path(@institute, @department) do %>
-             <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@department.name}" %>
-             <% end %>
-          </h5>
-        <% end %>
-
-        <h5>
-          <%= link_to @institute do %>
-           <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@institute.name}" %>
-           <% end %>
-        </h5>
-      </dl>
-
-        <div class='row-fluid'>
-            <%= link_to lab_users_path(@lab), class: "btn btn-warning" do %>
-              <i class="fa fa-users"> Members <%= "(#{@lab.users.length})" %></i>
-            <% end %>
-            <%= link_to lab_reagents_path(@lab), class: "btn btn-warning" do %>
-              <i class="fa fa-flask"> Reagents (<%= @lab.reagents.size %>)</i>
-            <% end %>
-            <%= link_to lab_devices_path(@lab), class: "btn btn-warning" do %>
-              <i class="fa fa-cogs"> Devices (<%= @lab.devices.size %>)</i>
-            <% end %>
+    <h3>
+      <%= link_to lab_users_path(@lab) do %>
+       <i class="icon-group"></i><%= " The #{@lab.gl.fullname} Lab" %>
+      <% end %>
+      <% if current_user.gl_lm? && current_user.lab == @lab %>
+        <div class="btn-group">
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_lab_path(@lab), class: 'btn-small btn-warning' %>
         </div>
-      <hr>
+      <% end %>
+    </h3>
 
+    <dl class="dl-horizontal">
+      <h5>
+        <%= link_to @user do %>
+         <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@user.fullname}" %>
+         <% end %>
+      </h5>
+
+      <% if @lab.room.present? %>
+        <%= link_to "#" do %>
+          <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %></h5>
+        <% end %>
+      <% end %>
+
+      <% if @department.present? %>
+        <h5>
+          <%= link_to institute_department_path(@institute, @department) do %>
+           <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@department.name}" %>
+           <% end %>
+        </h5>
+      <% end %>
+      <h5>
+        <%= link_to @institute do %>
+         <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@institute.name}" %>
+         <% end %>
+      </h5>
+    </dl>
+      <div class='row-fluid'>
+          <%= link_to lab_users_path(@lab), class: "btn btn-warning" do %>
+            <i class="fa fa-users"> Members <%= "(#{@lab.users.length})" %></i>
+          <% end %>
+          <%= link_to lab_reagents_path(@lab), class: "btn btn-warning" do %>
+            <i class="fa fa-flask"> Reagents (<%= @lab.reagents.size %>)</i>
+          <% end %>
+          <%= link_to lab_devices_path(@lab), class: "btn btn-warning" do %>
+            <i class="fa fa-cogs"> Devices (<%= @lab.devices.size %>)</i>
+          <% end %>
+      </div>
+    <hr>
+    <% if false %>
       <%= render 'notifications' %>
-    </div>
-  
+    <% end %>
+  </div>
   <div class="span6 pull-left">
     <%= render 'activities' %>
   </div>

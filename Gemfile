@@ -10,7 +10,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'unicorn'
 # gem 'capistrano', group: :development
-# gem 'debugger', group: [:development, :test]
+
+gem 'debugger', group: [:development, :test]
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -18,10 +19,9 @@ gem 'jquery-ui-rails'
 gem 'google_visualr', '>= 2.1'
 
 gem 'acts-as-taggable-on'
-
 gem 'acts_as_commentable'
 
-gem 'lorem_ipsum_amet'
+# gem 'lorem_ipsum_amet'
 
 gem 'public_activity'
 
@@ -33,9 +33,9 @@ gem 'active_attr'
 
 gem 'merit'
 
-gem 'gon'
-gem 'rabl'
-gem 'oj'
+# gem 'gon'
+# gem 'rabl'
+# gem 'oj'
 
 gem 'whenever', require: false
 
@@ -50,7 +50,7 @@ gem 'validates_timeliness', '~> 3.0'
 
 gem 'pg_search'
                       
-gem 'turbolinks'
+# gem 'turbolinks'
 
 gem 'therubyracer'
 gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
@@ -68,6 +68,7 @@ gem 'simple_form'
 
 gem 'thin'
 gem 'high_voltage'
+
 gem 'geocoder'
 
 gem 'sidekiq'
