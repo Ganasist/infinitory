@@ -26,11 +26,11 @@ class LabsController < ApplicationController
 
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Initials')
-    data_table.new_column('number', 'Reagents')
     data_table.new_column('number', 'Devices')
-    data_table.new_column('number', 'ID')
-    data_table.new_column('number', 'Points')
-    data_table.add_rows( @users.map { |u|[u.fullname, u.reagents.count, u.devices.count, u.created_at.to_i, u.points]} )    
+    data_table.new_column('number', 'Reagents')
+    data_table.new_column('number', 'Recent points')
+    data_table.new_column('number', 'Total points')
+    data_table.add_rows( @users.map { |u|[u.fullname, u.devices.count, u.reagents.count, u.points, u.points]} )    
     @chart = GoogleVisualr::Interactive::BubbleChart.new(data_table, lab_scatter_options)
   end
 
