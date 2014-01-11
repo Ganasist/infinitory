@@ -148,7 +148,4 @@ class DevicesController < ApplicationController
       															 :url, :serial, :description, :tag_list, :lock_version, :status,
       															 :uid, :icon, :icon_cache, :remote_icon_url, :remove_icon)
     end
-
-
-
 end

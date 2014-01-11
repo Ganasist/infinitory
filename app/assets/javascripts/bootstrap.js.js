@@ -2,5 +2,12 @@
 jQuery(function() {
   $("a[rel=popover]").popover();
   $(".tooltip").tooltip();
-  return $("a[rel=tooltip]").tooltip();
+  $("a[rel=tooltip]").tooltip();
+  return $("i").tooltip({
+    placement: "bottom",
+    delay: {
+      show: 200,
+      hide: 100
+    }
+  });
 });

@@ -17,23 +17,19 @@
   <tbody>
     <% @reagents.each do |reagent| %>
       <tr>
-        <% if low?(reagent) %>
-          <td><%= fa_icon "camera-retro" if reagent.icon.present? %> <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-warning"> Low</span></td>
-        <% elsif almost_empty?(reagent) %>
-          <td><%= fa_icon "camera-retro" if reagent.icon.present? %> <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %> <span class="label label-important">Low</span></td>
-        <% else %>
-          <td><%= fa_icon "camera-retro" if reagent.icon.present? %> <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %><br>
-          </td>
-        <% end %>
-
+        <td>
+          <%= fa_icon "camera-retro", title: "Image available" if reagent.icon.present? %>          
+          <% if low?(reagent) %>
+            <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent), class: "text-warning" %>            
+          <% elsif almost_empty?(reagent) %>
+            <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent), class: "text-danger" %>
+          <% else %>
+            <%= link_to "#{reagent.name} #{reagent.remaining}%", reagent_path(reagent) %>
+          <% end %>
+        </td>
         <td><%= reagent.category.titleize %></td>  
         <td><%= reagent.location %></td>
         <td><%= reagent.uid %></td>
-
-        <% if params[:tag] %>
-          <td><%= raw reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
-        <% end %>
-
         <% if reagent.expiration? %>
           <% if reagent.expiration.past? %>
             <td><span class="label label-important"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>

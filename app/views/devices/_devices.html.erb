@@ -16,23 +16,16 @@
   <tbody>
     <% @devices.each do |device| %>
       <tr>
-        
         <td>
-          <%= fa_icon "camera-retro" if device.icon.present? %> <%= link_to "#{device.name}", device_path(device) %><br>
+          <%= fa_icon "wrench", title: "Offline" unless device.status? %>
+          <%= fa_icon "camera-retro", title: "Image available" if device.icon.present? %>
+          <%= link_to "#{device.name}", device_path(device) %>
         </td>
         <td><%= device.category.titleize %></td>  
         <td><%= device.location %></td>
         <td><%= device.uid %></td>
-
-        <% if params[:tag] %>
-          <td><%= raw device.tag_list.map { |t| link_to t, tag_path(t) }.join(' ') %></td>
-        <% end %>
-
         <td><%= time_ago_in_words(device.updated_at) %> ago</td>
-        <td>
-          <%= link_to ' Edit',
-                      edit_device_path(device), class: 'icon-edit btn btn-warning' %>
-        </td>
+        <td><%= link_to ' Edit', edit_device_path(device), class: 'icon-edit btn btn-warning' %></td>
       </tr>
     <% end %>
   </tbody>
