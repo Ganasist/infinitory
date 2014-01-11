@@ -1,11 +1,11 @@
 <% if @lab.comments.present? %>
-<h3>Notifications</h3><br>
-  <table>
-    <% @comments.each do |comment| %>     
-      <tr class="lab_notifications">
-        <%= comment.comment %> <%= time_ago_in_words(comment.created_at) %> ago
-      </tr>
-      <br><br>
-    <% end %>
-  </table>
+  <h3>Notifications</h3><br>
+    <table class="table-striped">
+    	<% @comments.each do |comment| %>     
+			  <tr class="lab_notifications">
+			    <%= comment.comment %> <%= time_ago_in_words(comment.created_at) %> ago
+			  </tr>
+			  <br><br>
+			<% end %>
+		</table>
 <% end %>
