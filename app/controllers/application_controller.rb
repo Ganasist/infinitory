@@ -21,12 +21,13 @@ class ApplicationController < ActionController::Base
     helper_method :pie_options
 
     def lab_scatter_options
-      {:width => 400, :height => 400,
-       chartArea: {width: "90%", height: "90%"},
+      {width: 500, height: 500,
+       chartArea: {width: "80%", height: "80%"},
        legend: { position: 'none'},
-       :hAxis => { :title => 'Life Expectancy' },
-       :vAxis => { :title => 'Fertility Rate'  },
-       :bubble => { :textStyle => { :fontSize => 11 }}}
+       colorAxis: { colors: ['white', 'blue']},
+       hAxis: { title: 'Devices', logScale: false },
+       vAxis: { title: 'Reagents', logScale: false  },
+       bubble: { textStyle: { :fontSize => 11 }}}
     end
     helper_method :lab_scatter_options
 

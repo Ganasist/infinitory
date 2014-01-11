@@ -55,10 +55,7 @@
     <hr>
     <%= render 'notifications' %>
   </div>
-  <div class="span6 pull-left">
-    <% if false %>
-      <%= render 'activities' %>
-    <% end %>
+  <div class="span6">
     <% cache @chart do %>
       <div id='chart'></div>
         <%= render_chart(@chart, 'chart') %>

@@ -43,12 +43,12 @@ namespace :db do
 
         r.rand(200..1000).times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
-          reagent.user_ids = gl.lab.user_ids.sample((gl.lab.size / 3))
+          reagent.user_ids = gl.lab.user_ids.sample((gl.lab.size / 1.5))
         end
 
         r.rand(200..1000).times do |n|
           device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
-          device.user_ids = gl.lab.user_ids.sample((gl.lab.size / 3))
+          device.user_ids = gl.lab.user_ids.sample((gl.lab.size / 1.5))
         end
       end
       

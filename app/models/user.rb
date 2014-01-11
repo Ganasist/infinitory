@@ -114,6 +114,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def initials
+    if self.first_name.blank? || self.last_name.blank?
+      ""
+    else
+      self[0,1]
+    end    
+  end
+
   def gl
     unless self.lab_id.blank?
       User.find_by(email: self.lab.email)
