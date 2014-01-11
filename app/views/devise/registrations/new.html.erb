@@ -3,7 +3,7 @@
 </span>
 <br>
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
-                              html: { class: 'form-inline register'} ) do |f| %>
+                              html: { class: 'form-inline register', autocomplete: 'off' } ) do |f| %>
 <%= f.error_notification %>
 <div class="span5">
   <div class="form-inputs">
