@@ -5,7 +5,7 @@
       <h4>The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>: <%= @lab.reagents_count %> Reagents</h4>  
     <% elsif params[:user_id].present? %>        
       <h3>My reagents</h3>
-      <p><%= link_to "My lab's reagents", lab_reagents_path(current_user.lab) %></p>
+      <p><%= link_to "#{@user.lab.gl.fullname} lab's reagents", lab_reagents_path(current_user.lab) %></p>
     <% end %>
 
     <% if params[:tag] %>

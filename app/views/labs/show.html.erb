@@ -59,6 +59,11 @@
     <% if false %>
       <%= render 'activities' %>
     <% end %>
+    <% cache @chart do %>
+      <div id='chart'></div>
+        <%= render_chart(@chart, 'chart') %>
+      </div>
+    <% end %>
   </div>
 </div>
 

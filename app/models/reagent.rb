@@ -48,7 +48,7 @@ class Reagent < ActiveRecord::Base
 	
 	acts_as_taggable
 
-	scope :modified_recently, -> { order("updated_at DESC") }
+	scope :modified_recently, -> { order("updated_at Desc") }
 	scope :expired, 					-> { where("expiration < ?", Date.today )}
 
 	# store_accessor :properties, :description

@@ -1,5 +1,5 @@
 <%- model_class = Device -%>
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -19,7 +19,11 @@
         <td>
           <%= fa_icon "wrench", title: "Offline" unless device.status? %>
           <%= fa_icon "camera-retro", title: "Image available" if device.icon.present? %>
-          <%= link_to "#{device.name}", device_path(device) %>
+          <% if device.status? %>
+            <%= link_to "#{device.name}", device_path(device) %>
+          <% else %>
+            <%= link_to "#{device.name}", device_path(device), class: "text-danger" %>
+          <% end %>
         </td>
         <td><%= device.category.titleize %></td>  
         <td><%= device.location %></td>

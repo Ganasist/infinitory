@@ -16,9 +16,19 @@ class ApplicationController < ActionController::Base
       {width: 400, height: '100%', pieSliceText: 'none', fontSize: 12,
        legend: {position: 'labeled', alignment: 'center'}, 
        chartArea: {width: "92%", height: "92%"},
-       tooltip: {textStyle: {fontSize: 18}, text: 'value'}}
+       tooltip: {textStyle: {fontSize: 15}, text: 'value'}}
     end
     helper_method :pie_options
+
+    def lab_scatter_options
+      {:width => 400, :height => 400,
+       chartArea: {width: "90%", height: "90%"},
+       legend: { position: 'none'},
+       :hAxis => { :title => 'Life Expectancy' },
+       :vAxis => { :title => 'Fertility Rate'  },
+       :bubble => { :textStyle => { :fontSize => 11 }}}
+    end
+    helper_method :lab_scatter_options
 
     def after_sign_in_path_for(resource)
       user_path(current_user)
