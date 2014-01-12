@@ -25,7 +25,7 @@ namespace :db do
         gl.lab.created_at  = gl.created_at
         gl.lab.save
         
-        r.rand(5..12).times do |n|
+        r.rand(8..15).times do |n|
           role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                      master's_student project_student technician other].sample
           u = User.create!(role:                   role,
@@ -43,12 +43,12 @@ namespace :db do
           u.save
         end
 
-        r.rand(200..400).times do |n|
+        r.rand(200..500).times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           reagent.user_ids = gl.lab.user_ids.sample(rand(gl.lab.size))
         end
 
-        r.rand(200..400).times do |n|
+        r.rand(200..500).times do |n|
           device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           device.user_ids = gl.lab.user_ids.sample(rand(gl.lab.size))
         end
