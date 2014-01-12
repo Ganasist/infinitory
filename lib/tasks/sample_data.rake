@@ -37,8 +37,8 @@ namespace :db do
           u.first_name = Faker::Name.first_name
           u.last_name  = Faker::Name.last_name
           u.add_points(rand(1000))
-          u.created_at = rand(user.gl.created_at..Time.now)
-          u.joined     = user.created_at
+          u.created_at = rand(u.gl.created_at..Time.now)
+          u.joined     = u.created_at
           u.approved   = true
           u.save
         end
