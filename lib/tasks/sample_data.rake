@@ -18,37 +18,39 @@ namespace :db do
         
         gl.first_name = Faker::Name.first_name
         gl.last_name  = Faker::Name.last_name
+        gl.add_points(rand(1000))
         gl.created_at = rand(2000.days).ago
         gl.joined     = gl.created_at
         gl.save
         gl.lab.created_at  = gl.created_at
         gl.lab.save
         
-        r.rand(15..25).times do |n|
+        r.rand(5..12).times do |n|
           role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                      master's_student project_student technician other].sample
-          user = User.create!(role:                   role,
+          u = User.create!(role:                   role,
                               email:                  Faker::Internet.email,
                               lab:                    gl.lab,
                               password:               'loislane',
                               password_confirmation:  'loislane')
 
-          user.first_name = Faker::Name.first_name
-          user.last_name  = Faker::Name.last_name
-          user.created_at = rand(user.gl.created_at..Time.now)
-          user.joined     = user.created_at
-          user.approved   = true
-          user.save
+          u.first_name = Faker::Name.first_name
+          u.last_name  = Faker::Name.last_name
+          u.add_points(rand(1000))
+          u.created_at = rand(user.gl.created_at..Time.now)
+          u.joined     = user.created_at
+          u.approved   = true
+          u.save
         end
 
-        r.rand(200..1000).times do |n|
+        r.rand(200..500).times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
-          reagent.user_ids = gl.lab.user_ids.sample((gl.lab.size / 1.5))
+          reagent.user_ids = gl.lab.user_ids.sample((gl.lab.size))
         end
 
-        r.rand(200..1000).times do |n|
+        r.rand(200..500).times do |n|
           device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
-          device.user_ids = gl.lab.user_ids.sample((gl.lab.size / 1.5))
+          device.user_ids = gl.lab.user_ids.sample((gl.lab.size))
         end
       end
       
