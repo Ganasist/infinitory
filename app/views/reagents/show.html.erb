@@ -19,7 +19,22 @@
       <% end %>
 
       <dt><strong>Percent remaining</strong></dt>
-      <dd><%= @reagent.remaining %>%</dd><br>
+       <% if low?(@reagent) %>
+          <dd><span class="label label-important"><%= @reagent.remaining %>%</span></dd><br>
+        <% elsif almost_empty?(@reagent) %>    
+          <dd><span class="label label-warning"><%= @reagent.remaining %>%</dd><br>
+        <% else %>
+          <dd><span class="label label-success"><%= @reagent.remaining %>%</dd><br>
+        <% end %>
+
+      <dt><strong>Expiration:</strong></dt>
+        <% if @reagent.expiration.past? %>
+          <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd><br>
+        <% elsif expiring?(@reagent) %>    
+          <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+        <% else %>
+          <dd><span class="label label-success"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+        <% end %>
       
       <% if !@reagent.users.empty? %>
         <dt><strong>Contact(s)</strong></dt>
@@ -46,15 +61,6 @@
       <% if @reagent.lot_number? %>
         <dt>Lot number:</dt>
         <dd><%= @reagent.lot_number %></dd><br>
-      <% end %>
-
-      <dt><strong>Expiration:</strong></dt>
-      <% if @reagent.expiration.past? %>
-        <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd><br>
-      <% elsif expiring?(@reagent) %>    
-        <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
-      <% else %>
-        <dd><span class="label label-success"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
       <% end %>
 
       <% if @reagent.url? %>

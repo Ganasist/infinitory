@@ -5,7 +5,7 @@ module ReagentsHelper
   end
 
   def low?(reagent)
-  	reagent.remaining.between?(10, 25)
+  	reagent.remaining.between?(11, 25)
   end
 
   def almost_empty?(reagent)

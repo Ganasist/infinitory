@@ -42,13 +42,13 @@
     </dl>
       <div class='row-fluid'>
           <%= link_to lab_users_path(@lab), class: "btn btn-warning" do %>
-            <i class="fa fa-users"> Members <%= "(#{@lab.users.length})" %></i>
+            <%= fa_icon "users" %> Members <small>(<%= @lab.users.length %>)</small>
           <% end %>
           <%= link_to lab_reagents_path(@lab), class: "btn btn-warning" do %>
-            <i class="fa fa-flask"> Reagents (<%= @lab.reagents.size %>)</i>
+            <%= fa_icon "flask" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
           <% end %>
           <%= link_to lab_devices_path(@lab), class: "btn btn-warning" do %>
-            <i class="fa fa-cogs"> Devices (<%= @lab.devices.size %>)</i>
+            <%= fa_icon "cogs"  %> Devices <small>(<%= @lab.devices.size %>)</small>
           <% end %>
       </div>
     <hr>
