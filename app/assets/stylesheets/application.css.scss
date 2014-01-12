@@ -8,15 +8,9 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require jquery.ui.autocomplete
- *= require jquery.ui.button
- *= require jquery.ui.datepicker
- *= require jquery.ui.dialog
- *= require jquery.ui.menu
- *= require jquery.ui.tooltip
+ *= require jquery.ui.all
  *= require font-awesome
- *= require_self
- *= require bootstrap2-switch
  *= require bootstrap_and_overrides
+ *= require_self
  *= require_tree .
  */

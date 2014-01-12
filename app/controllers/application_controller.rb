@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
       {width: 475, height: 475,
        chartArea: {width: "90%", height: "90%"},
        legend: { position: 'none'},
-       colorAxis: { colors: ['white', 'blue']},
+       colorAxis: { colors: ['white', '#4169E1']},
        hAxis: { title: 'Devices', titleTextStyle: { fontSize: 16 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}},
        vAxis: { title: 'Reagents', titleTextStyle: { fontSize: 16 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}},
        bubble: { textStyle: { fontSize: 11 }}}
