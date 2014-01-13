@@ -28,9 +28,13 @@ class LabsController < ApplicationController
     data_table.new_column('string', 'Initials')
     data_table.new_column('number', 'Devices')
     data_table.new_column('number', 'Reagents')
-    data_table.new_column('number', 'Recent points')
+    data_table.new_column('number', "Today's points")
     data_table.new_column('number', 'Total points')
-    data_table.add_rows( @users.map { |u|[u.fullname, u.devices.count, u.reagents.count, rand(Math.sqrt(u.points)), u.points]} )    
+    data_table.add_rows( @users.map { |u|[u.fullname,
+                                          u.devices.count,
+                                          u.reagents.count,
+                                          u.sash.scores.first.score_points.where("created_at > ?", Time.zone.now.beginning_of_day).sum(:num_points),
+                                          u.points]} )    
     @chart = GoogleVisualr::Interactive::BubbleChart.new(data_table, lab_scatter_options)
   end
 

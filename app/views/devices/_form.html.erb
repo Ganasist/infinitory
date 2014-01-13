@@ -23,15 +23,7 @@
       </div>
       <div class="span5 pull-right">
         <label>Image</label><br>
-          <% if @device.icon? %>               
-            <%= image_tag(@device.icon_url(:original)) %><br><br>
-            Remove image
-            <%= f.check_box :remove_icon %><br><br>
-          <% end %>
-          <%= f.input :remote_icon_url, placeholder: 'Enter image URL', label: false %>
-          <h4>or</h4>
-          <%= f.input :icon, label: false %>  
-          <%= f.hidden_field :icon_cache %>
+         
           <br>
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Linked member(s):',
