@@ -74,13 +74,13 @@ gem 'high_voltage'
 
 gem 'geocoder'
 
+# gem 'carrierwave'
+# gem 'carrierwave_backgrounder'
+gem "rmagick"
+
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
-
-gem 'carrierwave'
-gem 'carrierwave_backgrounder'
-gem "rmagick"
 
 gem 'will_paginate'
 gem 'seed_dump'
