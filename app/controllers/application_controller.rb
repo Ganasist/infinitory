@@ -22,12 +22,13 @@ class ApplicationController < ActionController::Base
 
     def lab_scatter_options
       {width: 475, height: 475,
-       chartArea: {width: "90%", height: "90%"},
+       fontName: 'museo-sans',
+       fontSize: 16,
+       chartArea: {width: "85%", height: "85%"},
        legend: { position: 'none'},
        colorAxis: { colors: ['white', '#4169E1']},
-       hAxis: { title: 'Devices', titleTextStyle: { fontSize: 16 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}},
-       vAxis: { title: 'Reagents', titleTextStyle: { fontSize: 16 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}},
-       bubble: { textStyle: { fontSize: 11 }}}
+       hAxis: { title: 'Linked devices', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}},
+       vAxis: { title: 'Linked reagents', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}}}
     end
     helper_method :lab_scatter_options
 
