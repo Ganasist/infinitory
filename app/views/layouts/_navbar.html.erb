@@ -20,11 +20,9 @@
             <%= fa_icon "cogs", title: "Your devices"  %> <small>(<%= current_user.device_count %>)</small>
           <% end %>
         <% end %>
-
           <%= link_to '#', class: 'btn-large btn-warning' do %>
             <%= fa_icon "calendar", title: "Your bookings"  %> <small>(<%= current_user.device_count %>)</small>
-          <% end %>
-          
+          <% end %>          
       <% end %>
     <% end %>
   <% else %>

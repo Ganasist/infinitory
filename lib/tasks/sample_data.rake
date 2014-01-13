@@ -25,7 +25,7 @@ namespace :db do
         gl.lab.created_at  = gl.created_at
         gl.lab.save
         
-        r.rand(8..15).times do |n|
+        r.rand(10..15).times do |n|
           role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                      master's_student project_student technician other].sample
           u = User.create!(role:                   role,
