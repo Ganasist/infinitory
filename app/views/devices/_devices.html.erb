@@ -20,9 +20,9 @@
           <%= fa_icon "wrench", title: "Offline" unless device.status? %>
           <%= fa_icon "camera-retro", title: "Image available" if device.icon.present? %>
           <% if device.status? %>
-            <%= link_to "#{device.name}", device_path(device) %>
+            <%= link_to "#{fullname(device)}", device_path(device) %>
           <% else %>
-            <%= link_to "#{device.name}", device_path(device), class: "text-danger" %>
+            <%= link_to "#{fullname(device)}", device_path(device), class: "text-danger" %>
           <% end %>
         </td>
         <td><%= device.category.titleize %></td>  

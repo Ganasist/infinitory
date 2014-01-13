@@ -31,6 +31,15 @@ class ApplicationController < ActionController::Base
     end
     helper_method :lab_scatter_options
 
+    def fullname(item)
+      if item.uid.present?
+        "#{item.name}-#{item.uid}"
+      else
+        "#{item.name}"
+      end
+    end
+    helper_method :fullname
+
     def after_sign_in_path_for(resource)
       user_path(current_user)
     end

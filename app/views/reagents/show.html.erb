@@ -1,12 +1,12 @@
 <%- model_class = Reagent -%>
-<% title "Reagents: " + @reagent.name %>
+<% title "Reagents: " + fullname(@reagent) %>
 
 <div class="row">
   <div class="span6">
     <% if @reagent.icon.present? %>
       <%= image_tag(@reagent.icon_url(:large).to_s, class: "img-rounded").html_safe %><br>
     <% end %>
-    <h3><%= @reagent.name %></h3>
+    <h3><%= fullname(@reagent) %></h3>
     <h4><%= link_to "#{@reagent.gl.fullname}", @reagent.lab %> lab</h4>
 
     <dl class="dl-vertical">
@@ -37,7 +37,7 @@
         <% end %>
       
       <% if !@reagent.users.empty? %>
-        <dt><strong>Contact(s)</strong></dt>
+        <dt><strong>Linked members(s)</strong></dt>
         <% @reagent.users.each do |user| %>
         <dd><%= link_to user.fullname, user %></dd>
         <% end %><br>

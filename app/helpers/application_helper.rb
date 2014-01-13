@@ -25,4 +25,12 @@ module ApplicationHelper
 	   	raw('<span class="badge badge-25 pull-right">+25</span>')
 	  end
 	end
+
+	# def fullname(item)
+ #  	if item.uid.present?
+ #  		"#{item.name}-#{item.uid}"
+ #  	else
+ #  		"#{item.name}"
+ #  	end
+ #  end
 end

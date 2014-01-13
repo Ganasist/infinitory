@@ -59,7 +59,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         @device.create_activity :create, owner: current_user
-        format.html { redirect_to @device, notice: "#{@device.name} was successfully created." }
+        format.html { redirect_to @device, notice: "#{fullname(@device)} was successfully created." }
         format.json { render action: 'show', status: :created, location: @device }
       else
         format.html { render action: 'new' }
@@ -74,9 +74,9 @@ class DevicesController < ApplicationController
       if @clone.save
         @clone.create_activity :clone, owner: current_user
         @clone.users.each do |u|
-          u.comments.create(comment: "#{@clone.name} was cloned by #{current_user.fullname}")
+          u.comments.create(comment: "#{fullname(@clone)} was cloned by #{current_user.fullname}")
         end
-        format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
+        format.html { redirect_to @clone, notice: "#{fullname(@clone)} was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
         format.html { render action: 'edit' }
@@ -101,7 +101,7 @@ class DevicesController < ApplicationController
         #   end
         # end
 
-        flash[:notice] = "#{ @device.name } has been updated."
+        flash[:notice] = "#{ fullname(@device) } has been updated."
         format.html { redirect_to @device }
         format.json { head :no_content }
       else
@@ -115,12 +115,12 @@ class DevicesController < ApplicationController
     @lab = @device.lab
     @device.create_activity :delete, owner: current_user
     @device.users.each do |u|
-        u.comments.create(comment: "#{@device.name} was deleted by #{current_user.fullname}")
+        u.comments.create(comment: "#{ fullname(@device) } was deleted by #{current_user.fullname}")
       end
-    @lab.comments.create(comment: "#{@device.name} was deleted by #{current_user.fullname}")
+    @lab.comments.create(comment: "#{ fullname(@device) } was deleted by #{current_user.fullname}")
     @device.destroy
     respond_to do |format|
-      flash[:notice] = "#{ @device.name } has been removed."
+      flash[:notice] = "#{ fullname(@device) } has been removed."
       format.html { redirect_to lab_devices_url(@lab) }
       format.json { head :no_content }
     end

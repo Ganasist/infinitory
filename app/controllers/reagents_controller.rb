@@ -57,7 +57,7 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @reagent.save
         @reagent.create_activity :create, owner: current_user
-        format.html { redirect_to @reagent, notice: "#{@reagent.name} was successfully created." }
+        format.html { redirect_to @reagent, notice: "#{ fullname(@reagent) } was successfully created." }
         format.json { render action: 'show', status: :created, location: @reagent }
       else
         format.html { render action: 'new' }
@@ -72,9 +72,9 @@ class ReagentsController < ApplicationController
       if @clone.save
         @clone.create_activity :clone, owner: current_user
         @clone.users.each do |u|
-          u.comments.create(comment: "#{@clone.name} was cloned by #{current_user.fullname}")
+          u.comments.create(comment: "#{ fullname(@clone) } was cloned by #{current_user.fullname}")
         end 
-        format.html { redirect_to @clone, notice: "#{@clone.name} was successfully cloned." }
+        format.html { redirect_to @clone, notice: "#{ fullname(@clone) } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
         format.html { render action: 'edit', notice: "There was a problem cloning" }
@@ -89,11 +89,11 @@ class ReagentsController < ApplicationController
         @reagent.create_activity :update, owner: current_user 
         if @reagent.remaining < 21
           @reagent.users.each do |u|
-            u.comments.create(comment: "#{@reagent.name} had only #{@reagent.remaining}% remaining")
+            u.comments.create(comment: "#{ fullname(@reagent) } had only #{@reagent.remaining}% remaining")
           end
-          @reagent.lab.comments.create(comment: "#{@reagent.name} had only #{@reagent.remaining}% remaining")
+          @reagent.lab.comments.create(comment: "#{ fullname(@reagent) } had only #{@reagent.remaining}% remaining")
         end        
-        flash[:notice] = "#{@reagent.name} has been updated."
+        flash[:notice] = "#{ fullname(@reagent) } has been updated."
         format.html { redirect_to @reagent }
         format.json { head :no_content }
       else
@@ -107,9 +107,9 @@ class ReagentsController < ApplicationController
     @lab = @reagent.lab
     @reagent.create_activity :delete, owner: current_user
     @reagent.users.each do |u|
-        u.comments.create(comment: "#{@reagent.name} was deleted by #{current_user.fullname}")
+        u.comments.create(comment: "#{ fullname(@reagent) } was deleted by #{current_user.fullname}")
       end
-    @lab.comments.create(comment: "#{@reagent.name} was deleted by #{current_user.fullname}")
+    @lab.comments.create(comment: "#{ fullname(@reagent) } was deleted by #{current_user.fullname}")
     @reagent.destroy
     respond_to do |format|
       flash[:notice] = "#{@reagent.name} has been removed."

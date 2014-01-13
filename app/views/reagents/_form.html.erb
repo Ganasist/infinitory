@@ -37,17 +37,17 @@
           <%= f.input :remote_icon_url, placeholder: 'Enter image URL', label: false %>
           <h4>or</h4>
           <%= f.input :icon, label: false %>  
-          <%= f.hidden_field :icon_cache %><br>
-
+          <%= f.hidden_field :icon_cache %>
+          <br>
       <% if params[:lab_id] %>    
-        <%= f.association :users, label: 'Contact(s):',
+        <%= f.association :users, label: 'Linked member(s):',
                                   collection: User.where(lab: @lab).order(:first_name),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
                                   input_html: { style: 'width: 50px' } %>
       <% else %>
-        <%= f.association :users, label: 'Contact(s):',
+        <%= f.association :users, label: 'Linked member(s):',
                                   collection: User.where(lab: @reagent.lab).order(:first_name),
                                   value_method: :id,
                                   label_method: :fullname,
