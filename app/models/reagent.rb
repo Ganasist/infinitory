@@ -43,8 +43,8 @@ class Reagent < ActiveRecord::Base
   pg_search_scope :pg_search, against: [:name, :uid, :serial],
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' }}
 
-	mount_uploader :icon, IconUploader
-	process_in_background :icon
+	# mount_uploader :icon, IconUploader
+	# process_in_background :icon
 	
 	acts_as_taggable
 

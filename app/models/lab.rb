@@ -12,8 +12,8 @@ class Lab < ActiveRecord::Base
   has_many :reagents
   has_many :devices
 
-  mount_uploader :icon, IconUploader
-  process_in_background :icon
+  # mount_uploader :icon, IconUploader
+  # process_in_background :icon
 
   acts_as_commentable
 

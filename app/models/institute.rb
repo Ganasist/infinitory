@@ -21,8 +21,8 @@ class Institute < ActiveRecord::Base
   													multiline: true,
   													message: "is not valid" }
 
-	mount_uploader :icon, IconUploader
-	process_in_background :icon
+	# mount_uploader :icon, IconUploader
+	# process_in_background :icon
 
 	extend FriendlyId
 	friendly_id :acronym_and_name, use: [:slugged, :history]

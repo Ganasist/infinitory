@@ -41,8 +41,8 @@ class User < ActiveRecord::Base
   after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
   after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
 
-  mount_uploader :icon, IconUploader
-  process_in_background :icon
+  # mount_uploader :icon, IconUploader
+  # process_in_background :icon
 
   has_paper_trail
 

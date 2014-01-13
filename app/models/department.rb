@@ -22,8 +22,8 @@ class Department < ActiveRecord::Base
   													multiline: true,
   													message: "is not valid" }
 
-	mount_uploader :icon, IconUploader
-  process_in_background :icon
+	# mount_uploader :icon, IconUploader
+ #  process_in_background :icon
 
 	geocoded_by :address # can also be an IP address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|
