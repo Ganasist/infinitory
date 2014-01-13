@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
 
     def lab_scatter_options
       {width: 475, height: 475,
-       fontName: 'museo-sans',
        fontSize: 16,
        chartArea: {width: "85%", height: "85%"},
        legend: { position: 'none'},
