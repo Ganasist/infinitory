@@ -35,11 +35,10 @@ gem 'active_attr'
 
 gem 'merit'
 
+
 # gem 'gon'
 # gem 'rabl'
 # gem 'oj'
-
-gem 'whenever', require: false
 
 gem 'redis'
 gem 'dalli'
@@ -81,6 +80,7 @@ gem "rmagick"
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem 'sidetiq'
 
 gem 'will_paginate'
 gem 'seed_dump'
