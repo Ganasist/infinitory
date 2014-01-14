@@ -3,9 +3,10 @@
     <table class="table-striped">
     	<% @comments.each do |comment| %>     
 			  <tr class="lab_notifications">
-			    <%= comment.comment %> <%= time_ago_in_words(comment.created_at) %> ago
+			    <strong><%= time_ago_in_words(comment.created_at) %> ago</strong><br>
+			    <%= comment.comment %>
 			  </tr>
-			  <br><br>
+			  <hr>
 			<% end %>
 		</table>
 <% end %>

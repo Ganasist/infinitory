@@ -62,11 +62,20 @@ class Reagent < ActiveRecord::Base
   end
 
   def self.expiration_notice
-    t = Reagent.where('expiration < ?', 30.days.from_now)
-    t.each do |r|
-      r.users.each do |u|
-        u.comments.create(comment: "#{r.name} expires soon")
+    reagents = Reagent.where(expiration: [30.days.from_now, 20.days.from_now, 10.days.from_now])
+    reagents.each do |reagent|
+      reagent.users.each do |user|
+        expiration_message(reagent, user)
       end
+      expiration_message(reagent, reagent.lab)
+    end
+  end
+
+  def self.expiration_message(reagent, recipient)
+    if reagent.uid.present?
+      recipient.comments.create(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
+    else
+      recipient.comments.create(comment: "#{reagent.name} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
     end
   end
 
