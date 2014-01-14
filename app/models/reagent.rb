@@ -61,6 +61,15 @@ class Reagent < ActiveRecord::Base
     self.reagents.where(category: category).count
   end
 
+  def self.expiration_notice
+    t = Reagent.where('expiration < ?', 30.days.from_now)
+    t.each do |r|
+      r.users.each do |u|
+        u.comments.create(comment: "#{r.name} expires soon")
+      end
+    end
+  end
+
   private
   	def set_expiration
 			self.expiration = 3.years.from_now
