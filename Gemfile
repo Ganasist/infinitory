@@ -35,7 +35,6 @@ gem 'active_attr'
 
 gem 'merit'
 
-
 # gem 'gon'
 # gem 'rabl'
 # gem 'oj'
