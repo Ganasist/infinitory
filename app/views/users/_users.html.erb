@@ -1,38 +1,40 @@
-<table class="table">
-  <tbody id="approved">      
-    <% @users.each do |user| %>
-      <tr>
-        <td>            
-          <% if user.icon.blank? %> 
-          <h4 class="text-left">             
-              <% if user.gl? %>
-                <i class="icon-lightbulb"></i>
-              <% elsif user.lm? %>
-                <i class="icon-eye-open"></i>
-              <% else %>
-                <i class="icon-user"></i>
-              <% end %>
-          </h4>
-          <% else %>
-            <span class="text-center"><%= link_to image_tag(user.icon_url(:thumb).to_s, class: "img-rounded").html_safe, user %></span>
-          <% end %>
-        </td>
-        <td><%= link_to user.fullname, user %> <%= "#{user.points}" %></td>
-        <% if user.role.present? %>
-          <td><%= user.role.humanize %></td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if user.joined %>
-          <td>Joined <%= time_ago_in_words(user.joined) %> ago</td> 
-        <% end %>
-
-        <% if current_user.retire_permissions?(user, @lab) %>
-          <td>
-            <%= link_to '  Retire', retire_user_path(user), class: 'btn btn-info fa fa-chain-broken fa-lg' %>
+<% cache @users do %>
+  <table class="table">
+    <tbody id="approved">      
+      <% @users.each do |user| %>
+        <tr>
+          <td>            
+            <% if user.icon.blank? %> 
+            <h4 class="text-left">             
+                <% if user.gl? %>
+                  <i class="icon-lightbulb"></i>
+                <% elsif user.lm? %>
+                  <i class="icon-eye-open"></i>
+                <% else %>
+                  <i class="icon-user"></i>
+                <% end %>
+            </h4>
+            <% else %>
+              <span class="text-center"><%= link_to image_tag(user.icon_url(:thumb).to_s, class: "img-rounded").html_safe, user %></span>
+            <% end %>
           </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <td><%= link_to user.fullname, user %> <%= "#{user.points}" %></td>
+          <% if user.role.present? %>
+            <td><%= user.role.humanize %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if user.joined %>
+            <td>Joined <%= time_ago_in_words(user.joined) %> ago</td> 
+          <% end %>
+
+          <% if current_user.retire_permissions?(user, @lab) %>
+            <td>
+              <%= link_to '  Retire', retire_user_path(user), class: 'btn btn-info fa fa-chain-broken fa-lg' %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

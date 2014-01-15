@@ -55,7 +55,7 @@
     <%= render 'notifications' %>
   </div>
   <div class="span6">
-    <% cache @chart do %>
+    <% cache @chart, expires_in: 1.hour do %>
       <div id='chart'></div>
         <%= render_chart(@chart, 'chart') %>
       </div>

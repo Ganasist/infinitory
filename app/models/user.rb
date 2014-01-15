@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates_associated :department
   validates_presence_of :department_id, allow_blank: true
 
-  belongs_to :lab, counter_cache: true, touch: true
+  belongs_to :lab, touch: true, counter_cache: true
   validates_associated :lab
   validates :lab, presence: { message: 'Your group leader must create an account first' },
                     unless: Proc.new{ |f| f.gl? || !f.new_record? }, allow_blank: true
@@ -64,12 +64,18 @@ class User < ActiveRecord::Base
     self.devices.where(category: category).length
   end
 
+  def lab_users_count
+    Rails.cache.fetch([self.lab.users, "lab_user_count"]) { lab.users.size }
+  end
+
   def device_count
-    self.devices.length
+    Rails.cache.fetch([self.devices, "device_count"]) { devices.size }
+    # self.devices.length
   end
 
   def reagent_count
-    self.reagents.length
+    Rails.cache.fetch([self.reagents, "comment_count"]) { reagents.size }
+    # self.reagents.length
   end
 
   def should_generate_new_friendly_id?

@@ -22,7 +22,7 @@ class LabsController < ApplicationController
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
-    @comments = @lab.comments.recent.limit(25)
+    @comments = @lab.comments.recent.limit(50)
 
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Initials')
@@ -30,11 +30,11 @@ class LabsController < ApplicationController
     data_table.new_column('number', 'Reagents')
     data_table.new_column('number', "Today's points")
     data_table.new_column('number', 'Total points')
-    data_table.add_rows( @users.map { |u|[u.fullname,
-                                          u.devices.count,
-                                          u.reagents.count,
-                                          u.sash.scores.first.score_points.where("created_at > ?", Time.zone.now.beginning_of_day).sum(:num_points),
-                                          u.points]} )    
+    data_table.add_rows(@users.map { |u|[u.fullname,
+                                         u.device_count,
+                                         u.reagent_count,
+                                         u.sash.scores.first.score_points.where("created_at > ?", Time.zone.now.beginning_of_day).sum(:num_points),
+                                         u.points] })    
     @chart = GoogleVisualr::Interactive::BubbleChart.new(data_table, lab_scatter_options)
   end
 

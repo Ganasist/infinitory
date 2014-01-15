@@ -1,6 +1,5 @@
 <div><h2 class="text-center"><%= current_user.fullname %>'s Profile</h2>
 <br>
-
 <%= simple_form_for(resource, :as => resource_name, url: registration_path(resource_name),
                     html: { method: :put, class: 'form-vertical', multipart: true, autocomplete: 'off' }) do |f| %>
 <%= f.error_notification %>
@@ -40,17 +39,6 @@
       <% end %>
     </div>
     <div class="span5 pull-right">
-      <label>Picture</label><br>
-       <% if @user.icon? %>
-         <%= image_tag(@user.icon_url(:portrait)) %><br><br>
-         Remove image
-        <%= f.check_box :remove_icon %><br><br>
-       <% end %>
-       <%= f.input :remote_icon_url, placeholder: 'Enter a URL',
-                                     label: false %>
-       <h4>or</h4>
-       <%= f.input :icon, label: false %>  
-       <%= f.hidden_field :icon_cache %>
 
        <%= f.input :password, label: 'New password (Optional)',
                          autocomplete: 'off',

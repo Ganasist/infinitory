@@ -1,7 +1,7 @@
 <%- model_class = Device -%>
 <div class="row">
  <div class="span6"> 
-  <% if @lab %>
+  <% if params[:lab_id].present? %>
     <h4>The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>: <%= @lab.devices_count %> Devices</h4>  
   <% elsif params[:user_id].present? %>        
     <h3>My devices</h3>

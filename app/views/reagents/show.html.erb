@@ -1,104 +1,107 @@
 <%- model_class = Reagent -%>
-<% title "Reagents: " + fullname(@reagent) %>
-
-<div class="row">
-  <div class="span6">
-    <% if @reagent.icon.present? %>
-      <%= image_tag(@reagent.icon_url(:large).to_s, class: "img-rounded").html_safe %><br>
-    <% end %>
-    <h3><%= fullname(@reagent) %></h3>
-    <h4><%= link_to "#{@reagent.gl.fullname}", @reagent.lab %> lab</h4>
-
-    <dl class="dl-vertical">
-      <dt><strong><%= model_class.human_attribute_name(:category) %></strong></dt>
-      <dd><%= @reagent.category.titleize %></dd><br>
-      
-      <% if @reagent.quantity.present? %>
-        <dt><strong>Original quantity</strong></dt>
-        <dd><%= @reagent.quantity %></dd><br>
+<% cache @reagent do %>
+  <% title "Reagents: " + fullname(@reagent) %>
+  <div class="row">
+    <div class="span6">
+      <% if @reagent.icon.present? %>
+        <%= image_tag(@reagent.icon_url(:large).to_s, class: "img-rounded").html_safe %><br>
       <% end %>
+      <h3><%= fullname(@reagent) %></h3>
+      <h4><%= link_to "#{@reagent.gl.fullname}", @reagent.lab %> lab</h4>
 
-      <dt><strong>Percent remaining</strong></dt>
-       <% if low?(@reagent) %>
-          <dd><span class="label label-warning"><%= @reagent.remaining %>%</span></dd><br>
-        <% elsif almost_empty?(@reagent) %>    
-          <dd><span class="label label-danger"><%= @reagent.remaining %>%</dd><br>
-        <% else %>
-          <dd><%= @reagent.remaining %>%</dd><br>
+      <dl class="dl-vertical">
+        <dt><strong><%= model_class.human_attribute_name(:category) %></strong></dt>
+        <dd><%= @reagent.category.titleize %></dd><br>
+        
+        <% if @reagent.quantity.present? %>
+          <dt><strong>Original quantity</strong></dt>
+          <dd><%= @reagent.quantity %></dd><br>
         <% end %>
 
-      <dt><strong>Expiration:</strong></dt>
-        <% if @reagent.expiration.past? %>
-          <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd><br>
-        <% elsif expiring?(@reagent) %>    
-          <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
-        <% else %>
-          <dd><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+        <dt><strong>Percent remaining</strong></dt>
+         <% if low?(@reagent) %>
+            <dd><span class="label label-warning"><%= @reagent.remaining %>%</span></dd><br>
+          <% elsif almost_empty?(@reagent) %>    
+            <dd><span class="label label-danger"><%= @reagent.remaining %>%</dd><br>
+          <% else %>
+            <dd><%= @reagent.remaining %>%</dd><br>
+          <% end %>
+
+        <dt><strong>Expiration:</strong></dt>
+          <% if @reagent.expiration.past? %>
+            <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd><br>
+          <% elsif expiring?(@reagent) %>    
+            <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+          <% else %>
+            <dd><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+          <% end %>
+        
+        <% if !@reagent.users.empty? %>
+          <dt><strong>Linked members(s)</strong></dt>
+          <% @reagent.users.each do |user| %>
+          <dd><%= link_to user.fullname, user %></dd>
+          <% end %><br>
         <% end %>
-      
-      <% if !@reagent.users.empty? %>
-        <dt><strong>Linked members(s)</strong></dt>
-        <% @reagent.users.each do |user| %>
-        <dd><%= link_to user.fullname, user %></dd>
-        <% end %><br>
-      <% end %>
 
-      <% if @reagent.location? %>
-        <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
-        <dd><%= @reagent.location %></dd><br>
-      <% end %>
+        <% if @reagent.location? %>
+          <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
+          <dd><%= @reagent.location %></dd><br>
+        <% end %>
 
-      <% if @reagent.serial? %>
-        <dt><strong><%= model_class.human_attribute_name(:serial) %> #</strong></dt>
-        <dd><%= @reagent.serial %></dd><br>
-      <% end %>
+        <% if @reagent.serial? %>
+          <dt><strong><%= model_class.human_attribute_name(:serial) %> #</strong></dt>
+          <dd><%= @reagent.serial %></dd><br>
+        <% end %>
 
-      <% if @reagent.uid? %>
-        <dt>Unique ID:</dt>
-        <dd><%= @reagent.uid %></dd><br>
-      <% end %>
+        <% if @reagent.uid? %>
+          <dt>Unique ID:</dt>
+          <dd><%= @reagent.uid %></dd><br>
+        <% end %>
 
-      <% if @reagent.lot_number? %>
-        <dt>Lot number:</dt>
-        <dd><%= @reagent.lot_number %></dd><br>
-      <% end %>
+        <% if @reagent.lot_number? %>
+          <dt>Lot number:</dt>
+          <dd><%= @reagent.lot_number %></dd><br>
+        <% end %>
 
-      <% if @reagent.url? %>
-        <dt>Website:</dt>
-        <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), :target => "_blank" %></dd><br>
-      <% end %>
+        <% if @reagent.url? %>
+          <dt>Website:</dt>
+          <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), :target => "_blank" %></dd><br>
+        <% end %>
 
-      <% if @reagent.price? %>
-        <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
-        <dd><%= number_to_currency(@reagent.price) %></dd><br>
-      <% end %>
+        <% if @reagent.price? %>
+          <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
+          <dd><%= number_to_currency(@reagent.price) %></dd><br>
+        <% end %>
 
-      <% unless @reagent.tag_list.empty? %>
-        <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
-        <dd><%= raw @reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd><br>
-      <% end %>
-    </dl>
-    <div class="btn-group">
-      <%= link_to ' Back', lab_reagents_path(@lab), class: 'btn fa fa-rotate-left'  %>
-      <%= link_to ' Edit', edit_reagent_path(@reagent), class: 'icon-edit btn btn-warning' %>
-      <%= link_to ' Destroy', reagent_path(@reagent),
-                                method: 'delete', class: 'icon-trash btn btn-danger' %>
-      <%= link_to ' Clone', clone_reagent_path(@reagent), class: 'icon-code-fork btn btn-info' %>
+        <% unless @reagent.tag_list.empty? %>
+          <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
+          <dd><%= raw @reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd><br>
+        <% end %>
+      </dl>
+      <div class="btn-group">
+        <%= link_to ' Back', lab_reagents_path(@lab), class: 'btn fa fa-rotate-left'  %>
+        <%= link_to ' Edit', edit_reagent_path(@reagent), class: 'icon-edit btn btn-warning' %>
+        <%= link_to ' Destroy', reagent_path(@reagent),
+                                  method: 'delete', class: 'icon-trash btn btn-danger' %>
+        <%= link_to ' Clone', clone_reagent_path(@reagent), class: 'icon-code-fork btn btn-info' %>
+      </div>
+      <hr><br>
     </div>
-    <hr><br>
+    <div class="span6 pull-left">
+      <% cache @activities do %>
+        <h4>History:</h4><br>
+        <table>
+          <% @activities.each do |activity| %>
+            <% if activity.owner && activity %>      
+              <tr>
+                <%= link_to activity.owner.fullname, activity.owner if activity.owner %> -
+                <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
+              </tr>
+              <br><br>
+            <% end %>
+          <% end %>        
+        </table>
+      <% end %>
+    </div>
   </div>
-  <div class="span6 pull-left"> 
-    <h4>History:</h4><br>
-    <table>
-      <% @activities.each do |activity| %>
-        <% if activity.owner && activity %>      
-          <tr>
-            <%= link_to activity.owner.fullname, activity.owner if activity.owner %> -
-            <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
-          </tr>
-          <br><br>
-        <% end %>
-      <% end %>        
-    </table>
-  </div>
-</div>
+<% end %>

@@ -116,6 +116,7 @@ class ReagentsController < ApplicationController
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
     end
+    expire_fragment "current_user"
   end
 
   private
