@@ -33,8 +33,8 @@ class LabsController < ApplicationController
     data_table.add_rows(@users.map { |u|[u.fullname,
                                          u.device_count,
                                          u.reagent_count,
-                                         u.sash.scores.first.score_points.where("created_at > ?", Time.zone.now.beginning_of_day).sum(:num_points),
-                                         u.points] })    
+                                         u.cached_daily_scores,
+                                         u.cached_total_points] })    
     @chart = GoogleVisualr::Interactive::BubbleChart.new(data_table, lab_scatter_options)
   end
 

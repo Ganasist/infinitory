@@ -64,18 +64,26 @@ class User < ActiveRecord::Base
     self.devices.where(category: category).length
   end
 
+  def cached_total_points
+    Rails.cache.fetch([self.sash, "cached_total_points"], expires_in: 30.minutes) { points }
+  end
+
+  def cached_daily_scores
+    Rails.cache.fetch([self.sash, "cached_daily_scores"], expires_in: 30.minutes) {
+        sash.scores.first.score_points.where("created_at > ?", Time.zone.now.beginning_of_day).sum(:num_points)
+      }
+  end
+
   def lab_users_count
-    Rails.cache.fetch([self.lab.users, "lab_user_count"]) { lab.users.size }
+    Rails.cache.fetch([self, "lab_users_count"], expires_in: 1.hour) { self.lab.users.length }
   end
 
   def device_count
-    Rails.cache.fetch([self.devices, "device_count"]) { devices.size }
-    # self.devices.length
+    Rails.cache.fetch([self, "device_count"], expires_in: 30.minutes) { self.devices.length }
   end
 
   def reagent_count
-    Rails.cache.fetch([self.reagents, "comment_count"]) { reagents.size }
-    # self.reagents.length
+    Rails.cache.fetch([self, "reagent_count"], expires_in: 30.minutes) { self.reagents.length }
   end
 
   def should_generate_new_friendly_id?

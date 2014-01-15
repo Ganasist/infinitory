@@ -1,67 +1,68 @@
 <%- model_class = Lab -%>
-<% title "Labs: " + @lab.gl.fullname %>
 
-<div class="row">
-  <div class="span6">
-    <h3>
-      <%= link_to lab_users_path(@lab) do %>
-       <i class="icon-group"></i><%= " The #{@lab.gl.fullname} Lab" %>
-      <% end %>
-      <% if current_user.gl_lm? && current_user.lab == @lab %>
-        <div class="btn-group">
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_lab_path(@lab), class: 'btn-small btn-warning' %>
-        </div>
-      <% end %>
-    </h3>
-    <dl class="dl-horizontal">
-      <h5>
-        <%= link_to @user do %>
-         <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@user.fullname}" %>
-         <% end %>
-      </h5>
-
-      <% if @lab.room.present? %>
-        <%= link_to "#" do %>
-          <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %></h5>
+  <% title "Labs: " + @lab.gl.fullname %>
+  <div class="row">
+    <div class="span6">
+      <h3>
+        <%= link_to lab_users_path(@lab) do %>
+         <i class="icon-group"></i><%= " The #{@lab.gl.fullname} Lab" %>
         <% end %>
-      <% end %>
-
-      <% if @department.present? %>
+        <% if current_user.gl_lm? && current_user.lab == @lab %>
+          <div class="btn-group">
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_lab_path(@lab), class: 'btn-small btn-warning' %>
+          </div>
+        <% end %>
+      </h3>
+      <dl class="dl-horizontal">
         <h5>
-          <%= link_to institute_department_path(@institute, @department) do %>
-           <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@department.name}" %>
+          <%= link_to @user do %>
+           <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@user.fullname}" %>
            <% end %>
         </h5>
-      <% end %>
-      <h5>
-        <%= link_to @institute do %>
-         <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@institute.name}" %>
-         <% end %>
-      </h5>
-    </dl>
-      <div class='row-fluid'>
-          <%= link_to lab_users_path(@lab), class: "btn btn-warning" do %>
-            <%= fa_icon "users" %> Members <small>(<%= @lab.users.length %>)</small>
+
+        <% if @lab.room.present? %>
+          <%= link_to "#" do %>
+            <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %></h5>
           <% end %>
-          <%= link_to lab_reagents_path(@lab), class: "btn btn-warning" do %>
-            <%= fa_icon "flask" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
-          <% end %>
-          <%= link_to lab_devices_path(@lab), class: "btn btn-warning" do %>
-            <%= fa_icon "cogs"  %> Devices <small>(<%= @lab.devices.size %>)</small>
-          <% end %>
-      </div>
-    <hr>
-    <%= render 'notifications' %>
+        <% end %>
+
+        <% if @department.present? %>
+          <h5>
+            <%= link_to institute_department_path(@institute, @department) do %>
+             <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@department.name}" %>
+             <% end %>
+          </h5>
+        <% end %>
+        <h5>
+          <%= link_to @institute do %>
+           <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@institute.name}" %>
+           <% end %>
+        </h5>
+      </dl>
+        <div class='row-fluid'>
+            <%= link_to lab_users_path(@lab), class: "btn btn-warning" do %>
+              <%= fa_icon "users" %> Members <small>(<%= @lab.users.length %>)</small>
+            <% end %>
+            <%= link_to lab_reagents_path(@lab), class: "btn btn-warning" do %>
+              <%= fa_icon "flask" %> Reagents <small>(<%= @lab.reagents.length %>)</small>
+            <% end %>
+            <%= link_to lab_devices_path(@lab), class: "btn btn-warning" do %>
+              <%= fa_icon "cogs"  %> Devices <small>(<%= @lab.devices.length %>)</small>
+            <% end %>
+        </div>
+      <hr>
+      <%= render 'notifications' %>
+    </div>
+    <div class="span6">
+
+        <div id='chart'></div>
+          <%= render_chart(@chart, 'chart') %>
+        </div>
+     
+    </div>
   </div>
-  <div class="span6">
-    <% cache @chart, expires_in: 1.hour do %>
-      <div id='chart'></div>
-        <%= render_chart(@chart, 'chart') %>
-      </div>
-    <% end %>
-  </div>
-</div>
+  
 
   
 
