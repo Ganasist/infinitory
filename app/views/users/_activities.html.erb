@@ -1,11 +1,6 @@
 <% if @activities.present? %>
-	<h3>Activity</h3><br>
-	<table>
-	  <% @activities.each do |activity| %>     
-	    <tr>
-	      <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
-	    </tr>
-	    <br><br>
+	  <% @activities.each do |activity| %>
+	    <h4 class="list-group-item-heading"><%= time_ago_in_words(activity.created_at) %> ago</h4>
+		    <p class="text-group-item-text"><%= render_activity activity %> <%= badging(activity) %></p>
 	  <% end %>
-	</table>
 <% end %>
