@@ -29,10 +29,10 @@ namespace :db do
           role = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                      master's_student project_student technician other].sample
           u = User.create!(role:                   role,
-                              email:                  Faker::Internet.email,
-                              lab:                    gl.lab,
-                              password:               'loislane',
-                              password_confirmation:  'loislane')
+                           email:                  Faker::Internet.email,
+                           lab:                    gl.lab,
+                           password:               'loislane',
+                           password_confirmation:  'loislane')
 
           u.first_name = Faker::Name.first_name
           u.last_name  = Faker::Name.last_name
@@ -43,7 +43,7 @@ namespace :db do
           u.save
         end
 
-        r.rand(200..500).times do |n|
+        100000.times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           reagent.user_ids = gl.lab.user_ids.sample(rand(gl.lab.size))
         end

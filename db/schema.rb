@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140111110046) do
+ActiveRecord::Schema.define(version: 20140115070156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 20140111110046) do
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
 
   create_table "devices", force: true do |t|
-    t.string   "name",                                    null: false
-    t.string   "category",                                null: false
+    t.string   "name",                                                   null: false
+    t.string   "category",                                               null: false
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 20140111110046) do
     t.integer  "lock_version",                            default: 0,    null: false
     t.string   "uid"
     t.text     "description"
-    t.decimal  "price",                                   precision: 9, scale: 2
+    t.decimal  "price",           precision: 9, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "status",                                  default: true
@@ -237,6 +237,7 @@ ActiveRecord::Schema.define(version: 20140111110046) do
     t.string   "quantity"
   end
 
+  add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
   add_index "reagents", ["lab_id", "uid", "name", "category"], name: "index_reagents_on_lab_id_and_uid_and_name_and_category", unique: true, using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["properties"], name: "reagents_properties", using: :gin

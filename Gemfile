@@ -32,6 +32,7 @@ gem 'exception_notification'
 gem 'amoeba'
 
 gem 'active_attr'
+gem 'activerecord-import', '>= 0.2.0'
 
 gem 'merit'
 
