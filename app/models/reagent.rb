@@ -62,15 +62,16 @@ class Reagent < ActiveRecord::Base
   end
 
   def self.expiration_notice
-    reagents = Reagent.where(expiration: [28.days.from_now, 14.days.from_now])
-    test = []
-    reagents.each do |reagent|
-      reagent.users.each do |user|
-        test << expiration_message(reagent, user)
-      end
-        test << expiration_message(reagent, reagent.lab)
+    Reagent.where(expiration: [28.days.from_now, 14.days.from_now]).find_in_batches(batch_size: 50) do |reagents|
+      test = []
+      reagents.each do |reagent|
+        reagent.users.each do |user|
+          test << expiration_message(reagent, user)
+        end
+          test << expiration_message(reagent, reagent.lab)
+      end      
+      Comment.import(test)
     end
-    Comment.import(test)
   end
 
   def self.expiration_message(reagent, recipient)
