@@ -61,6 +61,7 @@ class Reagent < ActiveRecord::Base
     self.reagents.where(category: category).count
   end
 
+  # ADD BATCH INSERT TO THIS FUNCTION USING ACTIVERECORD IMPORT
   def self.expiration_notice
     reagents = Reagent.where(expiration: [30.days.from_now, 20.days.from_now, 10.days.from_now])
     reagents.each do |reagent|

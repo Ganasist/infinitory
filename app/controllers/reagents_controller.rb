@@ -25,14 +25,14 @@ class ReagentsController < ApplicationController
 
       Reagent::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @user.relative_reagents_percentage("#{val}"))
+        data_table.set_cell(index, 1, @user.reagents_category_count("#{val}"))
       end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
       @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(25)
       Reagent::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @lab.relative_reagents_percentage("#{val}"))
+        data_table.set_cell(index, 1, @lab.reagents_category_count("#{val}"))
       end   
     end
 

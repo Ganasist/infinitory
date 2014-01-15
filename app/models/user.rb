@@ -56,11 +56,11 @@ class User < ActiveRecord::Base
   scope :all_gls, -> { where(role: 'group_leader') }
   scope :lm,      -> { where(role:  'lab_manager') }
 
-  def relative_reagents_percentage(category)
+  def reagents_category_count(category)
     self.reagents.where(category: category).length
   end
 
-  def relative_devices_percentage(category)
+  def devices_category_count(category)
     self.devices.where(category: category).length
   end
 

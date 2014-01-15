@@ -26,7 +26,7 @@ class DevicesController < ApplicationController
 
       Device::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @user.relative_devices_percentage("#{val}"))
+        data_table.set_cell(index, 1, @user.devices_category_count("#{val}"))
       end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
@@ -34,7 +34,7 @@ class DevicesController < ApplicationController
       
       Device::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @lab.relative_devices_percentage("#{val}"))
+        data_table.set_cell(index, 1, @lab.devices_category_count("#{val}"))
       end
     end
     
