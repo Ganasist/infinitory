@@ -61,22 +61,23 @@ class Reagent < ActiveRecord::Base
     self.reagents.where(category: category).count
   end
 
-  # ADD BATCH INSERT TO THIS FUNCTION USING ACTIVERECORD IMPORT
   def self.expiration_notice
-    reagents = Reagent.where(expiration: [30.days.from_now, 20.days.from_now, 10.days.from_now])
+    reagents = Reagent.where(expiration: [28.days.from_now, 14.days.from_now])
+    test = []
     reagents.each do |reagent|
       reagent.users.each do |user|
-        expiration_message(reagent, user)
+        test << expiration_message(reagent, user)
       end
-      expiration_message(reagent, reagent.lab)
+        test << expiration_message(reagent, reagent.lab)
     end
+    Comment.import(test)
   end
 
   def self.expiration_message(reagent, recipient)
     if reagent.uid.present?
-      recipient.comments.create(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
+      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
     else
-      recipient.comments.create(comment: "#{reagent.name} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
+      recipient.comments.build(comment: "#{reagent.name} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
     end
   end
 
