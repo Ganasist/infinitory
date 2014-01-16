@@ -63,11 +63,6 @@
           <dd><%= @reagent.lot_number %></dd><br>
         <% end %>
 
-        <% if @reagent.url? %>
-          <dt>Website:</dt>
-          <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), :target => "_blank" %></dd><br>
-        <% end %>
-
         <% if @reagent.price? %>
           <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
           <dd><%= number_to_currency(@reagent.price) %></dd><br>
@@ -76,6 +71,11 @@
         <% unless @reagent.tag_list.empty? %>
           <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
           <dd><%= raw @reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd><br>
+        <% end %>
+        
+        <% if @reagent.url? %>
+          <dt>Website:</dt>
+          <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), :target => "_blank" %></dd><br>
         <% end %>
       </dl>
       <div class="btn-group">
@@ -88,20 +88,7 @@
       <hr><br>
     </div>
     <div class="span6 pull-left">
-      <% cache @activities do %>
-        <h4>History:</h4><br>
-        <table>
-          <% @activities.each do |activity| %>
-            <% if activity.owner && activity %>      
-              <tr>
-                <%= link_to activity.owner.fullname, activity.owner if activity.owner %> -
-                <%= render_activity activity %> <%= time_ago_in_words(activity.created_at) %> ago <%= badging(activity) %>
-              </tr>
-              <br><br>
-            <% end %>
-          <% end %>        
-        </table>
-      <% end %>
+      <%= render 'activities' %>
     </div>
   </div>
 <% end %>

@@ -1,6 +1,8 @@
 Updated
-<% if activity.trackable %>
-	<%= link_to activity.trackable.name, activity.trackable %>
+<% if activity.trackable && activity.trackable.uid.present? %>
+	<%= link_to "#{activity.trackable.name}-#{activity.trackable.uid}", activity.trackable %>
+<% elsif activity.trackable %>
+	<%= link_to "#{activity.trackable.name}", activity.trackable %>
 <% else %>
   a reagent (which has since been removed)
 <% end %>
