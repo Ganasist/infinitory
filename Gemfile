@@ -73,9 +73,8 @@ gem 'high_voltage'
 
 gem 'geocoder'
 
-# gem 'carrierwave'
-# gem 'carrierwave_backgrounder'
 gem 'paperclip', '~> 3.0'
+gem 'delayed_paperclip'
 gem 'rmagick'
 
 gem 'sidekiq'
