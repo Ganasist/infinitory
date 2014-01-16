@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   before_validation { icon.clear if delete_icon == '1' }
   has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
   validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
-                      # :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"], message: 'Picture must a JPG, PNG or GIF' }
+  validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
                                
   has_paper_trail
 

@@ -39,6 +39,7 @@
     </div>
     <div class="span5 pull-right">
       <strong><h4>Photo</h4></strong>
+      <p>.jpeg, .png or .gif images < 2 megabytes</p>
       <% if @user.icon.present? %>
         <%= image_tag(@user.icon.url(:portrait), class: "img-rounded").html_safe %>
         <br><br>
