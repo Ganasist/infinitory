@@ -5,19 +5,32 @@
       <% if @device.icon.present? %>
         <%= image_tag(@device.icon_url(:large).to_s, class: "img-rounded").html_safe %><br>
       <% end %>
-      <h3><%= fullname(@device) %></h3>
+
+      <h3>
+        <%= fullname(@device) %>
+      </h3>
+      
       <h4><%= link_to "#{@device.gl.fullname} lab", @device.lab %></h4>
 
+      <h4>
+        <% if !@device.status? %>
+          <span class="label label-danger">Offline</span><br><br>
+        <% end %>
+      </h4>
+
       <dl class="dl-vertical">
-        <dt><strong>Status</strong></dt>
-        <% if @device.status? %>
-          <dd class="label label-success">Online</dd><br><br>
-        <% else %>
-          <dd class="label label-danger">Offline</dd><br><br>
+        <dt><strong><%= model_class.human_attribute_name(:category) %></strong></dt>
+        <dd><%= @device.category.titleize %></dd><br>
+
+        <% unless @device.location.empty? %>
+          <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
+          <dd><%= @device.location %></dd><br>
         <% end %>
 
-        <dt><strong><%= model_class.human_attribute_name(:category) %></strong></dt>
-        <dd><%= @device.category.titleize %></dd><br>    
+         <% if @device.uid? %>
+          <dt>Unique ID</dt>
+          <dd><%= @device.uid %></dd><br>
+        <% end %>
         
         <% unless @device.users.empty? %>
           <dt><strong>Linked members(s)</strong></dt>
@@ -26,21 +39,10 @@
           <% end %><br>
         <% end %>
 
-        <% unless @device.location.empty? %>
-          <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
-          <dd><%= @device.location %></dd><br>
-        <% end %>
-
         <% if @device.serial? %>
           <dt><strong><%= model_class.human_attribute_name(:serial) %> #</strong></dt>
           <dd><%= @device.serial %></dd><br>
-        <% end %>
-
-        <% if @device.uid? %>
-          <dt>Unique ID</dt>
-          <dd><%= @device.uid %></dd><br>
-        <% end %>
-
+        <% end %>    
 
         <% if @device.price? %>
           <dt><strong><%= model_class.human_attribute_name(:price) %></strong></dt>

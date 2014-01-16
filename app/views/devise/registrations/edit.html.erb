@@ -33,13 +33,17 @@
         </span>
         <br>
       </span>
-
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
     </div>
     <div class="span5 pull-right">
-      <strong><h4>Icon</h4></strong>
+      <strong><h4>Photo</h4></strong>
+      <% if @user.icon.present? %>
+        <%= image_tag(@user.icon.url(:portrait), class: "img-rounded").html_safe %>
+        <br><br>
+        <p>Delete Picture  <%= f.check_box(:delete_icon) %></p>
+      <% end %>
       <%= f.file_field :icon %>
       <br><br>
       <%= f.input :password, label: 'New password (Optional)',

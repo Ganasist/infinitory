@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :role, 
                                                                      :approved, :lab_email, :department_id,
                                                                      :institute_name, :password, :current_password,
-                                                                     :password_confirmation, :icon) }
+                                                                     :password_confirmation, :icon, :delete_icon) }
       
       devise_parameter_sanitizer.for(:accept_invitation) { |u| u.permit(:email, :role, :invitation_token,
                                                                         :institute_name, :lab_email,

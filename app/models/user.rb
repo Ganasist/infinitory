@@ -41,10 +41,12 @@ class User < ActiveRecord::Base
   after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
   after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
 
-  has_attached_file :icon, styles: { thumb: '100x100>', portrait: '300x300>' }, default_url: '/images/:style/missing.png'
-  # mount_uploader :icon, IconUploader
-  # process_in_background :icon
-
+  attr_accessor :delete_icon
+  before_validation { icon.clear if delete_icon == '1' }
+  has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
+  validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
+                      # :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"], message: 'Picture must a JPG, PNG or GIF' }
+                               
   has_paper_trail
 
   acts_as_commentable
