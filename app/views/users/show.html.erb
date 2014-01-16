@@ -29,13 +29,16 @@
               <%= " #{@user.role.humanize}" %>
             </small>
           <% end %>
-          <% if current_user == @user %>
-            <%= link_to t('.edit', :default => t('helpers.links.edit')),
-                        edit_user_registration_path, class: 'fa fa-edit btn btn-warning' %>
-          <% end %>
           <br>
           <small class="lead"><%= @user.cached_total_points %> pts</small>
         </span>
+        <% if current_user == @user %>
+          <h4>
+          <%= link_to edit_user_registration_path do %>
+             <i class="fa fa-edit"></i>Edit
+          <% end %>
+        </h4>
+        <% end %>
         <dl class="dl-horizontal">
         <h5>
           <%= link_to @user.lab, class: "inline-block" do %>
@@ -57,8 +60,12 @@
       </dl>
     </h3>
       <% if current_user == @user %>
-        <%= link_to " Feedback", new_message_path, class: 'fa fa-bullhorn btn btn-warning' %>
-        <%= link_to " Invitations", new_user_invitation_path, class: 'fa fa-thumbs-o-up btn btn-warning' %>
+        <%= link_to new_message_path do %>
+          <i class="fa fa-fw fa-lg fa-bullhorn"></i>Feedback
+        <% end %><br><br>
+        <%= link_to new_user_invitation_path do %>
+          <i class="fa fa-fw fa-lg fa-thumbs-o-up"></i>Invitations
+        <% end %>
       <% end %>
     <hr>
     <!-- Nav panes -->
