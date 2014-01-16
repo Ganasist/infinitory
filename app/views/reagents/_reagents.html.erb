@@ -1,53 +1,51 @@
 <%- model_class = Reagent -%>
-<% cache @reagents do %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Location</th>
-        <th>UID</th>
-        <% if params[:tag] %>
-          <th><%= model_class.human_attribute_name(:tags) %></th>
-        <% end %>
-        <th>Expiration</th>
-        <th>Updated</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @reagents.each do |reagent| %>
-        <tr>
-          <td>
-            <%= fa_icon "camera-retro", title: "Image available" if reagent.icon.present? %>          
-            <% if low?(reagent) %>
-              <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent), class: "text-warning" %>            
-            <% elsif almost_empty?(reagent) %>
-              <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent), class: "text-danger" %>
-            <% else %>
-              <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent) %>
-            <% end %>
-          </td>
-          <td><%= reagent.category.titleize %></td>  
-          <td><%= reagent.location %></td>
-          <td><%= reagent.uid %></td>
-          <% if reagent.expiration? %>
-            <% if reagent.expiration.past? %>
-              <td><span class="label label-danger"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
-            <% elsif expiring?(reagent) %>    
-              <td><span class="label label-warning"><%= time_ago_in_words(reagent.expiration) %> from now</span></dd>
-            <% else %>
-              <td>in <%= time_ago_in_words(reagent.expiration) %></dd>
-            <% end %>
-          <% end %>
-
-          <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
-          <td>
-            <%= link_to ' Edit',
-                        edit_reagent_path(reagent), class: 'icon-edit btn btn-warning' %>
-          </td>
-        </tr>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Location</th>
+      <th>UID</th>
+      <% if params[:tag] %>
+        <th><%= model_class.human_attribute_name(:tags) %></th>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
+      <th>Expiration</th>
+      <th>Updated</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reagents.each do |reagent| %>
+      <tr>
+        <td>
+          <%= fa_icon "camera-retro", title: "Image available" if reagent.icon.present? %>          
+          <% if low?(reagent) %>
+            <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent), class: "text-warning" %>            
+          <% elsif almost_empty?(reagent) %>
+            <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent), class: "text-danger" %>
+          <% else %>
+            <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent) %>
+          <% end %>
+        </td>
+        <td><%= reagent.category.titleize %></td>  
+        <td><%= reagent.location %></td>
+        <td><%= reagent.uid %></td>
+        <% if reagent.expiration? %>
+          <% if reagent.expiration.past? %>
+            <td><span class="label label-danger"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
+          <% elsif expiring?(reagent) %>    
+            <td><span class="label label-warning"><%= time_ago_in_words(reagent.expiration) %> from now</span></dd>
+          <% else %>
+            <td>in <%= time_ago_in_words(reagent.expiration) %></dd>
+          <% end %>
+        <% end %>
+
+        <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
+        <td>
+          <%= link_to ' Edit',
+                      edit_reagent_path(reagent), class: 'icon-edit btn btn-warning' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

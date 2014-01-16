@@ -1,8 +1,5 @@
 <%- model_class = Device -%>
-
-<% cache @device do %>
   <% title "Devices: " + fullname(@device) %>
-
   <div class="row">
     <div class="span6">
       <% if @device.icon.present? %>
@@ -73,4 +70,3 @@
       <%= render 'activities' %>
     </div>
   </div>
-<% end %>

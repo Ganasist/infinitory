@@ -1,36 +1,36 @@
 <%- model_class = Device -%>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Location</th>
-        <th>UID</th>
-        <% if params[:tag] %>
-          <th><%= model_class.human_attribute_name(:tags) %></th>
-        <% end %>
-        <th>Updated</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @devices.each do |device| %>
-        <tr>
-          <td>
-            <%= fa_icon "wrench", title: "Offline" unless device.status? %>
-            <%= fa_icon "camera-retro", title: "Image available" if device.icon.present? %>
-            <% if device.status? %>
-              <%= link_to "#{fullname(device)}", device_path(device) %>
-            <% else %>
-              <%= link_to "#{fullname(device)}", device_path(device), class: "text-danger" %>
-            <% end %>
-          </td>
-          <td><%= device.category.titleize %></td>  
-          <td><%= device.location %></td>
-          <td><%= device.uid %></td>
-          <td><%= time_ago_in_words(device.updated_at) %> ago</td>
-          <td><%= link_to ' Edit', edit_device_path(device), class: 'icon-edit btn btn-warning' %></td>
-        </tr>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Location</th>
+      <th>UID</th>
+      <% if params[:tag] %>
+        <th><%= model_class.human_attribute_name(:tags) %></th>
       <% end %>
-    </tbody>
-  </table>
+      <th>Updated</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @devices.each do |device| %>
+      <tr>
+        <td>
+          <%= fa_icon "wrench", title: "Offline" unless device.status? %>
+          <%= fa_icon "camera-retro", title: "Image available" if device.icon.present? %>
+          <% if device.status? %>
+            <%= link_to "#{fullname(device)}", device_path(device) %>
+          <% else %>
+            <%= link_to "#{fullname(device)}", device_path(device), class: "text-danger" %>
+          <% end %>
+        </td>
+        <td><%= device.category.titleize %></td>  
+        <td><%= device.location %></td>
+        <td><%= device.uid %></td>
+        <td><%= time_ago_in_words(device.updated_at) %> ago</td>
+        <td><%= link_to ' Edit', edit_device_path(device), class: 'icon-edit btn btn-warning' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
