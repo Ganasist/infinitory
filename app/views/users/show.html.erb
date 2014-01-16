@@ -3,12 +3,10 @@
 <div class="row">
   <div class="span6">
     <h3>
-      <% if false %>
-        <% if @user.icon.present? %>
-          <div class="pull-left user-icon-portrait">
-              <%= image_tag(@user.icon_url(:portrait).to_s, class: "img-rounded").html_safe %>
-          </div>
-        <% end %>
+      <% if @user.icon.present? %>
+        <div class="pull-left user-icon-portrait">
+          <%= image_tag(@user.icon.url(:portrait), class: "img-rounded").html_safe %>
+        </div>
       <% end %>
       <span class="inline-block">
         <%= "#{@user.fullname}" %>
@@ -57,16 +55,18 @@
             <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
           <% end %>
         </h5>
+        <br>
+        <% if current_user == @user %>
+          <%= link_to new_message_path do %>
+            <i class="fa fa-fw fa-lg fa-bullhorn"></i>Feedback
+          <% end %><br><br>
+          <%= link_to new_user_invitation_path do %>
+            <i class="fa fa-fw fa-lg fa-thumbs-o-up"></i>Invitations
+          <% end %>
+        <% end %>
       </dl>
     </h3>
-      <% if current_user == @user %>
-        <%= link_to new_message_path do %>
-          <i class="fa fa-fw fa-lg fa-bullhorn"></i>Feedback
-        <% end %><br><br>
-        <%= link_to new_user_invitation_path do %>
-          <i class="fa fa-fw fa-lg fa-thumbs-o-up"></i>Invitations
-        <% end %>
-      <% end %>
+      
     <hr>
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
