@@ -61,6 +61,7 @@
         <%= link_to " Invitations", new_user_invitation_path, class: 'fa fa-thumbs-o-up btn btn-warning' %>
       <% end %>
     <hr>
+    <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
       <li class="active"><a href="#notifications" data-toggle="tab">Notifications</a></li>
       <li><a href="#activity" data-toggle="tab">Activity</a></li>
@@ -71,7 +72,7 @@
     <div class="tab-content">
       <div class="tab-pane fade in active" id="notifications"> <%= render 'notifications' %> </div>
       <div class="tab-pane fade" id="activity"><%= render 'activities' %></div>
-      <div class="tab-pane fade" id="messages">To do</div>
+      <div class="tab-pane fade" id="messages"><%= render 'notifications' %></div>
     </div>
   </div>
 </div>

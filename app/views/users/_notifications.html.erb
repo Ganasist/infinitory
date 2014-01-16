@@ -1,6 +1,0 @@
-<% if @user.comments.present? %>
-  	<% @comments.each do |comment| %>
-			<h4 class="list-group-item-heading"><%= time_ago_in_words(comment.created_at) %> ago</h4>
-			<p class="text-group-item-text"><%= comment.comment %></p>
-		<% end %>
-<% end %>

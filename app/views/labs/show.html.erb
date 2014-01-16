@@ -52,14 +52,22 @@
             <% end %>
         </div>
       <hr>
-      <%= render 'notifications' %>
+      <!-- Nav panes -->
+      <ul class="nav nav-pills nav-justified">
+        <li class="active"><a href="#notifications" data-toggle="tab">Notifications</a></li>
+        <li><a href="#messages" data-toggle="tab">Messages</a></li>
+      </ul><br>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="notifications"> <%= render 'notifications' %> </div>
+        <div class="tab-pane fade" id="messages"><%= render 'notifications' %></div>
+      </div>
     </div>
     <div class="span6">
-
-        <div id='chart'></div>
-          <%= render_chart(@chart, 'chart') %>
-        </div>
-     
+      <div id='chart'></div>
+        <%= render_chart(@chart, 'chart') %>
+      </div>     
     </div>
   </div>
   
