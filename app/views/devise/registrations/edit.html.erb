@@ -39,12 +39,14 @@
       <% end %>
     </div>
     <div class="span5 pull-right">
-
-       <%= f.input :password, label: 'New password (Optional)',
+      <strong><h4>Icon</h4></strong>
+      <%= f.file_field :icon %>
+      <br><br>
+      <%= f.input :password, label: 'New password (Optional)',
                          autocomplete: 'off',
                          required: false %>
 
-       <%= f.input :password_confirmation, label: 'New password confirmation',
+      <%= f.input :password_confirmation, label: 'New password confirmation',
                                            required: false,
                                            wrapper_html: { style: 'display: none' } %>
     </div>

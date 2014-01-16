@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140115141035) do
+ActiveRecord::Schema.define(version: 20140116135017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,10 @@ ActiveRecord::Schema.define(version: 20140115141035) do
     t.integer  "level",                  default: 0
     t.integer  "reagents_count",         default: 0
     t.integer  "devices_count",          default: 0
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

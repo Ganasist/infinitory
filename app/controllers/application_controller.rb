@@ -74,8 +74,7 @@ class ApplicationController < ActionController::Base
                                                                      :role, :approved, :lab_email,
                                                                      :department_id, :institute_name, :password, 
                                                                      :password_confirmation, :current_password, 
-                                                                     :icon, :remote_icon_url,
-                                                                     :remove_icon, :icon_cache) }
+                                                                     :icon) }
       
       devise_parameter_sanitizer.for(:accept_invitation) { |u| u.permit(:email, :role, :invitation_token,
                                                                         :institute_name, :lab_email,
