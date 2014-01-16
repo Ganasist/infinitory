@@ -2,11 +2,18 @@
 <div class="row">
   <div class="span6">
     <% if @lab %>
-      <h4>The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>: <%= @lab.reagents_count %> Reagents</h4>  
+      <h4>
+        The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>: <%= @lab.reagents_count %> Reagents
+        <%= link_to "", new_lab_reagent_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %><br><br>
+      </h4>  
     <% elsif params[:user_id].present? %>        
-      <h3>My reagents</h3>
+      <h3>
+        My reagents
+        <%= link_to "", new_lab_reagent_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %><br>
+      </h3>
       <p><%= link_to "#{@user.lab.gl.fullname} lab's reagents", lab_reagents_path(current_user.lab) %></p>
     <% end %>
+    
 
     <% if params[:tag] %>
       <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
@@ -24,11 +31,15 @@
                                   class: "search-field",
                                   placeholder: "Search by name, tag, UID or serial"  %>
       <%= select_tag(:reagent_search_scope, options_for_select([['Lab', 1], ['+ Institute', 2], ['+ Local institutes', 3]])) %>
+      <ul class="nav nav-pills nav-justified">
+        <li class="active"><a href="#notifications" data-toggle="tab">Lab</a></li>
+        <li><a href="#activity" data-toggle="tab">+ Institute</a></li>
+        <li><a href="#messages" data-toggle="tab">+ Local institutes</a></li>
+      </ul><br>
     <% end %>
   <% end %>
 
-  <%= link_to " Add reagent", new_lab_reagent_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %>
-<br><br>
+
 </div>
   <div class="span5">
     <% cache @chart do %>
