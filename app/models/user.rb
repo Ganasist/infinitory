@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
 
   attr_accessor :delete_icon
+  attr_reader :icon_remote_url
   before_validation { icon.clear if delete_icon == '1' }
   has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
   validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
@@ -59,6 +60,17 @@ class User < ActiveRecord::Base
 
   scope :all_gls, -> { where(role: 'group_leader') }
   scope :lm,      -> { where(role:  'lab_manager') }
+
+
+  def icon_remote_url=(url_value)
+     if url_value.present?
+      self.icon = URI.parse(url_value)
+      # Assuming url_value is http://example.com/photos/face.png
+      # avatar_file_name == "face.png"
+      # avatar_content_type == "image/png"
+      @icon_remote_url = url_value
+    end
+  end
 
   def reagents_category_count(category)
     self.reagents.where(category: category).length
