@@ -40,7 +40,6 @@ class ReagentsController < ApplicationController
   end
 
   def show
-    @lab = @reagent.lab
     @activities = PublicActivity::Activity.includes(:owner, :trackable).where(trackable_id: params[:id]).order('created_at desc')
   end
 

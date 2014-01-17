@@ -7,10 +7,7 @@ class UsersController < ApplicationController
     @lab = Lab.find(params[:lab_id])
     @users = @lab.users.includes(:sash).where(approved: true).order("joined ASC")
     
-    @approval = @lab.users.where(approved: false).count
-    if @approval > 0 && current_user.gl_lm?
-      @approvals = @lab.users.where(approved: false)
-    end
+    @approvals = @lab.users.where(approved: false)
   end
 
   def show
