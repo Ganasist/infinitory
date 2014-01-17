@@ -1,6 +1,6 @@
 <%- model_class = Institute -%>
   <% if @institute.url.present? && @institute.icon.present? %>
-  	<dd class="text-center"><%= link_to image_tag(@institute.icon_url(:large).to_s).html_safe, @institute.url %></dd>
+  	<dd class="text-center"><%= link_to image_tag(@institute.icon.url(:portrait).html_safe), @institute.url %></dd>
   <% elsif @institute.url.present? && @institute.icon.blank? %>
   	<dt><strong>Website</strong></dt>
     <dd><%= link_to "#{@institute.url}", @institute.url, only_path: false  %></dd>

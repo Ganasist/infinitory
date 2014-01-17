@@ -72,7 +72,7 @@ class InstitutesController < ApplicationController
 
     def institute_params
       params.require(:institute).permit(:name, :alternate_name, :address, :url, :acronym,
-                                        :icon, :icon_cache, :remote_icon_url, :remove_icon, :lock_version)
+                                        :icon, :delete_icon, :icon_remote_url, :lock_version)
     end
 
     def find_institute

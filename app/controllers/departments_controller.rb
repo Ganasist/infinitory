@@ -13,8 +13,7 @@ class DepartmentsController < ApplicationController
   end
 
   def show
-    @labs = Lab.includes(:users).where(department_id: params[:id])
-    # gon.rabl "app/views/departments/show.json.rabl", as: "department"
+    @labs = Lab.where(department_id: params[:id])
   end
 
   def new
@@ -72,6 +71,6 @@ class DepartmentsController < ApplicationController
 
     def department_params
       params.require(:department).permit(:name, :address, :room, :url, :acronym, :institute,
-                                         :icon, :remote_icon_url, :remove_icon, :icon_cache, :lock_version)
+                                         :icon, :delete_icon, :icon_remote_url, :lock_version)
     end
 end

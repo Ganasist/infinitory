@@ -2,7 +2,7 @@
 	<div class="institute">
 		<table>
     	<% if institute.icon? %>
-    			<td><%= link_to image_tag(institute.icon_url(:thumb).to_s).html_safe, institute  %></td>
+    			<td><%= link_to image_tag(institute.icon.url(:thumb).to_s).html_safe, institute  %></td>
 	        <td>
 	        	<%= link_to "#{institute.name}".html_safe, institute %>
 	        	<p>

@@ -43,7 +43,7 @@
             <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
           <% end %>
         </h5>
-        <% if @department.present? %>
+        <% if @user.department.present? %>
           <h5>
             <%= link_to institute_department_path(@user.institute, @user.department) do %>
               <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>

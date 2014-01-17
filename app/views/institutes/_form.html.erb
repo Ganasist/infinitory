@@ -11,23 +11,23 @@
       <%= f.input :acronym, placeholder: 'Optional', label: 'Acronym' %>
       <%= f.input :address, input_html: { rows: 4, class: "span5" }, as: :text %>
       <%= f.input :url, label: 'Website', placeholder: 'Optional' %>
+
+      <%= f.button :submit, class: 'btn-warning' %><br><br>
+      <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+                  institute_path(@institute), :class => 'btn' %>
     </div>
     <div class="span5 pull-right">
-      <label>Logo</label><br>
-      <% if @institute.icon? %>               
-        <%= image_tag(@institute.icon_url(:original)) %><br><br>
-        Remove image
-        <%= f.check_box :remove_icon %><br><br>
+      <strong><h4>Institute icon</h4></strong>
+      <p>.jpeg, .png or .gif images < 2 megabytes</p>
+      <% if @institute.icon.present? %>
+        <%= image_tag(@institute.icon.url(:portrait), class: "img-rounded").html_safe %>
+        <br><br>
+        <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete icon", wrapper_html: { class: "form-inline"} %><br>
       <% end %>
-      <%= f.input :remote_icon_url, placeholder: 'Enter image URL', label: false %>
+      <%= f.input :icon_remote_url, label: "Enter icon URL" %>
       <h4>or</h4>
-      <%= f.input :icon, label: false %>  
-      <%= f.hidden_field :icon_cache %>
+      <%= f.file_field :icon %>
+      
     </div>
   </div>
-    <div class="span5">
-    <%= f.button :submit, class: 'btn-primary' %><br><br>
-    <%= link_to t('.cancel', default: t("helpers.links.cancel")),
-                institute_path(@institute), :class => 'btn' %>
-    </div>
 <% end %>

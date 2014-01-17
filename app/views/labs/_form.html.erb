@@ -7,16 +7,17 @@
       <%= f.input :url, label: 'Lab website' %>
     </div>
     <div class="span5 pull-right">
-      <label>Lab picture</label><br>
-      <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
-      <% if @lab.icon? %>        
-        <%= image_tag(@lab.icon_url(:main)) %>
-        <p>Remove picture? <%= f.check_box :remove_icon %></p>       
+      <strong><h4>Lab picture</h4></strong>
+      <p>.jpeg, .png or .gif images < 2 megabytes</p>
+      <% if @lab.icon.present? %>
+        <%= image_tag(@lab.icon.url(:portrait), class: "img-rounded").html_safe %>
+        <br><br>
+        <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete photo", wrapper_html: { class: "form-inline"} %><br>
       <% end %>
-      
+      <%= f.input :icon_remote_url, label: "Enter image URL" %>
       <h4>or</h4>
-      <%= f.input :icon, label: false %>  
-      <%= f.hidden_field :icon_cache %>
+      <%= f.file_field :icon %>
+      <br><br>
     </div>
   </div>
   <div class="row">  

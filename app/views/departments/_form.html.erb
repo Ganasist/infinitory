@@ -18,18 +18,16 @@
                   institute_path(@institute), class: 'btn' %>
     </div>
     <div class="span5 pull-right">
-      <label>Logo</label><br>
-        <% if @department.icon? %>               
-          <%= image_tag(@department.icon_url(:main)) %>
-          <br>
-          <br>
-          Remove image
-          <%= f.check_box :remove_icon %><br><br>
-        <% end %>
-        <%= f.input :remote_icon_url, placeholder: "Enter image URL", label: false %>
-        <h4>or</h4>
-        <%= f.input :icon, label: false %>  
-        <%= f.hidden_field :icon_cache %>
+      <strong><h4>Department icon</h4></strong>
+      <p>.jpeg, .png or .gif images < 2 megabytes</p>
+      <% if @department.icon.present? %>
+        <%= image_tag(@department.icon.url(:portrait), class: "img-rounded").html_safe %>
+        <br><br>
+        <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete icon", wrapper_html: { class: "form-inline"} %><br>
+      <% end %>
+      <%= f.input :icon_remote_url, label: "Enter icon URL" %>
+      <h4>or</h4>
+      <%= f.file_field :icon %>
     </div>
   </div>
 <% end %>

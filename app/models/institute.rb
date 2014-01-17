@@ -21,8 +21,13 @@ class Institute < ActiveRecord::Base
   													multiline: true,
   													message: "is not valid" }
 
-	# mount_uploader :icon, IconUploader
-	# process_in_background :icon
+	attr_accessor :delete_icon
+  attr_reader :icon_remote_url
+  before_validation { icon.clear if delete_icon == '1' }
+  has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
+  validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
+  validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
+  process_in_background :icon
 
 	extend FriendlyId
 	friendly_id :acronym_and_name, use: [:slugged, :history]
@@ -31,6 +36,16 @@ class Institute < ActiveRecord::Base
   pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
                   using: { tsearch: { prefix: true,
                   										dictionary: "english" }}
+
+	def icon_remote_url=(url_value)
+     if url_value.present?
+      self.icon = URI.parse(url_value)
+      # Assuming url_value is http://example.com/photos/face.png
+      # avatar_file_name == "face.png"
+      # avatar_content_type == "image/png"
+      @icon_remote_url = url_value
+    end
+  end
 
 	geocoded_by :address
 	reverse_geocoded_by :latitude, :longitude do |obj,results|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116135017) do
+ActiveRecord::Schema.define(version: 20140117120210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,12 +72,14 @@ ActiveRecord::Schema.define(version: 20140116135017) do
     t.string   "city"
     t.string   "country"
     t.string   "room"
-    t.integer  "users_count",     default: 0
-    t.integer  "labs_count",      default: 0
+    t.integer  "users_count",       default: 0
+    t.integer  "labs_count",        default: 0
     t.string   "email"
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "lock_version",    default: 0, null: false
+    t.integer  "lock_version",      default: 0, null: false
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
@@ -86,22 +88,24 @@ ActiveRecord::Schema.define(version: 20140116135017) do
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
 
   create_table "devices", force: true do |t|
-    t.string   "name",                                                   null: false
-    t.string   "category",                                               null: false
+    t.string   "name",                                                     null: false
+    t.string   "category",                                                 null: false
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
     t.integer  "user_id"
     t.string   "url"
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "lock_version",                            default: 0,    null: false
+    t.integer  "lock_version",                              default: 0,    null: false
     t.string   "uid"
     t.text     "description"
-    t.decimal  "price",           precision: 9, scale: 2
+    t.decimal  "price",             precision: 9, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status",                                  default: true
+    t.boolean  "status",                                    default: true
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -142,12 +146,14 @@ ActiveRecord::Schema.define(version: 20140116135017) do
     t.string   "url"
     t.string   "acronym"
     t.string   "slug"
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "users_count",     default: 0
-    t.integer  "labs_count",      default: 0
+    t.integer  "users_count",       default: 0
+    t.integer  "labs_count",        default: 0
     t.string   "email"
-    t.integer  "lock_version",    default: 0, null: false
+    t.integer  "lock_version",      default: 0, null: false
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
@@ -162,13 +168,15 @@ ActiveRecord::Schema.define(version: 20140116135017) do
     t.datetime "updated_at"
     t.string   "room"
     t.string   "url"
-    t.string   "icon"
     t.string   "slug"
     t.string   "email"
-    t.integer  "users_count",     default: 0
-    t.boolean  "icon_processing"
-    t.integer  "reagents_count",  default: 0
-    t.integer  "devices_count",   default: 0
+    t.integer  "users_count",       default: 0
+    t.integer  "reagents_count",    default: 0
+    t.integer  "devices_count",     default: 0
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -216,10 +224,10 @@ ActiveRecord::Schema.define(version: 20140116135017) do
   end
 
   create_table "reagents", force: true do |t|
-    t.string   "name",                                                  null: false
-    t.string   "category",                                              null: false
+    t.string   "name",                                                    null: false
+    t.string   "category",                                                null: false
     t.string   "location"
-    t.decimal  "price",           precision: 9, scale: 2
+    t.decimal  "price",             precision: 9, scale: 2
     t.string   "serial"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -228,13 +236,15 @@ ActiveRecord::Schema.define(version: 20140116135017) do
     t.integer  "user_id"
     t.string   "url"
     t.date     "expiration"
-    t.integer  "remaining",                               default: 100, null: false
-    t.string   "icon"
-    t.boolean  "icon_processing"
-    t.integer  "lock_version",                            default: 0,   null: false
+    t.integer  "remaining",                                 default: 100, null: false
+    t.integer  "lock_version",                              default: 0,   null: false
     t.string   "uid"
     t.string   "lot_number"
     t.string   "quantity"
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
@@ -289,10 +299,8 @@ ActiveRecord::Schema.define(version: 20140116135017) do
     t.integer  "institute_id"
     t.integer  "department_id"
     t.boolean  "approved",               default: false, null: false
-    t.string   "icon"
     t.datetime "joined"
     t.string   "slug"
-    t.boolean  "icon_processing"
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"

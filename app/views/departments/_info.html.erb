@@ -1,13 +1,17 @@
 <%- model_class = Department -%>
-	<% cache @department do %>
-		<dl class="dl-vertical">
-		  <% if @department.url? %>
-			    <dt><strong>Website</strong></dt>
-			    <dd><%= link_to "#{@department.url}", @department.url, :only_path => false  %></dd>
-			    <br>
-		  <% end %>
-		  <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
-		  <dd><%= @department.address %></dd>
-		</dl>
-		<hr>
-	<% end %>
+<% if @department.url.present? && @department.icon.present? %>
+	<dd class="text-center"><%= link_to image_tag(@department.icon.url(:portrait).html_safe), @department.url %></dd>
+  <% elsif @department.url.present? && @department.icon.blank? %>
+  	<dt><strong>Website</strong></dt>
+    <dd><%= link_to "#{@department.url}", @department.url, only_path: false  %></dd>
+    <br>
+  <% end %>
+  <br>
+  <% if @department.address.present? %>
+  <dt><strong><%= model_class.human_attribute_name(:address) %></strong></dt>
+  <dd><%= @department.address %></dd>
+  <% end %>
+
+
+
+  

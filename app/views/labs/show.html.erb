@@ -3,15 +3,22 @@
   <div class="row">
     <div class="span6">
       <h3>
-        <%= link_to lab_users_path(@lab) do %>
-         <i class="icon-group"></i><%= " The #{@lab.gl.fullname} Lab" %>
+        <% if @lab.icon.present? %>
+          <div class="pull-left user-icon-portrait">
+            <%= image_tag(@lab.icon.url(:portrait), class: "img-rounded").html_safe %>
+          </div><br>
         <% end %>
-        <% if current_user.gl_lm? && current_user.lab == @lab %>
-          <div class="btn-group">
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_lab_path(@lab), class: 'btn-small btn-warning' %>
-          </div>
-        <% end %>
+        <span class="inline-block">
+          <%= link_to lab_users_path(@lab) do %>
+            <i class="icon-group"></i><%= " The #{@lab.gl.fullname} Lab" %>
+          <% end %>
+          <% if current_user.gl_lm? && current_user.lab == @lab %>
+            <div class="btn-group">
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                            edit_lab_path(@lab), class: 'btn-small btn-warning' %>
+            </div>
+          <% end %>
+        </span>
       </h3>
       <dl class="dl-horizontal">
         <h5>
