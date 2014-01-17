@@ -15,7 +15,7 @@
                 <% end %>
             </h4>
             <% else %>
-              <span class="text-center"><%= link_to image_tag(user.icon.url(:thumb), class: "img-rounded").html_safe, user %></span>
+              <span class="text-center"><%= link_to image_tag(user.icon.url(:thumb), class: "img-circle").html_safe, user %></span>
             <% end %>
           </td>
           <td><%= link_to user.fullname, user %> <%= "#{user.points}" %></td>
