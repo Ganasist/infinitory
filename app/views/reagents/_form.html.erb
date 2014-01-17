@@ -28,9 +28,17 @@
 
       </div>
       <div class="span5  pull-right">
-        <label>Image</label><br>
-          
-          <br>
+        <strong><h4>Image</h4></strong>
+          <p>.jpeg, .png or .gif images < 2 megabytes</p>
+          <% if @reagent.icon.present? %>
+            <%= image_tag(@reagent.icon.url(:portrait), class: "img-rounded").html_safe %>
+            <br><br>
+            <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete photo", wrapper_html: { class: "form-inline"} %><br>
+          <% end %>
+          <%= f.input :icon_remote_url, label: "Enter image URL" %>
+          <h4>or</h4>
+          <%= f.file_field :icon %>
+          <br><br>
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Linked member(s):',
                                   collection: User.where(lab: @lab).order(:first_name),
