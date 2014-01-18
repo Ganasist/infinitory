@@ -37,5 +37,5 @@ Infinitory::Application.configure do
   config.serve_static_assets = true
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
-  ENV["REDISTOGO_URL"] = 'redis://redistogo:2abe6b292108ffc35ff96cbf8bf99fea@grideye.redistogo.com:9438/'
+  # ENV["REDISTOGO_URL"] = 'redis://redistogo:2abe6b292108ffc35ff96cbf8bf99fea@grideye.redistogo.com:9438/'
 end

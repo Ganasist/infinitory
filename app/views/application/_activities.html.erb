@@ -1,4 +1,3 @@
-<h4>History</h4><br>
 <% @activities.each do |activity| %>
   <h4 class="list-group-item-heading"><%= time_ago_in_words(activity.created_at) %> ago</h4>
     <p class="text-group-item-text">

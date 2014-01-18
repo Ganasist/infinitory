@@ -88,7 +88,16 @@
       <hr><br>
     </div>
     <div class="span6 pull-left">
-      <%= render 'activities' %>
+      <!-- Nav panes -->
+      <ul class="nav nav-pills nav-justified">
+        <li class="active"><a href="#history" data-toggle="tab">History</a></li>
+        <li><a href="#messages" data-toggle="tab">Messages</a></li>
+      </ul><br>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="history"><%= render 'activities' %></div>
+        <div class="tab-pane fade" id="messages">MESSAGES</div>
+      </div>
     </div>
   </div>
 <% end %>
