@@ -17,16 +17,20 @@
       <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
     <% end %>
   <% if params[:user_id].present? %>
-    <%= form_tag user_reagents_path(current_user.lab), method: :get do %>
+    <%= simple_form_for user_reagents_path(current_user.lab), method: :get do %>
       <%= text_field_tag :search, params[:query],
                                   class: "search-field", 
-                                  placeholder: "Search your reagents" %>
+                                  placeholder: "Search your reagents",
+                                  data: { provide: :typeahead, source: current_user.reagents.pluck(:name).uniq },
+                                  autocomplete: :off %>
     <% end %>
   <% elsif params[:lab_id].present? %>
-    <%= form_tag lab_reagents_path, method: :get do %>
+    <%= simple_form_for lab_reagents_path, method: :get do %>
       <%= text_field_tag :search, params[:query],
                                   class: "search-field",
-                                  placeholder: "Search lab / public reagents"  %>
+                                  placeholder: "Search lab / public reagents",
+                                  data: { provide: :typeahead, source: @lab.reagents.pluck(:name).uniq },
+                                  autocomplete: :off  %>
       <%= select_tag :reagent_search_scope, options_for_select([['Lab only', 1], ['Public', 2]]) %>
       <ul class="nav nav-pills nav-justified">
         <li class="active"><a href="#notifications" data-toggle="tab">Lab</a></li>
