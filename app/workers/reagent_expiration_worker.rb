@@ -10,7 +10,7 @@ class ReagentExpirationWorker
   
   def perform
   	Reagent.expiration_notice
-  	Comment.where('created_at < ?', 30.days.ago).destroy_all
-  	# PublicActivity::Activity.where('created_at < ?', 3.months.ago).destroy_all
+  	Comment.destroy_all ['created_at < ?', 3.months.ago]
+  	# PublicActivity::Activity.destroy_all ['created_at < ?', 3.months.ago]
   end
 end

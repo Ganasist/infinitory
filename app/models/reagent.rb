@@ -107,7 +107,7 @@ class Reagent < ActiveRecord::Base
 
 	  def self.text_search(query)
 	    if query.present?
-	      pg_search(query)
+	      @reagents ||= pg_search(query)
 	    else
 	      scoped
 	    end
