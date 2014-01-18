@@ -146,6 +146,6 @@ class DevicesController < ApplicationController
     def device_params
       params.require(:device).permit(:lab_id, { :user_ids => [] }, :name, :category, :location, :price,
       															 :url, :serial, :description, :tag_list, :lock_version, :status,
-      															 :uid, :icon, :delete_icon, :icon_remote_url)
+      															 :uid, :public, :icon, :delete_icon, :icon_remote_url)
     end
 end

@@ -9,9 +9,13 @@ class ReagentsController < ApplicationController
     data_table.new_column('string', 'Category')
     data_table.new_column('number', 'Relative amount')
     data_table.add_rows(Reagent::CATEGORIES.length)
+    
     if params[:tag].present?
+      
       @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)
+    
     elsif params[:search].present?
+      
       if params[:user_id].present?   
         @user = User.friendly.find(params[:user_id])
         @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
@@ -19,14 +23,16 @@ class ReagentsController < ApplicationController
         @lab = Lab.find(params[:lab_id]) 
         @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
       end
+
     elsif params[:user_id].present?
+      
       @user = User.friendly.find(params[:user_id])
       @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)      
-
       Reagent::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
         data_table.set_cell(index, 1, @user.reagents_category_count("#{val}"))
       end
+
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
       @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(25)
@@ -137,6 +143,6 @@ class ReagentsController < ApplicationController
     def reagent_params
       params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, :category, :location, :price, :url, :serial,
                                       :properties, :description, :expiration, :remaining, :tag_list, :lock_version,
-                                      :quantity, :lot_number, :uid, :icon, :delete_icon, :icon_remote_url)
+                                      :quantity, :lot_number, :uid, :public, :icon, :delete_icon, :icon_remote_url)
     end
 end

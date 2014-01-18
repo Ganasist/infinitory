@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117120210) do
+ActiveRecord::Schema.define(version: 20140118122758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,14 +88,14 @@ ActiveRecord::Schema.define(version: 20140117120210) do
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
 
   create_table "devices", force: true do |t|
-    t.string   "name",                                                     null: false
-    t.string   "category",                                                 null: false
+    t.string   "name",                                                      null: false
+    t.string   "category",                                                  null: false
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
     t.integer  "user_id"
     t.string   "url"
-    t.integer  "lock_version",                              default: 0,    null: false
+    t.integer  "lock_version",                              default: 0,     null: false
     t.string   "uid"
     t.text     "description"
     t.decimal  "price",             precision: 9, scale: 2
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20140117120210) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
+    t.boolean  "public",                                    default: false
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -224,8 +225,8 @@ ActiveRecord::Schema.define(version: 20140117120210) do
   end
 
   create_table "reagents", force: true do |t|
-    t.string   "name",                                                    null: false
-    t.string   "category",                                                null: false
+    t.string   "name",                                                      null: false
+    t.string   "category",                                                  null: false
     t.string   "location"
     t.decimal  "price",             precision: 9, scale: 2
     t.string   "serial"
@@ -236,8 +237,8 @@ ActiveRecord::Schema.define(version: 20140117120210) do
     t.integer  "user_id"
     t.string   "url"
     t.date     "expiration"
-    t.integer  "remaining",                                 default: 100, null: false
-    t.integer  "lock_version",                              default: 0,   null: false
+    t.integer  "remaining",                                 default: 100,   null: false
+    t.integer  "lock_version",                              default: 0,     null: false
     t.string   "uid"
     t.string   "lot_number"
     t.string   "quantity"
@@ -245,6 +246,7 @@ ActiveRecord::Schema.define(version: 20140117120210) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
+    t.boolean  "public",                                    default: false
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
