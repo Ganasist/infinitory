@@ -40,6 +40,29 @@ class ApplicationController < ActionController::Base
     end
     helper_method :fullname
 
+    def send_comment(item, action)
+      if item.location.present?
+        item.users.each do |u|
+          u.comments.create(comment: "#{ fullname(item) } (#{ item.location }) was #{action} by #{current_user.fullname}")
+        end
+        item.lab.comments.create(comment: "#{ fullname(item) } (#{ item.location }) was #{action} by #{current_user.fullname}")
+      else
+        item.users.each do |u|
+          u.comments.create(comment: "#{ fullname(item) } was #{action} by #{current_user.fullname}")
+        end
+        item.lab.comments.create(comment: "#{ fullname(item) } was #{action} by #{current_user.fullname}")
+      end
+    end
+    helper_method :send_comment
+
+    def reagent_low(reagent)
+      reagent.users.each do |u|
+        u.comments.create(comment: "#{ fullname(reagent) } had only #{reagent.remaining}% remaining")
+      end
+      reagent.lab.comments.create(comment: "#{ fullname(reagent) } had only #{reagent.remaining}% remaining")        
+    end
+    helper_method :reagent_low
+
     def after_sign_in_path_for(resource)
       user_path(current_user)
     end

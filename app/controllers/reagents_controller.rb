@@ -62,6 +62,7 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @reagent.save
         @reagent.create_activity :create, owner: current_user
+        send_comment(@reagent, "created")
         format.html { redirect_to @reagent, notice: "#{ fullname(@reagent) } was successfully created." }
         format.json { render action: 'show', status: :created, location: @reagent }
       else
@@ -76,9 +77,7 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @clone.save
         @clone.create_activity :clone, owner: current_user
-        @clone.users.each do |u|
-          u.comments.create(comment: "#{ fullname(@clone) } was cloned by #{current_user.fullname}")
-        end 
+        send_comment(@reagent, "cloned")
         format.html { redirect_to @clone, notice: "#{ fullname(@clone) } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
@@ -91,12 +90,9 @@ class ReagentsController < ApplicationController
   def update
     respond_to do |format|
       if @reagent.update(reagent_params)
-        @reagent.create_activity :update, owner: current_user 
+        @reagent.create_activity :update, owner: current_user
         if @reagent.remaining < 21
-          @reagent.users.each do |u|
-            u.comments.create(comment: "#{ fullname(@reagent) } had only #{@reagent.remaining}% remaining")
-          end
-          @reagent.lab.comments.create(comment: "#{ fullname(@reagent) } had only #{@reagent.remaining}% remaining")
+          reagent_low(@reagent)
         end        
         flash[:notice] = "#{ fullname(@reagent) } has been updated."
         format.html { redirect_to @reagent }
@@ -111,10 +107,7 @@ class ReagentsController < ApplicationController
   def destroy
     @lab = @reagent.lab
     @reagent.create_activity :delete, owner: current_user
-    @reagent.users.each do |u|
-        u.comments.create(comment: "#{ fullname(@reagent) } was deleted by #{current_user.fullname}")
-      end
-    @lab.comments.create(comment: "#{ fullname(@reagent) } was deleted by #{current_user.fullname}")
+    send_comment(@reagent, "removed")
     @reagent.destroy
     respond_to do |format|
       flash[:notice] = "#{@reagent.name} has been removed."
