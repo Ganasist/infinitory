@@ -88,18 +88,6 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.update(device_params)
         @device.create_activity :update, owner: current_user
-
-        # IMPLEMENT DEVICE STATUS ONLINE / OFFLINE BOOLEAN ATTRIBUTE
-        # if @device.status_changed? && @device.status == false
-        #   @device.users.each do |u|
-        #     u.comments.create(comment: "#{@device.name} was taken offline by #{current_user.fullname}.")
-        #   end
-        # elsif @device.status_changed? && @device.status == true
-        #   @device.users.each do |u|
-        #     u.comments.create(comment: "#{@device.name} was taken online by #{current_user.fullname}.")
-        #   end
-        # end
-
         flash[:notice] = "#{ fullname(@device) } has been updated."
         format.html { redirect_to @device }
         format.json { head :no_content }

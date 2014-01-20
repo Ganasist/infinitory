@@ -16,6 +16,8 @@ class Device < ActiveRecord::Base
 
   validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another device in the lab with that category, name and UID' }
 
+  after_update  :online_status_message, if: Proc.new { |d| d.status_changed? }
+
   include PublicActivity::Common
 
 	amoeba do
@@ -40,9 +42,6 @@ class Device < ActiveRecord::Base
   def icon_remote_url=(url_value)
      if url_value.present?
       self.icon = URI.parse(url_value)
-      # Assuming url_value is http://example.com/photos/face.png
-      # avatar_file_name == "face.png"
-      # avatar_content_type == "image/png"
       @icon_remote_url = url_value
     end
   end
@@ -51,8 +50,6 @@ class Device < ActiveRecord::Base
   pg_search_scope :pg_search, against: [:name, :uid, :serial],
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' }}
 
-	# mount_uploader :icon, IconUploader
-	# process_in_background :icon
 	
 	acts_as_taggable
 	scope :modified_recently, -> { order("updated_at DESC") }
@@ -65,6 +62,34 @@ class Device < ActiveRecord::Base
 
 	def gl
     User.find_by(email: self.lab.email)
+  end
+
+  def online_status_message
+    if self.location.present?
+      if self.status?
+        comment = "#{ self.fullname } (#{ self.location }) was taken online"
+      else
+        comment = "#{ self.fullname } (#{ self.location }) was taken offline"
+      end
+    else
+      if self.status?
+        comment = "#{ self.fullname } was taken online"
+      else
+        comment = "#{ self.fullname } was taken offline"
+      end
+    end
+    self.users.each do |u|
+      u.comments.create(comment: comment)
+    end
+    self.lab.comments.create(comment: comment)
+  end
+
+  def fullname
+    if self.uid.present?
+      "#{self.name}-#{self.uid}"
+    else
+      "#{self.name}"
+    end
   end
 
   private

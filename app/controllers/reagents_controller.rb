@@ -92,7 +92,7 @@ class ReagentsController < ApplicationController
       if @reagent.update(reagent_params)
         @reagent.create_activity :update, owner: current_user
         if @reagent.remaining < 21
-          reagent_low(@reagent)
+          @reagent.reagent_low
         end        
         flash[:notice] = "#{ fullname(@reagent) } has been updated."
         format.html { redirect_to @reagent }
@@ -110,11 +110,11 @@ class ReagentsController < ApplicationController
     send_comment(@reagent, "removed")
     @reagent.destroy
     respond_to do |format|
-      flash[:notice] = "#{@reagent.name} has been removed."
+      flash[:notice] = "#{ fullname(@reagent) } has been removed."
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
     end
-    expire_fragment "current_user"
+    # expire_fragment "current_user"
   end
 
   private
