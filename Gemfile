@@ -50,6 +50,7 @@ gem 'paper_trail', '>= 3.0.0'
 gem 'validates_timeliness', '~> 3.0'
 
 gem 'pg_search'
+gem 'hairtrigger'
                       
 gem 'turbolinks'
 

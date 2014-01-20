@@ -19,4 +19,3 @@ guard :rspec, cmd: 'zeus rspec', all_on_start: true, failed_mode: true, keep: tr
   watch(%r{^spec/acceptance/(.+)\.feature$})
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
 end
-

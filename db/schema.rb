@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140118122758) do
+ActiveRecord::Schema.define(version: 20140120193008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,10 +107,12 @@ ActiveRecord::Schema.define(version: 20140118122758) do
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
     t.boolean  "public",                                    default: false
+    t.tsvector "tsv_body"
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
   add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree
+  add_index "devices", ["tsv_body"], name: "index_devices_on_tsv_body", using: :gin
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
 
   create_table "events", force: true do |t|
@@ -247,12 +249,14 @@ ActiveRecord::Schema.define(version: 20140118122758) do
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
     t.boolean  "public",                                    default: false
+    t.tsvector "tsv_body"
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
   add_index "reagents", ["lab_id", "uid", "name", "category"], name: "index_reagents_on_lab_id_and_uid_and_name_and_category", unique: true, using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["properties"], name: "reagents_properties", using: :gin
+  add_index "reagents", ["tsv_body"], name: "index_reagents_on_tsv_body", using: :gin
   add_index "reagents", ["user_id"], name: "index_reagents_on_user_id", using: :btree
 
   create_table "sashes", force: true do |t|

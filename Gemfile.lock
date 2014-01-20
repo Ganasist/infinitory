@@ -155,6 +155,10 @@ GEM
     guard-rspec (4.2.4)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    hairtrigger (0.2.4)
+      activerecord (>= 2.3)
+      ruby2ruby (~> 2.0.6)
+      ruby_parser (~> 3.2.2)
     haml (4.0.5)
       tilt
     high_voltage (2.1.0)
@@ -406,6 +410,7 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
+  hairtrigger
   high_voltage
   hub
   jquery-rails

@@ -50,7 +50,6 @@ class Device < ActiveRecord::Base
   pg_search_scope :pg_search, against: [:name, :uid, :serial],
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' }}
 
-	
 	acts_as_taggable
 	scope :modified_recently, -> { order("updated_at DESC") }
 
