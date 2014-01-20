@@ -25,7 +25,7 @@ class LabsController < ApplicationController
     @comments = @lab.comments.recent.limit(50)
 
     data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Initials')
+    data_table.new_column('string', 'Name')
     data_table.new_column('number', 'Devices')
     data_table.new_column('number', 'Reagents')
     data_table.new_column('number', "Today's points")

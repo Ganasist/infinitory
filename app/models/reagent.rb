@@ -93,8 +93,12 @@ class Reagent < ActiveRecord::Base
   end
 
   def self.expiration_message(reagent, recipient)
-    if reagent.uid.present?
+    if reagent.uid.present? && !reagent.location.present?
       recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
+    elsif !reagent.uid.present? && reagent.location.present?
+      recipient.comments.build(comment: "#{reagent.name} (#{reagent.category.humanize}) expires soon. It's location is: #{reagent.location}. Please consider making it Public.")
+    elsif reagent.uid.present? && reagent.location.present?
+      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.category.humanize}) expires soon. It's location is: #{reagent.location}. Please consider making it Public.")
     else
       recipient.comments.build(comment: "#{reagent.name} (#{reagent.category.humanize}) expires soon. Please consider making it Public.")
     end
@@ -107,7 +111,7 @@ class Reagent < ActiveRecord::Base
 
 	  def self.text_search(query)
 	    if query.present?
-	      @reagents ||= pg_search(query)
+	      @reagents = pg_search(query)
 	    else
 	      scoped
 	    end

@@ -70,7 +70,7 @@ class Device < ActiveRecord::Base
   private
 	  def self.text_search(query)
 	    if query.present?
-	      @devices ||= pg_search(query)
+	      @devices = pg_search(query)
 	    else
 	      scoped
 	    end
