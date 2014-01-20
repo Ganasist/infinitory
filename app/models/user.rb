@@ -81,25 +81,25 @@ class User < ActiveRecord::Base
   end
 
   def cached_total_points
-    Rails.cache.fetch([self.sash, "cached_total_points"], expires_in: 1.minutes) { points }
+    Rails.cache.fetch([self.sash, "cached_total_points"], expires_in: 15.minutes) { self.points }
   end
 
   def cached_daily_scores
-    Rails.cache.fetch([self.sash, "cached_daily_scores"], expires_in: 1.minutes) {
+    Rails.cache.fetch([self.sash, "cached_daily_scores"], expires_in: 15.minutes) {
         sash.scores.first.score_points.where("created_at > ?", Time.zone.now.beginning_of_day).sum(:num_points)
       }
   end
 
   def lab_users_count
-    Rails.cache.fetch([self, "lab_users_count"], expires_in: 1.hour) { self.lab.users.length }
+    Rails.cache.fetch([self, "lab_users_count"], expires_in: 1.hour) { self.lab.users.count }
   end
 
   def device_count
-    Rails.cache.fetch([self, "device_count"], expires_in: 1.minutes) { self.devices.length }
+    Rails.cache.fetch([self, "device_count"], expires_in: 30.minutes) { self.devices.count }
   end
 
   def reagent_count
-    Rails.cache.fetch([self, "reagent_count"], expires_in: 1.minutes) { self.reagents.length }
+    Rails.cache.fetch([self, "reagent_count"], expires_in: 30.minutes) { self.reagents.count }
   end
 
   def should_generate_new_friendly_id?
@@ -170,6 +170,10 @@ class User < ActiveRecord::Base
 
   def lm?
     role == 'lab_manager'    
+  end
+
+  def gl_lm(lab)
+    self.lab = lab
   end
 
   def lab_email
