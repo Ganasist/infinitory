@@ -53,9 +53,16 @@ a.btn-success, .btn-large, .btn {
 	font-weight: 200;
 }
 
-a, .navbar a, .brand, #invitation, #sign-out {
+.navbutton {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 3px;
+}
+	
+a, .navbar a, #invitation, #sign-out {
 	font-size: 1.2em;
 	color: #fff;
+	margin-top: 6px;
 	&:hover {
 		color: @navBarLinkHover;
 		background: none;
@@ -67,8 +74,10 @@ a, .navbar a, .brand, #invitation, #sign-out {
 	// }
 }
 
-a.navButtons {
-	padding: 0px, 100px;
+.navbar .brand {
+	font-size: 2.23em;
+	margin-top: 6px;
+	// padding-top: 16px;
 }
 
 input.search-field {
@@ -102,22 +111,22 @@ span.badge-25 {	background-color: @badgeColor - #444; }
 }
 
 .footer {
-	font-size: 1.0em;
-	color: #FFF;
+	font-size: 1.2em;
+	color: #000;
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 30px;
-	background-color: @navbarBackground;
+	background-color: #fff;
 	padding: 5px;
 	a {
-		color: #FFF;
+		color: #000;
 		&:visited {
-			color: #fff;
+			color: #000;
 		}
 		&:hover {
-			color: @navBarLinkHover;
+			color: @linkHover;
 			background: none;
 		  text-decoration: none;
 	  }

@@ -8,22 +8,26 @@
           <% end %>
         <% end %>
         <%= menu_group pull: :right do %>
-          <%= link_to current_user.lab, class: "inline-block" do %>
-            <%= fa_icon "users", class: "fa-2x fa-fw"  %> <small>(<%= current_user.lab.users.size %>)</small>
+        <span class="text-center">
+          <% if current_user.lab.present? %>
+            <%= link_to current_user.lab, class: "inline-block navbutton" do %>
+              <%= fa_icon "users", class: "fa-2x fa-fw"  %><br><small class="text-center"><%= current_user.lab.users.size %></small>
+            <% end %>
           <% end %>
           <% if current_user.reagents.count > 0 %>
-            <%= link_to user_reagents_path(current_user), class: "inline-block" do %>
-              <%= fa_icon "flask", class: "fa-2x fa-fw"  %> <small>(<%= current_user.cached_reagent_count %>)</small>
+            <%= link_to user_reagents_path(current_user), class: "inline-block navbutton" do %>
+              <%= fa_icon "flask", class: "fa-2x fa-fw"  %><br><small><%= current_user.cached_reagent_count %></small>
             <% end %>
           <% end %>
           <% if current_user.devices.count > 0 %>
-            <%= link_to user_devices_path(current_user), class: "inline-block" do %>
-              <%= fa_icon "cogs", class: "fa-2x fa-fw" %> <small>(<%= current_user.cached_device_count %>)</small>
+            <%= link_to user_devices_path(current_user), class: "inline-block navbutton" do %>
+              <%= fa_icon "cogs", class: "fa-2x fa-fw" %><br><small><%= current_user.cached_device_count %></small>
             <% end %>
           <% end %>
-            <%= link_to '#', class: "inline-block" do %>
-              <%= fa_icon "calendar", class: "fa-2x fa-fw"  %> <small>(<%= current_user.cached_device_count %>)</small>
-            <% end %>          
+            <%= link_to '#', class: "inline-block navbutton" do %>
+              <%= fa_icon "calendar", class: "fa-2x fa-fw"  %><br><small><%= current_user.cached_device_count %></small>
+            <% end %>
+          </span>          
         <% end %>
       <% end %>
 
