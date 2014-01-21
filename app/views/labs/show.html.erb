@@ -21,18 +21,17 @@
         </span>
       </h3>
       <dl class="dl-horizontal">
+        <hr>
         <h5>
           <%= link_to @user do %>
            <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@user.fullname}" %>
            <% end %>
         </h5>
-
         <% if @lab.room.present? %>
           <%= link_to "#" do %>
             <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %></h5>
           <% end %>
         <% end %>
-
         <% if @department.present? %>
           <h5>
             <%= link_to institute_department_path(@institute, @department) do %>
@@ -40,13 +39,13 @@
              <% end %>
           </h5>
         <% end %>
-
         <h5>
           <%= link_to @lab.institute do %>
            <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@institute.name}" %>
            <% end %>
         </h5>
       </dl>
+      <hr>
         <div class='row-fluid'>
             <%= link_to lab_users_path(@lab) do %>
               <%= fa_icon "users" %> Members <small>(<%= @users.size %>)</small>
