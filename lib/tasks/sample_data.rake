@@ -43,7 +43,7 @@ namespace :db do
           u.save
         end
 
-        500.times do |n|
+        25000.times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           reagent.user_ids = gl.lab.user_ids.sample(rand(gl.lab.size))
         end
