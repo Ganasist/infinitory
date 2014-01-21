@@ -15,12 +15,13 @@
 // Font Awesome
 @import "fontawesome/font-awesome";
 
-@linkHover: orange;
+@navBarLinkHover: #FFDC00;;
+@linkHover: #4169E1;
 @navbarBackground: #4169E1;
 @navbarBackgroundHighlight: @navbarBackground + #222;
-@navbarText: #eee;
+@navbarText: #fff;
 @navbarLinkColor: @navbarText + #777;
-@badgeColor: #f0ad4e;
+@badgeColor: #001F3F;
 
 body td {
   font-size: 1.2em;
@@ -38,21 +39,36 @@ a.btn-success, .btn-large, .btn {
 	&:hover {
 		color: @linkHover;
     text-decoration: none;
-    background-color: @navbarBackground;
+    background-color: @linkHover;
 	}
 }
 
-a, .brand, #invitation, #sign-out {
+.navbar .container {
+	padding-top: 7px;
+	padding-bottom: 5px;
+}
+
+.navbar .brand {
+	color: #fff;
+	font-weight: 200;
+}
+
+a, .navbar a, .brand, #invitation, #sign-out {
 	font-size: 1.2em;
+	color: #fff;
 	&:hover {
-		color: @linkHover;
+		color: @navBarLinkHover;
 		background: none;
 	  text-decoration: none;
 	}
-  img {
-		background-color: white;
-		margin: 3px 10px 3px 0px;
-	}
+ //  img {
+	// 	background-color: white;
+	// 	margin: 3px 10px 3px 0px;
+	// }
+}
+
+a.navButtons {
+	padding: 0px, 100px;
 }
 
 input.search-field {
@@ -63,11 +79,11 @@ input.search-field {
 
 .user-icon-portrait {	padding: 0px 5px 5px 0px; }
 
-span.badge-1 { background-color: @navbarBackground + #666; }
-span.badge-2 { background-color: @navbarBackground + #444; }
-span.badge-3 { background-color: @navbarBackground + #222; }
-span.badge-4 { background-color: @navbarBackground; }
-span.badge-5 { background-color: @navbarBackground - #222; }
+span.badge-1 { background-color: @navbarBackground + #888; }
+span.badge-2 { background-color: @navbarBackground + #666; }
+span.badge-3 { background-color: @navbarBackground + #444; }
+span.badge-4 { background-color: @navbarBackground + #222; }
+span.badge-5 { background-color: @navbarBackground; }
 span.badge-10 {	background-color: @badgeColor; }
 span.badge-25 {	background-color: @badgeColor - #444; }
 
@@ -86,14 +102,14 @@ span.badge-25 {	background-color: @badgeColor - #444; }
 }
 
 .footer {
-	font-size: 0.90em;
+	font-size: 1.0em;
 	color: #FFF;
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 30px;
-	background-color: @navbarBackgroundHighlight;
+	background-color: @navbarBackground;
 	padding: 5px;
 	a {
 		color: #FFF;
@@ -101,7 +117,7 @@ span.badge-25 {	background-color: @badgeColor - #444; }
 			color: #fff;
 		}
 		&:hover {
-			color: orange;
+			color: @navBarLinkHover;
 			background: none;
 		  text-decoration: none;
 	  }

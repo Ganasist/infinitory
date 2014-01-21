@@ -8,21 +8,21 @@
           <% end %>
         <% end %>
         <%= menu_group pull: :right do %>
-          <%= link_to current_user.lab, class: 'btn-large btn-warning' do %>
-            <%= fa_icon "users", title: "Your lab"  %> <small>(<%= current_user.lab.users.size %>)</small>
+          <%= link_to current_user.lab do %>
+            <%= fa_icon "users", title: "Your lab", class: "fa-2x fa-fw"  %> <small>(<%= current_user.lab.users.size %>)</small>
           <% end %>
           <% if current_user.reagents.count > 0 %>
-            <%= link_to user_reagents_path(current_user), class: 'btn-large btn-warning' do %>
-              <%= fa_icon "flask", title: "Your reagents"  %> <small>(<%= current_user.cached_reagent_count %>)</small>
+            <%= link_to user_reagents_path(current_user) do %>
+              <%= fa_icon "flask", title: "Your reagents", class: "fa-2x fa-fw"  %> <small>(<%= current_user.cached_reagent_count %>)</small>
             <% end %>
           <% end %>
           <% if current_user.devices.count > 0 %>
-            <%= link_to user_devices_path(current_user), class: 'btn-large btn-warning' do %>
-              <%= fa_icon "cogs", title: "Your devices"  %> <small>(<%= current_user.cached_device_count %>)</small>
+            <%= link_to user_devices_path(current_user) do %>
+              <%= fa_icon "cogs", title: "Your devices", class: "fa-2x fa-fw" %> <small>(<%= current_user.cached_device_count %>)</small>
             <% end %>
           <% end %>
-            <%= link_to '#', class: 'btn-large btn-warning' do %>
-              <%= fa_icon "calendar", title: "Your bookings"  %> <small>(<%= current_user.cached_device_count %>)</small>
+            <%= link_to '#' do %>
+              <%= fa_icon "calendar", title: "Your bookings", class: "fa-2x fa-fw"  %> <small>(<%= current_user.cached_device_count %>)</small>
             <% end %>          
         <% end %>
       <% end %>
