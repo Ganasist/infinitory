@@ -28,19 +28,16 @@ class Lab < ActiveRecord::Base
   def icon_remote_url=(url_value)
      if url_value.present?
       self.icon = URI.parse(url_value)
-      # Assuming url_value is http://example.com/photos/face.png
-      # avatar_file_name == "face.png"
-      # avatar_content_type == "image/png"
       @icon_remote_url = url_value
     end
   end
 
   def reagents_category_count(category)
-    self.reagents.where(category: category).length
+    self.reagents.where(category: category).count
   end
 
   def devices_category_count(category)
-    self.devices.where(category: category).length
+    self.devices.where(category: category).count
   end
 
   def institute_name

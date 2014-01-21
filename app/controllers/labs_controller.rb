@@ -32,8 +32,8 @@ class LabsController < ApplicationController
     data_table.new_column('number', "Today's points")
     data_table.new_column('number', 'Total points')
     data_table.add_rows(@users.map { |u|[u.fullname,
-                                         u.device_count,
-                                         u.reagent_count,
+                                         u.cached_device_count,
+                                         u.cached_reagent_count,
                                          u.cached_daily_scores,
                                          u.cached_total_points] })    
     @chart = GoogleVisualr::Interactive::BubbleChart.new(data_table, lab_scatter_options)

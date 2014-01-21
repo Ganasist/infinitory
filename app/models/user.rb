@@ -65,19 +65,16 @@ class User < ActiveRecord::Base
   def icon_remote_url=(url_value)
      if url_value.present?
       self.icon = URI.parse(url_value)
-      # Assuming url_value is http://example.com/photos/face.png
-      # avatar_file_name == "face.png"
-      # avatar_content_type == "image/png"
       @icon_remote_url = url_value
     end
   end
 
   def reagents_category_count(category)
-    self.reagents.where(category: category).length
+    self.reagents.where(category: category).count
   end
 
   def devices_category_count(category)
-    self.devices.where(category: category).length
+    self.devices.where(category: category).count
   end
 
   def cached_total_points
@@ -94,11 +91,11 @@ class User < ActiveRecord::Base
     Rails.cache.fetch([self, "lab_users_count"], expires_in: 1.hour) { self.lab.users.count }
   end
 
-  def device_count
+  def cached_device_count
     Rails.cache.fetch([self, "device_count"], expires_in: 30.minutes) { self.devices.count }
   end
 
-  def reagent_count
+  def cached_reagent_count
     Rails.cache.fetch([self, "reagent_count"], expires_in: 30.minutes) { self.reagents.count }
   end
 

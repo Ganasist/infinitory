@@ -13,29 +13,29 @@ class ApplicationController < ActionController::Base
   protected
 
     def pie_options
-      {width: 400, height: '100%', pieSliceText: 'none', fontSize: 12,
-       legend: {position: 'labeled', alignment: 'center'}, 
-       chartArea: {width: "92%", height: "92%"},
-       tooltip: {textStyle: {fontSize: 15}, text: 'value'}}
+      { width: 400, height: '100%', pieSliceText: 'none', fontSize: 12,
+        legend: { position: 'labeled', alignment: 'center' }, 
+        chartArea: { width: "92%", height: "92%" },
+        tooltip: { textStyle: { fontSize: 15 }, text: 'value' } }
     end
     helper_method :pie_options
 
     def lab_scatter_options
-      {width: 475, height: 475,
+      {width: 450, height: 450,
        fontSize: 16,
-       chartArea: {width: "85%", height: "85%"},
+       chartArea: { width: "85%", height: "85%" },
        legend: { position: 'none'},
-       colorAxis: { colors: ['white', '#4169E1']},
-       hAxis: { title: 'Linked devices', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}},
-       vAxis: { title: 'Linked reagents', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: 'none', gridlines: { color: 'white'}}}
+       colorAxis: { colors: ['white', '#4169E1'] },
+       hAxis: { title: 'Linked devices', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: "none",  gridlines: { color: 'white' } },
+       vAxis: { title: 'Linked reagents', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: "none", gridlines: { color: 'white' } } }
     end
     helper_method :lab_scatter_options
 
     def fullname(item)
       if item.uid.present?
-        "#{item.name}-#{item.uid}"
+        "#{ item.name }-#{ item.uid }"
       else
-        "#{item.name}"
+        "#{ item.name }"
       end
     end
     helper_method :fullname
