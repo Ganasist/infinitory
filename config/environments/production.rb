@@ -81,4 +81,6 @@ Infinitory::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:2abe6b292108ffc35ff96cbf8bf99fea@grideye.redistogo.com:9438/'
 end
