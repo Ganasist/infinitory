@@ -21,11 +21,11 @@ class ApplicationController < ActionController::Base
     helper_method :pie_options
 
     def lab_scatter_options
-      {width: 450, height: 450,
+      {width: 350, height: 350,
        fontSize: 16,
        chartArea: { width: "85%", height: "85%" },
        legend: { position: 'none'},
-       colorAxis: { colors: ['white', '#4169E1'] },
+       colorAxis: { colors: ['white', '#001F3F'] },
        hAxis: { title: 'Linked devices', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: "none",  gridlines: { color: 'white' } },
        vAxis: { title: 'Linked reagents', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: "none", gridlines: { color: 'white' } } }
     end

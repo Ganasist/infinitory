@@ -5,12 +5,11 @@
       <th>Name</th>
       <th>Category</th>
       <th>Location</th>
-      <th>UID</th>
       <% if params[:tag] %>
         <th><%= model_class.human_attribute_name(:tags) %></th>
       <% end %>
       <th>Expiration</th>
-      <th>Updated</th>
+      <th>Last Update</th>
       <th></th>
     </tr>
   </thead>
@@ -29,12 +28,11 @@
         </td>
         <td><%= reagent.category.titleize %></td>  
         <td><%= reagent.location %></td>
-        <td><%= reagent.uid %></td>
         <% if reagent.expiration? %>
           <% if reagent.expiration.past? %>
-            <td><span class="label label-danger"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
+            <td><span class="text-danger"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
           <% elsif expiring?(reagent) %>    
-            <td><span class="label label-warning"><%= time_ago_in_words(reagent.expiration) %> from now</span></dd>
+            <td><span class="text-warning"><%= time_ago_in_words(reagent.expiration) %> from now</span></dd>
           <% else %>
             <td>in <%= time_ago_in_words(reagent.expiration) %></dd>
           <% end %>
@@ -42,8 +40,9 @@
 
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
-          <%= link_to ' Edit',
-                      edit_reagent_path(reagent), class: 'icon-edit btn btn-warning' %>
+          <%= link_to edit_reagent_path(reagent) do %>
+            <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
+          <% end %>
         </td>
       </tr>
     <% end %>
