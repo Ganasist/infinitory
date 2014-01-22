@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     helper_method :pie_options
 
     def lab_scatter_options
-      {width: 350, height: 350,
+      {width: '100%', height: 400,
        fontSize: 16,
        chartArea: { width: "85%", height: "85%" },
        legend: { position: 'none'},
