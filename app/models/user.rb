@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   has_attached_file :icon,
                     styles: { thumb: '50x50>', portrait: '300x300>' },
                     storage: :s3,
-                    s3_permissions: :public,
+                    # s3_permissions: :public,
                     bucket: ENV['S3_BUCKET_NAME'],
                     s3_credentials: {
                       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
