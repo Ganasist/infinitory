@@ -27,47 +27,36 @@
               <%= " #{@user.role.humanize}" %>
             </small>
           <% end %>
-          <br>
-          <small class="lead"><%= @user.cached_total_points %> pts</small>
-        </span>
+        <br>
+        <small class="lead"><%= @user.cached_total_points %> pts</small>  
         <% if current_user == @user %>
           <h5>
-          <%= link_to edit_user_registration_path do %>
-             <i class="fa fa-edit"></i>Edit
-          <% end %>
-        </h5>
-        <% end %>
-        <dl class="dl-horizontal">
-        <hr>
-        <h5>
-          <%= link_to @user.lab, class: "inline-block" do %>
-            <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
-          <% end %>
-        </h5>
-        <% if @user.department.present? %>
-          <h5>
-            <%= link_to institute_department_path(@user.institute, @user.department) do %>
-              <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>
+            <%= link_to edit_user_registration_path do %>
+               <i class="fa fa-edit"></i>Edit
             <% end %>
           </h5>
+       </span>
         <% end %>
-        <h5><br>
-          <%= link_to @user.institute do %>
-            <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
+          <dl class="dl-horizontal">          
+          <h5>
+            <%= link_to @user.lab, class: "inline-block" do %>
+              <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
+            <% end %>
+          </h5>
+          <% if @user.department.present? %>
+            <h5>
+              <%= link_to institute_department_path(@user.institute, @user.department) do %>
+                <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>
+              <% end %>
+            </h5>
           <% end %>
-        </h5>
-        <hr>
-        <% if current_user == @user %>
-          <%= link_to new_message_path do %>
-            <i class="fa fa-fw fa-lg fa-bullhorn"></i>Feedback
-          <% end %><br><br>
-          <%= link_to new_user_invitation_path do %>
-            <i class="fa fa-fw fa-lg fa-thumbs-o-up"></i>Invitations
-          <% end %>
-        <% end %>
-      </dl>
+          <h5>
+            <%= link_to @user.institute do %>
+              <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
+            <% end %>
+          </h5>
+        </dl>
     </h3>
-    <hr>
   </div>
   <div class="span6">
     <!-- Nav panes -->
