@@ -37,5 +37,4 @@ Infinitory::Application.configure do
   config.serve_static_assets = true
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
-  # ENV["REDISCLOUD_URL"] = 'redis://rediscloud:nOjoO3D8WcvKewwd@pub-redis-19203.us-east-1-1.2.ec2.garantiadata.com:19203'
 end
