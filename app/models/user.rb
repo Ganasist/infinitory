@@ -44,7 +44,16 @@ class User < ActiveRecord::Base
   attr_accessor :delete_icon
   attr_reader :icon_remote_url
   before_validation { icon.clear if delete_icon == '1' }
-  has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
+  has_attached_file :icon,
+                    styles: { thumb: '50x50>', portrait: '300x300>' },
+                    storage: :s3,
+                    bucket: 'S3_BUCKET_NAME',
+                    s3_credentials: {
+                      access_key_id: 'AWS_ACCESS_KEY_ID',
+                      secret_access_key: 'AWS_SECRET_ACCESS_KEY'
+                    }
+
+
   validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
