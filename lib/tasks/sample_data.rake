@@ -11,7 +11,7 @@ namespace :db do
 
       1.times do |n|   
         gl = User.create!(role:                  'group_leader',
-                          email:                 Faker::Internet.email,
+                          email:                 'test@test.com',
                           institute_name:        institute.name,                  
                           password:              'loislane',
                           password_confirmation: 'loislane')
@@ -22,6 +22,7 @@ namespace :db do
         gl.created_at = rand(2000.days).ago
         gl.joined     = gl.created_at
         gl.save
+        gl.confirm!
         gl.lab.created_at  = gl.created_at
         gl.lab.save
         
@@ -43,7 +44,7 @@ namespace :db do
           u.save
         end
 
-        10000.times do |n|
+        2000.times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           reagent.user_ids = gl.lab.user_ids.sample(rand(gl.lab.size))
         end

@@ -12,7 +12,7 @@ describe Reagent do
   context 'validations' do
     expect_it { to validate_presence_of(:name) }
     expect_it { to validate_presence_of(:lab) }
-    expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit vector]) }
+    expect_it { to ensure_inclusion_of(:category).in_array(%w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector]) }
     expect_it { to validate_numericality_of(:price).with_message(/Must be a positive number or 0/) }
     expect_it { to_not allow_value(-1).for(:price) }
     expect_it { to validate_numericality_of(:remaining) }

@@ -1,6 +1,6 @@
 class Reagent < ActiveRecord::Base
 
-	CATEGORIES = %w[antibody cell_culture cell_line chemical_(powder) chemical_(solution) enzyme kit vector]
+	CATEGORIES = %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector]
 
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
