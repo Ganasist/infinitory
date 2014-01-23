@@ -47,12 +47,11 @@ class User < ActiveRecord::Base
   has_attached_file :icon,
                     styles: { thumb: '50x50>', portrait: '300x300>' },
                     storage: :s3,
-                    bucket: 'S3_BUCKET_NAME',
+                    bucket: ENV['S3_BUCKET_NAME'],
                     s3_credentials: {
-                      access_key_id: 'AWS_ACCESS_KEY_ID',
-                      secret_access_key: 'AWS_SECRET_ACCESS_KEY'
+                      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+                      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
                     }
-
 
   validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
