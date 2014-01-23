@@ -75,6 +75,7 @@ gem 'high_voltage'
 gem 'geocoder'
 
 gem 'paperclip', '~> 3.0'
+gem 'aws-sdk'
 gem 'delayed_paperclip'
 gem 'rmagick'
 

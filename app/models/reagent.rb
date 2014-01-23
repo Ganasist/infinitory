@@ -97,7 +97,7 @@ class Reagent < ActiveRecord::Base
   end
 
   def self.expiration_notice
-    Reagent.where(expiration: [25.days.from_now, 15.days.from_now]).find_in_batches(batch_size: 50) do |reagents|
+    Reagent.where(expiration: [28.days.from_now, 14.days.from_now]).find_in_batches(batch_size: 50) do |reagents|
       test = []
       reagents.each do |reagent|
         reagent.users.each do |user|
