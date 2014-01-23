@@ -1,33 +1,30 @@
 <div id="push">
   <% if user_signed_in? %>
-
       <%= nav_bar brand: "INFINITORY", brand_link: user_path(current_user), responsive: false do %>
-        <% if current_user.lab.present? %>
-          <%= menu_group do %>
-            <%= menu_item " Sign-out", destroy_user_session_path, method: :delete, class: "fa fa-sign-out", id: "sign-out" %>
-          <% end %>
-        <% end %>
         <%= menu_group pull: :right do %>
         <span class="text-center">
           <% if current_user.lab.present? %>
             <%= link_to current_user.lab, class: "inline-block navbutton" do %>
-              <%= fa_icon "users", class: "fa-2x fa-fw"  %><br><small class="text-center"><%= current_user.lab.users.size %></small>
+              <%= fa_icon "users", title: "Your lab", class: "fa-2x fa-fw"  %><br><small class="text-center"><%= current_user.lab.users.size %></small>
             <% end %>
           <% end %>
           <% if current_user.reagents.count > 0 %>
             <%= link_to user_reagents_path(current_user), class: "inline-block navbutton" do %>
-              <%= fa_icon "flask", class: "fa-2x fa-fw"  %><br><small><%= current_user.cached_reagent_count %></small>
+              <%= fa_icon "flask", title: "Your reagents", class: "fa-2x fa-fw"  %><br><small><%= current_user.cached_reagent_count %></small>
             <% end %>
           <% end %>
           <% if current_user.devices.count > 0 %>
             <%= link_to user_devices_path(current_user), class: "inline-block navbutton" do %>
-              <%= fa_icon "cogs", class: "fa-2x fa-fw" %><br><small><%= current_user.cached_device_count %></small>
+              <%= fa_icon "cogs", title: "Your devices", class: "fa-2x fa-fw" %><br><small><%= current_user.cached_device_count %></small>
             <% end %>
           <% end %>
-            <%= link_to '#', class: "inline-block navbutton" do %>
-              <%= fa_icon "calendar", class: "fa-2x fa-fw"  %><br><small><%= current_user.cached_device_count %></small>
+              <%= link_to '#', class: "inline-block navbutton" do %>
+              <%= fa_icon "calendar", title: "Your bookings", class: "fa-2x fa-fw"  %><br><small><%= current_user.cached_device_count %></small>
             <% end %>
-          </span>          
+          </span>
+          <%= link_to destroy_user_session_path, class: "inline-block navbutton" do %>
+              <%= fa_icon "sign-out", title: "Sign-out", class: "fa-2x fa-fw" %><br><small></small>
+            <% end %>   
         <% end %>
       <% end %>
 
