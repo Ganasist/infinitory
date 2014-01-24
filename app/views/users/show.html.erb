@@ -2,13 +2,13 @@
 <% title 'People: ' + @user.fullname %>  
 <div class="row">
   <div class="span6">
-    <h3>
-      <% if @user.icon.present? %>
-        <div class="pull-left user-icon-portrait">
-          <%= image_tag(@user.icon.url(:portrait), class: "img-rounded").html_safe %>
-        </div>
-      <% end %>
-      <span class="inline-block">
+    <% if @user.icon.present? %>
+      <div class="pull-left user-icon-portrait">
+        <%= image_tag(@user.icon.url(:portrait), class: "img-rounded").html_safe %>
+      </div>
+    <% end %>
+    <span class="user inline-block">
+      <h3>
         <%= "#{@user.fullname}" %>
       <br>
         <% if @user.icon.blank? %>

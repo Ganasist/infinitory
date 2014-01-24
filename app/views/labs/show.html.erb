@@ -2,12 +2,13 @@
   <% title "Labs: " + @gl.fullname %>
   <div class="row">
     <div class="span7">
-      <h3>
+      
         <% if @lab.icon.present? %>
           <div class="pull-left user-icon-portrait">
             <%= image_tag(@lab.icon.url(:portrait), class: "img-rounded").html_safe %>
           </div><br>
         <% end %>
+      <h3>
         <span class="inline-block">
           <%= link_to lab_users_path(@lab) do %>
             <i class="icon-group"></i><%= " The #{@gl.fullname} Lab" %>
