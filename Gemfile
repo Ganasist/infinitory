@@ -76,6 +76,7 @@ gem 'geocoder'
 
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
+gem 'paperclip-aws'
 gem 'delayed_paperclip'
 gem 'rmagick'
 
