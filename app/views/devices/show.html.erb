@@ -1,4 +1,5 @@
 <%- model_class = Device -%>
+<% cache @device do %>
   <% title "Devices: " + fullname(@device) %>
   <div class="row">
     <div class="span6">
@@ -82,3 +83,4 @@
     </div>
     </div>
   </div>
+<% end %>
