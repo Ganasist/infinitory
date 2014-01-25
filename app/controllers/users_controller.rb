@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       ajax_respond format, :section_id => "comments"
-      ajax_respond format, :section_id => "activity"
+      ajax_respond format, :section_id => "user_activity"
     end
   end
 
