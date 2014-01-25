@@ -62,7 +62,7 @@
          <br>
       </dl>
       <div class="btn-group">
-        <%= link_to ' Back', lab_devices_path(@lab), class: 'btn'  %>
+        <%= link_to ' Back', lab_devices_path(@device.lab), class: 'btn'  %>
         <%= link_to ' Edit', edit_device_path(@device), class: 'icon-edit btn btn-warning' %>
         <%= link_to ' Destroy', device_path(@device), method: 'delete', class: 'icon-trash btn btn-danger' %>
         <%= link_to ' Clone', clone_device_path(@device), class: 'icon-code-fork btn btn-info' %>
@@ -77,7 +77,9 @@
       </ul><br>
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane fade in active" id="history"><%= render 'activities' %></div>
+        <div class="tab-pane fade in active" id="history">
+          <%= ajax_section :id => "activity", :render => "activity" %>
+        </div>
         <div class="tab-pane fade" id="messages">MESSAGES</div>
       </div>
     </div>

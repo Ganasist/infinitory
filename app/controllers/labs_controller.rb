@@ -22,8 +22,9 @@ class LabsController < ApplicationController
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
-    @comments = @lab.comments.recent.limit(25)
+    @comments = @lab.comments.recent.page(params[:page]).per_page(5)
     @gl = @lab.gl
+
 
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Name')
@@ -37,6 +38,12 @@ class LabsController < ApplicationController
                                          u.cached_daily_scores,
                                          u.cached_total_points] })    
     @chart = GoogleVisualr::Interactive::BubbleChart.new(data_table, lab_scatter_options)
+
+
+    respond_to do |format|
+      format.html # index.html.erb
+      ajax_respond format, :section_id => "page"
+    end
   end
 
   def new

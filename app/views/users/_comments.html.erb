@@ -1,0 +1,9 @@
+<%= ajax_links :section_id => "comments" do %>
+  <%= will_paginate @comments, class: 'text-center lead' %>
+<% end %>
+<%= ajax_loadzone do %>
+  <%= render 'notifications' %>
+<% end %>
+<%= ajax_links :section_id => "comments" do %>
+  <%= will_paginate @comments, class: 'text-center lead' %>
+<% end %>

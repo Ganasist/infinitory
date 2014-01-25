@@ -1,7 +1,0 @@
-<% if @activities.present? %>
-	  <% @activities.each do |activity| %>
-	    <p class="list-group-item-heading lead"><%= time_ago_in_words(activity.created_at) %> ago</p>
-	    <h4 class="text-group-item-text"><%= render_activity activity %> <%= badging(activity) %></h4>
-	    <hr>
-	  <% end %>
-<% end %>

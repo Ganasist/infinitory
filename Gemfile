@@ -17,6 +17,7 @@ gem 'debugger', group: [:development, :test]
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'jquery-historyjs'
 
 gem 'google_visualr', '>= 2.1'
 
@@ -86,6 +87,9 @@ gem 'slim'
 gem 'sidetiq'
 
 gem 'will_paginate'
+gem 'ajax_pagination'
+
+
 gem 'seed_dump'
 
 group :production do

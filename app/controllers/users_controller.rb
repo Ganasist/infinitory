@@ -1,3 +1,5 @@
+require 'will_paginate/array' 
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :activate, :retire, :reject]
   before_action :set_lab, only: [:retire, :reject, :activate]
@@ -14,12 +16,14 @@ class UsersController < ApplicationController
     if request.path != user_path(@user)
       redirect_to @user, status: :moved_permanently
     end
-    @activities = PublicActivity::Activity.includes(:trackable).where(owner: @user).limit(25).order('created_at desc')
-   #  @institute = @user.institute
-   #  @department = @user.department
-  	# @lab = @user.lab
-    # @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(25)
-    @comments = @user.comments.recent.limit(25)
+    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(owner: @user).page(params[:page]).per_page(10)
+
+    @comments = @user.comments.recent.page(params[:page]).per_page(10)
+    respond_to do |format|
+      format.html # index.html.erb
+      ajax_respond format, :section_id => "comments"
+      ajax_respond format, :section_id => "activity"
+    end
   end
 
   def activate
