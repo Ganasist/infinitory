@@ -22,7 +22,7 @@ class LabsController < ApplicationController
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
-    @comments = @lab.comments.recent.limit(50)
+    @comments = @lab.comments.recent.limit(25)
     @gl = @lab.gl
 
     data_table = GoogleVisualr::DataTable.new
