@@ -11,18 +11,18 @@ class DevicesController < ApplicationController
     data_table.add_rows(Device::CATEGORIES.length)
     
     if params[:tag].present?
-      @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(25)
+      @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(12)
     elsif params[:search].present?
       if params[:user_id].present?   
         @user = User.friendly.find(params[:user_id])
-        @devices = @user.devices.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
+        @devices = @user.devices.text_search(params[:search]).modified_recently.page(params[:page]).per_page(12)
       elsif params[:lab_id].present?
         @lab = Lab.find(params[:lab_id]) 
-        @devices = @lab.devices.text_search(params[:search]).modified_recently.page(params[:page]).per_page(25)
+        @devices = @lab.devices.text_search(params[:search]).modified_recently.page(params[:page]).per_page(12)
       end
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
-      @devices = @user.devices.modified_recently.page(params[:page]).per_page(25)
+      @devices = @user.devices.modified_recently.page(params[:page]).per_page(12)
 
       Device::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
@@ -30,15 +30,19 @@ class DevicesController < ApplicationController
       end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
-      @devices = @lab.devices.modified_recently.page(params[:page]).per_page(25)
+      @devices = @lab.devices.modified_recently.page(params[:page]).per_page(12)
       
       Device::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
         data_table.set_cell(index, 1, @lab.devices_category_count("#{val}"))
       end
-    end
-    
+    end    
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, pie_options)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      ajax_respond format, :section_id => "page"
+    end
   end
 
   def show

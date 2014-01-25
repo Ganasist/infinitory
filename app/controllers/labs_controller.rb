@@ -22,7 +22,7 @@ class LabsController < ApplicationController
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
-    @comments = @lab.comments.recent.page(params[:page]).per_page(5)
+    @comments = @lab.comments.recent.page(params[:page]).per_page(10)
     @gl = @lab.gl
 
 

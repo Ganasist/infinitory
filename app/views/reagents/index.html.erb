@@ -42,12 +42,13 @@
 </div>
   <div class="span5">
     <% cache @chart do %>
-      <div id='chart'></div>
+      <div id='chart'>
         <%= render_chart(@chart, 'chart') %>
       </div>
     <% end %>
   </div>
+  <div class="span12">
+    <hr>
+    <%= ajax_section :id => "page", :render => "page" %>
+  </div>
 </div>
-<br><br>
-<%= render 'reagents' %>
-<%= will_paginate @reagents, class: 'text-center lead' %>

@@ -1,0 +1,9 @@
+<%= ajax_links :section_id => "page" do %>
+  <%= will_paginate @reagents, class: 'text-center lead' %>
+<% end %>
+<%= ajax_loadzone do %>
+  <%= render 'reagents' %>
+<% end %>
+<%= ajax_links :section_id => "page" do %>
+	<%= will_paginate @reagents, class: 'text-center lead' %>
+<% end %>

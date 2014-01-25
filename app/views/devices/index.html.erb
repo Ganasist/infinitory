@@ -41,11 +41,14 @@
     <% end %>
 </div>
   <div class="span5">
-    <div id='chart'></div>
-      <%= render_chart(@chart, 'chart') %>
-    </div>
+    <% cache @chart do %>
+      <div id='chart'>
+        <%= render_chart(@chart, 'chart') %>
+      </div>
+    <% end %>
+  </div>
+  <div class="span12">
+    <hr>
+    <%= ajax_section :id => "page", :render => "page" %>
   </div>
 </div>
-<br><br>
-<%= render 'devices' %>
-<%= will_paginate @devices, class: 'text-center lead' %>
