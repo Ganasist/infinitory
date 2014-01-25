@@ -18,6 +18,7 @@ gem 'debugger', group: [:development, :test]
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-historyjs'
+# gem "historyjs-rails"
 
 gem 'google_visualr', '>= 2.1'
 
