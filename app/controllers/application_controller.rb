@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
        fontSize: 16,
        chartArea: { width: "85%", height: "85%" },
        legend: { position: 'none'},
-       colorAxis: { colors: ['white', '#001F3F'] },
+       colorAxis: { colors: ['white', '#4169E1'] },
        hAxis: { title: 'Linked devices', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: "none",  gridlines: { color: 'white' } },
        vAxis: { title: 'Linked reagents', titleTextStyle: { fontSize: 18 }, logScale: false, textPosition: "none", gridlines: { color: 'white' } } }
     end
