@@ -30,5 +30,5 @@ Infinitory::Application.configure do
   config.assets.debug = true
   config.serve_static_assets = true
 
-  Paperclip.options[:command_path] = '/usr/local/bin/'
+  Paperclip.options[:command_path] = '/usr/local/bin/convert'
 end
