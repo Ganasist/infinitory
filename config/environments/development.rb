@@ -31,4 +31,8 @@ Infinitory::Application.configure do
   config.serve_static_assets = true
 
   Paperclip.options[:command_path] = '/usr/local/bin/'
+  config.paperclip_defaults = {
+    :s3_credentials => {
+      :bucket => "dev.infinitory.com"
+  }
 end
