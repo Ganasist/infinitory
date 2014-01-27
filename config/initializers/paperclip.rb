@@ -3,6 +3,7 @@ Paperclip::Attachment.default_options[:path] 					 = '/:class/:attachment/:id_pa
 Paperclip::Attachment.default_options[:storage]        = :s3
 Paperclip::Attachment.default_options[:s3_permissions] = :public_read
 Paperclip::Attachment.default_options[:s3_protocol]    = 'http'
+# Paperclip::Attachment.default_options[:processors]     = [:thumb, :protrait]
 Paperclip::Attachment.default_options[:s3_options]     = { :server_side_encryption => 'AES256',
 																								           :storage_class => :reduced_redundancy,
 																								           :content_disposition => 'attachment' }
