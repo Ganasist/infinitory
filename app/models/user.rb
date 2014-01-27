@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
   validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
-  # process_in_background :icon
+  process_in_background :icon
                                
   has_paper_trail
 
