@@ -61,6 +61,12 @@ class User < ActiveRecord::Base
   scope :all_gls, -> { where(role: 'group_leader') }
   scope :lm,      -> { where(role:  'lab_manager') }
 
+  def process_delayed!
+    self.job_is_processing = true
+    self.post_processing = true
+    reprocess!
+    self.job_is_processing = false
+  end
 
   def icon_remote_url=(url_value)
      if url_value.present?
