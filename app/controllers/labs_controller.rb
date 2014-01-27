@@ -25,7 +25,6 @@ class LabsController < ApplicationController
     @comments = @lab.comments.recent.page(params[:page]).per_page(10)
     @gl = @lab.gl
 
-
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Name')
     data_table.new_column('number', 'Devices')
@@ -38,7 +37,6 @@ class LabsController < ApplicationController
                                          u.cached_daily_scores,
                                          u.cached_total_points] })    
     @chart = GoogleVisualr::Interactive::BubbleChart.new(data_table, lab_scatter_options)
-
 
     respond_to do |format|
       format.html # index.html.erb
