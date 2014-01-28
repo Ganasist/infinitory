@@ -1,10 +1,10 @@
 class RandomPointsWorker
   include Sidekiq::Worker
-  # include Sidetiq::Schedulable
+  include Sidetiq::Schedulable
 
-  # recurrence backfill: true do
-  #   hourly
-  # end
+  recurrence backfill: true do
+    hourly
+  end
   
   def perform
     User.find_each do |t|
