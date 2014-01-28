@@ -20,6 +20,6 @@ if Rails.env.production? || Rails.env.staging?
     config.poll_interval = 15
   end
   Sidekiq.configure_client do |config|
-    config.redis = { url: ENV['REDIS_URL'] }
+    config.redis = { url: ENV['REDISTOGO_URL'], size: (Sidekiq.options[:concurrency] + 2)}
   end
 end
