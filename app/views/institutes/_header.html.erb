@@ -1,24 +1,29 @@
-  <div class="page-header">
-      <h3><i class="icon-building"></i>        
-        <%= " #{@institute.name}" %>
-        <% if @institute.acronym.present? %>
-          (<%= "#{@institute.acronym}" %>)
-        <% end %>
-        <% if user_signed_in? && current_user.gl? && current_user.institute == @institute %>
-          <div class="btn-group">
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_institute_path(@institute), class: 'btn-small btn-warning' %>
-          </div>
-        <% end %>
-      </h3>
-      
-      <% if @institute.alternate_name.present? %>
-        <h4 class="text-muted">
-          <%= "#{@institute.alternate_name}" %></dd>
-        <br>
-        </h4>
-      <% end %>
-
-      <h4><%= pluralize(@institute.labs.size, "group") + " & " + pluralize(@institute.users.size, "member") %></h4>
-               
-  </div>
+<div class="page-header">
+  <% if @institute.url.present? && @institute.icon.present? %>
+    <%= link_to image_tag(@institute.icon.url(:portrait).html_safe), @institute.url, target: "_blank" %>
+  <% elsif @institute.url.present? && @institute.icon.blank? %>
+    <h4><%= link_to "#{@institute.url}", @institute.url, only_path: false, target: "_blank"  %></h4>
+    <br>
+  <% end %>
+  <h3><i class="icon-building"></i>        
+    <%= " #{@institute.name}" %>
+    <% if @institute.acronym.present? %>
+      (<%= "#{@institute.acronym}" %>)
+    <% end %>
+    <% if user_signed_in? && current_user.gl? && current_user.institute == @institute %>
+      <div class="btn-group">
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_institute_path(@institute), class: 'btn-small btn-warning' %>
+      </div>
+    <% end %>
+  </h3>      
+  <% if @institute.alternate_name.present? %>
+    <h4 class="text-muted">
+      <%= "#{@institute.alternate_name}" %>
+    <br><br>
+    </h4>
+  <% if @institute.address.present? %>
+    <h5><%= @institute.address %></h5>
+  <% end %>
+  <% end %>
+</div>

@@ -6,12 +6,9 @@
       <% if @device.icon.present? %>
         <%= image_tag(@device.icon.url(:portrait).to_s, class: "img-rounded").html_safe %><br>
       <% end %>
-
-      <h3>
-        <%= fullname(@device) %>
-      </h3>
-      
-      <h4><%= link_to "#{@device.gl.fullname} lab", @device.lab %></h4>
+      <h3><%= fullname(@device) %></h3>
+      <h4><%= @device.category.titleize %></h4>
+      <h4><%= link_to "The #{@device.gl.fullname} lab", @device.lab %></h4>
 
       <h4>
         <% if !@device.status? %>
@@ -20,9 +17,6 @@
       </h4>
 
       <dl class="dl-vertical">
-        <dt><strong><%= model_class.human_attribute_name(:category) %></strong></dt>
-        <dd><%= @device.category.titleize %></dd><br>
-
         <% unless @device.location.empty? %>
           <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
           <dd><%= @device.location %></dd><br>

@@ -1,19 +1,18 @@
 <% title " Institutes: " + @institute.name %>
-
 <%= render "header" %>
-
 <div class="span5">
-  
-  <%= render 'info' %>
-
+  <h4>
+	<%= link_to institute_departments_path(@institute) do %>
+		<i class="icon-sitemap"></i>
+		<%= pluralize(@institute.departments.count, "department") %>
+	<% end %>
+</h4>
   <% if @institute.departments.present? %>
 	  <%= render 'department' %>
   <% else %>
     <%= link_to "Add Department", new_institute_department_path(@institute), class: 'btn btn-warning' %>
-
     <% if @institute.labs.present? %>
       <%= render 'lab' %>
     <% end %>
-
   <% end %>
 </div>

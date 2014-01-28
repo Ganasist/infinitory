@@ -1,16 +1,17 @@
 <hr>           
-	<h4>
-		<%= link_to institute_labs_path(@institute) do %>
-			<i class="icon-group"></i><%=  " Groups" %>
-		<% end %>
-	</h4>
-	<br>
-  <% @labs.each do |lab| %>
-  	<div class="lab">
-	    <p>
-	    	<%= link_to lab.gl.fullname, lab_path(lab) %>
-	    <br>
-	    	<%= pluralize(lab.users.size, "member") %>
-	  	</p>
-    </div>
-  <% end %>
+<h4>
+	<%= link_to institute_labs_path(@institute) do %>
+		<i class="icon-group"></i>
+		<%= pluralize(@institute.labs.count, "group") + " with " + pluralize(@institute.users.count, "member") %>
+	<% end %>
+</h4>
+<br>
+<% @labs.each do |lab| %>
+	<div class="lab">
+    <p>
+    	<%= link_to lab.gl.fullname, lab_path(lab) %>
+    <br>
+    	<%= pluralize(lab.users.size, "member") %>
+  	</p>
+  </div>
+<% end %>
