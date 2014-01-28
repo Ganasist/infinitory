@@ -1,17 +1,17 @@
 <%- model_class = Department -%>
-  <div class="page-header">
-    <h3>
-      <i class="icon-sitemap"></i><%= " #{@department.name}" %>
-      <% if current_user.gl? && current_user.department == @department  %>
-      <div class="btn-group">
-        <%= link_to "Edit", edit_institute_department_path(@department.institute, @department), class: 'btn-small btn-warning' %>         
-      </div>
-      <% end %>
-    </h3>
-    <h5>
-      <%= link_to institute_path(@department.institute) do %>
-        <i class="icon-building"></i><%= "  #{@department.institute.name}" %>
-      <% end %>
-    </h5>
-    <br>
+<div class="page-header">
+  <h3>
+    <i class="icon-sitemap"></i><%= " #{@department.name}" %>
+    <% if current_user.gl? && current_user.department == @department  %>
+    <div class="btn-group">
+      <%= link_to "Edit", edit_institute_department_path(@department.institute, @department), class: 'btn-small btn-warning' %>         
     </div>
+    <% end %>
+  </h3>
+  <h5>
+    <%= link_to institute_path(@department.institute) do %>
+      <i class="icon-building"></i><%= "  #{@department.institute.name}" %>
+    <% end %>
+  </h5>
+  <br>
+</div>

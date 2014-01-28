@@ -1,9 +1,9 @@
 <%- model_class = Department -%>
 <% if @department.url.present? && @department.icon.present? %>
-	<dd class="text-center"><%= link_to image_tag(@department.icon.url(:portrait).html_safe), @department.url %></dd>
+	<dd class="text-center"><%= link_to image_tag(@department.icon.url(:portrait).html_safe), @department.url, target: "_blank" %></dd>
   <% elsif @department.url.present? && @department.icon.blank? %>
   	<dt><strong>Website</strong></dt>
-    <dd><%= link_to "#{@department.url}", @department.url, only_path: false  %></dd>
+    <dd><%= link_to "#{@department.url}", @department.url, only_path: false, target: "_blank"  %></dd>
     <br>
   <% end %>
   <br>

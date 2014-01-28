@@ -73,7 +73,7 @@
         
         <% if @reagent.url? %>
           <dt>Website:</dt>
-          <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), :target => "_blank" %></dd><br>
+          <dd><%= link_to "#{@reagent.url}", url_with_protocol(@reagent.url), target: "_blank" %></dd><br>
         <% end %>
       </dl>
       <div class="btn-group">

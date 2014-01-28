@@ -9,7 +9,7 @@
   <% if @institute.departments.present? %>
 	  <%= render 'department' %>
   <% else %>
-    <%= link_to "Add Department", new_institute_department_path(@institute), class: 'btn-large btn-warning' %>
+    <%= link_to "Add Department", new_institute_department_path(@institute), class: 'btn btn-warning' %>
 
     <% if @institute.labs.present? %>
       <%= render 'lab' %>

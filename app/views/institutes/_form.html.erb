@@ -2,17 +2,12 @@
 <%= f.error_notification %>
 
   <div class="row">
-    <div class="span5">      
-
+    <div class="span5 pull-left">
       <%= f.input :name, label: 'Institute name' %>
       <%= f.input :alternate_name, placeholder: 'Optional' %>
       <%= f.input :acronym, placeholder: 'Optional', label: 'Acronym' %>
       <%= f.input :address, input_html: { rows: 4, class: "span5" }, as: :text %>
-      <%= f.input :url, label: 'Website', placeholder: 'Optional' %>
-
-      <%= f.button :submit, class: 'btn-warning' %><br><br>
-      <%= link_to t('.cancel', default: t("helpers.links.cancel")),
-                  institute_path(@institute), :class => 'btn' %>
+      <%= f.input :url, label: 'Website', placeholder: 'Optional' %>    
     </div>
     <div class="span5 pull-right">
       <strong><h4>Institute icon</h4></strong>
@@ -25,7 +20,15 @@
       <%= f.input :icon_remote_url, label: "Enter icon URL" %>
       <h4>or</h4>
       <%= f.file_field :icon %>
-      
+      <br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span5">
+      <%= f.button :submit, class: 'btn-warning' %><br><br>
+      <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+                  institute_path(@institute), :class => 'btn' %>
     </div>
   </div>
 <% end %>

@@ -98,7 +98,7 @@ group :production do
 end
 
 group :development do
-  gem 'rack-mini-profiler'
+  # gem 'rack-mini-profiler'
   gem 'brakeman', :require => false
   gem 'bullet'
   gem 'better_errors'
