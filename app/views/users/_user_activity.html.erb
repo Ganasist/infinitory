@@ -1,9 +1,9 @@
 <%= ajax_links :section_id => "user_activity" do %>
-  <%= will_paginate @activities, class: 'text-center lead' %>
+  <h4><%= will_paginate @activities %></h4>
 <% end %>
 <%= ajax_loadzone do %>
-  <%= render 'activities' %>
+  <%= render 'user_activities' %>
 <% end %>
 <%= ajax_links :section_id => "user_activity" do %>
-  <%= will_paginate @activities, class: 'text-center lead' %>
+  <h4><%= will_paginate @activities %></h4>
 <% end %>
