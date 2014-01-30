@@ -1,6 +1,6 @@
 AjaxPagination.config do |config|
   # uncomment to change default loading image file, located in assets/images.
-  config.loading_image = "ajax-loader.gif"
+  config.loading_image = "ajax-spinner.gif"
 
   # whether javascript warnings are on, these present themselves as alerts
   # by default, warnings are active only if the environment is development
