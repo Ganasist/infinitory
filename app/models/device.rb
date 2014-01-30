@@ -14,6 +14,9 @@ class Device < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
+  validates :product_url, :format => URI::regexp(%w(http https))
+  validates :purchasing_url, :format => URI::regexp(%w(http https))
+
   validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another device in the lab with that category, name and UID' }
 
   after_update  :online_status_message, if: Proc.new { |d| d.status_changed? }

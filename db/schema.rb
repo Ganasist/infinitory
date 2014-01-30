@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123111557) do
+ActiveRecord::Schema.define(version: 20140130142918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20140123111557) do
     t.string   "serial"
     t.integer  "lab_id"
     t.integer  "user_id"
-    t.string   "url"
+    t.string   "product_url"
     t.string   "uid"
     t.text     "description"
     t.decimal  "price",             precision: 9, scale: 2
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20140123111557) do
     t.datetime "icon_updated_at"
     t.boolean  "public",                                    default: false
     t.tsvector "tsv_body"
+    t.string   "purchasing_url"
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -233,7 +234,7 @@ ActiveRecord::Schema.define(version: 20140123111557) do
     t.datetime "updated_at"
     t.integer  "lab_id"
     t.integer  "user_id"
-    t.string   "url"
+    t.string   "product_url"
     t.date     "expiration"
     t.integer  "remaining",                                 default: 100,   null: false
     t.string   "uid"
@@ -245,6 +246,7 @@ ActiveRecord::Schema.define(version: 20140123111557) do
     t.datetime "icon_updated_at"
     t.boolean  "public",                                    default: false
     t.tsvector "tsv_body"
+    t.string   "purchasing_url"
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree

@@ -92,6 +92,8 @@ gem 'sidetiq'
 
 gem 'seed_dump'
 
+gem 'validate_url'
+
 group :production do
   gem 'rails_12factor'
 end
