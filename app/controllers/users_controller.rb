@@ -1,5 +1,3 @@
-require 'will_paginate/array' 
-
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :activate, :retire, :reject]
   before_action :set_lab, only: [:retire, :reject, :activate]
