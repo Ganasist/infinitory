@@ -41,7 +41,7 @@
     <% end %>
 </div>
   <div class="span5">
-    <% cache @chart do %>
+    <% cache("lab_devices", expires_in: 1.hour) do %>
       <div id='chart'>
         <%= render_chart(@chart, 'chart') %>
       </div>
