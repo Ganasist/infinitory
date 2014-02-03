@@ -28,8 +28,6 @@ gem 'google_visualr', '>= 2.1'
 gem 'acts-as-taggable-on'
 gem 'acts_as_commentable'
 
-# gem 'lorem_ipsum_amet'
-
 gem 'public_activity'
 
 gem 'exception_notification'
