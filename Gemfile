@@ -73,6 +73,8 @@ gem 'figaro'
 gem 'pg'
 gem 'rolify'
 gem 'simple_form'
+gem 'judge'
+gem 'judge-simple_form'
 
 gem 'thin'
 gem 'high_voltage'
