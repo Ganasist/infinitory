@@ -17,9 +17,9 @@ gem 'debugger', group: [:development, :test]
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-historyjs'
+# gem 'jquery-historyjs'
 # gem 'historyjs-rails'
-gem 'ajax_pagination'
+# gem 'ajax_pagination'
 
 gem 'will_paginate'
 

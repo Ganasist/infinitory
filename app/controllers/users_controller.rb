@@ -15,27 +15,22 @@ class UsersController < ApplicationController
       redirect_to @user, status: :moved_permanently
     end
     @activities = PublicActivity::Activity.includes(:trackable).where(owner: @user).page(params[:page]).per_page(10).reverse_order
-    @comments = @user.comments.recent.page(params[:page]).per_page(10)
-    respond_to do |format|
-      format.html # index.html.erb
-      ajax_respond format, :section_id => "comments"
-      ajax_respond format, :section_id => "user_activity"
-    end
+    @notifications = @user.comments.recent.page(params[:page]).per_page(10)
   end
 
   def activate
     @user.approved = true
     @user.joined = Time.now
     if @user.save
-      flash[:notice] = "#{@user.fullname} has joined your lab #{ undo_link }"
-      @lab.comments.create(comment: "#{@user.fullname} joined the lab")
+      flash[:notice] = "#{ @user.fullname } has joined your lab #{ undo_link }"
+      @lab.comments.create(comment: "#{ @user.fullname } joined the lab")
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
       else
         UserMailer.delay(retry: false).welcome_email(@user.id, current_user.lab_id)
       end
     else
-      flash[:alert] = "#{@user.fullname} couldn't be added..."
+      flash[:alert] = "#{ @user.fullname } couldn't be added..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
@@ -43,10 +38,10 @@ class UsersController < ApplicationController
   def reject
     @user.reject
     if @user.save
-      flash[:notice] = "#{@user.fullname} has been rejected. #{undo_link}"
+      flash[:notice] = "#{ @user.fullname } has been rejected. #{ undo_link }"
       UserMailer.delay(retry: false).rejection_email(@user.id, @lab.id)
     else
-      flash[:alert] = "#{@user.fullname} couldn't be rejected..."
+      flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
@@ -55,11 +50,11 @@ class UsersController < ApplicationController
     # @labtemp = @lab
     @user.retire
     if @user.save
-      flash[:notice] = "#{@user.fullname} has been retired. #{undo_link}"
-      @lab.comments.create(comment: "#{@user.fullname} retired from the lab")
+      flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
+      @lab.comments.create(comment: "#{ @user.fullname } retired from the lab")
       UserMailer.delay(retry: false).retire_email(@user.id, @lab.id)
     else
-      flash[:alert] = "#{@user.fullname} couldn't be retired..."
+      flash[:alert] = "#{ @user.fullname } couldn't be retired..."
     end
     redirect_to lab_users_path(current_user.lab)
   end
@@ -68,7 +63,7 @@ class UsersController < ApplicationController
 
     rescue_from ActiveRecord::RecordNotFound do |exception|
       if user_signed_in?
-        flash[:alert] = "User #{params[:id]} wasn't found."
+        flash[:alert] = "User #{ params[:id] } wasn't found."
         redirect_to current_user
       else
         flash[:alert] = "You need to sign in or sign up before continuing."

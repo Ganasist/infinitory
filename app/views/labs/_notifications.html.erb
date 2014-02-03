@@ -1,0 +1,5 @@
+<% @notifications.each do |notification| %>
+	<p class="list-group-item-heading lead"><%= time_ago_in_words(notification.created_at) %> ago</p>
+	<h4 class="text-group-item-text"><%= notification.comment %></h4>
+	<hr>
+<% end %>

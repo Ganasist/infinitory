@@ -49,6 +49,8 @@
   </div>
   <div class="span12">
     <hr>
-    <%= ajax_section :id => "page", :render => "page" %>
+    <%= will_paginate @reagents %>
+    <%= render 'reagents' %>
+    <%= will_paginate @reagents %>
   </div>
 </div>

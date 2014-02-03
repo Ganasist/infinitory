@@ -56,7 +56,6 @@
             <% end %>
           </h5>
         </dl>
-        
     </h3>
   </div>
   <div class="span6">
@@ -69,13 +68,17 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane fade in active" id="notifications">
-        <%= ajax_section :id => "comments", :render => "comments" %>
+        <%= will_paginate @notifications %>
+        <%= render 'notifications' %>
+        <%= will_paginate @notifications %>
       </div>
       <div class="tab-pane fade" id="activity">
-        <%= ajax_section :id => "user_activity", :render => "user_activity" %>
+        <%= will_paginate @activities %>
+        <%= render 'activities' %>
+        <%= will_paginate @activities %>
       </div>
       <div class="tab-pane fade" id="messages"><%= render 'notifications' %></div>
+      </div>
     </div>
   </div>
-</div>
 

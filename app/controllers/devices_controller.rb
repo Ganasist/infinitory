@@ -38,19 +38,10 @@ class DevicesController < ApplicationController
       end
     end    
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, pie_options)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      ajax_respond format, :section_id => "page"
-    end
   end
 
   def show
-    @activities = PublicActivity::Activity.includes(:owner, :trackable).where(trackable_id: params[:id]).page(params[:page]).per_page(7).reverse_order
-    respond_to do |format|
-      format.html # index.html.erb
-      ajax_respond format, :section_id => "activity"
-    end
+    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).page(params[:page]).per_page(7).reverse_order
   end
 
   def new

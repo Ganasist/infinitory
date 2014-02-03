@@ -99,7 +99,9 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane fade in active" id="history">
-          <%= ajax_section :id => "activity", :render => "activity" %>
+          <%= will_paginate @activities %>
+          <%= render 'activities' %>
+          <%= will_paginate @activities %>
         </div>
         <div class="tab-pane fade" id="messages">MESSAGES</div>
       </div>

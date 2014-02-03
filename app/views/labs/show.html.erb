@@ -42,7 +42,7 @@
         <% end %>
         <h5>
           <%= link_to @lab.institute do %>
-           <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@institute.name}" %>
+           <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{ @institute.name }" %>
            <% end %>
         </h5>
       </dl>
@@ -73,7 +73,9 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane fade in active" id="notifications">
-          <%= ajax_section :id => "page", :render => "page" %>
+          <%= will_paginate @notifications %>
+          <%= render 'notifications' %>
+          <%= will_paginate @notifications %>
         </div>
         <div class="tab-pane fade" id="messages"></div>
       </div>  
