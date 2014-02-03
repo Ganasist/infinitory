@@ -68,16 +68,18 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane fade in active" id="notifications">
-        <%= will_paginate @notifications %>
+        <%= will_paginate @notifications, param_name: 'notifications' %>
         <%= render 'notifications' %>
-        <%= will_paginate @notifications %>
+        <%= will_paginate @notifications, param_name: 'notifications' %>
       </div>
       <div class="tab-pane fade" id="activity">
-        <%= will_paginate @activities %>
+        <%= will_paginate @activities, param_name: 'activities' %>
         <%= render 'activities' %>
-        <%= will_paginate @activities %>
+        <%= will_paginate @activities, param_name: 'activities' %>
       </div>
-      <div class="tab-pane fade" id="messages"><%= render 'notifications' %></div>
+      <div class="tab-pane fade" id="messages">
+
+      </div>
       </div>
     </div>
   </div>

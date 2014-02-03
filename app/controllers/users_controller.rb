@@ -14,8 +14,8 @@ class UsersController < ApplicationController
     if request.path != user_path(@user)
       redirect_to @user, status: :moved_permanently
     end
-    @activities = PublicActivity::Activity.includes(:trackable).where(owner: @user).page(params[:page]).per_page(10).reverse_order
-    @notifications = @user.comments.recent.page(params[:page]).per_page(10)
+    @activities = PublicActivity::Activity.includes(:trackable).where(owner: @user).page(params[:activities]).per_page(10).reverse_order
+    @notifications = @user.comments.recent.page(params[:notifications]).per_page(10)
   end
 
   def activate
