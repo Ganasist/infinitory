@@ -4,4 +4,4 @@
 //= require history
 //= require ajax_pagination
 //= require twitter/bootstrap
-//= require_tree .
+//= require_tree 

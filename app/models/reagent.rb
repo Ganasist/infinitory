@@ -11,11 +11,11 @@ class Reagent < ActiveRecord::Base
 
 	validates :name, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
-  validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
+  validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }
   validates :remaining, numericality: true, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
-  validates :product_url, url: { allow_blank: true }
+  validates :product_url, url: { allow_blank: true, message: "Invalid URL. Please add http:// or https://" }
   validates :purchasing_url, url: { allow_blank: true }
 
   validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another reagent in the lab with that category, name and UID' }

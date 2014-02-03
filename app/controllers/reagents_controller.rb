@@ -43,7 +43,7 @@ class ReagentsController < ApplicationController
   end
 
   def show
-    @activities = PublicActivity::Activity.includes(:owner, :trackable).where(trackable_id: params[:id]).page(params[:page]).per_page(7)
+    @activities = PublicActivity::Activity.includes(:owner, :trackable).where(trackable_id: params[:id]).page(params[:page]).per_page(7).reverse_order
     respond_to do |format|
       format.html # index.html.erb
       ajax_respond format, :section_id => "activity"

@@ -51,7 +51,7 @@
 
         <% if @device.product_url? %>
           <dt>Product website:</dt>
-          <dd><%= link_to "#{@reagent.product_url}", url_with_protocol(@reagent.product_url), target: "_blank" %></dd><br>
+          <dd><%= link_to "#{@device.product_url}", url_with_protocol(@device.product_url), target: "_blank" %></dd><br>
         <% end %>
 
         <% if @device.purchasing_url? %>

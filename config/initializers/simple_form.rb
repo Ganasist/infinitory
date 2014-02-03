@@ -17,6 +17,9 @@ SimpleForm.setup do |config|
     # and required attributes
     b.use :html5
 
+    # Used for client side validations
+    b.use :judge
+
     # Calculates placeholders automatically from I18n
     # You can also pass a string as f.input placeholder: "Placeholder"
     b.use :placeholder
