@@ -10,6 +10,13 @@
     <span class="user inline-block">
       <h3>
         <%= "#{@user.fullname}" %>
+        <% if current_user == @user %>
+          <small>
+            <%= link_to edit_user_registration_path do %>
+              <%= fa_icon "edit", title: "Edit", class: "fa-lg fa-fw"  %>
+            <% end %>
+          </small>
+        <% end %>
       <br>
         <% if @user.icon.blank? %>
           <small class="lead">
@@ -29,74 +36,69 @@
           <% end %>
         <br>
         <small class="lead"><%= @user.cached_total_points %> pts</small>  
-        <% if current_user == @user %>
-          <h5>
-            <%= link_to edit_user_registration_path do %>
-               <i class="fa fa-edit"></i>Edit
+        
+        <ul class="inline">
+          <br>
+          <li>
+          <% if current_user.email? %>
+            <%= mail_to current_user.email do %>
+              <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
             <% end %>
-          </h5>
-       </span>
-        <% end %>
-          <dl class="dl-horizontal">          
+          <% end %>
+          </li>
+           <li>
+          <% if current_user.linkedin_url? %>
+            <%= link_to current_user.linkedin_url do %>
+              <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-lg fa-fw"  %>
+            <% end %>
+          <% end %>
+          </li>
+           <li>
+          <% if current_user.twitter_url? %>
+            <%= link_to current_user.twitter_url do %>
+              <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw"  %>
+            <% end %>
+          <% end %>
+          </li>
+           <li>
+          <% if current_user.facebook_url? %>
+            <%= link_to current_user.facebook_url do %>
+              <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw"  %>
+            <% end %>
+          <% end %>
+          </li>
+           <li>
+          <% if current_user.google_plus_url? %>
+            <%= link_to current_user.google_plus_url do %>
+              <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw"  %>
+            <% end %>
+          <% end %>
+          </li>
+        </ul>
+
+        <dl class="dl-horizontal">          
           <h5>
             <%= link_to @user.lab, class: "inline-block" do %>
-              <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
+            <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
             <% end %>
           </h5>
           <% if @user.department.present? %>
-            <h5>
-              <%= link_to institute_department_path(@user.institute, @user.department) do %>
-                <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>
-              <% end %>
-            </h5>
+          <h5>
+            <%= link_to institute_department_path(@user.institute, @user.department) do %>
+            <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>
+            <% end %>
+          </h5>
           <% end %>
           <h5>
             <%= link_to @user.institute do %>
-              <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
+            <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
             <% end %>
-          </h5><br>
-          <span class="inline-block">
-            <ul class="inline">
-              <li>
-              <% if current_user.email? %>
-                <%= mail_to current_user.email do %>
-                  <%= fa_icon "envelope-o", title: "Email", class: "fa-2x fa-fw"  %>
-                <% end %>
-              <% end %>
-              </li>
-               <li>
-              <% if current_user.linkedin_url? %>
-                <%= link_to current_user.linkedin_url do %>
-                  <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-2x fa-fw"  %>
-                <% end %>
-              <% end %>
-              </li>
-               <li>
-              <% if current_user.twitter_url? %>
-                <%= link_to current_user.twitter_url do %>
-                  <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw"  %>
-                <% end %>
-              <% end %>
-              </li>
-               <li>
-              <% if current_user.facebook_url? %>
-                <%= link_to current_user.facebook_url do %>
-                  <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw"  %>
-                <% end %>
-              <% end %>
-              </li>
-               <li>
-              <% if current_user.google_plus_url? %>
-                <%= link_to current_user.google_plus_url do %>
-                  <%= fa_icon "google-plus", title: "Google+", class: "fa-2x fa-fw"  %>
-                <% end %>
-              <% end %>
-              </li>
-            </ul>
-          </span>
-        </dl>
-    </h3>
+          </h5>
+        </dl><br>
+      </h3>
+    </span>
   </div>
+
   <div class="span6">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
@@ -119,7 +121,7 @@
       <div class="tab-pane fade" id="messages">
 
       </div>
-      </div>
     </div>
   </div>
+</div>
 
