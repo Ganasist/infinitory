@@ -54,7 +54,46 @@
             <%= link_to @user.institute do %>
               <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
             <% end %>
-          </h5>
+          </h5><br>
+          <span class="inline-block">
+            <ul class="inline">
+              <li>
+              <% if current_user.email? %>
+                <%= mail_to current_user.email do %>
+                  <%= fa_icon "envelope-o", title: "Email", class: "fa-2x fa-fw"  %>
+                <% end %>
+              <% end %>
+              </li>
+               <li>
+              <% if current_user.linkedin_url? %>
+                <%= link_to current_user.linkedin_url do %>
+                  <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-2x fa-fw"  %>
+                <% end %>
+              <% end %>
+              </li>
+               <li>
+              <% if current_user.twitter_url? %>
+                <%= link_to current_user.twitter_url do %>
+                  <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw"  %>
+                <% end %>
+              <% end %>
+              </li>
+               <li>
+              <% if current_user.facebook_url? %>
+                <%= link_to current_user.facebook_url do %>
+                  <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw"  %>
+                <% end %>
+              <% end %>
+              </li>
+               <li>
+              <% if current_user.google_plus_url? %>
+                <%= link_to current_user.google_plus_url do %>
+                  <%= fa_icon "google-plus", title: "Google+", class: "fa-2x fa-fw"  %>
+                <% end %>
+              <% end %>
+              </li>
+            </ul>
+          </span>
         </dl>
     </h3>
   </div>

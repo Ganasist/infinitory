@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(version: 20140130170202) do
     t.string   "twitter_url"
     t.string   "facebook_url"
     t.string   "google_plus_url"
+    t.string   "linkedin_url"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
