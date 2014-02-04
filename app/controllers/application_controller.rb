@@ -100,6 +100,7 @@ class ApplicationController < ActionController::Base
                                                                      :lab_email, :department_id, :institute_name,
                                                                      :linkedin_url, :twitter_url, :facebook_url, :google_plus_url,
                                                                      :password, :current_password, :password_confirmation,
+                                                                     :pdf, :delete_pdf, :pdf_remote_url,
                                                                      :icon, :delete_icon, :icon_remote_url) }
       
       devise_parameter_sanitizer.for(:accept_invitation) { |u| u.permit(:email, :role, :invitation_token,

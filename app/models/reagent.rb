@@ -39,16 +39,30 @@ class Reagent < ActiveRecord::Base
       if original_reagent.icon.present?
       	new_reagent.icon = original_reagent.icon
      	end
+      if original_reagent.pdf.present?
+        new_reagent.pdf = original_reagent.pdf
+      end
     })
   end
 
   attr_accessor :delete_icon
-  attr_reader :icon_remote_url
+  attr_reader :icon_remote_url  
   before_validation { icon.clear if delete_icon == '1' }
   has_attached_file :icon, styles: { thumb: '50x50>', portrait: '450x300>' }                    
   validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
-  validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
+  validates_attachment_content_type :icon,
+                                    :content_type => /^image\/(png|gif|jpeg)/,
+                                    :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
+  
+  attr_accessor :delete_pdf
+  attr_reader :pdf_remote_url
+  before_validation { pdf.clear if delete_pdf == '1' }
+  has_attached_file :pdf                
+  validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be under 3 megabytes in size' }
+  validates_attachment_content_type :pdf,
+                                    :content_type => 'application/pdf',
+                                    :message => 'only PDF files allowed'
 
   def icon_remote_url=(url_value)
      if url_value.present?
@@ -57,10 +71,16 @@ class Reagent < ActiveRecord::Base
     end
   end
 
+  def pdf_remote_url=(url_value)
+     if url_value.present?
+      self.pdf = URI.parse(url_value)
+      @pdf_remote_url = url_value
+    end
+  end
+
 	include PgSearch
   pg_search_scope :pg_search, against: [:name, :uid, :serial],
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' }}
-
 
 	acts_as_taggable
 

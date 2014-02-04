@@ -17,7 +17,7 @@
         <% end %>
 
         <% if @reagent.uid? %>
-          <dt>Unique ID:</dt>
+          <dt>Unique ID</dt>
           <dd><%= @reagent.uid %></dd><br>
         <% end %>
         
@@ -35,7 +35,7 @@
             <dd><%= @reagent.remaining %>%</dd><br>
           <% end %>
 
-        <dt><strong>Expiration:</strong></dt>
+        <dt><strong>Expiration</strong></dt>
           <% if @reagent.expiration.past? %>
             <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd><br>
           <% elsif expiring?(@reagent) %>    
@@ -45,7 +45,7 @@
           <% end %>
         
         <% if !@reagent.users.empty? %>
-          <dt><strong>Linked members(s)</strong></dt>
+          <dt><strong>Linked member(s)</strong></dt>
           <% @reagent.users.each do |user| %>
           <dd><%= link_to user.fullname, user %></dd>
           <% end %><br>
@@ -57,28 +57,33 @@
         <% end %>        
 
         <% if @reagent.lot_number? %>
-          <dt>Lot number:</dt>
+          <dt>Lot number</dt>
           <dd><%= @reagent.lot_number %></dd><br>
         <% end %>
 
         <% if @reagent.price? %>
-          <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
+          <dt><strong><%= model_class.human_attribute_name(:price) %></strong></dt>
           <dd><%= number_to_currency(@reagent.price) %></dd><br>
         <% end %>
 
         <% unless @reagent.tag_list.empty? %>
-          <dt><strong><%= model_class.human_attribute_name(:tags) %>:</strong></dt>
+          <dt><strong><%= model_class.human_attribute_name(:tags) %></strong></dt>
           <dd><%= raw @reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd><br>
         <% end %>
         
         <% if @reagent.product_url? %>
-          <dt>Product website:</dt>
-          <dd><%= link_to "#{@reagent.product_url}", url_with_protocol(@reagent.product_url), target: "_blank" %></dd><br>
+          <dt>Product website</dt>
+          <dd><%= link_to "#{ @reagent.product_url }", url_with_protocol(@reagent.product_url), target: "_blank" %></dd><br>
         <% end %>
 
         <% if @reagent.purchasing_url? %>
-          <dt>Purchasing website:</dt>
-          <dd><%= link_to "#{@reagent.purchasing_url}", url_with_protocol(@reagent.purchasing_url), target: "_blank" %></dd><br>
+          <dt>Purchasing website</dt>
+          <dd><%= link_to "#{ @reagent.purchasing_url }", url_with_protocol(@reagent.purchasing_url), target: "_blank" %></dd><br>
+        <% end %>
+
+        <% if @reagent.pdf? %>
+          <dt>Attachments</dt>
+          <dd><%= link_to "#{ @reagent.pdf_file_name }",@reagent.pdf.url %></dd><br>
         <% end %>
       </dl>
       <div class="btn-group">

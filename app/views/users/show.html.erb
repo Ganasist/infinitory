@@ -46,6 +46,7 @@
             <% end %>
           </li>
           <% end %>
+
           <% if current_user.linkedin_url.present? %>
            <li>          
             <%= link_to current_user.linkedin_url, target: "_blank"  do %>
@@ -53,6 +54,7 @@
             <% end %>
           </li>          
           <% end %>
+
           <% if current_user.twitter_url.present? %>
            <li>          
             <%= link_to current_user.twitter_url, target: "_blank"  do %>
@@ -60,20 +62,22 @@
             <% end %>
           </li>          
           <% end %>
+
           <% if current_user.facebook_url.present? %>
            <li>          
             <%= link_to current_user.facebook_url, target: "_blank"  do %>
               <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
             <% end %>
           </li>          
-          <% end %>          
+          <% end %>  
+
           <% if current_user.google_plus_url.present? %>
            <li>
             <%= link_to current_user.google_plus_url, target: "_blank" do %>
               <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
             <% end %>
           </li>          
-          <% end %>
+          <% end %>          
         </ul>
 
         <dl class="dl-horizontal">          

@@ -42,7 +42,20 @@
           <%= f.input :icon_remote_url, label: "Enter image URL" %>
           <h4>or</h4>
           <%= f.file_field :icon %>
-          <br><br>
+          <hr>
+
+        <strong><h4>Attachments</h4></strong>
+          <p>.pdf files < 3 megabytes</p>
+          <% if @reagent.pdf.present? %>
+            <%= link_to "#{@reagent.pdf_file_name}", @reagent.pdf.url %>
+            <br><br>
+            <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+          <% end %>
+          <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+          <h4>or</h4>
+          <%= f.file_field :pdf %>
+          <hr>
+
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Linked member(s):',
                                   collection: User.where(lab: @lab).order(:first_name),

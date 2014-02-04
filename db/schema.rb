@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130170202) do
+ActiveRecord::Schema.define(version: 20140204134244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,10 @@ ActiveRecord::Schema.define(version: 20140130170202) do
     t.boolean  "public",                                    default: false
     t.tsvector "tsv_body"
     t.string   "purchasing_url"
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -247,6 +251,10 @@ ActiveRecord::Schema.define(version: 20140130170202) do
     t.boolean  "public",                                    default: false
     t.tsvector "tsv_body"
     t.string   "purchasing_url"
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
@@ -322,6 +330,10 @@ ActiveRecord::Schema.define(version: 20140130170202) do
     t.string   "facebook_url"
     t.string   "google_plus_url"
     t.string   "linkedin_url"
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

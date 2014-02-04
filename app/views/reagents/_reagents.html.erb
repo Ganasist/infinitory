@@ -17,7 +17,8 @@
     <% @reagents.each do |reagent| %>
       <tr>
         <td>
-          <%= fa_icon "camera-retro", title: "Image available" if reagent.icon.present? %>          
+          <%= fa_icon "paperclip", title: "Attachment" if reagent.pdf.present? %>
+          <%= fa_icon "camera-retro", title: "Image" if reagent.icon.present? %>         
           <% if low?(reagent) %>
             <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent), class: "text-warning" %>            
           <% elsif almost_empty?(reagent) %>

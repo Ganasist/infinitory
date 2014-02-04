@@ -16,8 +16,9 @@
     <% @devices.each do |device| %>
       <tr>
         <td>
+          <%= fa_icon "paperclip", title: "Attachment" if device.pdf.present? %>
           <%= fa_icon "wrench", title: "Offline" unless device.status? %>
-          <%= fa_icon "camera-retro", title: "Image available" if device.icon.present? %>
+          <%= fa_icon "camera-retro", title: "Image" if device.icon.present? %>
           <% if device.status? %>
             <%= link_to "#{fullname(device)}", device_path(device) %>
           <% else %>
