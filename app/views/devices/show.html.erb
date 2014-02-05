@@ -4,7 +4,7 @@
   <div class="row">
     <div class="span6">
       <% if @device.icon.present? %>
-        <%= image_tag(@device.icon.url(:portrait).to_s, class: "img-rounded").html_safe %><br>
+        <%= image_tag(@device.icon.url.to_s, class: "img-rounded").html_safe %><br>
       <% end %>
       <h3><%= fullname(@device) %></h3>
       <h4><%= @device.category.titleize %></h4>

@@ -27,6 +27,25 @@ class Reagent < ActiveRecord::Base
 
 	include PublicActivity::Common
 
+  attr_accessor :delete_icon
+  attr_reader :icon_remote_url  
+  before_validation { icon.clear if delete_icon == '1' }
+  has_attached_file :icon, styles: { thumb: '50x50>', original: '450x300>' }                 
+  validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
+  validates_attachment_content_type :icon,
+                                    :content_type => /^image\/(png|gif|jpeg)/,
+                                    :message => 'only (png/gif/jpeg) images'
+  process_in_background :icon
+  
+  attr_accessor :delete_pdf
+  attr_reader :pdf_remote_url
+  before_validation { pdf.clear if delete_pdf == '1' }
+  has_attached_file :pdf                
+  validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be under 3 megabytes in size' }
+  validates_attachment_content_type :pdf,
+                                    :content_type => 'application/pdf',
+                                    :message => 'only PDF files allowed'
+
 	amoeba do
     enable
     customize(lambda { |original_reagent,new_reagent|
@@ -44,25 +63,6 @@ class Reagent < ActiveRecord::Base
       end
     })
   end
-
-  attr_accessor :delete_icon
-  attr_reader :icon_remote_url  
-  before_validation { icon.clear if delete_icon == '1' }
-  has_attached_file :icon                 
-  validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
-  validates_attachment_content_type :icon,
-                                    :content_type => /^image\/(png|gif|jpeg)/,
-                                    :message => 'only (png/gif/jpeg) images'
-  process_in_background :icon
-  
-  attr_accessor :delete_pdf
-  attr_reader :pdf_remote_url
-  before_validation { pdf.clear if delete_pdf == '1' }
-  has_attached_file :pdf                
-  validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be under 3 megabytes in size' }
-  validates_attachment_content_type :pdf,
-                                    :content_type => 'application/pdf',
-                                    :message => 'only PDF files allowed'
 
   def icon_remote_url=(url_value)
      if url_value.present?

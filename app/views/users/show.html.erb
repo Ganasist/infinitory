@@ -4,7 +4,7 @@
   <div class="span6">
     <% if @user.icon.present? %>
       <div class="pull-left user-icon-portrait">
-        <%= image_tag(@user.icon.url(:portrait), class: "img-rounded").html_safe %>
+        <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>
       </div>
     <% end %>
     <span class="user inline-block">

@@ -4,7 +4,7 @@
   <div class="row">
     <div class="span6">
       <% if @reagent.icon.present? %>
-        <%= image_tag(@reagent.icon.url(:portrait).to_s, class: "img-rounded").html_safe %><br>
+        <%= image_tag(@reagent.icon.url, class: "img-rounded").html_safe %><br>
       <% end %>
       <h3><%= fullname(@reagent) %></h3>
       <h4><%= @reagent.category.titleize %></h4>
