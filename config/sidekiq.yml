@@ -5,4 +5,4 @@
   - [default, 5]
   - [seldom, 3]
 production:
-  :concurrency: 3
+  :concurrency: 2
