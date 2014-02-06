@@ -50,7 +50,7 @@
       <strong><h4>Photo</h4></strong>
       <p>.jpeg, .png or .gif images < 2 megabytes</p>
       <% if @user.icon.present? %>
-        <%= image_tag(@user.icon.url(:portrait), class: "img-rounded").html_safe %>
+        <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>
         <br><br>
         <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete photo", wrapper_html: { class: "form-inline"} %><br>
       <% end %>

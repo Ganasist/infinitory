@@ -25,7 +25,7 @@
         <strong><h4>Image</h4></strong>
           <p>.jpeg, .png or .gif images < 2 megabytes</p>
           <% if @device.icon.present? %>
-            <%= image_tag(@device.icon.url(:portrait), class: "img-rounded").html_safe %>
+            <%= image_tag(@device.icon.url, class: "img-rounded").html_safe %>
             <br><br>
             <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete photo", wrapper_html: { class: "form-inline"} %><br>
           <% end %>
@@ -37,7 +37,7 @@
         <strong><h4>Attachments</h4></strong>
           <p>.pdf files < 3 megabytes</p>
           <% if @device.pdf.present? %>
-            <%= link_to "#{@device.pdf_file_name}", @device.pdf.url %>
+            <%= link_to "#{ @device.pdf_file_name }", @device.pdf.url %>
             <br><br>
             <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
           <% end %>
