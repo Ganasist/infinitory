@@ -5,7 +5,7 @@
       
         <% if @lab.icon.present? %>
           <div class="pull-left user-icon-portrait">
-            <%= image_tag(@lab.icon.url(:portrait), class: "img-rounded").html_safe %>
+            <%= image_tag(@lab.icon.url, class: "img-rounded").html_safe %>
           </div><br>
         <% end %>
       <h3>
