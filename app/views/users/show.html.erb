@@ -80,7 +80,8 @@
           <% end %>          
         </ul>
 
-        <dl class="dl-horizontal">          
+        <dl class="dl-horizontal">
+        <hr>        
           <h5>
             <%= link_to @user.lab, class: "inline-block" do %>
             <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
@@ -98,8 +99,13 @@
             <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
             <% end %>
           </h5>
-        </dl><br>
+        </dl>
+        <hr>
       </h3>
+      <% if @user.pdf? %>
+          <h4>Attachments</h4>
+          <h5><%= link_to "#{ @user.pdf_file_name }",@user.pdf.url %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>
+        <% end %>
     </span>
   </div>
 

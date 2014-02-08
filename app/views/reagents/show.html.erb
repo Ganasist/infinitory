@@ -81,10 +81,10 @@
           <dd><%= link_to "#{ @reagent.purchasing_url }", url_with_protocol(@reagent.purchasing_url), target: "_blank" %></dd><br>
         <% end %>
 
-        <%# if @reagent.pdf? %>
+        <% if @reagent.pdf? %>
           <dt>Attachments</dt>
-          <dd><%#= link_to "#{ @reagent.pdf_file_name }",@reagent %></dd><br>
-        <%# end %>
+          <dd><%= link_to "#{ @reagent.pdf_file_name }",@reagent.pdf.url %> - updated <%= time_ago_in_words(@reagent.pdf_updated_at) %> ago</dd><br>
+        <% end %>
       </dl>
       <div class="btn-group">
         <%= link_to ' Back', lab_reagents_path(@reagent.lab), class: 'btn fa fa-rotate-left'  %>

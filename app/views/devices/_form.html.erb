@@ -41,16 +41,16 @@
           <hr>
 
         <strong><h4>Attachments</h4></strong>
-          <p>.pdf files < 3 megabytes</p>
-          <%# if @device.pdf? %>
-            <%#= link_to "#{ @device.pdf_file_name }", @device.pdf.url %>
+          <p><strong>.pdf files < 3 megabytes</strong></p>
+          <% if @device.pdf? %>
+            <%= link_to "#{ @device.pdf_file_name }", @device.pdf.url %>
             <br><br>
-            <%#= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
-          <%# end %>
+            <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+          <% end %>
 
-          <%#= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+          <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
           <h4>or</h4>
-          <%#= f.file_field :pdf %>
+          <%= f.file_field :pdf %>
           <hr>
 
       <% if params[:lab_id] %>    

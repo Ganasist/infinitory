@@ -46,6 +46,7 @@
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
     </div>
+
     <div class="span5 pull-right">
       <strong><h4>Photo</h4></strong>
       <p>.jpeg, .png or .gif images < 2 megabytes</p>
@@ -57,7 +58,21 @@
       <%= f.input :icon_remote_url, label: "Enter image URL" %>
       <h4>or</h4>
       <%= f.file_field :icon %>
-      <br><br>
+      <hr>
+
+      <strong><h4>Attachments</h4></strong>
+          <p><strong>.pdf files < 3 megabytes</strong></p>
+          <% if @user.pdf? %>
+            <%= link_to "#{ @user.pdf_file_name }", @user.pdf.url %>
+            <br><br>
+            <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+          <% end %>
+
+          <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+          <h4>or</h4>
+          <%= f.file_field :pdf %>
+          <hr>
+
       <%= f.input :password, label: 'New password (Optional)',
                          autocomplete: 'off',
                          required: false %>
