@@ -27,14 +27,14 @@
                                    placeholder: 'http://www.example.com',
                                    tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
       <%= f.input :price, label: 'Price ($USD)' %>
-      <%= f.input :tag_list, label: 'Keywords', placeholder: 'Immunology, restriction enzyme, FACS',
+      <%= f.input :tag_list, label: 'Keywords',
+                             placeholder: 'Immunology, restriction enzyme, FACS',
                              tooltip: ['right', 'Use a comma separated list of keywords'] %>
-
       </div>
       <div class="span5 pull-right">
         <strong><h4>Image</h4></strong>
           <p>.jpeg, .png or .gif images < 2 megabytes</p>
-          <% if @reagent.icon.present? %>
+          <% if @reagent.icon? %>
             <%= image_tag(@reagent.icon.url, class: "img-rounded").html_safe %>
             <br><br>
             <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete photo", wrapper_html: { class: "form-inline"} %><br>
@@ -46,11 +46,12 @@
 
         <strong><h4>Attachments</h4></strong>
           <p>.pdf files < 3 megabytes</p>
-          <% if @reagent.pdf.present? %>
+          <% if @reagent.pdf? %>
             <%= link_to "#{@reagent.pdf_file_name}", @reagent.pdf.url %>
             <br><br>
             <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
           <% end %>
+
           <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
           <h4>or</h4>
           <%= f.file_field :pdf %>
