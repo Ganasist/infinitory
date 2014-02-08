@@ -59,10 +59,10 @@
           <dd><%= link_to "#{@device.purchasing_url}", url_with_protocol(@device.purchasing_url), target: "_blank" %></dd><br>
         <% end %>
 
-         <% if @device.pdf? %>
+         <%# if @device.pdf? %>
           <dt>Attachments</dt>
-          <dd><%= link_to "#{ @device.pdf_file_name }",@device.pdf.url %></dd><br>
-        <% end %>
+          <dd><%#= link_to "#{ @device.pdf_file_name }",@device.pdf.url %></dd><br>
+        <%# end %>
          <br>
       </dl>
       <div class="btn-group">

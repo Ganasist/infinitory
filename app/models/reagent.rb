@@ -37,14 +37,14 @@ class Reagent < ActiveRecord::Base
                                     :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
   
-  attr_accessor :delete_pdf
-  attr_reader :pdf_remote_url
-  before_validation { pdf.clear if delete_pdf == '1' }
-  has_attached_file :pdf                
-  validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be under 3 megabytes in size' }
-  validates_attachment_content_type :pdf,
-                                    :content_type => 'application/pdf',
-                                    :message => 'only PDF files allowed'
+  # attr_accessor :delete_pdf
+  # attr_reader :pdf_remote_url
+  # before_validation { pdf.clear if delete_pdf == '1' }
+  # has_attached_file :pdf                
+  # validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be under 3 megabytes in size' }
+  # validates_attachment_content_type :pdf,
+  #                                   :content_type => 'application/pdf',
+  #                                   :message => 'only PDF files allowed'
 
 	amoeba do
     enable
@@ -71,12 +71,12 @@ class Reagent < ActiveRecord::Base
     end
   end
 
-  def pdf_remote_url=(url_value)
-     if url_value.present?
-      self.pdf = URI.parse(url_value)
-      @pdf_remote_url = url_value
-    end
-  end
+  # def pdf_remote_url=(url_value)
+  #    if url_value.present?
+  #     self.pdf = URI.parse(url_value)
+  #     @pdf_remote_url = url_value
+  #   end
+  # end
 
 	include PgSearch
   pg_search_scope :pg_search, against: [:name, :uid, :serial],

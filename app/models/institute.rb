@@ -40,9 +40,6 @@ class Institute < ActiveRecord::Base
 	def icon_remote_url=(url_value)
      if url_value.present?
       self.icon = URI.parse(url_value)
-      # Assuming url_value is http://example.com/photos/face.png
-      # avatar_file_name == "face.png"
-      # avatar_content_type == "image/png"
       @icon_remote_url = url_value
     end
   end
