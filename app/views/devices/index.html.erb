@@ -49,16 +49,20 @@
   </div>
   <div class="span12">
     <hr>
-    <div id="paginator">
-      <%= paginate @devices, remote: true %>
+    <div id="paginator-top">
+      <%= paginate @devices, remote: true,
+                             theme: 'twitter-bootstrap', 
+                             pagination_class: 'pagination-small pagination-centered' %>
     </div>
 
     <div id="devices">
       <%= render 'devices' %>
     </div>
     
-    <div id="paginator">
-      <%= paginate @devices, remote: true %>
+    <div id="paginator-bottom">
+      <%= paginate @devices, remote: true,
+                             theme: 'twitter-bootstrap', 
+                             pagination_class: 'pagination-small pagination-centered' %>
     </div>
   </div>
 </div>

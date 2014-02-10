@@ -123,14 +123,34 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane fade in active" id="notifications">
-        <%= paginate @notifications, param_name: 'notifications' %>
-        <%= render 'notifications' %>
-        <%= paginate @notifications, param_name: 'notifications' %>
+        
+        <div id="paginator-notifications-top">
+          <%= paginate @notifications, remote: true, theme: 'twitter-bootstrap' %>
+        </div>
+
+        <div id="notifications">
+          <%= render 'notifications' %>
+        </div>
+
+        <div id="paginator-notifications-bottom">
+          <%= paginate @notifications, remote: true, theme: 'twitter-bootstrap' %>
+        </div>
       </div>
+
       <div class="tab-pane fade" id="activity">
-        <%= paginate @activities, param_name: 'activities' %>
-        <%= render 'activities' %>
-        <%= paginate @activities, param_name: 'activities' %>
+        
+        <div id="paginator-activities-top">
+          <%= paginate @activities, remote: true, theme: 'twitter-bootstrap' %>
+        </div>
+
+        <div id="activities">
+          <%= render 'activities' %>
+        </div>
+
+        <div id="paginator-activities-bottom">
+          <%= paginate @activities, remote: true, theme: 'twitter-bootstrap' %>
+        </div>
+
       </div>
       <div class="tab-pane fade" id="messages">
 

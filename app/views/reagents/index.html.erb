@@ -49,16 +49,21 @@
   </div>
   <div class="span12">
     <hr>
-    <div id="paginator">
-      <%= paginate @reagents, remote: true %>
+    <div id="paginator-top">
+      <%= paginate @reagents, remote: true,
+                              theme: 'twitter-bootstrap',
+                              pagination_class: 'pagination-small pagination-centered' %>
     </div>
 
     <div id="reagents">
       <%= render 'reagents' %>
     </div>
-    
-    <div id="paginator">
-      <%= paginate @reagents, remote: true %>
+
+    <div id="paginator-bottom">
+      <%= paginate @reagents, remote: true,
+                              theme: 'twitter-bootstrap',
+                              pagination_class: 'pagination-small pagination-centered' %>
     </div>
+    
   </div>
 </div>
