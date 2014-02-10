@@ -116,16 +116,18 @@
   <div class="span7 inline-block">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
-      <li class="active"><a href="#notifications" data-toggle="pill">Notifications</a></li>
+      <li class="active"><a href="#nots" data-toggle="pill">Notifications</a></li>
       <li><a href="#activity" data-toggle="pill">Activity</a></li>
       <li class="disabled"><a href="#messages" data-toggle="pill">Messages</a></li>
     </ul><br>
     <!-- Tab panes -->
     <div class="tab-content">
-      <div class="tab-pane fade in active" id="notifications">
+      <div class="tab-pane fade in active" id="nots">
         
         <div id="paginator-notifications-top">
-          <%= paginate @notifications, remote: true, theme: 'twitter-bootstrap' %>
+          <%= paginate @notifications, theme: 'twitter-bootstrap',
+                                       param_name: "notifications",
+                                       pagination_class: 'pagination-small pagination-centered' %>
         </div>
 
         <div id="notifications">
@@ -133,14 +135,18 @@
         </div>
 
         <div id="paginator-notifications-bottom">
-          <%= paginate @notifications, remote: true, theme: 'twitter-bootstrap' %>
+          <%= paginate @notifications, theme: 'twitter-bootstrap',
+                                       param_name: "notifications",
+                                       pagination_class: 'pagination-small pagination-centered' %>
         </div>
       </div>
 
       <div class="tab-pane fade" id="activity">
         
         <div id="paginator-activities-top">
-          <%= paginate @activities, remote: true, theme: 'twitter-bootstrap' %>
+          <%= paginate @activities, theme: 'twitter-bootstrap',
+                                    param_name: "activities",
+                                    pagination_class: 'pagination-small pagination-centered' %>
         </div>
 
         <div id="activities">
@@ -148,7 +154,9 @@
         </div>
 
         <div id="paginator-activities-bottom">
-          <%= paginate @activities, remote: true, theme: 'twitter-bootstrap' %>
+          <%= paginate @activities, theme: 'twitter-bootstrap',
+                                    param_name: "activities",
+                                    pagination_class: 'pagination-small pagination-centered' %>
         </div>
 
       </div>

@@ -1,7 +1,29 @@
-$('.paginator-notifications-top').html('<%= escape_javascript(paginate(@notifications, remote: true, theme: "twitter-bootstrap").to_s) %>');
-$('.paginator-notifications-bottom').html('<%= escape_javascript(paginate(@notifications, remote: true, theme: "twitter-bootstrap").to_s) %>');
+$('.paginator-notifications-top').html('<%= escape_javascript(paginate(@notifications,
+																																			 remote: true, 
+																																			 theme: "twitter-bootstrap",
+																																			 param_name: "notifications",
+                                       																 pagination_class: "pagination-small pagination-centered").to_s) %>');
+
+$('.paginator-notifications-bottom').html('<%= escape_javascript(paginate(@notifications,
+																																			 		remote: true, 
+																																			 		theme: "twitter-bootstrap",
+																																				  param_name: "notifications", 
+                                       																 		pagination_class: "pagination-small pagination-centered").to_s) %>');
+
 $('#notifications').html('<%= escape_javascript(render("notifications")) %>');
 
-$('.paginator-activities-top').html('<%= escape_javascript(paginate(@notifications, remote: true, theme: "twitter-bootstrap").to_s) %>');
-$('.paginator-activities-bottom').html('<%= escape_javascript(paginate(@notifications, remote: true, theme: "twitter-bootstrap").to_s) %>');
+
+
+$('.paginator-activities-top').html('<%= escape_javascript(paginate(@activities,
+																																	  remote: true, 
+																																		theme: "twitter-bootstrap",
+																																	  param_name: "activities", 
+                                       															pagination_class: "pagination-small pagination-centered").to_s) %>');
+
+$('.paginator-activities-bottom').html('<%= escape_javascript(paginate(@activities,
+																																			 remote: true, 
+																																			 theme: "twitter-bootstrap",
+																																			 param_name: "activities", 
+                                       																 pagination_class: "pagination-small pagination-centered").to_s) %>');
+
 $('#activities').html('<%= escape_javascript(render("activities")) %>');
