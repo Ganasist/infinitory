@@ -21,7 +21,8 @@ gem 'jquery-ui-rails'
 # gem 'historyjs-rails'
 # gem 'ajax_pagination'
 
-gem 'will_paginate'
+# gem 'will_paginate'
+gem 'kaminari'
 
 gem 'google_visualr', '>= 2.1'
 
