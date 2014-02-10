@@ -52,15 +52,15 @@
       </dl>
       <hr>
         <div class='row-fluid'>
-            <%= link_to lab_users_path(@lab) do %>
-              <%= fa_icon "users" %> Members <small>(<%= @users.size %>)</small>
-            <% end %><br><br>
-            <%= link_to lab_reagents_path(@lab) do %>
-              <%= fa_icon "flask" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
-            <% end %><br><br>
-            <%= link_to lab_devices_path(@lab) do %>
-              <%= fa_icon "cogs"  %> Devices <small>(<%= @lab.devices.size %>)</small>
-            <% end %>
+          <%= link_to lab_users_path(@lab) do %>
+            <%= fa_icon "users" %> Members <small>(<%= @users.size %>)</small>
+          <% end %><br><br>
+          <%= link_to lab_reagents_path(@lab) do %>
+            <%= fa_icon "flask" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
+          <% end %><br><br>
+          <%= link_to lab_devices_path(@lab) do %>
+            <%= fa_icon "cogs"  %> Devices <small>(<%= @lab.devices.size %>)</small>
+          <% end %>
         </div>
       <hr>
       <div id='chart'>
@@ -79,7 +79,7 @@
         <div class="tab-pane fade in active" id="nots">
 
         <div id"paginator-top">
-          <%= paginate @notifications, theme: 'twitter-bootstrap', 
+          <%= paginate @notifications, theme: 'twitter-bootstrap',
                                        pagination_class: 'pagination-small pagination-centered' %>
         </div>
 

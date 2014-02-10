@@ -3,8 +3,7 @@ $('#paginator-top').html('<%= escape_javascript(paginate(@activities,
 																												 theme: "twitter-bootstrap", 
                                        									 pagination_class: "pagination-small pagination-centered").to_s) %>');
 $('#paginator-bottom').html('<%= escape_javascript(paginate(@activities,
-																												 remote: true,
-																												 theme: "twitter-bootstrap", 
-                                       									 pagination_class: "pagination-small pagination-centered").to_s) %>');
-
+																												 		remote: true,
+																												 		theme: "twitter-bootstrap", 
+                                       									 		pagination_class: "pagination-small pagination-centered").to_s) %>');
 $('#activities').html('<%= escape_javascript(render("activities")) %>');
