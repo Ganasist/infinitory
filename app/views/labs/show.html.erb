@@ -1,13 +1,17 @@
 <%- model_class = Lab -%>
   <% title "Labs: " + @gl.fullname %>
   <div class="row">
-    <div class="span6 pull-left">
-      
-        <% if @lab.icon.present? %>
-          <div class="pull-left user-icon-portrait">
-            <%= image_tag(@lab.icon.url, class: "img-rounded").html_safe %>
-          </div><br>
-        <% end %>
+    <div class="span6">
+    <% if @lab.icon.present? %>
+      <% if @lab.icon_processing? %>
+        <%= image_tag('/images/ajax-spinner.gif') %>
+        <h4>Processing image...</h4>
+      <% else %>
+        <div class="pull-left user-icon-portrait">
+          <%= image_tag(@lab.icon.url, class: 'img-rounded').html_safe %>
+        </div><br>
+      <% end %>
+    <% end %>
       <h3>
         <span class="inline-block">
           <%= link_to lab_users_path(@lab) do %>

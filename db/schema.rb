@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140208124545) do
+ActiveRecord::Schema.define(version: 20140210093117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20140208124545) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
+    t.boolean  "icon_processing"
   end
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140208124545) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
+    t.boolean  "icon_processing"
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -159,6 +161,7 @@ ActiveRecord::Schema.define(version: 20140208124545) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
+    t.boolean  "icon_processing"
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
@@ -186,6 +189,7 @@ ActiveRecord::Schema.define(version: 20140208124545) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
+    t.boolean  "icon_processing"
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -259,6 +263,7 @@ ActiveRecord::Schema.define(version: 20140208124545) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
+    t.boolean  "icon_processing"
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
@@ -338,6 +343,7 @@ ActiveRecord::Schema.define(version: 20140208124545) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
+    t.boolean  "icon_processing"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
