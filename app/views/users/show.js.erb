@@ -2,28 +2,27 @@ $('.paginator-notifications-top').html('<%= escape_javascript(paginate(@notifica
 																																			 remote: true, 
 																																			 theme: "twitter-bootstrap",
 																																			 param_name: "notifications",
+																																			 params: { tab: "nots" },
                                        																 pagination_class: "pagination-small pagination-centered").to_s) %>');
-
 $('.paginator-notifications-bottom').html('<%= escape_javascript(paginate(@notifications,
 																																			 		remote: true, 
 																																			 		theme: "twitter-bootstrap",
-																																				  param_name: "notifications", 
+																																				  param_name: "notifications",
+																																				  params: { tab: "nots" }, 
                                        																 		pagination_class: "pagination-small pagination-centered").to_s) %>');
-
 $('#notifications').html('<%= escape_javascript(render("notifications")) %>');
-
 
 
 $('.paginator-activities-top').html('<%= escape_javascript(paginate(@activities,
 																																	  remote: true, 
 																																		theme: "twitter-bootstrap",
-																																	  param_name: "activities", 
+																																	  param_name: "activities",
+																																	  params: { tab: "activity" },
                                        															pagination_class: "pagination-small pagination-centered").to_s) %>');
-
 $('.paginator-activities-bottom').html('<%= escape_javascript(paginate(@activities,
 																																			 remote: true, 
 																																			 theme: "twitter-bootstrap",
-																																			 param_name: "activities", 
+																																			 param_name: "activities",
+																																			 params: { tab: "activity" },
                                        																 pagination_class: "pagination-small pagination-centered").to_s) %>');
-
 $('#activities').html('<%= escape_javascript(render("activities")) %>');

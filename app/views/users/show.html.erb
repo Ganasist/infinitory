@@ -116,17 +116,19 @@
   <div class="span7 inline-block">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
-      <li class="active"><a href="#nots" data-toggle="pill">Notifications</a></li>
-      <li><a href="#activity" data-toggle="pill">Activity</a></li>
+      <li class="<%= 'active' if !params[:tab] || params[:tab] == 'nots' %>"><a href="#nots" data-toggle="pill">Notifications</a></li>
+      <li class="<%= 'active' if params[:tab] == 'activity' %>"><a href="#activity" data-toggle="pill">Activity</a></li>
       <li class="disabled"><a href="#messages" data-toggle="pill">Messages</a></li>
     </ul><br>
     <!-- Tab panes -->
     <div class="tab-content">
-      <div class="tab-pane fade in active" id="nots">
+
+      <div class="<%= if (params[:tab] == 'nots' || !params[:tab])then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="nots">
         
         <div id="paginator-notifications-top">
           <%= paginate @notifications, theme: 'twitter-bootstrap',
-                                       param_name: "notifications",
+                                       param_name: 'notifications',
+                                       params: { tab: 'nots' },
                                        pagination_class: 'pagination-small pagination-centered' %>
         </div>
 
@@ -136,16 +138,18 @@
 
         <div id="paginator-notifications-bottom">
           <%= paginate @notifications, theme: 'twitter-bootstrap',
-                                       param_name: "notifications",
+                                       param_name: 'notifications',
+                                       params: { tab: 'nots' },
                                        pagination_class: 'pagination-small pagination-centered' %>
         </div>
       </div>
 
-      <div class="tab-pane fade" id="activity">
+      <div class="<%= if params[:tab] == 'activity' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="activity">
         
         <div id="paginator-activities-top">
           <%= paginate @activities, theme: 'twitter-bootstrap',
-                                    param_name: "activities",
+                                    param_name: 'activities',
+                                    params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
         </div>
 
@@ -155,7 +159,8 @@
 
         <div id="paginator-activities-bottom">
           <%= paginate @activities, theme: 'twitter-bootstrap',
-                                    param_name: "activities",
+                                    param_name: 'activities',
+                                    params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
         </div>
 
