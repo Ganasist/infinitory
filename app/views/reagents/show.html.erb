@@ -113,9 +113,19 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane fade in active" id="history">
-          <%= will_paginate @activities %>
-          <%= render 'activities' %>
-          <%= will_paginate @activities %>
+
+          <div id="paginator">
+            <%= paginate @activities, remote: true %>
+          </div>
+
+          <div id="activities">
+            <%= render 'activities' %>
+          </div>
+          
+          <div id="paginator">
+            <%= paginate @activities, remote: true %>
+          </div>
+          
         </div>
         <div class="tab-pane fade" id="messages">MESSAGES</div>
       </div>

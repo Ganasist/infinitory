@@ -49,8 +49,16 @@
   </div>
   <div class="span12">
     <hr>
-    <%= will_paginate @reagents %>
-    <%= render 'reagents' %>
-    <%= will_paginate @reagents %>
+    <div id="paginator">
+      <%= paginate @reagents, remote: true %>
+    </div>
+
+    <div id="reagents">
+      <%= render 'reagents' %>
+    </div>
+    
+    <div id="paginator">
+      <%= paginate @reagents, remote: true %>
+    </div>
   </div>
 </div>

@@ -22,7 +22,7 @@ class LabsController < ApplicationController
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
-    @notifications = @lab.comments.recent.page(params[:page]).per_page(10)
+    @notifications = @lab.comments.recent.page(params[:page]).per(10)
     @gl = @lab.gl
 
     data_table = GoogleVisualr::DataTable.new

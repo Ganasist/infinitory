@@ -11,25 +11,25 @@ class ReagentsController < ApplicationController
     data_table.add_rows(Reagent::CATEGORIES.length)
     
     if params[:tag].present?
-      @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per_page(12)
+      @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
     elsif params[:search].present?
       if params[:user_id].present?   
         @user = User.friendly.find(params[:user_id])
-        @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(12)
+        @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
       elsif params[:lab_id].present?
         @lab = Lab.find(params[:lab_id]) 
-        @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per_page(12)
+        @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
       end
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
-      @reagents = @user.reagents.modified_recently.page(params[:page]).per_page(12)      
+      @reagents = @user.reagents.modified_recently.page(params[:page]).per(12)      
       Reagent::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
         data_table.set_cell(index, 1, @user.reagents_category_count("#{val}"))
       end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
-      @reagents = @lab.reagents.modified_recently.page(params[:page]).per_page(12)
+      @reagents = @lab.reagents.modified_recently.page(params[:page]).per(12)
       Reagent::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
         data_table.set_cell(index, 1, @lab.reagents_category_count("#{val}"))
@@ -40,7 +40,7 @@ class ReagentsController < ApplicationController
   end
 
   def show
-    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).page(params[:page]).per_page(7).reverse_order
+    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).page(params[:page]).per(2).reverse_order
   end
 
   def new
