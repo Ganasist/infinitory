@@ -7,9 +7,9 @@
         <%= image_tag('/images/ajax-spinner.gif') %>
         <h4>Image processing...</h4>
       <% else %>
-      <span class="inline-block">
+      <div class="pull-left user-icon-portrait inline-block">
         <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>
-      </span>
+      </div>
       <% end %>
     <% end %>
     <span class="user inline-block">
