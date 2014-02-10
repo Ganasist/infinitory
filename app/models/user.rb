@@ -138,6 +138,8 @@ class User < ActiveRecord::Base
 
   def retire
     self.approved      = false
+    self.reagent_ids   = []
+    self.device_ids    = []
     self.lab_id        = nil
     self.institute_id  = nil
     self.department_id = nil
