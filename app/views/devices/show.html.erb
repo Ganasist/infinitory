@@ -2,10 +2,18 @@
 <% cache @device do %>
   <% title "Devices: " + fullname(@device) %>
   <div class="row">
-    <div class="span6">
-      <% if @device.icon.present? %>
-        <%= image_tag(@device.icon.url.to_s, class: "img-rounded").html_safe %><br>
+    <div class="span5">
+    <% if @device.icon.present? %>
+      <% if @device.icon_processing? %>
+        <%= image_tag('/images/ajax-spinner.gif') %>
+        <h4>Processing image...</h4>
+      <% else %>
+        <span class="inline-block">
+          <%= image_tag(@device.icon.url, class: 'img-rounded').html_safe %>
+        </span><br>
       <% end %>
+    <% end %>
+
       <h3><%= fullname(@device) %></h3>
       <h4><%= @device.category.titleize %></h4>
       <h4><%= link_to "The #{@device.gl.fullname} lab", @device.lab %></h4>
@@ -71,9 +79,9 @@
         <%= link_to ' Destroy', device_path(@device), method: 'delete', class: 'icon-trash btn btn-danger' %>
         <%= link_to ' Clone', clone_device_path(@device), class: 'icon-code-fork btn btn-info' %>
       </div>
-      <hr><br>
+      <hr>
     </div>
-    <div class="span6 pull-left">
+    <div class="span7">
       <!-- Nav panes -->
       <ul class="nav nav-pills nav-justified">
         <li class="active"><a href="#history" data-toggle="tab">History</a></li>

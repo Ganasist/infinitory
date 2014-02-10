@@ -2,10 +2,19 @@
 <% cache @reagent do %>
   <% title "Reagents: " + fullname(@reagent) %>
   <div class="row">
-    <div class="span6">
-      <% if @reagent.icon.present? %>
-        <%= image_tag(@reagent.icon.url, class: "img-rounded").html_safe %><br>
+    <div class="span5">
+
+    <% if @reagent.icon.present? %>
+      <% if @reagent.icon_processing? %>
+        <%= image_tag('/images/ajax-spinner.gif') %>
+        <h4>Processing image...</h4>
+      <% else %>
+        <span class="inline-block">
+          <%= image_tag(@reagent.icon.url, class: 'img-rounded').html_safe %>
+        </span><br>
       <% end %>
+    <% end %>
+
       <h3><%= fullname(@reagent) %></h3>
       <h4><%= @reagent.category.titleize %></h4>
       <h4><%= link_to "The #{@reagent.gl.fullname} lab", @reagent.lab %></h4>
@@ -93,9 +102,9 @@
                                   method: 'delete', class: 'icon-trash btn btn-danger' %>
         <%= link_to ' Clone', clone_reagent_path(@reagent), class: 'icon-code-fork btn btn-info' %>
       </div>
-      <br>
+      <hr>
     </div>
-    <div class="span6 pull-left">
+    <div class="span7">
       <!-- Nav panes -->
       <ul class="nav nav-pills nav-justified">
         <li class="active"><a href="#history" data-toggle="tab">History</a></li>
