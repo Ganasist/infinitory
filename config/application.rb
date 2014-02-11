@@ -32,6 +32,8 @@ module Infinitory
       g.helper = false
     end
 
+    config.action_mailer.default_url_options = { :host => 'http://www.infinitory.com' }
+
     # config.exceptions_app = self.routes
     
     # Settings in config/environments/* take precedence over those specified here.
