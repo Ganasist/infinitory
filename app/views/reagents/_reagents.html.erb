@@ -44,6 +44,10 @@
           <%= link_to edit_reagent_path(reagent) do %>
             <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
           <% end %>
+
+          <%= link_to reagent_path(reagent), method: :delete do %>
+            <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete"  %>
+          <% end %>
         </td>
       </tr>
     <% end %>
