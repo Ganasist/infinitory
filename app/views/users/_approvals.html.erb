@@ -7,16 +7,16 @@
     </thead>
     <tbody>
       <% @approvals.each do |user| %>
-        <tr>
-          <td><%= user.fullname %></td>
-          <td>
-            <%= link_to ' Authorize', activate_user_path(user), class: 'btn btn-info fa fa-lg fa-check-square-o' %>
-          </td>
-          <td>
-            <%= link_to ' Decline', reject_user_path(user), class: 'btn btn-danger fa fa-lg fa-minus-square-o' %>
-          </td> 
-          <% end %>    
-        </tr>
+      <tr>
+        <td><%= user.fullname %></td>
+        <td>
+          <%= link_to ' Approve', approve_user_path(user), class: 'btn btn-info fa fa-lg fa-check-square-o' %>
+        </td>
+        <td>
+          <%= link_to ' Decline', reject_user_path(user), class: 'btn btn-danger fa fa-lg fa-minus-square-o' %>
+        </td>
+      </tr> 
+      <% end %>    
     </tbody>
   </table>
 <% end %>

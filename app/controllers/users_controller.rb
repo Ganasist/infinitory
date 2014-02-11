@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :activate, :retire, :reject]
-  before_action :set_lab, only: [:retire, :reject, :activate]
+  before_action :set_user, only: [:show, :approve, :retire, :reject]
+  before_action :set_lab, only: [:retire, :reject, :approve]
   before_action :authenticate_user!
 
   def index    
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @notifications = @user.comments.recent.page(params[:notifications]).per(10)
   end
 
-  def activate
+  def approve
     @user.approved = true
     @user.joined = Time.now
     if @user.save
