@@ -91,8 +91,8 @@
         <% end %>
 
         <% if @reagent.pdf? %>
-          <dt>Attachments</dt>
-          <dd><%= link_to "#{ @reagent.pdf_file_name }",@reagent.pdf.url %> - updated <%= time_ago_in_words(@reagent.pdf_updated_at) %> ago</dd><br>
+          <dt>Attachment</dt>
+          <dd><%= link_to "#{ @reagent.pdf_file_name }",@reagent.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@reagent.pdf_updated_at) %> ago</dd><br>
         <% end %>
       </dl>
       <div class="btn-group">

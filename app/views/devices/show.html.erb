@@ -68,8 +68,8 @@
         <% end %>
 
         <% if @device.pdf? %>
-          <dt>Attachments</dt>
-          <dd><%= link_to "#{ @device.pdf_file_name }",@device.pdf.url %> - updated <%= time_ago_in_words(@device.pdf_updated_at) %> ago</dd><br>
+          <dt>Attachment</dt>
+          <dd><%= link_to "#{ @device.pdf_file_name }",@device.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@device.pdf_updated_at) %> ago</dd><br>
         <% end %>
          <br>
       </dl>

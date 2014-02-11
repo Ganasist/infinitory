@@ -30,31 +30,35 @@
       <%= f.input :tag_list, label: 'Keywords',
                              placeholder: 'Immunology, restriction enzyme, FACS',
                              tooltip: ['right', 'Use a comma separated list of keywords'] %>
+      
+      <hr>
+      <h4><strong>Attachment</strong> (.pdf < 5 megabytes)</h4>
+      <br>
+        <% if @reagent.pdf? %>
+          <%= link_to @reagent.pdf.url, target: "_blank"  do %>
+            <%= fa_icon "paperclip", text: "#{@reagent.pdf_file_name}" %>
+          <% end %>
+          <br><br>
+          <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete this attachment", wrapper_html: { class: "form-inline"} %><br>
+        <% end %>
+
+        <%= f.file_field :pdf, label: "test" %>
+        <h4>or</h4>
+        <%= f.input :pdf_remote_url, label: "Enter a PDF URL" %>           
+        <hr>
       </div>
+      
       <div class="span5 pull-right">
-        <strong><h4>Image</h4></strong>
-          <p>.jpeg, .png or .gif images < 2 megabytes</p>
+        <h4><strong>Image</strong> (.jpg, .png, .gif < 2 megabytes)</h4>
           <% if @reagent.icon? %>
             <%= image_tag(@reagent.icon.url, class: "img-rounded").html_safe %>
             <br><br>
-            <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete photo", wrapper_html: { class: "form-inline"} %><br>
+            <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete this photo", wrapper_html: { class: "form-inline"} %><br>
           <% end %>
-          <%= f.input :icon_remote_url, label: "Enter image URL" %>
-          <h4>or</h4>
+          
           <%= f.file_field :icon %>
-          <hr>
-
-        <strong><h4>Attachments</h4></strong>
-          <p><strong>.pdf files < 3 megabytes</strong></p>
-          <% if @reagent.pdf? %>
-            <%= link_to "#{@reagent.pdf_file_name}", @reagent.pdf.url %>
-            <br><br>
-            <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
-          <% end %>
-
-          <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
           <h4>or</h4>
-          <%= f.file_field :pdf %>
+          <%= f.input :icon_remote_url, label: "Enter an image URL" %>
           <hr>
 
       <% if params[:lab_id] %>    

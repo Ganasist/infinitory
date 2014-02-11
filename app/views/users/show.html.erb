@@ -107,8 +107,8 @@
         <hr>
       </h3>
       <% if @user.pdf? %>
-          <h4>Attachments</h4>
-          <h5><%= link_to "#{ @user.pdf_file_name }",@user.pdf.url %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>
+          <h4>Attachment</h4>
+          <h5><%= link_to "#{ @user.pdf_file_name }",@user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>
           <hr>
         <% end %>
     </span>
