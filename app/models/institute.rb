@@ -10,12 +10,12 @@ class Institute < ActiveRecord::Base
 
   validates :name, presence: true, allow_blank: false
  
-	validates :url, presence: true, url: true, allow_blank: true
-  validates :linkedin_url, presence: true, url: true, allow_blank: true
-  validates :xing_url, presence: true, url: true, allow_blank: true
-  validates :twitter_url, presence: true, url: true, allow_blank: true
-  validates :facebook_url, presence: true, url: true, allow_blank: true
-  validates :google_plus_url, presence: true, url: true, allow_blank: true
+	validates :url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :linkedin_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :xing_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :twitter_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :facebook_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :google_plus_url, format: URI::regexp(%w(http https)), allow_blank: true
 
 	attr_accessor :delete_icon
   attr_reader :icon_remote_url
