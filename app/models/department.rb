@@ -16,7 +16,7 @@ class Department < ActiveRecord::Base
   validates :facebook_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
   validates :google_plus_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
-	validates :email, email: true
+	validates :email, email: true, allow_blank: true, uniqueness: true
 
   validates :name, presence: true, 
   								 uniqueness: { scope: :institute_id, case_sensitive: false, message: "A department with that name is already registered at this institute." }
