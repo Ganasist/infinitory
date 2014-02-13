@@ -17,11 +17,7 @@ gem 'debugger', group: [:development, :test]
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-# gem 'jquery-historyjs'
-# gem 'historyjs-rails'
-# gem 'ajax_pagination'
 
-# gem 'will_paginate'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 
@@ -40,10 +36,6 @@ gem 'active_attr'
 gem 'activerecord-import', '>= 0.2.0'
 
 gem 'merit'
-
-# gem 'gon'
-# gem 'rabl'
-# gem 'oj'
 
 gem 'redis'
 gem 'dalli'
@@ -77,8 +69,6 @@ gem 'simple_form'
 gem 'thin'
 gem 'high_voltage'
 
-gem 'geocoder'
-
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'paperclip-aws'
@@ -90,9 +80,9 @@ gem 'sinatra', require: false
 gem 'slim'
 gem 'sidetiq'
 
-gem 'seed_dump'
+gem 'validate_url'
 
-# gem 'validate_url'
+gem 'seed_dump'
 
 group :production do
   gem 'rails_12factor'

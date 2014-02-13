@@ -34,19 +34,11 @@ class Institute < ActiveRecord::Base
                   										dictionary: "english" }}
 
 	def icon_remote_url=(url_value)
-     if url_value.present?
-      self.icon = URI.parse(url_value)
-      @icon_remote_url = url_value
-    end
+  	if url_value.present?
+    	self.icon = URI.parse(url_value)
+    	@icon_remote_url = url_value
+  	end
   end
-
-	geocoded_by :address
-	reverse_geocoded_by :latitude, :longitude do |obj,results|
-	  if geo = results.first
-	    obj.city    = geo.city
-	    obj.country = geo.country
-	  end
-	end
 
 	protected
 

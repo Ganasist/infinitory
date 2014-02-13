@@ -8,12 +8,12 @@ class Department < ActiveRecord::Base
 
 	before_validation :smart_add_url_protocol, :default_addresses
 
-	validates :url, presence: true, url: true, allow_blank: true
-  validates :linkedin_url, presence: true, url: true, allow_blank: true
-  validates :xing_url, presence: true, url: true, allow_blank: true
-  validates :twitter_url, presence: true, url: true, allow_blank: true
-  validates :facebook_url, presence: true, url: true, allow_blank: true
-  validates :google_plus_url, presence: true, url: true, allow_blank: true
+	validates :url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :linkedin_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :xing_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :twitter_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :facebook_url, format: URI::regexp(%w(http https)), allow_blank: true
+  validates :google_plus_url, format: URI::regexp(%w(http https)), allow_blank: true
 
   validates :name, presence: true, 
   								 uniqueness: { scope: :institute_id, case_sensitive: false, message: "A department with that name is already registered at this institute." }
@@ -32,14 +32,6 @@ class Department < ActiveRecord::Base
       @icon_remote_url = url_value
     end
   end
-
-	geocoded_by :address # can also be an IP address
-	reverse_geocoded_by :latitude, :longitude do |obj,results|
-	  if geo = results.first
-	    obj.city    = geo.city
-	    obj.country = geo.country
-	  end
-	end
 
 	def location
 		if self.room.present?
@@ -63,10 +55,6 @@ class Department < ActiveRecord::Base
 			if self.institute.present?
 				self.address = self.institute.address if self.address.blank?
 				self.url = self.institute.url if self.url.blank?
-				if self.longitude.nil?
-					self.longitude = self.institute.longitude
-					self.latitude = self.institute.latitude
-				end
 			end
 		end
 end
