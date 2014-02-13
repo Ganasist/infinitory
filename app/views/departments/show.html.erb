@@ -1,7 +1,125 @@
-<%= render 'header' %>
-<div class="row">
-  <div class="span5">
-     <%= render 'info' %>
-     <%= render 'lab' %>
-  </div>
+<%- model_class = Department -%>
+  <% title "Departments: " + @department.name %><div class="row">
+	<div class="span6">		
+  <% if @department.icon.present? %>
+      <% if @department.icon_processing? %>
+        <%= image_tag('/images/ajax-spinner.gif') %>
+        <h4>Processing image...</h4>
+      <% else %>
+        <span class="inline-block">
+          <%= image_tag(@department.icon.url, class: 'img-rounded').html_safe %>
+        </span><br>
+      <% end %>
+    <% end %>
+  <h3>
+    <i class="icon-sitemap"></i><%= " #{@department.name}" %>
+    <% if current_user.gl? && current_user.department == @department  %>
+    <div class="btn-group">
+      <%= link_to "Edit", edit_institute_department_path(@department.institute, @department), class: 'btn-small btn-warning' %>         
+    </div>
+    <% end %>
+  </h3>
+
+  <ul class="inline">
+    <br>
+    <% if @department.email? %>
+    <li>          
+      <%= mail_to @department.email do %>
+        <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
+      <% end %>
+    </li>
+    <% end %>
+    <% if @department.url? %>
+      <li>          
+        <%= mail_to @department.url do %>
+          <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
+        <% end %>
+      </li>
+    <% end %>
+    <% if @department.twitter_url? %>
+     <li>          
+      <%= link_to @department.twitter_url, target: "_blank"  do %>
+        <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+      <% end %>
+    </li>          
+    <% end %>
+    <% if @department.facebook_url? %>
+     <li>          
+      <%= link_to @department.facebook_url, target: "_blank"  do %>
+        <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
+      <% end %>
+    </li>          
+    <% end %>
+    <% if @department.google_plus_url? %>
+     <li>
+      <%= link_to @department.google_plus_url, target: "_blank" do %>
+        <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
+      <% end %>
+    </li>          
+    <% end %>          
+  </ul>
+  <hr>
+  <% if @department.room.present? %>
+  	<h5>
+    <%= link_to "#" do %>
+      <%= fa_icon "compass", class: "fa fa-fw fa-lg" %> Room <%= @department.room %>
+    <% end %>
+		</h5>
+  <% end %>
+  <% if @department.address.present? %>
+  	<h5>
+  	<%= link_to "http://maps.google.com/?q=#{@department.address}", target: "_blank" do %>
+	  	<%= fa_icon "map-marker", class: "fa fa-fw fa-lg" %> <%= @department.address %>
+    <% end %>
+		</h5>
+  <% end %>
+
+  	<h5>
+  	<%= link_to @department.institute do %>
+	  	<%= fa_icon "building-o", class: "fa fa-fw fa-lg" %> <%= @department.institute.name %>
+    <% end %>
+		</h5>
+
+  	<hr>
+     <% if @department.labs.present? %>
+			<h4><%= fa_icon "group", class: "fa fa-fw fa-lg" %> Groups</h4><br>
+			  <% @labs.each do |lab| %>
+			  	<% if lab.gl.present? %>
+				    <div class="department">
+					    <p><%= link_to lab.gl.fullname, lab %></p>
+				    </div>
+			    <% end %>
+			  <% end %>
+		<% end %>
+    <hr>
+	</div>
+	<div class="span6 pull-right">
+      <!-- Nav panes -->
+      <ul class="nav nav-pills nav-justified">
+        <li class="active"><a href="#nots" data-toggle="tab">Notifications</a></li>
+        <li class="disabled"><a href="#messages" data-toggle="tab">Messages</a></li>
+      </ul><br>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="nots">
+
+        <div id"paginator-top">
+          <%#= paginate @notifications, theme: 'twitter-bootstrap',
+                                       pagination_class: 'pagination-small pagination-centered' %>
+        </div>
+
+        <div id="notifications">
+          <%#= render 'notifications' %>
+        </div>
+
+        <div id"paginator-bottom">
+          <%#= paginate @notifications, theme: 'twitter-bootstrap', 
+                                       pagination_class: 'pagination-small pagination-centered' %>
+        </div>
+
+        </div>
+        <div class="tab-pane fade" id="messages"></div>
+      </div>  
+    </div>
+
 </div>

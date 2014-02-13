@@ -12,6 +12,13 @@ class Lab < ActiveRecord::Base
   has_many :reagents
   has_many :devices
 
+  validates :url, presence: true, url: true, allow_blank: true
+  validates :linkedin_url, presence: true, url: true, allow_blank: true
+  validates :xing_url, presence: true, url: true, allow_blank: true
+  validates :twitter_url, presence: true, url: true, allow_blank: true
+  validates :facebook_url, presence: true, url: true, allow_blank: true
+  validates :google_plus_url, presence: true, url: true, allow_blank: true
+
   attr_accessor :delete_icon
   attr_reader :icon_remote_url
   before_validation { icon.clear if delete_icon == '1' }

@@ -23,19 +23,60 @@
                             edit_lab_path(@lab), class: 'btn-small btn-warning' %>
             </div>
           <% end %>
+          <br><br>
+        <ul class="inline">
+          <br>
+          <% if @lab.email? %>
+          <li>          
+            <%= mail_to @lab.email do %>
+              <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
+            <% end %>
+          </li>
+          <% end %>
+          <% if @lab.url? %>
+          <li>          
+            <%= mail_to @lab.url do %>
+              <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
+            <% end %>
+          </li>
+          <% end %>
+          <% if @lab.twitter_url? %>
+           <li>          
+            <%= link_to @lab.twitter_url, target: "_blank"  do %>
+              <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+            <% end %>
+          </li>          
+          <% end %>
+          <% if @lab.facebook_url? %>
+           <li>          
+            <%= link_to @lab.facebook_url, target: "_blank"  do %>
+              <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
+            <% end %>
+          </li>          
+          <% end %>
+          <% if @lab.google_plus_url? %>
+           <li>
+            <%= link_to @lab.google_plus_url, target: "_blank" do %>
+              <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
+            <% end %>
+          </li>          
+          <% end %>          
+        </ul>
         </span>
+       <hr>
       </h3>
-      <dl class="dl-horizontal">
-        
+      <dl class="dl-horizontal">        
         <h5>
-          <%= link_to @user do %>
-           <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@user.fullname}" %>
+          <%= link_to @gl do %>
+           <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@gl.fullname}" %>
            <% end %>
         </h5>
         <% if @lab.room.present? %>
+          <h5>
           <%= link_to "#" do %>
-            <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %></h5>
+            <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %>
           <% end %>
+          </h5>
         <% end %>
         <% if @department.present? %>
           <h5>

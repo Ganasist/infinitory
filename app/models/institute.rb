@@ -5,21 +5,17 @@ class Institute < ActiveRecord::Base
 	
 	before_validation :smart_add_url_protocol
 
-	# after_validation :geocode,
-	# 								 if: Proc.new{ |t| t.address.present? && t.address_changed? }
-	
-	# after_validation :reverse_geocode, 
-	# 								 if: Proc.new{ |t| t.address.present? && t.address_changed? }
-
 	validates :name, uniqueness: { scope: :address, case_sensitive: false, message: "This institute is already registered at that address" },
 									 							 if: Proc.new{ |f| f.address? }
 
   validates :name, presence: true, allow_blank: false
  
-	validates :url, allow_blank: true,
-  								format: { with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix,
-  													multiline: true,
-  													message: "is not valid" }
+	validates :url, presence: true, url: true, allow_blank: true
+  validates :linkedin_url, presence: true, url: true, allow_blank: true
+  validates :xing_url, presence: true, url: true, allow_blank: true
+  validates :twitter_url, presence: true, url: true, allow_blank: true
+  validates :facebook_url, presence: true, url: true, allow_blank: true
+  validates :google_plus_url, presence: true, url: true, allow_blank: true
 
 	attr_accessor :delete_icon
   attr_reader :icon_remote_url

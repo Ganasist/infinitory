@@ -17,13 +17,12 @@ class LabsController < ApplicationController
     if request.path != lab_path(@lab)
       redirect_to @lab, status: :moved_permanently
     end
-    @user = User.where(lab_id: @lab, role: "group_leader").first
+    @gl = User.where(lab_id: @lab, role: "group_leader").first
     # @activities = PublicActivity::Activity.includes(:trackable, :owner).where(owner_id: @lab.user_ids).limit(25).order('created_at desc')
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
     @notifications = @lab.comments.recent.page(params[:page]).per(10)
-    @gl = @lab.gl
 
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Name')
@@ -100,6 +99,7 @@ class LabsController < ApplicationController
 
     def lab_params
       params.require(:lab).permit(:email, :room, :lab_id, :department_id, :institute_id, :ajax_section,
+                                  :linkedin_url, :xing_url, :twitter_url, :facebook_url, :google_plus_url,
                                   :department, :institute, :url, :icon, :delete_icon, :icon_remote_url)
     end
 end

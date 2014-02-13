@@ -8,19 +8,15 @@ class Department < ActiveRecord::Base
 
 	before_validation :smart_add_url_protocol, :default_addresses
 
-	# after_validation :reverse_geocode,
-	# 								 :if => lambda { |t| t.address_changed? && t.address? }
-	# after_validation :geocode,
-	# 								 :if => lambda { |t| t.address_changed? && t.address? } # auto-fetch coordinates
-  
+	validates :url, presence: true, url: true, allow_blank: true
+  validates :linkedin_url, presence: true, url: true, allow_blank: true
+  validates :xing_url, presence: true, url: true, allow_blank: true
+  validates :twitter_url, presence: true, url: true, allow_blank: true
+  validates :facebook_url, presence: true, url: true, allow_blank: true
+  validates :google_plus_url, presence: true, url: true, allow_blank: true
+
   validates :name, presence: true, 
   								 uniqueness: { scope: :institute_id, case_sensitive: false, message: "A department with that name is already registered at this institute." }
-  								 
-
-	validates :url, allow_blank: true,
-  								format: { with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix,
-  													multiline: true,
-  													message: "is not valid" }
 
   attr_accessor :delete_icon
   attr_reader :icon_remote_url

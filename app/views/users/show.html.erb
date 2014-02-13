@@ -44,49 +44,49 @@
         
         <ul class="inline">
           <br>
-          <% if current_user.email.present? %>
+          <% if @user.email? %>
           <li>          
-            <%= mail_to current_user.email do %>
+            <%= mail_to @user.email do %>
               <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
             <% end %>
           </li>
           <% end %>
 
-          <% if current_user.linkedin_url.present? %>
+          <% if @user.linkedin_url? %>
            <li>          
-            <%= link_to current_user.linkedin_url, target: "_blank"  do %>
+            <%= link_to @user.linkedin_url, target: "_blank"  do %>
               <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-lg fa-fw" %>
             <% end %>
           </li>          
           <% end %>
 
-          <% if current_user.xing_url.present? %>
+          <% if @user.xing_url? %>
            <li>          
-            <%= link_to current_user.xing_url, target: "_blank"  do %>
+            <%= link_to @user.xing_url, target: "_blank"  do %>
               <%= fa_icon "xing", title: "Xing", class: "fa-lg fa-fw" %>
             <% end %>
           </li>          
           <% end %>
 
-          <% if current_user.twitter_url.present? %>
+          <% if @user.twitter_url? %>
            <li>          
-            <%= link_to current_user.twitter_url, target: "_blank"  do %>
+            <%= link_to @user.twitter_url, target: "_blank"  do %>
               <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
             <% end %>
           </li>          
           <% end %>
 
-          <% if current_user.facebook_url.present? %>
+          <% if @user.facebook_url? %>
            <li>          
-            <%= link_to current_user.facebook_url, target: "_blank"  do %>
+            <%= link_to @user.facebook_url, target: "_blank"  do %>
               <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
             <% end %>
           </li>          
           <% end %>  
 
-          <% if current_user.google_plus_url.present? %>
+          <% if @user.google_plus_url? %>
            <li>
-            <%= link_to current_user.google_plus_url, target: "_blank" do %>
+            <%= link_to @user.google_plus_url, target: "_blank" do %>
               <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
             <% end %>
           </li>          
@@ -111,15 +111,15 @@
             <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
             <% end %>
           </h5>
-        </dl>
-        <hr>
+          <hr>
+        </dl>        
       </h3>
       <% if @user.pdf? %>
           <h4>Attachment</h4>
-          <h5><%= link_to "#{ @user.pdf_file_name }",@user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>
-          <hr>
+          <h5><%= link_to "#{ @user.pdf_file_name }",@user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>         
         <% end %>
     </span>
+     <hr>
   </div>
   <div class="span7 inline-block">
     <!-- Nav panes -->
