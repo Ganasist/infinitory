@@ -15,6 +15,9 @@ class Reagent < ActiveRecord::Base
   validates :remaining, numericality: true, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
+  before_validation :smart_add_product_url_protocol, if: Proc.new { |reagent| reagent.product_url.present? && reagent.product_url_changed? }
+  before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |reagent| reagent.purchasing_url.present? && reagent.purchasing_url_changed? }
+
   validates :product_url, presence: true, url: true, allow_blank: true
   validates :purchasing_url, presence: true, url: true, allow_blank: true
   
@@ -145,6 +148,19 @@ class Reagent < ActiveRecord::Base
   end
 
   private
+
+    def smart_add_product_url_protocol
+      unless self.product_url[/^http:\/\//] || self.product_url[/^https:\/\//]
+        self.product_url = 'http://' + self.product_url
+      end
+    end
+
+    def smart_add_purchasing_url_protocol
+      unless self.purchasing_url[/^http:\/\//] || self.purchasing_url[/^https:\/\//]
+        self.purchasing_url = 'http://' + self.purchasing_url
+      end
+    end
+
   	def set_expiration
 			self.expiration = 3.years.from_now
   	end

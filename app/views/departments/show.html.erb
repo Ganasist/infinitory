@@ -31,7 +31,7 @@
     <% end %>
     <% if @department.url? %>
       <li>          
-        <%= mail_to @department.url do %>
+        <%= link_to @department.url, target: "_blank" do %>
           <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
         <% end %>
       </li>
@@ -58,7 +58,7 @@
     </li>          
     <% end %>          
   </ul>
-  <hr>
+  <br>
   <% if @department.room.present? %>
   	<h5>
     <%= link_to "#" do %>

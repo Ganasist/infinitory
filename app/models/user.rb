@@ -297,8 +297,8 @@ class User < ActiveRecord::Base
 
   private
 
-  def slug_candidates
-    [  :fullname,
-      [:fullname, :id] ]
-  end    
+    def slug_candidates
+      [  :fullname,
+        [:fullname, :id] ]
+    end    
 end

@@ -2,7 +2,7 @@
 <% cache @device do %>
   <% title "Devices: " + fullname(@device) %>
   <div class="row">
-    <div class="span5">
+    <div class="span6">
     <% if @device.icon.present? %>
       <% if @device.icon_processing? %>
         <%= image_tag('/images/ajax-spinner.gif') %>
@@ -81,7 +81,7 @@
       </div>
       <hr>
     </div>
-    <div class="span7">
+    <div class="span6">
       <!-- Nav panes -->
       <ul class="nav nav-pills nav-justified">
         <li class="active"><a href="#history" data-toggle="tab">History</a></li>

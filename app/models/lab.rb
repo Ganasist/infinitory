@@ -12,12 +12,14 @@ class Lab < ActiveRecord::Base
   has_many :reagents
   has_many :devices
 
-  validates :url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :linkedin_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :xing_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :twitter_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :facebook_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :google_plus_url, format: URI::regexp(%w(http https)), allow_blank: true
+  before_validation :smart_add_url_protocol, if: Proc.new { |l| l.url.present? && l.url_changed? }
+
+  validates :url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :linkedin_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :xing_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :twitter_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :facebook_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :google_plus_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
   attr_accessor :delete_icon
   attr_reader :icon_remote_url
@@ -91,14 +93,20 @@ class Lab < ActiveRecord::Base
 
 	private
 
-	def should_generate_new_friendly_id?
-  	name_changed?
-  end
+    def smart_add_url_protocol
+      unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
+        self.url = 'http://' + self.url
+      end
+    end
 
-  # def slug_candidates
-  #   [
-  #     :name,
-  #     [:name, :city]
-  #   ]
-  # end
+  	def should_generate_new_friendly_id?
+    	name_changed?
+    end
+
+    # def slug_candidates
+    #   [
+    #     :name,
+    #     [:name, :city]
+    #   ]
+    # end
 end

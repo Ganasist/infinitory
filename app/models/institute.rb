@@ -2,20 +2,20 @@ class Institute < ActiveRecord::Base
 	has_many :departments
 	has_many :labs
 	has_many :users
-	
-	before_validation :smart_add_url_protocol
 
 	validates :name, uniqueness: { scope: :address, case_sensitive: false, message: "This institute is already registered at that address" },
 									 							 if: Proc.new{ |f| f.address? }
 
   validates :name, presence: true, allow_blank: false
  
-	validates :url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :linkedin_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :xing_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :twitter_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :facebook_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :google_plus_url, format: URI::regexp(%w(http https)), allow_blank: true
+	before_validation :smart_add_url_protocol, if: Proc.new { |i| i.url.present? && i.url_changed? }
+
+	validates :url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :linkedin_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :xing_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :twitter_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :facebook_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :google_plus_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
 	attr_accessor :delete_icon
   attr_reader :icon_remote_url
@@ -43,11 +43,9 @@ class Institute < ActiveRecord::Base
 	protected
 
 		def smart_add_url_protocol
-			if self.url.present?
-			  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
-			    self.url = 'http://' + self.url
-			  end
-			end
+		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
+		    self.url = 'http://' + self.url
+		  end
 		end
 
 		def acronym_and_name

@@ -6,14 +6,15 @@ class Department < ActiveRecord::Base
 	has_many :labs
 	has_many :users
 
-	before_validation :smart_add_url_protocol, :default_addresses
+	before_validation :smart_add_url_protocol, if: Proc.new { |d| d.url.present? && d.url_changed? }
+	before_validation :default_addresses, if: Proc.new { |d| d.institute.present? && !d.address.present? && d.address_changed? }
 
-	validates :url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :linkedin_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :xing_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :twitter_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :facebook_url, format: URI::regexp(%w(http https)), allow_blank: true
-  validates :google_plus_url, format: URI::regexp(%w(http https)), allow_blank: true
+	validates :url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :linkedin_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :xing_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :twitter_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :facebook_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :google_plus_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
   validates :name, presence: true, 
   								 uniqueness: { scope: :institute_id, case_sensitive: false, message: "A department with that name is already registered at this institute." }
@@ -44,17 +45,12 @@ class Department < ActiveRecord::Base
 	protected
 
 		def smart_add_url_protocol
-			if self.url.present?
-			  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
-			    self.url = 'http://' + self.url
-			  end
-			end
+		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
+		    self.url = 'http://' + self.url
+		  end
 		end
 
 		def default_addresses
-			if self.institute.present?
-				self.address = self.institute.address if self.address.blank?
-				self.url = self.institute.url if self.url.blank?
-			end
+			self.address = self.institute.address if self.address.blank?
 		end
 end

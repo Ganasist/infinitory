@@ -14,8 +14,8 @@
     <% end %>
       <h3>
         <span class="inline-block">
-          <%= link_to lab_users_path(@lab) do %>
-            <i class="icon-group"></i><%= " The #{@gl.fullname} Lab" %>
+          <%= link_to @gl do %>
+            <%= fa_icon "users", class: "fa fa-fw fa-lg fa-group" %><%= " The #{@gl.fullname} Lab" %>
           <% end %>
           <% if current_user.gl_lm(@lab) %>
             <div class="btn-group">
@@ -23,7 +23,7 @@
                             edit_lab_path(@lab), class: 'btn-small btn-warning' %>
             </div>
           <% end %>
-          <br><br>
+          <br>
         <ul class="inline">
           <br>
           <% if @lab.email? %>
@@ -35,7 +35,7 @@
           <% end %>
           <% if @lab.url? %>
           <li>          
-            <%= mail_to @lab.url do %>
+            <%= link_to @lab.url, target: "_blank" do %>
               <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
             <% end %>
           </li>
@@ -62,47 +62,44 @@
           </li>          
           <% end %>          
         </ul>
-        </span>
-       <hr>
-      </h3>
-      <dl class="dl-horizontal">        
-        <h5>
-          <%= link_to @gl do %>
-           <i class="fa fa-fw fa-lg fa-lightbulb-o"></i><%= " #{@gl.fullname}" %>
-           <% end %>
-        </h5>
+        </span>       
+      </h3>      
         <% if @lab.room.present? %>
-          <h5>
+        <h5>
           <%= link_to "#" do %>
-            <i class="fa fa-fw fa-lg fa-compass"></i> Room <%= @lab.room %>
+            <%= fa_icon "compass", class: "fa fa-fw fa-lg" %> Room <%= @lab.room %>
           <% end %>
-          </h5>
+        </h5>
         <% end %>
         <% if @department.present? %>
-          <h5>
-            <%= link_to institute_department_path(@institute, @department) do %>
-             <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@department.name}" %>
-             <% end %>
-          </h5>
+        <h5>
+          <%= link_to institute_department_path(@institute, @department) do %>
+            <%= fa_icon "sitemap", class: "fa fa-fw fa-lg" %> <%= " #{@department.name}" %>
+          <% end %>
+        </h5>
         <% end %>
         <h5>
-          <%= link_to @lab.institute do %>
-           <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{ @institute.name }" %>
-           <% end %>
+        <%= link_to @lab.institute do %>
+          <%= fa_icon "building-o", class: "fa fa-fw fa-lg" %> <%= " #{ @institute.name }" %>
+        <% end %>
         </h5>
-      </dl>
-      <hr>
-        <div class='row-fluid'>
-          <%= link_to lab_users_path(@lab) do %>
-            <%= fa_icon "users" %> Members <small>(<%= @users.size %>)</small>
-          <% end %><br><br>
-          <%= link_to lab_reagents_path(@lab) do %>
-            <%= fa_icon "flask" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
-          <% end %><br><br>
-          <%= link_to lab_devices_path(@lab) do %>
-            <%= fa_icon "cogs"  %> Devices <small>(<%= @lab.devices.size %>)</small>
-          <% end %>
-        </div>
+        <hr>
+        <h5>
+        <%= link_to lab_users_path(@lab) do %>
+          <%= fa_icon "users", class: "fa fa-fw fa-lg" %> Members <small>(<%= @users.size %>)</small>
+        <% end %>
+        </h5>
+        <h5>
+        <%= link_to lab_reagents_path(@lab) do %>
+          <%= fa_icon "flask", class: "fa fa-fw fa-lg" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
+        <% end %>
+        </h5>
+        <h5>
+        <%= link_to lab_devices_path(@lab) do %>
+          <%= fa_icon "cogs", class: "fa fa-fw fa-lg"  %> Devices <small>(<%= @lab.devices.size %>)</small>
+        <% end %>
+        </h5>    
+        
       <hr>
       <div id='chart'>
       <%= render_chart(@chart, 'chart') %>
