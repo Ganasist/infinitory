@@ -60,6 +60,14 @@
           </li>          
           <% end %>
 
+          <% if current_user.xing_url.present? %>
+           <li>          
+            <%= link_to current_user.xing_url, target: "_blank"  do %>
+              <%= fa_icon "xing", title: "Xing", class: "fa-lg fa-fw" %>
+            <% end %>
+          </li>          
+          <% end %>
+
           <% if current_user.twitter_url.present? %>
            <li>          
             <%= link_to current_user.twitter_url, target: "_blank"  do %>
