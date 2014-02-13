@@ -71,7 +71,7 @@ class InstitutesController < ApplicationController
     end
 
     def institute_params
-      params.require(:institute).permit(:name, :alternate_name, :address, :url, :acronym,
+      params.require(:institute).permit(:name, :email, :alternate_name, :address, :url, :acronym,
                                         :linkedin_url, :xing_url, :twitter_url, :facebook_url, :google_plus_url,
                                         :icon, :delete_icon, :icon_remote_url, :lock_version)
     end

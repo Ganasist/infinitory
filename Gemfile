@@ -46,6 +46,8 @@ gem 'paper_trail', '>= 3.0.0'
 
 gem 'validates_timeliness', '~> 3.0'
 
+gem 'email_validator', require: 'email_validator/strict'
+
 gem 'pg_search'
 gem 'hairtrigger'
                       

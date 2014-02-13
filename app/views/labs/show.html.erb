@@ -12,8 +12,8 @@
         </span><br>
       <% end %>
     <% end %>
-      <h3>
-        <span class="inline-block">
+      <span class="inline-block">  
+        <h4>
           <%= link_to @gl do %>
             <%= fa_icon "users", class: "fa fa-fw fa-lg fa-group" %><%= " The #{@gl.fullname} Lab" %>
           <% end %>
@@ -23,7 +23,7 @@
                             edit_lab_path(@lab), class: 'btn-small btn-warning' %>
             </div>
           <% end %>
-          <br>
+        </h4>
         <ul class="inline">
           <br>
           <% if @lab.email? %>
@@ -62,7 +62,7 @@
           </li>          
           <% end %>          
         </ul>
-        </span>       
+      </span>       
       </h3>      
         <% if @lab.room.present? %>
         <h5>

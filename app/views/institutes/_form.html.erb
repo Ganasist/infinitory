@@ -7,7 +7,12 @@
       <%= f.input :alternate_name, placeholder: 'Optional' %>
       <%= f.input :acronym, placeholder: 'Optional', label: 'Acronym' %>
       <%= f.input :address, input_html: { rows: 4, class: "span5" }, as: :text %>
-      <%= f.input :url, label: 'Website', placeholder: 'Optional' %>    
+      <hr>
+      <%= f.input :email, label: 'Institute email' %>
+      <%= f.input :url, label: 'Website', placeholder: "Optional" %>
+      <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/department" %>
+      <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/department" %>
+      <%= f.input :google_plus_url, label: "Google+", placeholder: "https://plus.google.com/department" %>
     </div>
     <div class="span5 pull-right">
       <strong><h4>Institute icon</h4></strong>

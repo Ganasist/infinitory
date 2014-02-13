@@ -1,18 +1,111 @@
-<% title " Institutes: " + @institute.name %>
-<%= render "header" %>
-<div class="span5">
-  <h4>
-	<%= link_to institute_departments_path(@institute) do %>
-		<i class="icon-sitemap"></i>
-		<%= pluralize(@institute.departments.count, "department") %>
-	<% end %>
-</h4>
-  <% if @institute.departments.present? %>
-	  <%= render 'department' %>
-  <% else %>
-    <%= link_to "Add Department", new_institute_department_path(@institute), class: 'btn btn-warning' %>
-    <% if @institute.labs.present? %>
-      <%= render 'lab' %>
+<%- model_class = Institute -%>
+  <% title "Institutes: " + @institute.name %>
+<div class="row">
+  <div class="span6">   
+  <% if @institute.icon.present? %>
+      <% if @institute.icon_processing? %>
+        <%= image_tag('/images/ajax-spinner.gif') %>
+        <h4>Processing image...</h4>
+      <% else %>
+        <span class="inline-block">
+          <%= image_tag(@institute.icon.url, class: 'img-rounded').html_safe %>
+        </span><br>
+      <% end %>
     <% end %>
+  <h3>
+    <i class="icon-sitemap"></i><%= " #{@institute.name}" %>
+    <% if current_user.gl? && current_user.institute == @institute  %>
+    <div class="btn-group">
+      <%= link_to "Edit", edit_institute_path(@institute), class: 'btn-small btn-warning' %>         
+    </div>
+    <% end %>
+  </h3>
+
+  <ul class="inline">
+    <br>
+    <% if @institute.email? %>
+    <li>          
+      <%= mail_to @institute.email do %>
+        <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
+      <% end %>
+    </li>
+    <% end %>
+    <% if @institute.url? %>
+      <li>          
+        <%= link_to @institute.url, target: "_blank" do %>
+          <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
+        <% end %>
+      </li>
+    <% end %>
+    <% if @institute.twitter_url? %>
+     <li>          
+      <%= link_to @institute.twitter_url, target: "_blank"  do %>
+        <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+      <% end %>
+    </li>          
+    <% end %>
+    <% if @institute.facebook_url? %>
+     <li>          
+      <%= link_to @institute.facebook_url, target: "_blank"  do %>
+        <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
+      <% end %>
+    </li>          
+    <% end %>
+    <% if @institute.google_plus_url? %>
+     <li>
+      <%= link_to @institute.google_plus_url, target: "_blank" do %>
+        <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
+      <% end %>
+    </li>          
+    <% end %>          
+  </ul>
+  <br>
+
+  <% if @institute.address.present? %>
+    <h5>
+    <%= link_to "http://maps.google.com/?q=#{@institute.address}", target: "_blank" do %>
+      <%= fa_icon "map-marker", class: "fa fa-fw fa-lg" %> <%= @institute.address %>
+    <% end %>
+    </h5>
   <% end %>
+    <hr>
+     <% if @institute.departments.present? %>
+      <h4><%= fa_icon "sitemap", class: "fa fa-fw fa-lg" %> Departments</h4><br>
+        <% @departments.each do |department| %>
+            <div class="department">
+              <p><%= link_to department.name, institute_department_path(@institute, department) %></p>
+            </div>
+        <% end %>
+    <% end %>
+    <hr>
+  </div>
+  <div class="span6 pull-right">
+      <!-- Nav panes -->
+      <ul class="nav nav-pills nav-justified">
+        <li class="active"><a href="#nots" data-toggle="tab">Notifications</a></li>
+        <li class="disabled"><a href="#messages" data-toggle="tab">Messages</a></li>
+      </ul><br>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="nots">
+
+        <div id"paginator-top">
+          <%#= paginate @notifications, theme: 'twitter-bootstrap',
+                                       pagination_class: 'pagination-small pagination-centered' %>
+        </div>
+
+        <div id="notifications">
+          <%#= render 'notifications' %>
+        </div>
+
+        <div id"paginator-bottom">
+          <%#= paginate @notifications, theme: 'twitter-bootstrap', 
+                                       pagination_class: 'pagination-small pagination-centered' %>
+        </div>
+
+        </div>
+        <div class="tab-pane fade" id="messages"></div>
+      </div>  
+    </div>
+
 </div>

@@ -7,6 +7,8 @@ class Institute < ActiveRecord::Base
 									 							 if: Proc.new{ |f| f.address? }
 
   validates :name, presence: true, allow_blank: false
+
+  validates :email, email: true, allow_blank: true, uniqueness: true
  
 	before_validation :smart_add_url_protocol, if: Proc.new { |i| i.url.present? && i.url_changed? }
 
