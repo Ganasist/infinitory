@@ -68,7 +68,6 @@ gem 'pg'
 gem 'rolify'
 gem 'simple_form'
 
-# gem 'thin'
 gem 'high_voltage'
 
 gem 'paperclip', '~> 3.0'
@@ -91,6 +90,7 @@ group :production do
 end
 
 group :development do
+  gem 'thin'
   # gem 'rack-mini-profiler'
   gem 'brakeman', :require => false
   gem 'bullet'
