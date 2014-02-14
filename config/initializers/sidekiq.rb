@@ -11,18 +11,17 @@ end
 # 	Sidekiq.configure_server do |config|
 # 	  config.redis = { url: ENV["REDIS_URL"], namespace: 'sidekiq' }
 # 	end
-	
+
 #   Sidekiq.configure_client do |config|
 #     config.redis = { url: ENV["REDIS_URL"], namespace: 'sidekiq'  }
 #   end
 # end
 
-# if Rails.env.production?
-	Sidekiq.configure_server do |config|
-	  config.redis = { url: ENV['REDISTOGO_URL'], size: (Sidekiq.options[:concurrency] + 2), namespace: "infinitory_#{Rails.env}"}
-	  config.poll_interval = 15
-	end
-	Sidekiq.configure_client do |config|
-	  config.redis = { url: ENV['REDISTOGO_URL'], size: (Sidekiq.options[:concurrency] + 2), namespace: "infinitory_#{Rails.env}"}
-	end
-# end
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV['REDISTOGO_URL'], size: (Sidekiq.options[:concurrency] + 2), namespace: "infinitory_#{Rails.env}"}
+  config.poll_interval = 15
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV['REDISTOGO_URL'], size: (Sidekiq.options[:concurrency] + 2), namespace: "infinitory_#{Rails.env}"}
+end
