@@ -1,5 +1,4 @@
-# config/unicorn.rb
-worker_processes Integer(ENV["WEB_CONCURRENCY"] || 5)
+worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 timeout 15
 preload_app true
 
@@ -27,6 +26,6 @@ after_fork do |server, worker|
   end
 
    Sidekiq.configure_client do |config|
-    config.redis = { size: 1, namespace: 'sidekiq' }
+    config.redis = { url: ENV['REDISTOGO_URL'], size: (Sidekiq.options[:concurrency] + 2), namespace: "infinitory_#{Rails.env}"}
   end
 end
