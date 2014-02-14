@@ -19,7 +19,9 @@ class Department < ActiveRecord::Base
 	validates :email, email: true, allow_blank: true, uniqueness: true
 
   validates :name, presence: true, 
-  								 uniqueness: { scope: :institute_id, case_sensitive: false, message: "A department with that name is already registered at this institute." }
+  								 uniqueness: { scope: :institute_id,
+  								 							 case_sensitive: false,
+  								 							 message: "A department with that name is already registered at this institute." }
 
   attr_accessor :delete_icon
   attr_reader :icon_remote_url
@@ -30,7 +32,7 @@ class Department < ActiveRecord::Base
   process_in_background :icon
 	
 	def icon_remote_url=(url_value)
-     if url_value.present?
+    if url_value.present?
       self.icon = URI.parse(url_value)
       @icon_remote_url = url_value
     end
