@@ -3,14 +3,14 @@ ruby '2.0.0'
 gem 'rails', '4.0.2'
 gem 'sass-rails', '~> 4.0.0'
 
-# gem 'newrelic_rpm'
+gem 'newrelic_rpm'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # gem 'therubyracer', platforms: :ruby
 # gem 'bcrypt-ruby', '~> 3.0.0'
-# gem 'unicorn'
+gem 'unicorn'
 # gem 'capistrano', group: :development
 
 gem 'debugger', group: [:development, :test]
@@ -68,7 +68,7 @@ gem 'pg'
 gem 'rolify'
 gem 'simple_form'
 
-gem 'thin'
+# gem 'thin'
 gem 'high_voltage'
 
 gem 'paperclip', '~> 3.0'
