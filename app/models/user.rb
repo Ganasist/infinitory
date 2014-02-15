@@ -28,11 +28,11 @@ class User < ActiveRecord::Base
   
   validates :role, presence: true, inclusion: { in: ROLES }
 
-  validates :linkedin_url, presence: true, url: true, allow_blank: true
-  validates :xing_url, presence: true, url: true, allow_blank: true
-  validates :twitter_url, presence: true, url: true, allow_blank: true
-  validates :facebook_url, presence: true, url: true, allow_blank: true
-  validates :google_plus_url, presence: true, url: true, allow_blank: true
+  validates :linkedin_url, url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
+  validates :xing_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
+  validates :twitter_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
+  validates :facebook_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
+  validates :google_plus_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
 
   before_create :skip_confirmation!, :skip_confirmation_notification!
   before_create :gl_signup, if: Proc.new { |f| f.gl? }  
