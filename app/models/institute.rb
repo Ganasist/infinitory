@@ -1,4 +1,6 @@
 class Institute < ActiveRecord::Base
+  has_merit
+
 	has_many :departments
 	has_many :labs
 	has_many :users

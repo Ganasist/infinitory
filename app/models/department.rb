@@ -1,4 +1,6 @@
 class Department < ActiveRecord::Base
+  has_merit
+
 	belongs_to :institute
 	validates_associated	:institute
   validates :institute, presence: true

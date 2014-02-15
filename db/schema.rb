@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213120833) do
+ActiveRecord::Schema.define(version: 20140215110139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,9 @@ ActiveRecord::Schema.define(version: 20140213120833) do
     t.string   "xing_url"
     t.string   "facebook_url"
     t.string   "google_plus_url"
+    t.integer  "daily_average"
+    t.integer  "sash_id"
+    t.integer  "level",             default: 0
   end
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
@@ -172,6 +175,9 @@ ActiveRecord::Schema.define(version: 20140213120833) do
     t.string   "xing_url"
     t.string   "facebook_url"
     t.string   "google_plus_url"
+    t.integer  "daily_average"
+    t.integer  "sash_id"
+    t.integer  "level",             default: 0
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
@@ -205,6 +211,9 @@ ActiveRecord::Schema.define(version: 20140213120833) do
     t.string   "xing_url"
     t.string   "facebook_url"
     t.string   "google_plus_url"
+    t.integer  "daily_average"
+    t.integer  "sash_id"
+    t.integer  "level",             default: 0
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -360,6 +369,7 @@ ActiveRecord::Schema.define(version: 20140213120833) do
     t.datetime "pdf_updated_at"
     t.boolean  "icon_processing"
     t.string   "xing_url"
+    t.integer  "daily_average"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

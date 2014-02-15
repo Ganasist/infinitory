@@ -1,4 +1,6 @@
 class Lab < ActiveRecord::Base
+  has_merit
+
 	validates :email, presence: true
 
 	belongs_to :department, counter_cache: true, touch: true
