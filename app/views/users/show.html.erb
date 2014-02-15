@@ -15,7 +15,11 @@
       <% end %>
       <span class="user inline-block">
         <h3>
-          <%= "#{@user.fullname}" %>
+          <% if current_user.gl? %>
+            <%= link_to "#{@user.fullname}", @user.lab %>
+          <% else %>
+            <%= "#{@user.fullname}" %>
+          <% end %>
           <% if current_user == @user %>
             <small>
               <%= link_to edit_user_registration_path do %>
@@ -43,8 +47,8 @@
           <br>
           <small class="lead">
             <% if @user.points > 0 %>
-              <%= @user.cached_total_points || "0" %> pts <br>
-              <%= @user.cached_daily_points || "0" %> pts/day
+              <%= @user.cached_total_points || '0' %> pts <br>
+              <%= pluralize(@user.cached_daily_points, 'pt' ) || '0' %>/day
             <% end %>
           </small>  
           
