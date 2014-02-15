@@ -42,8 +42,10 @@
             <% end %>
           <br>
           <small class="lead">
-            <%= @user.cached_total_points %> pts <br>
-            <%= @user.cached_daily_average %> pts/day
+            <% if @user.points > 0 %>
+              <%= @user.cached_total_points || "0" %> pts <br>
+              <%= @user.cached_daily_points || "0" %> pts/day
+            <% end %>
           </small>  
           
           <ul class="inline">
