@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   end
 
   def cached_daily_average
-    Rails.cache.fetch([self.daily_average, "cached_daily_scores"], expires_in: 1.day) { self.daily_average }
+    Rails.cache.fetch([self.daily_average, "cached_daily_scores"], expires_in: 1.day) { self.daily_points }
   end
 
   def lab_users_count
