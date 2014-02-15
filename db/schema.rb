@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215123727) do
+ActiveRecord::Schema.define(version: 20140215133019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20140215123727) do
     t.string   "google_plus_url"
     t.integer  "sash_id"
     t.integer  "level",             default: 0
-    t.integer  "daily_points"
+    t.integer  "daily_points",      default: 0
   end
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(version: 20140215123727) do
     t.string   "google_plus_url"
     t.integer  "sash_id"
     t.integer  "level",             default: 0
-    t.integer  "daily_points"
+    t.integer  "daily_points",      default: 0
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
@@ -213,7 +213,7 @@ ActiveRecord::Schema.define(version: 20140215123727) do
     t.string   "google_plus_url"
     t.integer  "sash_id"
     t.integer  "level",             default: 0
-    t.integer  "daily_points"
+    t.integer  "daily_points",      default: 0
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -369,7 +369,7 @@ ActiveRecord::Schema.define(version: 20140215123727) do
     t.datetime "pdf_updated_at"
     t.boolean  "icon_processing"
     t.string   "xing_url"
-    t.integer  "daily_points"
+    t.integer  "daily_points",           default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
