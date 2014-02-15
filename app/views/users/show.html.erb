@@ -1,126 +1,128 @@
 <%- model_class = User -%>
-<% title 'People: ' + @user.fullname %>  
-<div class="row">
-  <div class="span5">
-    <% if @user.icon.present? %>
-      <% if @user.icon_processing? %>
-        <%= image_tag('/images/ajax-spinner.gif') %>
-        <h4>Image processing...</h4>
-      <% else %>
-      <div class="pull-left user-icon-portrait inline-block">
-        <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>
-      </div>
-      <% end %>
-    <% end %>
-    <span class="user inline-block">
-      <h3>
-        <%= "#{@user.fullname}" %>
-        <% if current_user == @user %>
-          <small>
-            <%= link_to edit_user_registration_path do %>
-              <%= fa_icon "edit", title: "Edit", class: "fa-lg fa-fw"  %>
-            <% end %>
-          </small>
-        <% end %>
-      <br>
-        <% if @user.icon.blank? %>
-          <small class="lead">
-            <% if @user.gl? %>
-              <i class="fa fa-lg fa-lightbulb-o"></i>
-            <% elsif @user.lm? %>
-              <i class="fa fa-lg fa-eye"></i>
-            <% else %>
-              <i class="fa fa-lg fa-user"></i>
-            <% end %>
-            <%= " #{@user.role.humanize}" %>
-          </small>
+<% cache @user do %>
+  <% title 'People: ' + @user.fullname %>  
+  <div class="row">
+    <div class="span5">
+      <% if @user.icon.present? %>
+        <% if @user.icon_processing? %>
+          <%= image_tag('/images/ajax-spinner.gif') %>
+          <h4>Image processing...</h4>
         <% else %>
-            <small class="lead">
-              <%= " #{@user.role.humanize}" %>
+        <div class="pull-left user-icon-portrait inline-block">
+          <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>
+        </div>
+        <% end %>
+      <% end %>
+      <span class="user inline-block">
+        <h3>
+          <%= "#{@user.fullname}" %>
+          <% if current_user == @user %>
+            <small>
+              <%= link_to edit_user_registration_path do %>
+                <%= fa_icon "edit", title: "Edit", class: "fa-lg fa-fw"  %>
+              <% end %>
             </small>
           <% end %>
         <br>
-        <small class="lead"><%= @user.cached_total_points %> pts</small>  
-        
-        <ul class="inline">
+          <% if @user.icon.blank? %>
+            <small class="lead">
+              <% if @user.gl? %>
+                <i class="fa fa-lg fa-lightbulb-o"></i>
+              <% elsif @user.lm? %>
+                <i class="fa fa-lg fa-eye"></i>
+              <% else %>
+                <i class="fa fa-lg fa-user"></i>
+              <% end %>
+              <%= " #{@user.role.humanize}" %>
+            </small>
+          <% else %>
+              <small class="lead">
+                <%= " #{@user.role.humanize}" %>
+              </small>
+            <% end %>
           <br>
-          <% if @user.email? %>
-          <li>          
-            <%= mail_to @user.email do %>
-              <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
+          <small class="lead"><%= @user.cached_total_points %> pts</small>  
+          
+          <ul class="inline">
+            <br>
+            <% if @user.email? %>
+            <li>          
+              <%= mail_to @user.email do %>
+                <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
+              <% end %>
+            </li>
             <% end %>
-          </li>
-          <% end %>
 
-          <% if @user.linkedin_url? %>
-           <li>          
-            <%= link_to @user.linkedin_url, target: "_blank"  do %>
-              <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-lg fa-fw" %>
+            <% if @user.linkedin_url? %>
+             <li>          
+              <%= link_to @user.linkedin_url, target: "_blank"  do %>
+                <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-lg fa-fw" %>
+              <% end %>
+            </li>          
             <% end %>
-          </li>          
-          <% end %>
 
-          <% if @user.xing_url? %>
-           <li>          
-            <%= link_to @user.xing_url, target: "_blank"  do %>
-              <%= fa_icon "xing", title: "Xing", class: "fa-lg fa-fw" %>
+            <% if @user.xing_url? %>
+             <li>          
+              <%= link_to @user.xing_url, target: "_blank"  do %>
+                <%= fa_icon "xing", title: "Xing", class: "fa-lg fa-fw" %>
+              <% end %>
+            </li>          
             <% end %>
-          </li>          
-          <% end %>
 
-          <% if @user.twitter_url? %>
-           <li>          
-            <%= link_to @user.twitter_url, target: "_blank"  do %>
-              <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+            <% if @user.twitter_url? %>
+             <li>          
+              <%= link_to @user.twitter_url, target: "_blank"  do %>
+                <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+              <% end %>
+            </li>          
             <% end %>
-          </li>          
-          <% end %>
 
-          <% if @user.facebook_url? %>
-           <li>          
-            <%= link_to @user.facebook_url, target: "_blank"  do %>
-              <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
-            <% end %>
-          </li>          
-          <% end %>  
+            <% if @user.facebook_url? %>
+             <li>          
+              <%= link_to @user.facebook_url, target: "_blank"  do %>
+                <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
+              <% end %>
+            </li>          
+            <% end %>  
 
-          <% if @user.google_plus_url? %>
-           <li>
-            <%= link_to @user.google_plus_url, target: "_blank" do %>
-              <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
+            <% if @user.google_plus_url? %>
+             <li>
+              <%= link_to @user.google_plus_url, target: "_blank" do %>
+                <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
+              <% end %>
+            </li>          
+            <% end %>          
+          </ul>
+          <dl class="dl-horizontal">
+          <hr>        
+            <h5>
+              <%= link_to @user.lab, class: "inline-block" do %>
+              <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
+              <% end %>
+            </h5>
+            <% if @user.department.present? %>
+            <h5>
+              <%= link_to institute_department_path(@user.institute, @user.department) do %>
+              <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>
+              <% end %>
+            </h5>
             <% end %>
-          </li>          
-          <% end %>          
-        </ul>
-        <dl class="dl-horizontal">
-        <hr>        
-          <h5>
-            <%= link_to @user.lab, class: "inline-block" do %>
-            <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
-            <% end %>
-          </h5>
-          <% if @user.department.present? %>
-          <h5>
-            <%= link_to institute_department_path(@user.institute, @user.department) do %>
-            <i class="fa fa-fw fa-lg fa-sitemap"></i><%= " #{@user.department.name}" %>
-            <% end %>
-          </h5>
+            <h5>
+              <%= link_to @user.institute do %>
+              <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
+              <% end %>
+            </h5>
+            <hr>
+          </dl>        
+        </h3>
+        <% if @user.pdf? %>
+            <h4>Attachment</h4>
+            <h5><%= link_to "#{ @user.pdf_file_name }",@user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>         
           <% end %>
-          <h5>
-            <%= link_to @user.institute do %>
-            <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
-            <% end %>
-          </h5>
-          <hr>
-        </dl>        
-      </h3>
-      <% if @user.pdf? %>
-          <h4>Attachment</h4>
-          <h5><%= link_to "#{ @user.pdf_file_name }",@user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>         
-        <% end %>
-    </span>
-     <hr>
-  </div>
+      </span>
+       <hr>
+    </div>
+<% end %>
   <div class="span7 inline-block">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">

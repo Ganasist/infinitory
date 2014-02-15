@@ -1,137 +1,134 @@
 <%- model_class = Lab -%>
-  <% title "Labs: " + @gl.fullname %>
-  <div class="row">
-    <div class="span6">
-    <% if @lab.icon.present? %>
-      <% if @lab.icon_processing? %>
-        <%= image_tag('/images/ajax-spinner.gif') %>
-        <h4>Processing image...</h4>
-      <% else %>
-        <span class="inline-block">
-          <%= image_tag(@lab.icon.url, class: 'img-rounded').html_safe %>
-        </span><br>
-      <% end %>
+<% cache @lab do %>
+<% title "Labs: " + @lab.gl.fullname %>
+<div class="row">
+  <div class="span6">
+  <% if @lab.icon.present? %>
+    <% if @lab.icon_processing? %>
+      <%= image_tag('/images/ajax-spinner.gif') %>
+      <h4>Processing image...</h4>
+    <% else %>
+      <span class="inline-block">
+        <%= image_tag(@lab.icon.url, class: 'img-rounded').html_safe %>
+      </span><br>
     <% end %>
-      <span class="inline-block">  
-        <h4>
-          <%= link_to @gl do %>
-            <%= fa_icon "users", class: "fa fa-fw fa-lg fa-group" %><%= " The #{@gl.fullname} Lab" %>
-          <% end %>
-          <% if current_user.gl_lm(@lab) %>
-            <div class="btn-group">
-              <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                            edit_lab_path(@lab), class: 'btn-small btn-warning' %>
-            </div>
-          <% end %>
-        </h4>
-        <ul class="inline">
-          <br>
-          <% if @lab.email? %>
-          <li>          
-            <%= mail_to @lab.email do %>
-              <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
-            <% end %>
-          </li>
-          <% end %>
-          <% if @lab.url? %>
-          <li>          
-            <%= link_to @lab.url, target: "_blank" do %>
-              <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
-            <% end %>
-          </li>
-          <% end %>
-          <% if @lab.twitter_url? %>
-           <li>          
-            <%= link_to @lab.twitter_url, target: "_blank"  do %>
-              <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
-            <% end %>
-          </li>          
-          <% end %>
-          <% if @lab.facebook_url? %>
-           <li>          
-            <%= link_to @lab.facebook_url, target: "_blank"  do %>
-              <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
-            <% end %>
-          </li>          
-          <% end %>
-          <% if @lab.google_plus_url? %>
-           <li>
-            <%= link_to @lab.google_plus_url, target: "_blank" do %>
-              <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
-            <% end %>
-          </li>          
-          <% end %>          
-        </ul>
-      </span>       
-      </h3>      
-        <% if @lab.room.present? %>
-        <h5>
-          <%= link_to "#" do %>
-            <%= fa_icon "compass", class: "fa fa-fw fa-lg" %> Room <%= @lab.room %>
-          <% end %>
-        </h5>
+  <% end %>
+    <span class="inline-block">  
+      <h4>
+        <%= link_to @lab.gl do %>
+          <%= fa_icon "users", class: "fa fa-fw fa-lg fa-group" %><%= " The #{@lab.gl.fullname} Lab" %>
         <% end %>
-        <% if @department.present? %>
-        <h5>
-          <%= link_to institute_department_path(@institute, @department) do %>
-            <%= fa_icon "sitemap", class: "fa fa-fw fa-lg" %> <%= " #{@department.name}" %>
+        <% if current_user.gl_lm(@lab) %>
+          <div class="btn-group">
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_lab_path(@lab), class: 'btn-small btn-warning' %>
+          </div>
+        <% end %>
+      </h4>
+      <ul class="inline">
+        <br>
+        <% if @lab.email? %>
+        <li>          
+          <%= mail_to @lab.email do %>
+            <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
           <% end %>
-        </h5>
+        </li>
         <% end %>
-        <h5>
-        <%= link_to @lab.institute do %>
-          <%= fa_icon "building-o", class: "fa fa-fw fa-lg" %> <%= " #{ @institute.name }" %>
+        <% if @lab.url? %>
+        <li>          
+          <%= link_to @lab.url, target: "_blank" do %>
+            <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
+          <% end %>
+        </li>
         <% end %>
-        </h5>
-        <hr>
-        <h5>
-        <%= link_to lab_users_path(@lab) do %>
-          <%= fa_icon "users", class: "fa fa-fw fa-lg" %> Members <small>(<%= @users.size %>)</small>
+        <% if @lab.twitter_url? %>
+         <li>          
+          <%= link_to @lab.twitter_url, target: "_blank"  do %>
+            <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+          <% end %>
+        </li>          
         <% end %>
-        </h5>
-        <h5>
-        <%= link_to lab_reagents_path(@lab) do %>
-          <%= fa_icon "flask", class: "fa fa-fw fa-lg" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
+        <% if @lab.facebook_url? %>
+         <li>          
+          <%= link_to @lab.facebook_url, target: "_blank"  do %>
+            <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
+          <% end %>
+        </li>          
         <% end %>
-        </h5>
-        <h5>
-        <%= link_to lab_devices_path(@lab) do %>
-          <%= fa_icon "cogs", class: "fa fa-fw fa-lg"  %> Devices <small>(<%= @lab.devices.size %>)</small>
+        <% if @lab.google_plus_url? %>
+         <li>
+          <%= link_to @lab.google_plus_url, target: "_blank" do %>
+            <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
+          <% end %>
+        </li>          
+        <% end %>          
+      </ul>
+    </span>       
+    </h3>      
+      <% if @lab.room.present? %>
+      <h5>
+        <%= link_to "#" do %>
+          <%= fa_icon "compass", class: "fa fa-fw fa-lg" %> Room <%= @lab.room %>
         <% end %>
-        </h5>    
-        
+      </h5>
+      <% end %>
+      <% if @department.present? %>
+      <h5>
+        <%= link_to institute_department_path(@institute, @department) do %>
+          <%= fa_icon "sitemap", class: "fa fa-fw fa-lg" %> <%= " #{@department.name}" %>
+        <% end %>
+      </h5>
+      <% end %>
+      <h5>
+      <%= link_to @lab.institute do %>
+        <%= fa_icon "building-o", class: "fa fa-fw fa-lg" %> <%= " #{ @institute.name }" %>
+      <% end %>
+      </h5>
       <hr>
-      <div id='chart'>
-      <%= render_chart(@chart, 'chart') %>
-      </div>
-      <hr><br><br>
+      <h5>
+      <%= link_to lab_users_path(@lab) do %>
+        <%= fa_icon "users", class: "fa fa-fw fa-lg" %> Members <small>(<%= @users.size %>)</small>
+      <% end %>
+      </h5>
+      <h5>
+      <%= link_to lab_reagents_path(@lab) do %>
+        <%= fa_icon "flask", class: "fa fa-fw fa-lg" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
+      <% end %>
+      </h5>
+      <h5>
+      <%= link_to lab_devices_path(@lab) do %>
+        <%= fa_icon "cogs", class: "fa fa-fw fa-lg"  %> Devices <small>(<%= @lab.devices.size %>)</small>
+      <% end %>
+      </h5>   
+    <hr>
+    <div id='chart'>
+    <%= render_chart(@chart, 'chart') %>
     </div>
-    <div class="span6 pull-right">
-      <!-- Nav panes -->
-      <ul class="nav nav-pills nav-justified">
-        <li class="active"><a href="#nots" data-toggle="tab">Notifications</a></li>
-        <li class="disabled"><a href="#messages" data-toggle="tab">Messages</a></li>
-      </ul><br>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane fade in active" id="nots">
-
-        <div id"paginator-top">
-          <%= paginate @notifications, theme: 'twitter-bootstrap',
-                                       pagination_class: 'pagination-small pagination-centered' %>
-        </div>
-
-        <div id="notifications">
-          <%= render 'notifications' %>
-        </div>
-
-        <div id"paginator-bottom">
-          <%= paginate @notifications, theme: 'twitter-bootstrap', 
-                                       pagination_class: 'pagination-small pagination-centered' %>
-        </div>
-
-        </div>
-        <div class="tab-pane fade" id="messages"></div>
-      </div>  
-    </div>
+    <hr><br><br>
   </div>
+  <div class="span6 pull-right">
+    <!-- Nav panes -->
+    <ul class="nav nav-pills nav-justified">
+      <li class="active"><a href="#nots" data-toggle="tab">Notifications</a></li>
+      <li class="disabled"><a href="#messages" data-toggle="tab">Messages</a></li>
+    </ul><br>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="nots">
+      <div id"paginator-top">
+        <%= paginate @notifications, theme: 'twitter-bootstrap',
+                                     pagination_class: 'pagination-small pagination-centered' %>
+      </div>
+      <div id="notifications">
+        <%= render 'notifications' %>
+      </div>
+      <div id"paginator-bottom">
+        <%= paginate @notifications, theme: 'twitter-bootstrap', 
+                                     pagination_class: 'pagination-small pagination-centered' %>
+      </div>
+      </div>
+      <div class="tab-pane fade" id="messages"></div>
+    </div>  
+  </div>
+</div>
+<% end %>     

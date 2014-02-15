@@ -1,5 +1,6 @@
 <%- model_class = Institute -%>
-  <% title "Institutes: " + @institute.name %>
+<% cache @institute do %>
+<% title "Institutes: " + @institute.name %>
 <div class="row">
   <div class="span6">   
   <% if @institute.icon.present? %>
@@ -80,32 +81,32 @@
     <hr>
   </div>
   <div class="span6 pull-right">
-      <!-- Nav panes -->
-      <ul class="nav nav-pills nav-justified">
-        <li class="active"><a href="#nots" data-toggle="tab">Notifications</a></li>
-        <li class="disabled"><a href="#messages" data-toggle="tab">Messages</a></li>
-      </ul><br>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane fade in active" id="nots">
+    <!-- Nav panes -->
+    <ul class="nav nav-pills nav-justified">
+      <li class="active"><a href="#nots" data-toggle="tab">Notifications</a></li>
+      <li class="disabled"><a href="#messages" data-toggle="tab">Messages</a></li>
+    </ul><br>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="nots">
 
-        <div id"paginator-top">
-          <%#= paginate @notifications, theme: 'twitter-bootstrap',
-                                       pagination_class: 'pagination-small pagination-centered' %>
-        </div>
+      <div id"paginator-top">
+        <%#= paginate @notifications, theme: 'twitter-bootstrap',
+                                     pagination_class: 'pagination-small pagination-centered' %>
+      </div>
 
-        <div id="notifications">
-          <%#= render 'notifications' %>
-        </div>
+      <div id="notifications">
+        <%#= render 'notifications' %>
+      </div>
 
-        <div id"paginator-bottom">
-          <%#= paginate @notifications, theme: 'twitter-bootstrap', 
-                                       pagination_class: 'pagination-small pagination-centered' %>
-        </div>
+      <div id"paginator-bottom">
+        <%#= paginate @notifications, theme: 'twitter-bootstrap', 
+                                     pagination_class: 'pagination-small pagination-centered' %>
+      </div>
 
-        </div>
-        <div class="tab-pane fade" id="messages"></div>
-      </div>  
-    </div>
-
+      </div>
+    <div class="tab-pane fade" id="messages"></div>
+    </div>  
+  </div>
 </div>
+<% end %>
