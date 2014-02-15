@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20140215115738) do
     t.integer  "daily_average"
     t.integer  "sash_id"
     t.integer  "level",                                     default: 0
-    t.decimal  "daily_points",      precision: 4, scale: 1
+    t.decimal  "daily_points",      precision: 7, scale: 1
   end
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(version: 20140215115738) do
     t.integer  "daily_average"
     t.integer  "sash_id"
     t.integer  "level",                                     default: 0
-    t.decimal  "daily_points",      precision: 4, scale: 1
+    t.decimal  "daily_points",      precision: 7, scale: 1
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 20140215115738) do
     t.integer  "daily_average"
     t.integer  "sash_id"
     t.integer  "level",                                     default: 0
-    t.decimal  "daily_points",      precision: 4, scale: 1
+    t.decimal  "daily_points",      precision: 7, scale: 1
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -373,7 +373,7 @@ ActiveRecord::Schema.define(version: 20140215115738) do
     t.boolean  "icon_processing"
     t.string   "xing_url"
     t.integer  "daily_average"
-    t.decimal  "daily_points",           precision: 4, scale: 1
+    t.decimal  "daily_points",           precision: 7, scale: 1
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
