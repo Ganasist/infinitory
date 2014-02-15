@@ -158,33 +158,51 @@
                                          pagination_class: 'pagination-small pagination-centered' %>
           </div>
         <% else %>
-          <p>You have no notifications at this time</p>
+          <h4 class="text-center">You have no notifications</h4>
         <% end %>
       </div>
 
       <div class="<%= if params[:tab] == 'activity' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="activity">
-        
+      <% if @activities.present? %>
         <div id="paginator-activities-top">
           <%= paginate @activities, theme: 'twitter-bootstrap',
                                     param_name: 'activities',
                                     params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
         </div>
-
         <div id="activities">
           <%= render 'activities' %>
         </div>
-
         <div id="paginator-activities-bottom">
           <%= paginate @activities, theme: 'twitter-bootstrap',
                                     param_name: 'activities',
                                     params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
         </div>
-
+        <% else %>
+          <h4 class="text-center">You have no recent activities</h4>
+        <% end %>
       </div>
       <div class="tab-pane fade" id="messages">
-
+        <% if @messages.present? %>
+        <div id="paginator-activities-top">
+          <%= paginate @messages, theme: 'twitter-bootstrap',
+                                    param_name: 'activities',
+                                    params: { tab: 'activity' },
+                                    pagination_class: 'pagination-small pagination-centered' %>
+        </div>
+        <div id="activities">
+          <%= render 'activities' %>
+        </div>
+        <div id="paginator-activities-bottom">
+          <%= paginate @messages, theme: 'twitter-bootstrap',
+                                    param_name: 'activities',
+                                    params: { tab: 'activity' },
+                                    pagination_class: 'pagination-small pagination-centered' %>
+        </div>
+        <% else %>
+          <h4 class="text-center">You have no recent messages</h4>
+        <% end %>
       </div>
     </div>
   </div>
