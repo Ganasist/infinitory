@@ -1,4 +1,4 @@
-$(document).ready ->
+jQuery ->
   text_max = 223
   $("#comment_feedback").html "* " + text_max + " characters remaining"
   $("#comment").keyup ->

@@ -1,4 +1,4 @@
-$(document).ready ->
+jQuery ->
 	jumboHeight = $(".jumbotron").outerHeight()
 
 	parallax = ->
