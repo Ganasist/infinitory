@@ -139,24 +139,27 @@
     <div class="tab-content">
 
       <div class="<%= if (params[:tab] == 'nots' || !params[:tab])then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="nots">
-        
-        <div id="paginator-notifications-top">
-          <%= paginate @notifications, theme: 'twitter-bootstrap',
-                                       param_name: 'notifications',
-                                       params: { tab: 'nots' },
-                                       pagination_class: 'pagination-small pagination-centered' %>
-        </div>
+        <% if @notifications.present? %>
+          <div id="paginator-notifications-top">
+            <%= paginate @notifications, theme: 'twitter-bootstrap',
+                                         param_name: 'notifications',
+                                         params: { tab: 'nots' },
+                                         pagination_class: 'pagination-small pagination-centered' %>
+          </div>
 
-        <div id="notifications">
-          <%= render 'notifications' %>
-        </div>
+          <div id="notifications">
+            <%= render 'notifications' %>
+          </div>
 
-        <div id="paginator-notifications-bottom">
-          <%= paginate @notifications, theme: 'twitter-bootstrap',
-                                       param_name: 'notifications',
-                                       params: { tab: 'nots' },
-                                       pagination_class: 'pagination-small pagination-centered' %>
-        </div>
+          <div id="paginator-notifications-bottom">
+            <%= paginate @notifications, theme: 'twitter-bootstrap',
+                                         param_name: 'notifications',
+                                         params: { tab: 'nots' },
+                                         pagination_class: 'pagination-small pagination-centered' %>
+          </div>
+        <% else %>
+          <p>You have no notifications at this time</p>
+        <% end %>
       </div>
 
       <div class="<%= if params[:tab] == 'activity' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="activity">
