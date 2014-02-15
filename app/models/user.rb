@@ -103,10 +103,8 @@ class User < ActiveRecord::Base
     Rails.cache.fetch([self.sash, "cached_total_points"], expires_in: 15.minutes) { self.points }
   end
 
-  def cached_daily_scores
-    Rails.cache.fetch([self.sash, "cached_daily_scores"], expires_in: 15.minutes) {
-        sash.scores.first.score_points.where("created_at > ?", Time.zone.now.beginning_of_day).sum(:num_points)
-      }
+  def cached_daily_average
+    Rails.cache.fetch([self.daily_average, "cached_daily_scores"], expires_in: 1.day) { self.daily_average }
   end
 
   def lab_users_count

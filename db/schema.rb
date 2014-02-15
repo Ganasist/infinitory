@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215110139) do
+ActiveRecord::Schema.define(version: 20140215115738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.string   "city"
     t.string   "country"
     t.string   "room"
-    t.integer  "users_count",       default: 0
-    t.integer  "labs_count",        default: 0
+    t.integer  "users_count",                               default: 0
+    t.integer  "labs_count",                                default: 0
     t.string   "email"
     t.string   "icon_file_name"
     t.string   "icon_content_type"
@@ -87,7 +87,8 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.string   "google_plus_url"
     t.integer  "daily_average"
     t.integer  "sash_id"
-    t.integer  "level",             default: 0
+    t.integer  "level",                                     default: 0
+    t.decimal  "daily_points",      precision: 4, scale: 1
   end
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
@@ -162,8 +163,8 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.string   "url"
     t.string   "acronym"
     t.string   "slug"
-    t.integer  "users_count",       default: 0
-    t.integer  "labs_count",        default: 0
+    t.integer  "users_count",                               default: 0
+    t.integer  "labs_count",                                default: 0
     t.string   "email"
     t.string   "icon_file_name"
     t.string   "icon_content_type"
@@ -177,7 +178,8 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.string   "google_plus_url"
     t.integer  "daily_average"
     t.integer  "sash_id"
-    t.integer  "level",             default: 0
+    t.integer  "level",                                     default: 0
+    t.decimal  "daily_points",      precision: 4, scale: 1
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
@@ -194,9 +196,9 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.string   "url"
     t.string   "slug"
     t.string   "email"
-    t.integer  "users_count",       default: 0
-    t.integer  "reagents_count",    default: 0
-    t.integer  "devices_count",     default: 0
+    t.integer  "users_count",                               default: 0
+    t.integer  "reagents_count",                            default: 0
+    t.integer  "devices_count",                             default: 0
     t.string   "icon_file_name"
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
@@ -213,7 +215,8 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.string   "google_plus_url"
     t.integer  "daily_average"
     t.integer  "sash_id"
-    t.integer  "level",             default: 0
+    t.integer  "level",                                     default: 0
+    t.decimal  "daily_points",      precision: 4, scale: 1
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -319,12 +322,12 @@ ActiveRecord::Schema.define(version: 20140215110139) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                                          default: "",    null: false
+    t.string   "encrypted_password",                             default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                                  default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -341,7 +344,7 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.string   "role"
     t.integer  "institute_id"
     t.integer  "department_id"
-    t.boolean  "approved",               default: false, null: false
+    t.boolean  "approved",                                       default: false, null: false
     t.datetime "joined"
     t.string   "slug"
     t.string   "invitation_token"
@@ -352,9 +355,9 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "sash_id"
-    t.integer  "level",                  default: 0
-    t.integer  "reagents_count",         default: 0
-    t.integer  "devices_count",          default: 0
+    t.integer  "level",                                          default: 0
+    t.integer  "reagents_count",                                 default: 0
+    t.integer  "devices_count",                                  default: 0
     t.string   "icon_file_name"
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
@@ -370,6 +373,7 @@ ActiveRecord::Schema.define(version: 20140215110139) do
     t.boolean  "icon_processing"
     t.string   "xing_url"
     t.integer  "daily_average"
+    t.decimal  "daily_points",           precision: 4, scale: 1
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

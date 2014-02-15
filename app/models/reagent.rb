@@ -129,7 +129,7 @@ class Reagent < ActiveRecord::Base
         reagent.users.each do |user|
           test << expiration_message(reagent, user)
         end
-          test << expiration_message(reagent, reagent.lab)
+        test << expiration_message(reagent, reagent.lab)
       end      
       Comment.import(test)
     end
@@ -137,13 +137,13 @@ class Reagent < ActiveRecord::Base
 
   def self.expiration_message(reagent, recipient)
     if reagent.uid.present? && !reagent.location.present?
-      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} expires soon. Please consider making it Public.")
+      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} expires soon. Consider sharing it.")
     elsif !reagent.uid.present? && reagent.location.present?
-      recipient.comments.build(comment: "#{reagent.name} (#{reagent.location}) expires soon. Please consider making it Public.")
+      recipient.comments.build(comment: "#{reagent.name} (#{reagent.location}) expires soon. Consider sharing it.")
     elsif reagent.uid.present? && reagent.location.present?
-      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.location}) expires soon. Please consider making it Public.")
+      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.location}) expires soon. Consider sharing it.")
     else
-      recipient.comments.build(comment: "#{reagent.name} expires soon. Please consider making it Public.")
+      recipient.comments.build(comment: "#{reagent.name} expires soon. Consider sharing it.")
     end
   end
 
