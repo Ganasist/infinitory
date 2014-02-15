@@ -29,7 +29,7 @@
       <% end %>
 
   <% else %>
-    <%= nav_bar brand: 'INFINITORY', brand_link: root_path, responsive: false do %>
+    <%= nav_bar do %>
       <%= menu_group pull: :right do %>
         <%= drop_down 'SIGN-IN' do %>
           <%= simple_form_for('user', url: new_user_session_path,
