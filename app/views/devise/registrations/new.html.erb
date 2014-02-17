@@ -21,10 +21,9 @@
       </span>
 
       <span class="LMform hidden">
-        <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
-                                typeahead: User.all_gls.pluck(:email),
+        <%= f.input :lab_email, as: :email, label: "Group leader's email address",
                                 placeholder: 'Link your account to your lab',
-                                tooltip: ['right', 'Your group leader must create an account first'] %>
+                                tooltip: ['right', 'Your group leader should create an account before you!'] %>
       </span>
 
         <%= f.input :password, input_html: { class: 'js-password' } %>
