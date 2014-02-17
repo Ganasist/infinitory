@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215133019) do
+ActiveRecord::Schema.define(version: 20140217154621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 20140215133019) do
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
 
   create_table "devices", force: true do |t|
-    t.string   "name",                                                      null: false
-    t.string   "category",                                                  null: false
+    t.string   "name",                                      null: false
+    t.string   "category",                                  null: false
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20140215133019) do
     t.string   "product_url"
     t.string   "uid"
     t.text     "description"
-    t.decimal  "price",             precision: 9, scale: 2
+    t.decimal  "price",                                     precision: 9, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "status",                                    default: true
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20140215133019) do
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
     t.boolean  "icon_processing"
+    t.string   "currency",                                  default: "$"
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -288,6 +289,7 @@ ActiveRecord::Schema.define(version: 20140215133019) do
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
     t.boolean  "icon_processing"
+    t.string   "currency",                                  default: "$"
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree

@@ -26,6 +26,7 @@
       <%= f.input :purchasing_url, label: 'Purchasing website',
                                    placeholder: 'http://www.example.com',
                                    tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
+      <%= f.input :currency,  as: :radio_buttons, collection: %w[$ €], input_html: { style: 'width: 30px' } %>
       <%= f.input :price, label: 'Price ($USD)' %>
       <%= f.input :tag_list, label: 'Keywords',
                              placeholder: 'Immunology, restriction enzyme, FACS',

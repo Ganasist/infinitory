@@ -72,7 +72,7 @@
 
         <% if @reagent.price? %>
           <dt><strong><%= model_class.human_attribute_name(:price) %></strong></dt>
-          <dd><%= number_to_currency(@reagent.price) %></dd><br>
+          <dd><%= number_to_currency(@reagent.price, unit: @reagent.currency) %></dd><br>
         <% end %>
 
         <% unless @reagent.tag_list.empty? %>

@@ -9,6 +9,7 @@
         <th><%= reagent_sortable 'tags' %></th>
       <% end %>
       <th><%= reagent_sortable 'expiration' %></th>
+      <th><%= reagent_sortable 'price' %></th>
       <th><%= reagent_sortable 'updated_at', 'Last updated' %></th>
       <th></th>
     </tr>
@@ -38,7 +39,7 @@
             <td>in <%= time_ago_in_words(reagent.expiration) %></dd>
           <% end %>
         <% end %>
-
+        <td><%= number_to_currency(reagent.price, unit: reagent.currency) %></td>
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
           <%= link_to edit_reagent_path(reagent) do %>

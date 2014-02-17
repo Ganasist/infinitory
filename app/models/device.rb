@@ -1,6 +1,7 @@
 class Device < ActiveRecord::Base
 
 	CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
+  CURRENCIES = %w[$ €]
 
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
@@ -11,6 +12,7 @@ class Device < ActiveRecord::Base
 
 	validates :name, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
+  validates :currency, inclusion: { in: CURRENCIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
