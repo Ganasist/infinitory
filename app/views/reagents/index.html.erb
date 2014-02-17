@@ -28,7 +28,7 @@
       <%= simple_form_for lab_reagents_path, method: :get do %>
         <%= text_field_tag :search, params[:query],
                                     class: "search-field",
-                                    placeholder: "Search lab / public reagents",
+                                    placeholder: "Search lab reagents",
                                     data: { provide: :typeahead, source: @lab.reagents.pluck(:name).uniq },
                                     autocomplete: :off  %>
         <%#= select_tag :reagent_search_scope, options_for_select([['Lab only', 1], ['Public', 2]]) %>
@@ -40,13 +40,7 @@
       <% end %>
     <% end %>
   </div>
-  <div class="span5">
-    <% cache @chart do %>
-      <div id='chart'>
-        <%= render_chart(@chart, 'chart') %>
-      </div>
-    <% end %>
-  </div>
+  
   <div class="span12">
     <hr>
     <div id="paginator-top">

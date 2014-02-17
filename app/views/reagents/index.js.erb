@@ -1,3 +1,5 @@
+$("#reagents").html("<%= escape_javascript(render('reagents')) %>");
+
 $('#paginator-top').html('<%= escape_javascript(paginate(@reagents,
 																												 remote: true,
 																												 theme: "twitter-bootstrap", 

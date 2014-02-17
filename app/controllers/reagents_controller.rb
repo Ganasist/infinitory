@@ -4,12 +4,7 @@ class ReagentsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user!, only: :show
 
-  def index
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Category')
-    data_table.new_column('number', 'Relative amount')
-    data_table.add_rows(Reagent::CATEGORIES.length)
-    
+  def index    
     if params[:tag].present?
       @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
     
@@ -25,22 +20,11 @@ class ReagentsController < ApplicationController
 
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
-      @reagents = @user.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)   
-      Reagent::CATEGORIES.each_with_index do |val, index| 
-        data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @user.reagents_category_count("#{val}"))
-      end
-
+      @reagents = @user.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
       @reagents = @lab.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)
-      Reagent::CATEGORIES.each_with_index do |val, index| 
-        data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @lab.reagents_category_count("#{val}"))
-      end  
-
     end
-    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, pie_options)
   end
 
   def show

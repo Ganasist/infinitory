@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   protected
 
     def pie_options
-      { width: 400, height: '100%', pieSliceText: 'none', fontSize: 12,
+      { width: '100%', height: '100%', pieSliceText: 'none', fontSize: 12,
         legend: { position: 'labeled', alignment: 'center' }, 
         chartArea: { width: "92%", height: "92%" },
         tooltip: { textStyle: { fontSize: 15 }, text: 'value' } }

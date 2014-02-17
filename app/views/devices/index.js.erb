@@ -1,3 +1,5 @@
+$("#devices").html("<%= escape_javascript(render('devices')) %>");
+
 $('#paginator-top').html('<%= escape_javascript(paginate(@devices,
 																												 remote: true,
 																												 theme: "twitter-bootstrap", 

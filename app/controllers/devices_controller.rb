@@ -4,12 +4,7 @@ class DevicesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_user!, only: :show
 
-  def index
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Category')
-    data_table.new_column('number', 'Relative amount')
-    data_table.add_rows(Device::CATEGORIES.length)
-    
+  def index    
     if params[:tag].present?
       @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
     elsif params[:search].present?
@@ -23,21 +18,10 @@ class DevicesController < ApplicationController
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
       @devices = @user.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
-
-      Device::CATEGORIES.each_with_index do |val, index| 
-        data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @user.devices_category_count("#{val}"))
-      end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
       @devices = @lab.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
-      
-      Device::CATEGORIES.each_with_index do |val, index| 
-        data_table.set_cell(index, 0, "#{val}".humanize)
-        data_table.set_cell(index, 1, @lab.devices_category_count("#{val}"))
-      end
     end    
-    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, pie_options)
   end
 
   def show

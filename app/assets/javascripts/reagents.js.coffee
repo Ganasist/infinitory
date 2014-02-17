@@ -12,3 +12,7 @@ jQuery ->
 	$("#reagent_remaining").change ->
 		reagent_remaining = $('#reagent_remaining').val()
 		$("#reagent_remaining_feedback").html "Amount remaining: " + reagent_remaining + "%"
+
+  $("#reagents th a").live "click", ->
+    $.getScript @href
+    return false

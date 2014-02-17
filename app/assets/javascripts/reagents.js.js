@@ -14,6 +14,10 @@ jQuery(function() {
   $("#reagent_remaining_feedback").html("Amount remaining: " + reagent_remaining + "%");
   return $("#reagent_remaining").change(function() {
     reagent_remaining = $('#reagent_remaining').val();
-    return $("#reagent_remaining_feedback").html("Amount remaining: " + reagent_remaining + "%");
+    $("#reagent_remaining_feedback").html("Amount remaining: " + reagent_remaining + "%");
+    return $("#reagents th a").live("click", function() {
+      $.getScript(this.href);
+      return false;
+    });
   });
 });
