@@ -16,14 +16,16 @@
       <%= f.input :location, label: 'Location in lab',
                              placeholder: "'Room 237' or 'Fz3S1B4'",
                              tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
+      <hr>
       <%= f.input :product_url, label: 'Product Website',
                                 placeholder: 'http://www.example.com',
                                 tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
       <%= f.input :purchasing_url, label: 'Purchasing Website',
                                    placeholder: 'http://www.example.com',
-                                   tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
-      <%= f.input :currency,  as: :radio_buttons, collection: %w[$ €], input_html: { style: 'width: 30px' } %>
+                                   tooltip: ['right', "Enter a valid URL including http:// or https://"] %>      
       <%= f.input :price, label: 'Price' %>
+      <%= f.input :currency, label: false, as: :radio_buttons, collection: %w[$ €], input_html: { style: 'width: 30px' } %>
+      <hr>
       <%= f.input :tag_list, label: 'Keywords',
                              placeholder: 'Metabolism, western blotting, qPCR',
                              tooltip: ['right', 'Use a comma separated list of keywords'] %>
