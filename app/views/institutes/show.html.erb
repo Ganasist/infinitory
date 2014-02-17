@@ -14,13 +14,18 @@
       <% end %>
     <% end %>
   <h3>
-    <i class="icon-sitemap"></i><%= " #{@institute.name}" %>
+    <i class="icon-building"></i>
+
+    <%= " #{@institute.name}" %>
     <% if current_user.gl? && current_user.institute == @institute  %>
     <div class="btn-group">
       <%= link_to "Edit", edit_institute_path(@institute), class: 'btn-small btn-warning' %>         
     </div>
     <% end %>
   </h3>
+  <%  if @institute.alternate_name? %>
+    <h4><%= " #{@institute.alternate_name}" %></h4>
+  <% end %>
 
   <ul class="inline">
     <br>

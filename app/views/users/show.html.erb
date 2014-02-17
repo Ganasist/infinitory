@@ -47,7 +47,7 @@
           <br>
           <small class="lead">
             <% if @user.points > 0 %>
-              <%= @user.cached_total_points || '0' %> pts <br>
+              <%= number_with_delimiter(@user.cached_total_points) || '0' %> pts <br>
               <%= pluralize(@user.cached_daily_points, 'pt' ) || '0' %>/day
             <% end %>
           </small>  
