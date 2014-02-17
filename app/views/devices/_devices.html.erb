@@ -2,13 +2,13 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Location</th>
+      <th><%= device_sortable 'name' %></th>
+      <th><%= device_sortable 'category' %></th>
+      <th><%= device_sortable 'location' %></th>
       <% if params[:tag] %>
-        <th><%= model_class.human_attribute_name(:tags) %></th>
+        <th><%= device_sortable 'tags' %></th>
       <% end %>
-      <th>Last Update</th>
+      <th><%= device_sortable 'updated_at', 'Last updated' %></th>
       <th></th>
     </tr>
   </thead>

@@ -12,7 +12,9 @@ class ReagentsController < ApplicationController
     
     if params[:tag].present?
       @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
+    
     elsif params[:search].present?
+      
       if params[:user_id].present?   
         @user = User.friendly.find(params[:user_id])
         @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
@@ -20,20 +22,23 @@ class ReagentsController < ApplicationController
         @lab = Lab.find(params[:lab_id]) 
         @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
       end
+
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
-      @reagents = @user.reagents.modified_recently.page(params[:page]).per(12)   
+      @reagents = @user.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)   
       Reagent::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
         data_table.set_cell(index, 1, @user.reagents_category_count("#{val}"))
       end
+
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
-      @reagents = @lab.reagents.modified_recently.page(params[:page]).per(12)
+      @reagents = @lab.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)
       Reagent::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
         data_table.set_cell(index, 1, @lab.reagents_category_count("#{val}"))
-      end   
+      end  
+
     end
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, pie_options)
   end
@@ -111,6 +116,16 @@ class ReagentsController < ApplicationController
   end
 
   private
+    def reagent_sort_column
+      Reagent.column_names.include?(params[:sort]) ? params[:sort] : 'updated_at'
+    end
+    helper_method :reagent_sort_column
+    
+    def reagent_sort_direction
+      %w[asc desc].include?(params[:direction]) ?  params[:direction] : 'desc'
+    end
+    helper_method :reagent_sort_direction
+
     def check_user!
       if current_user.lab != Reagent.find(params[:id]).lab
         redirect_to current_user

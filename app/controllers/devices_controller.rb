@@ -22,7 +22,7 @@ class DevicesController < ApplicationController
       end
     elsif params[:user_id].present?
       @user = User.friendly.find(params[:user_id])
-      @devices = @user.devices.modified_recently.page(params[:page]).per(12)
+      @devices = @user.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
 
       Device::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
@@ -30,7 +30,7 @@ class DevicesController < ApplicationController
       end
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
-      @devices = @lab.devices.modified_recently.page(params[:page]).per(12)
+      @devices = @lab.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
       
       Device::CATEGORIES.each_with_index do |val, index| 
         data_table.set_cell(index, 0, "#{val}".humanize)
@@ -109,6 +109,15 @@ class DevicesController < ApplicationController
   end
 
   private
+    def device_sort_column
+      Device.column_names.include?(params[:sort]) ? params[:sort] : 'updated_at'
+    end
+    helper_method :device_sort_column
+    
+    def device_sort_direction
+      %w[asc desc].include?(params[:direction]) ?  params[:direction] : 'desc'
+    end
+    helper_method :device_sort_direction
 
     def check_user!
       if current_user.lab != Device.find(params[:id]).lab

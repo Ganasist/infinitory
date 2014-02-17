@@ -26,6 +26,18 @@ module ApplicationHelper
 	  end
 	end
 
+	def reagent_sortable(column, title = nil)
+    title ||= column.titleize
+    direction = (column == reagent_sort_column && reagent_sort_direction == 'asc') ? 'desc' : 'asc'
+    link_to title, sort: column, direction: direction
+  end
+
+  def device_sortable(column, title = nil)
+    title ||= column.titleize
+    direction = (column == device_sort_column && device_sort_direction == 'asc') ? 'desc' : 'asc'
+    link_to title, sort: column, direction: direction
+  end
+
 	# def fullname(item)
  #  	if item.uid.present?
  #  		"#{item.name}-#{item.uid}"
