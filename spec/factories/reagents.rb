@@ -6,6 +6,7 @@ FactoryGirl.define do
   	lab
     name        { Faker::Lorem.word }
     category    { %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector].sample }
+    currency    { %w[$ €].sample }
     price				{ Random.rand(1000) }
     serial			{ SecureRandom.hex(Random.rand(2..8)) }
     remaining		{ Random.rand(100) }

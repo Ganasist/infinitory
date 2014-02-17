@@ -86,9 +86,9 @@ class DevicesController < ApplicationController
     send_comment(@device, "removed")
     @device.destroy
     respond_to do |format|
-      flash[:notice] = "#{ fullname(@device) } has been removed."
       format.html { redirect_to lab_devices_url(@lab) }
       format.json { head :no_content }
+      format.js
     end
   end
 
