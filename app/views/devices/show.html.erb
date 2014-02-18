@@ -25,13 +25,13 @@
 
       <dl class="dl-vertical">
         <% unless @device.location.empty? %>
-          <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
-          <dd><%= @device.location %></dd><br>
+          <dt><strong>Location</strong></dt>
+          <dd><%= best_in_place @device, :location %></dd><br>
         <% end %>
 
          <% if @device.uid? %>
           <dt>Unique ID</dt>
-          <dd><%= @device.uid %></dd><br>
+          <dd><%= best_in_place @device, :uid %></dd><br>
         <% end %>
         
         <% unless @device.users.empty? %>
@@ -42,13 +42,13 @@
         <% end %>
 
         <% if @device.serial? %>
-          <dt><strong><%= model_class.human_attribute_name(:serial) %> #</strong></dt>
-          <dd><%= @device.serial %></dd><br>
+          <dt><strong>Serial #</strong></dt>
+          <dd><%= best_in_place @device, :serial %></dd><br>
         <% end %>    
 
         <% if @device.price? %>
-          <dt><strong><%= model_class.human_attribute_name(:price) %></strong></dt>
-          <dd><%= number_to_currency(@device.price, unit: @device.currency) %></dd><br>
+          <dt><strong>Price</strong></dt>
+          <dd><%= best_in_place @device, :price, display_with: :number_to_currency, helper_options: { unit: @device.currency } %></dd><br>
         <% end %>
 
         <% unless @device.tag_list.empty? %>

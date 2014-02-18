@@ -20,27 +20,27 @@
 
       <dl class="dl-vertical">
         <% if @reagent.location? %>
-          <dt><strong><%= model_class.human_attribute_name(:location) %></strong></dt>
-          <dd><%= @reagent.location %></dd><br>
+          <dt><strong>Location</strong></dt>
+          <dd><%= best_in_place @reagent, :location %></dd><br>
         <% end %>
 
         <% if @reagent.uid? %>
           <dt>Unique ID</dt>
-          <dd><%= @reagent.uid %></dd><br>
+          <dd><%= best_in_place @reagent, :uid %></dd><br>
         <% end %>
         
         <% if @reagent.quantity.present? %>
           <dt><strong>Original quantity</strong></dt>
-          <dd><%= @reagent.quantity %></dd><br>
+          <dd><%= best_in_place @reagent, :quantity %></dd><br>
         <% end %>
 
         <dt><strong>Percent remaining</strong></dt>
          <% if low?(@reagent) %>
-            <dd><span class="label label-warning"><%= @reagent.remaining %>%</span></dd><br>
+            <dd><span class="label label-warning"><%= best_in_place @reagent, :remaining %>%</span></dd><br>
           <% elsif almost_empty?(@reagent) %>    
-            <dd><span class="label label-danger"><%= @reagent.remaining %>%</dd><br>
+            <dd><span class="label label-danger"><%= best_in_place @reagent, :remaining %>%</dd><br>
           <% else %>
-            <dd><%= @reagent.remaining %>%</dd><br>
+            <dd><%= best_in_place @reagent, :remaining %>%</dd><br>
           <% end %>
 
         <dt><strong>Expiration</strong></dt>
@@ -61,17 +61,17 @@
 
         <% if @reagent.serial? %>
           <dt><strong><%= model_class.human_attribute_name(:serial) %> #</strong></dt>
-          <dd><%= @reagent.serial %></dd><br>
+          <dd><%= best_in_place @reagent, :serial %></dd><br>
         <% end %>        
 
         <% if @reagent.lot_number? %>
           <dt>Lot number</dt>
-          <dd><%= @reagent.lot_number %></dd><br>
+          <dd><%= best_in_place @reagent, :lot_number %></dd><br>
         <% end %>
 
         <% if @reagent.price? %>
           <dt><strong><%= model_class.human_attribute_name(:price) %></strong></dt>
-          <dd><%= number_to_currency(@reagent.price, unit: @reagent.currency) %></dd><br>
+          <dd><%= best_in_place @reagent, :price, display_with: :number_to_currency, helper_options: { unit: @reagent.currency } %></dd><br>
         <% end %>
 
         <% unless @reagent.tag_list.empty? %>
