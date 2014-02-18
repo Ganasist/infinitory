@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140217161955) do
+ActiveRecord::Schema.define(version: 20140218134457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,16 +61,12 @@ ActiveRecord::Schema.define(version: 20140217161955) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "departments", force: true do |t|
-    t.string   "name"
+    t.string   "name",                          null: false
     t.integer  "institute_id"
     t.text     "address"
-    t.float    "longitude"
-    t.float    "latitude"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url"
-    t.string   "city"
-    t.string   "country"
     t.string   "room"
     t.integer  "users_count",       default: 0
     t.integer  "labs_count",        default: 0
@@ -92,7 +88,6 @@ ActiveRecord::Schema.define(version: 20140217161955) do
 
   add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
   add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
-  add_index "departments", ["latitude", "longitude"], name: "index_departments_on_latitude_and_longitude", using: :btree
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
 
   create_table "devices", force: true do |t|
@@ -113,7 +108,6 @@ ActiveRecord::Schema.define(version: 20140217161955) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
-    t.boolean  "public",                                    default: false
     t.tsvector "tsv_body"
     t.string   "purchasing_url"
     t.string   "pdf_file_name"
@@ -122,6 +116,7 @@ ActiveRecord::Schema.define(version: 20140217161955) do
     t.datetime "pdf_updated_at"
     t.boolean  "icon_processing"
     t.string   "currency",                                  default: "$"
+    t.boolean  "shared",                                    default: false, null: false
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -151,15 +146,11 @@ ActiveRecord::Schema.define(version: 20140217161955) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "institutes", force: true do |t|
-    t.string   "name"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "city"
+    t.string   "name",                          null: false
     t.text     "address"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "alternate_name"
-    t.string   "country"
     t.string   "url"
     t.string   "acronym"
     t.string   "slug"
@@ -182,7 +173,6 @@ ActiveRecord::Schema.define(version: 20140217161955) do
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
-  add_index "institutes", ["latitude", "longitude"], name: "index_institutes_on_latitude_and_longitude", using: :btree
   add_index "institutes", ["name", "address"], name: "index_institutes_on_name_and_address", unique: true, using: :btree
   add_index "institutes", ["slug"], name: "index_institutes_on_slug", unique: true, using: :btree
 
@@ -281,7 +271,6 @@ ActiveRecord::Schema.define(version: 20140217161955) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
-    t.boolean  "public",                                    default: false
     t.tsvector "tsv_body"
     t.string   "purchasing_url"
     t.string   "pdf_file_name"
@@ -290,6 +279,7 @@ ActiveRecord::Schema.define(version: 20140217161955) do
     t.datetime "pdf_updated_at"
     t.boolean  "icon_processing"
     t.string   "currency",                                  default: "$"
+    t.boolean  "shared",                                    default: false, null: false
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
