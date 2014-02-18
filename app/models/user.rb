@@ -65,8 +65,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :pdf,
                                     :content_type => 'application/pdf',
                                     :message => 'only PDF files allowed'
-                               
-  has_paper_trail
+                 
   acts_as_commentable
 
   include PublicActivity::Common

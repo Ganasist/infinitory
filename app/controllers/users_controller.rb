@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user.approved = true
     @user.joined = Time.now
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has joined your lab #{ undo_link }"
+      flash[:notice] = "#{ @user.fullname } has joined your lab"
       @lab.comments.create(comment: "#{ @user.fullname } joined the lab")
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def reject
     @user.reject
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has been rejected. #{ undo_link }"
+      flash[:notice] = "#{ @user.fullname } has been rejected."
       UserMailer.delay(retry: false).rejection_email(@user.id, @lab.id)
     else
       flash[:alert] = "#{ @user.fullname } couldn't be rejected..."
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     # @labtemp = @lab
     @user.retire
     if @user.save
-      flash[:notice] = "#{ @user.fullname } has been retired. #{ undo_link }"
+      flash[:notice] = "#{ @user.fullname } has been retired."
       @lab.comments.create(comment: "#{ @user.fullname } retired from the lab")
       UserMailer.delay(retry: false).retire_email(@user.id, @lab.id)
     else
@@ -77,11 +77,6 @@ class UsersController < ApplicationController
 
     def set_lab
       @lab = current_user.lab
-    end
-
-    def undo_link
-      view_context.link_to("UNDO", revert_version_path(@user.versions.last), 
-                            method: :post, class: "btn btn-warning")
     end
 
     # def user_params

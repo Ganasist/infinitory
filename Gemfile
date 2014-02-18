@@ -42,8 +42,6 @@ gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
 
-gem 'paper_trail', '>= 3.0.0'
-
 gem 'validates_timeliness', '~> 3.0'
 
 gem 'email_validator', require: 'email_validator/strict'
