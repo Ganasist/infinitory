@@ -5,7 +5,7 @@ class Message
   attribute :comment
   attribute :user_name
 
-  attr_accessor :email, :comment, :user_name
+  attr_accessor :email, :comment, :username
   
   validates_presence_of :email
   validates_presence_of :comment
