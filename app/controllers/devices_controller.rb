@@ -83,7 +83,7 @@ class DevicesController < ApplicationController
   def destroy
     @lab = @device.lab
     @device.create_activity :delete, owner: current_user
-    send_comment(@device, "removed")
+    send_comment(@device, 'removed')
     @device.destroy
     respond_to do |format|
       format.html { redirect_to lab_devices_url(@lab) }
