@@ -80,17 +80,17 @@ Infinitory::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  ActionMailer::Base.smtp_settings = {
-    :address              => 'smtp.sendgrid.net',
-    :port                 => '25',
-    :authentication       => :plain,
-    :enable_starttls_auto => true,
-    :user_name            => ENV['SENDGRID_USERNAME'],
-    :password             => ENV['SENDGRID_PASSWORD'],
-    :domain               => 'heroku.com'
-  }
+  # ActionMailer::Base.smtp_settings = {
+  #   :address              => 'smtp.sendgrid.net',
+  #   :port                 => '25',
+  #   :authentication       => :plain,
+  #   :enable_starttls_auto => true,
+  #   :user_name            => ENV['SENDGRID_USERNAME'],
+  #   :password             => ENV['SENDGRID_PASSWORD'],
+  #   :domain               => 'heroku.com'
+  # }
 
-  # config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { :host => 'http://www.infinitory.com' }
