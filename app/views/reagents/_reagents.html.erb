@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th><%= reagent_sortable 'name' %></th>
+      <th><%= reagent_sortable 'remaining', '% remaining' %></th>
       <th><%= reagent_sortable 'category' %></th>
       <th><%= reagent_sortable 'location' %></th>
       <% if params[:tag] %>
@@ -21,13 +22,14 @@
           <%= fa_icon "paperclip", title: "Attachment" if reagent.pdf.present? %>
           <%= fa_icon "camera-retro", title: "Image" if reagent.icon.present? %>         
           <% if low?(reagent) %>
-            <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent), class: "text-warning" %>
+            <%= link_to fullname(reagent), reagent_path(reagent), class: "text-warning" %>
           <% elsif almost_empty?(reagent) %>
-            <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent), class: "text-danger" %>
+            <%= link_to fullname(reagent), reagent_path(reagent), class: "text-danger" %>
           <% else %>
-            <%= link_to "#{fullname(reagent)} #{reagent.remaining}%", reagent_path(reagent) %>
+            <%= link_to fullname(reagent), reagent_path(reagent) %>
           <% end %>
         </td>
+        <td><%= best_in_place reagent, :remaining %></td>
         <td><%= reagent.category.titleize %></td>  
         <td><%= reagent.location %></td>
         <% if reagent.expiration? %>
@@ -39,7 +41,7 @@
             <td>in <%= time_ago_in_words(reagent.expiration) %></dd>
           <% end %>
         <% end %>
-        <td><%= number_to_currency(reagent.price, unit: reagent.currency) %></td>
+        <td><%= best_in_place reagent, :price, display_with: :number_to_currency, helper_options: { unit: reagent.currency } %></td>
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
           <%= link_to edit_reagent_path(reagent) do %>

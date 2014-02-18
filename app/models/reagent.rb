@@ -14,7 +14,7 @@ class Reagent < ActiveRecord::Base
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :currency, inclusion: { in: CURRENCIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }
-  validates :remaining, numericality: true, allow_blank: true
+  validates :remaining, numericality: true, allow_blank: true, inclusion: { in: 0..100, message: 'The amount remaining must be between 0 and 100' }
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
   before_validation :smart_add_product_url_protocol, if: Proc.new { |reagent| reagent.product_url.present? && reagent.product_url_changed? }
