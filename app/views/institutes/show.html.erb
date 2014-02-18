@@ -5,8 +5,9 @@
   <div class="span6">   
   <% if @institute.icon.present? %>
       <% if @institute.icon_processing? %>
-        <%= image_tag('/images/ajax-spinner.gif') %>
-        <h4>Processing image...</h4>
+        <br>
+        <h4><%= fa_icon "spinner", title: "Edit", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
+        <br>
       <% else %>
         <span class="inline-block">
           <%= image_tag(@institute.icon.url, class: 'img-rounded').html_safe %>

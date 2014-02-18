@@ -28,6 +28,8 @@ gem 'acts_as_commentable'
 
 gem 'public_activity'
 
+gem 'best_in_place', github: 'bernat/best_in_place'
+
 gem 'exception_notification'
 
 gem 'amoeba'

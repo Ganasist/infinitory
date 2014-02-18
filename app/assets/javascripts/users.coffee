@@ -1,9 +1,8 @@
 jQuery ->
-
   $('body').tooltip({ selector: "[data-toggle~='tooltip']"})
-
-  $('#inner-form input').prop('disabled', true)
   
+  $('#inner-form input').prop('disabled', true)
+
   $('#user_password').focus ->
     $('.user_password_confirmation').show()
 

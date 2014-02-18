@@ -6,3 +6,6 @@ jQuery ->
   	placement: "bottom",
   	delay: { show: 200, hide: 100 }
   	)
+
+  # Activating Best In Place 
+  $('.best_in_place').best_in_place()

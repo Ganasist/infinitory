@@ -4,9 +4,8 @@
   <div class="row">
     <div class="span5">
       <% if @user.icon.present? %>
-        <% if @user.icon_processing? %>
-          <%= image_tag('/images/ajax-spinner.gif') %>
-          <h4>Image processing...</h4>
+        <% if @user.icon_processing? %>          
+          <h4><%= fa_icon "spinner", title: "Edit", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
         <% else %>
         <div class="pull-left user-icon-portrait inline-block">
           <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>

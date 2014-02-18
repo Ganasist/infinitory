@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/bernat/best_in_place.git
+  revision: df178520bf9ba405baee9528d5dbb630d6ff760c
+  specs:
+    best_in_place (2.1.0)
+      jquery-rails
+      rails (>= 3.1)
+
+GIT
   remote: git://github.com/scambra/devise_invitable.git
   revision: d3441d0f1083e9a858070aae64d1e683a2be42d2
   specs:
@@ -401,6 +409,7 @@ DEPENDENCIES
   acts_as_commentable
   amoeba
   aws-sdk
+  best_in_place!
   better_errors
   binding_of_caller
   bootstrap-kaminari-views

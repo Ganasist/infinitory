@@ -1,4 +1,4 @@
-$(document).ready ->
+jQuery ->
 	$("#check_all:radio").click ->
 		$('.check_boxes').prop 'checked', true
 

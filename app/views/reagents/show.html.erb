@@ -6,8 +6,7 @@
 
     <% if @reagent.icon.present? %>
       <% if @reagent.icon_processing? %>
-        <%= image_tag('/images/ajax-spinner.gif') %>
-        <h4>Processing image...</h4>
+        <h4><%= fa_icon "spinner", title: "Edit", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
       <% else %>
         <span class="inline-block">
           <%= image_tag(@reagent.icon.url, class: 'img-rounded').html_safe %>
