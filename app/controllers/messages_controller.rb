@@ -13,7 +13,6 @@ class MessagesController < ApplicationController
       UserMailer.delay(retry: false).feedback_email(@message)
       current_user.create_activity :feedback, owner: current_user
       redirect_to current_user, notice: "Feedback sent. Your input is appreciated!"
-      User.find_by(email: @message.email).add_points(1)
     else
       render "new"
     end
