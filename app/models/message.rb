@@ -3,11 +3,13 @@ class Message
 
   attribute :email
   attribute :comment
+  attribute :user_name
 
-  attr_accessor :email, :comment
+  attr_accessor :email, :comment, :user_name
   
   validates_presence_of :email
   validates_presence_of :comment
+  validates_presence_of :user_name
   validates_format_of :email, with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
   validates_length_of :comment, maximum: 223
 end

@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(params[:message])
     @message.email = current_user.email
-    @message.fullname = current_user.fullname
+    @message.user_name = current_user.fullname
     if @message.valid?
       UserMailer.delay(retry: false).feedback_email(@message)
       current_user.create_activity :feedback, owner: current_user
