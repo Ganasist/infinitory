@@ -17,4 +17,9 @@ class MessagesController < ApplicationController
       render "new"
     end
   end
+
+  private
+    def message_params
+      params.require(:message).permit(:message)
+    end
 end
