@@ -11,6 +11,7 @@ before_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.connection.disconnect!
   end
+  @sidekiq_pid ||= spawn("bundle exec sidekiq -q default -q mailer -q paperclip -c 2")
 end
 
 after_fork do |server, worker|
@@ -26,6 +27,10 @@ after_fork do |server, worker|
   end
 
    Sidekiq.configure_client do |config|
-    config.redis = { url: ENV['REDISTOGO_URL'], size: (Sidekiq.options[:concurrency] + 2), namespace: "infinitory_#{Rails.env}"}
+    config.redis = { url: ENV['REDISTOGO_URL'], size: 1, namespace: "infinitory_#{Rails.env}"}
+  end
+  
+  Sidekiq.configure_server do |config|
+    config.redis = { :size => 5 }
   end
 end

@@ -1,3 +1,4 @@
+
 # Be sure to restart your server when you modify this file.
 #
 # Points are a simple integer value which are given to "meritable" resources
@@ -11,7 +12,6 @@
 module Merit
   class PointRules
     include Merit::PointRulesMethods
-
     def initialize
       # score 10, :on => 'users#update' do
       #   user.name.present?
@@ -24,10 +24,10 @@ module Merit
       #   'photos#create'
       # ]
       score 1, on: ['messages#create']
-      score 2, on: ['reagents#create', 'devices#create']
-      score 3, on: ['reagents#update', 'devices#update']
-      score 4, on: ['reagents#destroy', 'devices#destroy']
-      score 5, on: ['reagents#clone', 'devices#clone']
+      score 2, on: ['reagents#update', 'devices#update']
+      score 3, on: ['reagents#create', 'devices#create']
+      score 4, on: ['reagents#clone', 'devices#clone']
+      score 5, on: ['reagents#destroy', 'devices#destroy']
     end
   end
 end

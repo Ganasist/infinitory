@@ -47,7 +47,6 @@ class UsersController < ApplicationController
   end
 
   def retire
-    # @labtemp = @lab
     @user.retire
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been retired."

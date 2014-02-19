@@ -57,6 +57,7 @@ class Lab < ActiveRecord::Base
 
   def gl
 		User.find_by(email: self.email)
+    # self.users.where(role: "group_leader").to_a
   end
 
 	def city

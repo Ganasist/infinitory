@@ -6,13 +6,13 @@
           <td>            
             <% if user.icon.blank? %> 
             <h4 class="text-left">             
-                <% if user.gl? %>
-                  <i class="icon-lightbulb"></i>
-                <% elsif user.lm? %>
-                  <i class="icon-eye-open"></i>
-                <% else %>
-                  <i class="icon-user"></i>
-                <% end %>
+              <% if user.gl? %>
+                <i class="icon-lightbulb"></i>
+              <% elsif user.lm? %>
+                <i class="icon-eye-open"></i>
+              <% else %>
+                <i class="icon-user"></i>
+              <% end %>
             </h4>
             <% else %>
               <span class="text-center"><%= link_to image_tag(user.icon.url(:thumb), class: "img-circle").html_safe, user %></span>
