@@ -3,7 +3,7 @@ class Message
 
   attribute :email
   attribute :comment
-  attribute :user_name
+  attribute :username
 
   attr_accessor :email, :comment, :username
   
