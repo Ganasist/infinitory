@@ -4,7 +4,7 @@ class MessageMailer < ActionMailer::Base
     @email  = email
     @username = username
     @comment = comment
-    mail(to: 'trichereau@gmail.com', subject: 'Feedback')
+    mail(to: 'trichereau@gmail.com', from: @email, subject: 'Feedback')
   end
-  
+
 end
