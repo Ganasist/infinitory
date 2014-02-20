@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
     if @message.valid?
       UserMailer.delay(retry: false).feedback_email(@message)
       current_user.create_activity :feedback, owner: current_user
-      redirect_to current_user, notice: "Feedback sent. Your input is appreciated!"
+      redirect_to current_user, notice: "Your feedback is appreciated!"
     else
       render "new"
     end
