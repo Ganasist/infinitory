@@ -4,7 +4,7 @@ class MessageMailer < ActionMailer::Base
     @email  = email
     @user = user
     @comment = comment
-    mail(to: "admin@infinitory.com", from: @email, subject: "Feedback from #{ @user }" )
+    mail(to: "trichereau@gmail.com", from: @email, subject: "Feedback from #{ @user }" )
   end
 
 end
