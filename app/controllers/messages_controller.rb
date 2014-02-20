@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     @feedback.email = current_user.email
     @feedback.username = current_user.fullname
     if @feedback.valid?
-      UserMailer.delay(retry: false).feedback_email(@feedback.email, @feedback.username, @feedback.comment)
+      UserMailer.feedback_email(@feedback.email, @feedback.username, @feedback.comment)
       current_user.create_activity :feedback, owner: current_user
       redirect_to current_user, notice: "Your feedback is appreciated!"
     else
