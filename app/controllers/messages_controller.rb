@@ -6,11 +6,11 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(params[:message])
-    @message.email = current_user.email
-    @message.username = current_user.fullname
-    if @message.valid?
-      UserMailer.delay(retry: false).feedback_email(@message)
+    @feedback = Message.new(params[:message])
+    @feedback.email = current_user.email
+    @feedback.username = current_user.fullname
+    if @feedback.valid?
+      UserMailer.delay(retry: false).feedback_email(@feedback.email, @feedback.username, @feedback.comment)
       current_user.create_activity :feedback, owner: current_user
       redirect_to current_user, notice: "Your feedback is appreciated!"
     else
