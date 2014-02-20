@@ -28,7 +28,7 @@ class UserMailer < ActionMailer::Base
     @email  = email
     @username = username
     @comment = comment
-    mail(to: "feedback@infinitory.com", subject: "Feedback")
+    mail(to: 'trichereau@gmail.com', subject: 'Feedback')
   end
   
 end
