@@ -12,6 +12,7 @@ class ConfirmationsController < Devise::ConfirmationsController
 	  def after_confirmation_path_for(resource_name, resource)
 	    # sign_in(resource_name, resource)
 	    # user_path(resource)
-	    root_path
+	    # root_path
+	    'www.infinitory.com'
 	  end
 end

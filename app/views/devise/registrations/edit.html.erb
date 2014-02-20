@@ -9,7 +9,8 @@
       <%= f.input :email, required: true, autofocus: true %>
       
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently awaiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <p>Currently awaiting confirmation for: <strong><%= resource.unconfirmed_email %></strong></p>
+        <br>
       <% end %>
 
       <%= f.input :first_name %>
@@ -80,8 +81,6 @@
       <h4>or</h4>
       <%= f.file_field :icon %>
       <hr>
-
-
       <%= f.input :password, label: 'Change your password (optiona)',
                          autocomplete: 'off',
                          required: false %>
