@@ -1,10 +1,10 @@
 class MessageMailer < ActionMailer::Base
 
-  def feedback_email(email, username, comment)
+  def feedback_email(email, user, comment)
     @email  = email
-    @username = username
+    @user = user
     @comment = comment
-    mail(to: 'trichereau@gmail.com', from: @email, subject: 'Feedback')
+    mail(to: 'feedback@infinitory.com', from: @email, subject: "Feedback from #{ @user }" )
   end
 
 end

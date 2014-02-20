@@ -17,7 +17,7 @@ ExceptionNotification.configure do |config|
   # Email notifier sends notifications by email.
   config.add_notifier :email, {
     email_prefix:         "[ERROR] ",
-    sender_address:       %{"Notifier" <no-reply@infinitory.com>},
+    sender_address:       %{"Notifier" <noreply@infinitory.com>},
     exception_recipients: %w{ admin@infinitory.com },
     email_format: :html
   }

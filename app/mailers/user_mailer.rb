@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: 'no-reply@infinitory.com'
+  default from: 'noreply@infinitory.com'
 
   def request_email(user_id, lab_id)
     @user = User.find(user_id)
