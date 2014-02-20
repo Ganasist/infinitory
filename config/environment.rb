@@ -1,7 +1,5 @@
-# Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
-# Initialize the Rails application.
 Infinitory::Application.initialize!
 
 ActionMailer::Base.smtp_settings = {
@@ -10,6 +8,6 @@ ActionMailer::Base.smtp_settings = {
   :authentication => :plain,
   :user_name      => ENV['SENDGRID_USERNAME'],
   :password       => ENV['SENDGRID_PASSWORD'],
-  :domain         => 'heroku.com',
+  :domain         => ENV['SENDGRID_DOMAIN'],
   :enable_starttls_auto => true
 }

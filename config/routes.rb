@@ -16,7 +16,9 @@ Infinitory::Application.routes.draw do
   root :to => 'high_voltage/pages#show', id: 'splash'
 
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
-                                  controllers: { registrations: 'registrations', invitations: 'users/invitations' }
+                               controllers: { registrations: 'registrations',
+                                              invitations: 'users/invitations',
+                                              confirmations: 'confirmations' }
  
   resources :institutes, shallow: true do
     resources :labs do
