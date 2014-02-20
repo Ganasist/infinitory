@@ -9,7 +9,7 @@
       <%= f.input :email, required: true, autofocus: true %>
       
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <p>Currently awaiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
 
       <%= f.input :first_name %>
@@ -18,7 +18,7 @@
                                      prompt: 'Choose your position',
                                      required: false %>
         <br>
-        <br>
+        <hr>
       <span class="LMform">
         <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
                                 typeahead: User.all_gls.pluck(:email),
@@ -38,8 +38,8 @@
                                         include_blank: 'None' %>
             <br>
           <% end %>
-          <%= link_to "ADD DEPARTMENT", new_institute_department_path(current_user.institute) %>
-          <br>
+          <%= link_to "ADD NEW DEPARTMENT", new_institute_department_path(current_user.institute) %>
+          <hr>
         </span>
         <br>
       </span>
@@ -48,12 +48,29 @@
       <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/you" %>
       <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/you" %>
       <%= f.input :google_plus_url, label: "Google+", placeholder: "https://plus.google.com/you" %>
-      
-    </div>
+      <hr>
+      <strong>
+        <h4>Attachments</h4>
+        <p>.pdf file under 3 megabytes</p>
+      </strong>
+          
+          <% if @user.pdf? %>
+            <%= link_to "#{ @user.pdf_file_name }", @user.pdf.url %>
+            <br><br>
+            <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+          <% end %>
 
+          <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+          <h4>or</h4>
+          <%= f.file_field :pdf %>      
+          <hr>
+    </div>
     <div class="span5 pull-right">
-      <strong><h4>Photo</h4></strong>
-      <p>.jpeg, .png or .gif images < 2 megabytes</p>
+      <strong>
+        <h4>Photo</h4>
+        <p>.jpeg, .png or .gif files under 2 megabytes</p>
+      </strong>
+      
       <% if @user.icon.present? %>
         <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>
         <br><br>
@@ -64,32 +81,22 @@
       <%= f.file_field :icon %>
       <hr>
 
-      <strong><h4>Attachments</h4></strong>
-          <p><strong>.pdf files < 3 megabytes</strong></p>
-          <% if @user.pdf? %>
-            <%= link_to "#{ @user.pdf_file_name }", @user.pdf.url %>
-            <br><br>
-            <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
-          <% end %>
 
-          <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
-          <h4>or</h4>
-          <%= f.file_field :pdf %>
-          <hr>
-
-      <%= f.input :password, label: 'New password (Optional)',
+      <%= f.input :password, label: 'Change your password (optiona)',
                          autocomplete: 'off',
                          required: false %>
 
       <%= f.input :password_confirmation, label: 'New password confirmation',
                                            required: false,
                                            wrapper_html: { style: 'display: none' } %>
+       <hr>                             
     </div>
   </div>
 
 <div class="row">
   <div class="span5">
-    <%= f.input :current_password, hint: 'Enter current password to confirm changes',
+
+    <%#= f.input :current_password, hint: 'Enter current password to confirm changes',
                                    required: true %>
       <%= f.button :submit, "Update", class: "btn-warning" %>
   <% end %>

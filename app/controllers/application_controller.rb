@@ -70,9 +70,9 @@ class ApplicationController < ActionController::Base
       user_path(current_user)
     end
 
-    # def after_update_path_for(resource)
-    #   user_path(current_user)
-    # end
+    def after_update_path_for(resource)
+      user_path(current_user)
+    end
 
     def orphans
       if user_signed_in?
@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :role, :approved,
                                                                      :lab_email, :department_id, :institute_name,
                                                                      :linkedin_url, :xing_url, :twitter_url, :facebook_url, :google_plus_url,
-                                                                     :password, :current_password, :password_confirmation,
+                                                                     :password, :password_confirmation,
                                                                      :pdf, :delete_pdf, :pdf_remote_url,
                                                                      :icon, :delete_icon, :icon_remote_url) }
       
