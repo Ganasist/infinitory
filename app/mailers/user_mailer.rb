@@ -28,12 +28,7 @@ class UserMailer < ActionMailer::Base
     @email  = email
     @username = username
     @comment = comment
-    mail(to: 'trichereau@gmail.com', subject: "Feedback")
-  end
-
-  def tester_email(test)
-    @test = test
-    mail(to: "trichereau@gmail.com", subject: "Farewell from the FUZZ lab")
+    mail(to: "feedback@infinitory.com", subject: "Feedback")
   end
   
 end
