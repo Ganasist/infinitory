@@ -24,12 +24,5 @@ class UserMailer < ActionMailer::Base
     @lab  = Lab.find(lab_id)
     mail(to: @user.email, subject: "Farewell from the #{ @lab.gl.fullname } lab")
   end
-
-  def feedback_email(email, username, comment)
-    @email  = email
-    @username = username
-    @comment = comment
-    mail(to: 'trichereau@gmail.com', subject: 'Feedback')
-  end
   
 end
