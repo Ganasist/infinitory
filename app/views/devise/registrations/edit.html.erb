@@ -7,6 +7,11 @@
   <div class="row">
     <div class="span5">
       <%= f.input :email, required: true, autofocus: true %>
+      
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <% end %>
+
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
@@ -43,9 +48,7 @@
       <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/you" %>
       <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/you" %>
       <%= f.input :google_plus_url, label: "Google+", placeholder: "https://plus.google.com/you" %>
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-      <% end %>
+      
     </div>
 
     <div class="span5 pull-right">
