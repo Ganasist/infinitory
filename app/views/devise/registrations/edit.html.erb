@@ -27,11 +27,11 @@
                                 tooltip: ['right', 'Your group leader must first create an account']  %>
       </span>
       <span class="GLform">
-      <% if current_user.institute? %>
+      <% if current_user.institute.present? %>
         <%= f.input :institute_name, placeholder: 'Find or create your institute',
                                      typeahead: Institute.all.pluck(:name).uniq %>
         <span id="department_select">
-          <% if current_user.institute.departments? %>
+          <% if current_user.institute.departments.present? %>
             <%= f.input :department_id, collection: Institute.where(id: current_user.institute.id), 
                                         as: :grouped_select,
                                         label_method: :name,

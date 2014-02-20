@@ -93,7 +93,7 @@ group :development do
   gem 'thin'
   # gem 'rack-mini-profiler'
   gem 'brakeman', :require => false
-  gem 'bullet'
+  # gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
   gem 'guard-bundler'
