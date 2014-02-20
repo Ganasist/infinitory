@@ -24,9 +24,11 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject: "Farewell from the #{ @lab.gl.fullname } lab")
   end
 
-  def feedback_email(feedback)
-    @feedback = feedback
-    mail(from: @feedback.email, to: "feedback@infinitory.com", subject: "Feedback from #{ @feedback.username }")
+  def feedback_email(email, username, message)
+    @email    = email
+    @username = username
+    @message  = message
+    mail(from: @email, to: "feedback@infinitory.com", subject: "Feedback from #{ @username }")
   end
   
 end
