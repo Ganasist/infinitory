@@ -94,5 +94,7 @@ Infinitory::Application.configure do
     :domain         => ENV['SENDGRID_DOMAIN']
   }
 
-  config.middleware.use ExceptionNotifier
+  config.middleware.use ExceptionNotifier,
+    sender_address: 'noreply@infinitory.com',
+    exception_recipients: 'admin@infinitory.com'
 end
