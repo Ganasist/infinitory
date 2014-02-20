@@ -28,4 +28,5 @@ class UserMailer < ActionMailer::Base
     @feedback = feedback
     mail(from: @feedback.email, to: "feedback@infinitory.com", subject: "Feedback from #{ @feedback.username }")
   end
+  
 end
