@@ -95,13 +95,14 @@
             </li>          
             <% end %>          
           </ul>
-          <dl class="dl-horizontal">
-          <hr>        
-            <h5>
-              <%= link_to @user.lab, class: "inline-block" do %>
-              <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
-              <% end %>
-            </h5>
+          <dl class="dl-horizontal">          
+            <% if @user.lab.present? %>       
+              <h5>
+                <%= link_to @user.lab, class: "inline-block" do %>
+                <i class="fa fa-fw fa-lg fa-users"></i><%= " The #{@user.lab.gl.fullname} lab" %>
+                <% end %>
+              </h5>
+            <% end %>
             <% if @user.department.present? %>
             <h5>
               <%= link_to institute_department_path(@user.institute, @user.department) do %>
@@ -114,16 +115,15 @@
               <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
               <% end %>
             </h5>
-            <hr>
           </dl>        
         </h3>
+       </span> 
+        <hr>
         <% if @user.pdf? %>
           <h4>Attachment</h4>
           <h5><%= link_to "#{ @user.pdf_file_name }", @user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>         
-          <hr>
-        <% end %>
-      </span>
-       
+          <hr> 
+        <% end %>          
     </div>
 <% end %>
   <div class="span7 inline-block">
