@@ -2,7 +2,7 @@
 <footer class="footer text-center">
   <small><%= link_to "©#{ Time.now.year }", root_path %>
   -	<%= link_to 'ABOUT ', page_path('about') %>
-	-	<%= link_to 'TERMS', "#" %>
+	-	<%= link_to 'TERMS', page_path('terms') %>
   -	<%= link_to 'PRIVACY', page_path('privacy') %>
   <% if user_signed_in? %>
 	  -	<%= link_to 'FEEDBACK', new_message_path %>
