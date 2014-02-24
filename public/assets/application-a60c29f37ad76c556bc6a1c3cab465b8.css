@@ -8727,6 +8727,28 @@ a.fa-sign-out {
 .container {
   margin-left: 50px;
 }
+.btn-warning {
+  color: #ffffff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+span.splash-why,
+span.splash-how {
+  background-color: transparent;
+  display: block;
+  font-weight: 300;
+  color: #fff;
+  background-color: #f0ad4e;
+  border-radius: 8%;
+  cursor: default;
+  text-align: center;
+  border: 1px solid #eea236;
+  width: 100px;
+  height: 48px;
+  font-size: 36px;
+  line-height: 48px;
+  margin: auto;
+}
 .navbutton {
   margin-left: 10px;
   margin-right: 10px;
@@ -10483,11 +10505,6 @@ fieldset[disabled] .btn-primary:active,
 fieldset[disabled] .btn-primary.active {
   background-color: #428bca;
   border-color: #357ebd;
-}
-.btn-warning {
-  color: #ffffff;
-  background-color: #f0ad4e;
-  border-color: #eea236;
 }
 .btn-warning:hover,
 .btn-warning:focus,
