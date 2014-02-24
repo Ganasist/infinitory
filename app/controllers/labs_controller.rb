@@ -28,7 +28,7 @@ class LabsController < ApplicationController
     data_table_lab.new_column('string', 'Name')
     data_table_lab.new_column('number', 'Devices')
     data_table_lab.new_column('number', 'Reagents')
-    data_table_lab.new_column('number', 'Points / day')
+    data_table_lab.new_column('number', 'Pts/day')
     data_table_lab.new_column('number', 'Total points')
     data_table_lab.add_rows(@users.map { |u|[u.fullname,
                                          u.cached_device_count,
