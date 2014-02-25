@@ -8895,6 +8895,12 @@ span.badge-25 {
 #jumbotext h2 {
   text-shadow: 2px 2px 3px #1f47bf;
 }
+.well.faqsidebar {
+  margin: 25px 5px 0px 5px;
+}
+.faq a {
+  font-size: 1em;
+}
 .faq h1 {
   color: #4169e1;
 }
