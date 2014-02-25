@@ -5,10 +5,10 @@
     <div class="span5">
       <% if @user.icon.present? %>
         <% if @user.icon_processing? %>          
-          <h4><%= fa_icon "spinner", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
+          <h4><%= fa_icon "spinner", class: 'fa-spin fa-lg fa-fw' %> Processing image...</h4>
         <% else %>
         <div class="pull-left user-icon-portrait inline-block">
-          <%= image_tag(@user.icon.url, class: "img-rounded").html_safe %>
+          <%= image_tag(@user.icon.url, class: 'img-rounded').html_safe %>
         </div>
         <% end %>
       <% end %>
