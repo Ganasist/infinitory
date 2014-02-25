@@ -21,6 +21,7 @@
 @navbarText: #fff;
 @navbarLinkColor: @navbarText + #777;
 @badgeColor: #001F3F;
+@buttonWarning: #f0ad4e;
 
 body td {
   font-size: 1.2em;
@@ -59,7 +60,7 @@ a.fa-sign-out {
 
 .btn-warning {
   color: #ffffff;
-  background-color: #f0ad4e;
+  background-color: @buttonWarning;
   border-color: #eea236;
 }
 
@@ -68,7 +69,7 @@ span.splash-why, span.splash-how {
 	display: block;
 	font-weight: 300;
 	color: #fff;
-	background-color: #f0ad4e;
+	background-color: @buttonWarning;
 	border-radius: 8%;
 	cursor: default;
 	text-align: center;
@@ -212,5 +213,17 @@ span.badge-25 {	background-color: @badgeColor - #444; }
 	text-shadow: 1px 1px 2px @navbarBackground - #222;
 	h2 {
 		text-shadow: 2px 2px 3px @navbarBackground - #222;		
+	}
+}
+
+.faq {
+	h1 {
+		color: @navbarBackground;
+	}
+	h2, a {
+		color: @buttonWarning;
+	}
+	h4 {
+		line-height: 1.5em;
 	}
 }
