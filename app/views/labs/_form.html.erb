@@ -4,10 +4,8 @@
   <div class="row">
     <div class="span5">
       <%= f.input :room, :input_html => { rows: 4 } %>
-      <%= f.input :email, label: 'Lab email' %>
+      <%= f.input :email, label: 'Lab email', disabled: true %>
       <%= f.input :url, label: 'Lab website' %>
-      <%#= f.input :linkedin_url, label: "LinkedIn", placeholder: "http://www.linked.com/lab" %>
-      <%#= f.input :xing_url, label: "Xing", placeholder: "https://www.xing.com/profile/lab" %>
       <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/lab" %>
       <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/lab" %>
       <%= f.input :google_plus_url, label: "Google+", placeholder: "https://plus.google.com/lab" %>
