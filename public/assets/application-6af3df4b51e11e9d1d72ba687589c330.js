@@ -36046,7 +36046,8 @@ jQuery(function() {
     show: false
   }).css({
     width: "613px",
-    height: "114px"
+    height: "114px",
+    overflow: "hidden"
   });
 
   $("#einstein_modal").modal({
@@ -36054,9 +36055,9 @@ jQuery(function() {
     keyboard: true,
     show: false
   }).css({
-    width: "320px",
-    height: "600px",
-    padding: "10px"
+    width: "303px",
+    height: "575px",
+    overflow: "hidden"
   });
 
   $("#nerd_modal").modal({
@@ -36064,9 +36065,9 @@ jQuery(function() {
     keyboard: true,
     show: false
   }).css({
-    width: "300px",
-    height: "560px",
-    padding: "10px"
+    width: "273",
+    height: "540px",
+    overflow: "hidden"
   });
 
 }).call(this);
@@ -36077,7 +36078,8 @@ $("#braintree_modal").modal({
   show: false
 }).css({
   width: "613px",
-  height: "114px"
+  height: "114px",
+  overflow: "hidden"
 });
 
 $("#einstein_modal").modal({
@@ -36085,9 +36087,9 @@ $("#einstein_modal").modal({
   keyboard: true,
   show: false
 }).css({
-  width: "320px",
-  height: "600px",
-  padding: "10px"
+  width: "303px",
+  height: "575px",
+  overflow: "hidden"
 });
 
 $("#nerd_modal").modal({
@@ -36095,9 +36097,9 @@ $("#nerd_modal").modal({
   keyboard: true,
   show: false
 }).css({
-  width: "300px",
-  height: "560px",
-  padding: "10px"
+  width: "273",
+  height: "540px",
+  overflow: "hidden"
 });
 (function() {
   jQuery(function() {
