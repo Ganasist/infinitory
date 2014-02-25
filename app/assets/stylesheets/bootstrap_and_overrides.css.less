@@ -223,12 +223,16 @@ span.badge-25 {	background-color: @badgeColor - #444; }
 
 .faq {
 	a {
+		color: @navbarBackground;
 		font-size: 1em;
+		&:hover {
+			color: @buttonWarning;
+		}
 	}
 	h1 {
 		color: @navbarBackground;
 	}
-	h2, a {
+	h2 {
 		color: @buttonWarning;
 	}
 	h4 {
