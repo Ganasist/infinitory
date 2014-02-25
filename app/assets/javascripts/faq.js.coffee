@@ -1,3 +1,11 @@
+$("#braintree_modal").modal(
+  backdrop: true
+  keyboard: true
+  show: false
+).css
+  width: "613px"
+  height: "114px"
+
 $("#einstein_modal").modal(
   backdrop: true
   keyboard: true
@@ -12,6 +20,6 @@ $("#nerd_modal").modal(
   keyboard: true
   show: false
 ).css
-  width: "280px"
-  height: "550px"
+  width: "300px"
+  height: "560px"
   padding: "10px"
