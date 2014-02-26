@@ -14,8 +14,8 @@ $("#einstein_modal").modal({
   keyboard: true,
   show: false
 }).css({
-  width: "303px",
-  height: "575px",
+  width: "304px",
+  height: "530px",
   overflow: "hidden"
 });
 
@@ -24,7 +24,7 @@ $("#nerd_modal").modal({
   keyboard: true,
   show: false
 }).css({
-  width: "273",
-  height: "540px",
+  width: "269",
+  height: "537px",
   overflow: "hidden"
 });

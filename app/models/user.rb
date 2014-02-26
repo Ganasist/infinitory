@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   end
 
   def cached_total_points
-    Rails.cache.fetch([self.sash, "cached_total_points"], expires_in: 15.minutes) { self.points }
+    Rails.cache.fetch([self.points, "cached_total_points"], expires_in: 15.minutes) { self.points }
   end
 
   def cached_daily_points
