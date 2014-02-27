@@ -1,24 +1,24 @@
-<%= simple_form_for @lab, html: { :class => 'form-vertical', multipart: true } do |f| %>
+<%= simple_form_for @lab, html: { class: 'form-vertical', multipart: true } do |f| %>
 
 <%= f.error_notification %>
   <div class="row">
     <div class="span5">
-      <%= f.input :room, :input_html => { rows: 4 } %>
+      <%= f.input :room %>
       <%= f.input :email, label: 'Lab email', disabled: true %>
       <%= f.input :url, label: 'Lab website' %>
-      <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/lab" %>
-      <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/lab" %>
-      <%= f.input :google_plus_url, label: "Google+", placeholder: "https://plus.google.com/lab" %>
+      <%= f.input :twitter_url, label: 'Twitter', placeholder: 'https://twitter.com/lab' %>
+      <%= f.input :facebook_url, label: 'Facebook', placeholder: 'https://www.facebook.com/lab' %>
+      <%= f.input :google_plus_url, label: 'Google+', placeholder: 'https://plus.google.com/lab' %>
     </div>
     <div class="span5 pull-right">
       <strong><h4>Lab picture</h4></strong>
       <p>.jpeg, .png or .gif images < 2 megabytes</p>
       <% if @lab.icon.present? %>
-        <%= image_tag(@lab.icon.url, class: "img-rounded").html_safe %>
+        <%= image_tag(@lab.icon.url, class: 'img-rounded').html_safe %>
         <br><br>
         <%= f.input :delete_icon, as: :boolean, label: false, inline_label: 'Delete photo', wrapper_html: { class: 'form-inline' } %><br>
       <% end %>
-      <%= f.input :icon_remote_url, label: "Enter image URL" %>
+      <%= f.input :icon_remote_url, label: 'Enter image URL' %>
       <h4>or</h4>
       <%= f.file_field :icon %>
       <br><br>
