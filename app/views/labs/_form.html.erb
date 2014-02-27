@@ -16,7 +16,7 @@
       <% if @lab.icon.present? %>
         <%= image_tag(@lab.icon.url, class: "img-rounded").html_safe %>
         <br><br>
-        <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete photo", wrapper_html: { class: "form-inline"} %><br>
+        <%= f.input :delete_icon, as: :boolean, label: false, inline_label: 'Delete photo', wrapper_html: { class: 'form-inline' } %><br>
       <% end %>
       <%= f.input :icon_remote_url, label: "Enter image URL" %>
       <h4>or</h4>
@@ -27,7 +27,7 @@
   <div class="row">  
     <div class="span5">
       <%= f.button :submit, class: 'btn btn-warning' %><br><br>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+      <%= link_to t('.cancel', :default => t('helpers.links.cancel')),
                   lab_path(@lab), :class => 'btn' %>
     </div>
   </div> 
