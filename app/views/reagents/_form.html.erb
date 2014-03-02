@@ -21,14 +21,15 @@
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :lot_number, label: 'Lot number' %>
       <hr>
+      <%= f.input :price, label: 'Price' %>
+      <%= f.input :currency, label: false,  as: :radio_buttons, collection: %w[$ €], input_html: { style: 'width: 30px' } %>
+      <br>
       <%= f.input :product_url, label: 'Product website',
                                 placeholder: 'http://www.example.com',
                                 tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
       <%= f.input :purchasing_url, label: 'Purchasing website',
                                    placeholder: 'http://www.example.com',
                                    tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
-      <%= f.input :price, label: 'Price' %>
-      <%= f.input :currency, label: false,  as: :radio_buttons, collection: %w[$ €], input_html: { style: 'width: 30px' } %>
       <hr>
       <%= f.input :tag_list, label: 'Keywords',
                              placeholder: 'Immunology, restriction enzyme, FACS',

@@ -70,7 +70,7 @@
         <% end %>
 
         <% if @reagent.price? %>
-          <dt><strong><%= model_class.human_attribute_name(:price) %></strong></dt>
+          <dt><strong>Price</strong></dt>
           <dd><%= best_in_place @reagent, :price, display_with: :number_to_currency, helper_options: { unit: @reagent.currency } %></dd><br>
         <% end %>
 

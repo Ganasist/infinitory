@@ -20,8 +20,8 @@ class Reagent < ActiveRecord::Base
   before_validation :smart_add_product_url_protocol, if: Proc.new { |reagent| reagent.product_url.present? && reagent.product_url_changed? }
   before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |reagent| reagent.purchasing_url.present? && reagent.purchasing_url_changed? }
 
-  validates :product_url, presence: true, url: true, allow_blank: true
-  validates :purchasing_url, presence: true, url: true, allow_blank: true
+  validates :product_url, url: true, allow_blank: true
+  validates :purchasing_url, url: true, allow_blank: true
   
   validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another reagent in the lab with that category, name and UID' }
 

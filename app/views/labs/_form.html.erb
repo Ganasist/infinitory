@@ -27,8 +27,8 @@
   <div class="row">  
     <div class="span5">
       <%= f.button :submit, class: 'btn btn-warning' %><br><br>
-      <%= link_to t('.cancel', :default => t('helpers.links.cancel')),
-                  lab_path(@lab), :class => 'btn' %>
+      <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+                  lab_path(@lab), class: 'btn' %>
     </div>
   </div> 
 <% end %>
