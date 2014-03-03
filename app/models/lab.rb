@@ -44,15 +44,15 @@ class Lab < ActiveRecord::Base
   end
 
   def reagents_category_count(category)
-    self.reagents.where(category: category).count
+    reagents.where(category: category).count
   end
 
   def devices_category_count(category)
-    self.devices.where(category: category).count
+    devices.where(category: category).count
   end
 
   def institute_name
-  	self.institute.name
+  	institute.name
   end
 
   def gl
