@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
        sizeAxis: { maxSize: 40, minSize: 5 },
        chartArea: { width: "85%", height: "85%" },
        legend: { position: 'none'},
-       colorAxis: { colors: ['white', '#4169E1'] },
+       colorAxis: { colors: ['white', '#003399'] },
        hAxis: { title: 'Linked devices',
                 titleTextStyle: { fontSize: 18 },
                 logScale: false,

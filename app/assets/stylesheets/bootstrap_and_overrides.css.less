@@ -2,26 +2,24 @@
 @import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths
-@iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings");
-@iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white");
+// @iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings");
+// @iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white");
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
-@fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
-@fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot#iefix");
-@fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
-@fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
-@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
-
-// @import "fontawesome/font-awesome";
+// @fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
+// @fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot#iefix");
+// @fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
+// @fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
+// @fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
 
 @navBarLinkHover: #FFDC00;;
 @linkHover: #4169E1;
-@navbarBackground: #4169E1;
+@navbarBackground: #003399;
 @navbarBackgroundHighlight: @navbarBackground + #222;
 @navbarText: #fff;
 @navbarLinkColor: @navbarText + #777;
 @badgeColor: #001F3F;
-@buttonWarning: #f0ad4e;
+@buttonWarning: #E68A00;
 
 body td {
   font-size: 1.2em;
@@ -210,15 +208,10 @@ span.badge-25 {	background-color: @badgeColor - #444; }
 
 #jumbotext {
 	color: @navbarBackground + #222;
-	text-shadow: 1px 1px 2px @navbarBackground - #222;
+	text-shadow: 1px 1px 1px @navbarBackground - #222;
 	h2 {
-		text-shadow: 2px 2px 3px @navbarBackground - #222;		
+		text-shadow: 2px 2px 1px @navbarBackground - #222;		
 	}
-}
-
-.well.faqsidebar {
-	// position: fixed;
-	margin: 25px 5px 0px 5px;
 }
 
 .faq {
