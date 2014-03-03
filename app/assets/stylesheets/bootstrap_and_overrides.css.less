@@ -12,14 +12,14 @@
 // @fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
 // @fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
 
-@navBarLinkHover: #FFDC00;;
-@linkHover: #4169E1;
+@buttonWarning: #E68A00;
+@navBarLinkHover: @buttonWarning;
 @navbarBackground: #003399;
+@linkHover: @navbarBackground;
 @navbarBackgroundHighlight: @navbarBackground + #222;
 @navbarText: #fff;
 @navbarLinkColor: @navbarText + #777;
 @badgeColor: #001F3F;
-@buttonWarning: #E68A00;
 
 body td {
   font-size: 1.2em;
@@ -96,16 +96,23 @@ a, .navbar a, #invitation, #sign-out {
 	}
 }
 
+li i a &:hover {
+	color: @navbarBackgroundHighlight;
+}
+
+h5 a {
+	line-height: 1.5em;
+	&:hover {
+		color: @navbarBackgroundHighlight;
+	}
+}
+
 .navbar .brand {
 	color: #fff;
 	font-weight: 200;
 	font-size: 2.23em;
 	margin-top: 6px;
 	margin-left: 10px;
-}
-
-h5 a {
-	line-height: 1.5em;
 }
 
 span.user h3 {
@@ -216,7 +223,7 @@ span.badge-25 {	background-color: @badgeColor - #444; }
 
 .faq {
 	a {
-		color: @navbarBackground;
+		color: @navbarBackgroundHighlight;
 		font-size: 1em;
 		&:hover {
 			color: @buttonWarning;
