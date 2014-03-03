@@ -60,6 +60,10 @@ class Lab < ActiveRecord::Base
     # self.users.where(role: "group_leader").to_a
   end
 
+  def gl_lm
+    users.where('role = ? OR role = ?', 'group_leader', 'lab_manager')
+  end
+
 	def city
 		institute.city
 	end

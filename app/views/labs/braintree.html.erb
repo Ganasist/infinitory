@@ -1,0 +1,30 @@
+<%= simple_form_for @braintree_customer, 
+  as: :customer, 
+  url: Braintree::TransparentRedirect.url,
+  html: { method: :post, class: 'form', autocomplete: 'off' } do |f| %>
+ 
+  <%= f.input :first_name, required: true %>
+  <%= f.input :last_name, required: true %>
+  <%= f.input :email, required: true %>
+ 
+  <%= f.fields_for :credit_card, @braintree_customer.credit_card do |cc| -%>
+    <%= cc.input :number,
+      wrapper_html: { class: 'credit_card_number' },
+      hint: image_tag('/images/cards_accepted.png', alt: 'MasterCard, Visa' ) %>
+    <%= cc.input :expiration_month, collection: 1..12,
+      required: true,
+      wrapper_html: { class: 'expiration_month' }  %>
+    <%= cc.input :expiration_year, 
+      wrapper_html: { class: 'expiration_year' },
+      collection: Time.zone.now.year..(Time.zone.now.year + 25) %>
+ 
+    <%= cc.input :cvv,
+      required: true,
+      wrapper_html: { class: 'cvv' } %>
+  <%- end -%>
+ 
+  <%= hidden_field_tag :tr_data, @braintree_customer.redirect_data %>
+  
+  <%= f.button :submit %>
+   
+<%- end -%>
