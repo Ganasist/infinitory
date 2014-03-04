@@ -27,7 +27,7 @@
           <% if current_user.retire_permissions?(user, @lab) %>
             <td>
               <%= link_to '  Retire', retire_user_path(user),
-                                      data: { confirm: "Are you sure you want to retire #{user.fullname}? This will unlink him / her from everything in the lab." },
+                                      data: { confirm: "Are you sure you want to retire #{user.fullname}? He/she will be unlinked from everything in the lab." },
                                       class: 'btn btn-info fa fa-chain-broken fa-lg' %>
             </td>
           <% end %>
