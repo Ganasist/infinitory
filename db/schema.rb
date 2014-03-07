@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140218134457) do
+ActiveRecord::Schema.define(version: 20140307173652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(version: 20140218134457) do
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
-    t.integer  "user_id"
     t.string   "product_url"
     t.string   "uid"
     t.text     "description"
@@ -122,7 +121,6 @@ ActiveRecord::Schema.define(version: 20140218134457) do
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
   add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree
   add_index "devices", ["tsv_body"], name: "index_devices_on_tsv_body", using: :gin
-  add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -260,7 +258,6 @@ ActiveRecord::Schema.define(version: 20140218134457) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lab_id"
-    t.integer  "user_id"
     t.string   "product_url"
     t.date     "expiration"
     t.integer  "remaining",                                 default: 100,   null: false
@@ -286,7 +283,6 @@ ActiveRecord::Schema.define(version: 20140218134457) do
   add_index "reagents", ["lab_id", "uid", "name", "category"], name: "index_reagents_on_lab_id_and_uid_and_name_and_category", unique: true, using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["tsv_body"], name: "index_reagents_on_tsv_body", using: :gin
-  add_index "reagents", ["user_id"], name: "index_reagents_on_user_id", using: :btree
 
   create_table "sashes", force: true do |t|
     t.datetime "created_at"
