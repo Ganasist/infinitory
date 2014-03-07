@@ -10,7 +10,7 @@
             <% end %>
           <% end %>
           <%= link_to current_user.lab, class: 'inline-block navbutton' do %>
-            <%= fa_icon 'users', title: 'Your lab', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.users.size %></small>
+            <%= fa_icon 'users', title: 'Your lab', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.size %></small>
           <% end %>      
           <%= link_to user_reagents_path(current_user), class: 'inline-block navbutton' do %>
             <%= fa_icon 'flask', title: 'Your reagents', class: 'fa-2x fa-fw'  %><br><small><%= current_user.cached_reagent_count %></small>
@@ -25,7 +25,7 @@
         <%= link_to destroy_user_session_path, method: :delete, class: 'inline-block navbutton', id: 'sign-out-button' do %>
           <%= fa_icon 'sign-out', class: 'fa-2x fa-fw' %><br><small>SIGN-OUT</small>
         <% end %>   
-        </span>
+      </span>
       <% end %>
     <% end %>
   <% else %>
