@@ -9,7 +9,7 @@ class AverageDailyPointsWorker
   def perform
     today = DateTime.now
     User.find_each do |t|
-      if t.joined.present?
+      if t.joined > 3.days.ago
       	t.daily_points = (t.points / (today - t.joined.to_datetime).to_i)
       	t.save
       end
