@@ -4,7 +4,7 @@ jQuery ->
   $("a[rel=tooltip]").tooltip()
   $("i").tooltip(
   	placement: "bottom",
-  	delay: { show: 200, hide: 100 }
+  	delay: { show: 150, hide: 100 }
   	)
 
   # Activating Best In Place 

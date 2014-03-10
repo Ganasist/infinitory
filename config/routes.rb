@@ -48,6 +48,8 @@ Infinitory::Application.routes.draw do
   match 'reagents/:id/clone' => 'reagents#clone', as: 'clone_reagent', via: :get
   match 'devices/:id/clone' => 'devices#clone', as: 'clone_device', via: :get
 
+  match 'collaborations/:id/destroy_inverse' => 'collaborations#destroy_inverse', as: 'destroy_inverse', via: :get
+
   post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 
   mount Sidekiq::Web, at: '/sidekiq'

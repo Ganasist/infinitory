@@ -33,7 +33,14 @@ class CollaborationsController < ApplicationController
   def destroy
     @collaboration = current_user.lab.collaborations.find(params[:id])
     @collaboration.destroy
-    flash[:notice] = "Your collaboration with #{@collaboration.collaborator.gl.fullname} has ended."
+    flash[:notice] = "Your collaboration with #{ @collaboration.collaborator.gl.fullname } has ended."
+    redirect_to lab_collaborations_path(current_user.lab)
+  end
+
+  def destroy_inverse
+    @collaboration = current_user.lab.inverse_collaborations.find(params[:id])
+    @collaboration.destroy
+    flash[:notice] = "Your no longer can access items from #{ @collaboration.lab.gl.fullname }'s group."
     redirect_to lab_collaborations_path(current_user.lab)
   end
 

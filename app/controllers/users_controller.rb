@@ -5,8 +5,7 @@ class UsersController < ApplicationController
 
   def index    
     @lab = Lab.find(params[:lab_id])
-    @users = @lab.users.includes(:sash).where(approved: true).order("joined ASC")
-    
+    @users = @lab.users.includes(:sash).where(approved: true).order('joined ASC')
     @approvals = @lab.users.where(approved: false)
   end
 
@@ -59,7 +58,6 @@ class UsersController < ApplicationController
   end
 
   private
-
     rescue_from ActiveRecord::RecordNotFound do |exception|
       if user_signed_in?
         flash[:alert] = "User #{ params[:id] } wasn't found."
@@ -71,15 +69,10 @@ class UsersController < ApplicationController
     end
 
     def set_user
-      @user = User.friendly.find(params[:id])
+      @user = User.find(params[:id])
     end
 
     def set_lab
       @lab = current_user.lab
     end
-
-    # def user_params
-    #   params.require(:lab).permit(:email, :first_name, :last_name,
-    #   														:group_leader_id, :department_id, :institute_id, :approved)
-    # end
 end

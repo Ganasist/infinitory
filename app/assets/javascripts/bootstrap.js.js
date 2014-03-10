@@ -6,7 +6,7 @@ jQuery(function() {
   $("i").tooltip({
     placement: "bottom",
     delay: {
-      show: 200,
+      show: 150,
       hide: 100
     }
   });

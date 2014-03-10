@@ -3,14 +3,16 @@
     <%= nav_bar brand: 'INFINITORY', brand_link: user_path(current_user), static: :top, responsive: false do %>
       <%= menu_group pull: :right do %>
       <span class="text-center">
-        <% if !current_user.lab.nil? %>
+        <% if current_user.lab.present? %>
+          
           <% if current_user.gl? %>
             <%= link_to lab_collaborations_path(current_user.lab), class: 'inline-block navbutton' do %>
-              <%= fa_icon 'link', title: 'Collaborators', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.collaborations.count %></small>
+              <%= fa_icon 'link', title: 'Your collaborations', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.collaborations.count + current_user.lab.inverse_collaborations.count %></small>
             <% end %>
           <% end %>
+
           <%= link_to current_user.lab, class: 'inline-block navbutton' do %>
-            <%= fa_icon 'users', title: 'Your lab', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.size %></small>
+            <%= fa_icon 'users', title: 'Your lab', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.users.count %></small>
           <% end %>      
           <%= link_to user_reagents_path(current_user), class: 'inline-block navbutton' do %>
             <%= fa_icon 'flask', title: 'Your reagents', class: 'fa-2x fa-fw'  %><br><small><%= current_user.cached_reagent_count %></small>

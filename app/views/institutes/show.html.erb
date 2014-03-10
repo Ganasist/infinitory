@@ -85,6 +85,15 @@
         <% end %>
         <hr>
     <% end %>
+    <% if @institute.labs.present? %>
+      <h4><%= fa_icon "group", class: "fa fa-fw fa-lg" %> Groups</h4><br>
+        <% @institute.labs.each do |lab| %>
+            <div class="lab">
+              <p><%= link_to lab.gl.fullname, lab_path(lab) %></p>
+            </div>
+        <% end %>
+        <hr>
+    <% end %>
     
   </div>
   <div class="span6 pull-right">

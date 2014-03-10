@@ -11,7 +11,7 @@ class ReagentsController < ApplicationController
     elsif params[:search].present?
       
       if params[:user_id].present?   
-        @user = User.friendly.find(params[:user_id])
+        @user = User.find(params[:user_id])
         @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
       elsif params[:lab_id].present?
         @lab = Lab.find(params[:lab_id]) 
@@ -19,7 +19,7 @@ class ReagentsController < ApplicationController
       end
 
     elsif params[:user_id].present?
-      @user = User.friendly.find(params[:user_id])
+      @user = User.find(params[:user_id])
       @reagents = @user.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 

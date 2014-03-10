@@ -1,9 +1,9 @@
 <%- model_class = Collaboration -%>
 <div class="page-header">
-  <h2>Your collaborators</h2>
-  <%= simple_form_for [@lab, @collaborator], html: { class: 'form-vertical', autocomplete: 'off' },
-                                     url: url_for(action: 'create', controller: 'collaborations'),
-                                     method: 'post' do |f| %>
+  <h2>Your collaborations</h2><br>
+  <%= simple_form_for [@lab, @collaborator], html: { class: 'form-vertical', autocomplete: 'off', style: 'width: 300px' },
+                                             url: url_for(action: 'create', controller: 'collaborations'),
+                                             method: 'post' do |f| %>
        <%= f.error_notification %>
      
        <%= f.association :collaborator,  label: 'Enter the email of a group leader',
@@ -14,22 +14,30 @@
                                          tooltip: ['right', 'This lab will only have access to your shared items!'] %>
 
       <%= f.button :button, class: 'btn-warning' do %>
-        <i class="fa fa-link fa-lg"></i> Initiate Collaboration!
+        <i class="fa fa-link fa-lg"></i> Initiate a collaboration!
         
       <% end %>
     <% end %>
+    <br>  
 </div>
 
-<div class="span5">
-  <h4 class="text-muted">Groups you share with:</h4>
+<div class="span5 text-center">
+  <h3 class="text-muted">Groups that can access your lab</h3>
+  <h4>
+   You share <%= @lab.reagents.where(shared: false).count %> reagents
+   and <%= @lab.devices.where(shared: false).count %> devices
+ </h4>
+  
   <br>
   <%= render 'outgoing' %>
+  <br>
 </div>
 
-<div class="span5">
-  <h4 class="text-muted">Groups who share with you:</h4>
+<div class="span5 text-center">
+  <h3 class="text-muted text-center">Groups your lab can access</h3>
   <br>
   <%= render 'incoming' %>
+  <br>
 </div>
 
  

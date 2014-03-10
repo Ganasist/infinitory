@@ -9,14 +9,14 @@ class DevicesController < ApplicationController
       @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
     elsif params[:search].present?
       if params[:user_id].present?   
-        @user = User.friendly.find(params[:user_id])
+        @user = User.find(params[:user_id])
         @devices = @user.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
       elsif params[:lab_id].present?
         @lab = Lab.find(params[:lab_id]) 
         @devices = @lab.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
       end
     elsif params[:user_id].present?
-      @user = User.friendly.find(params[:user_id])
+      @user = User.find(params[:user_id])
       @devices = @user.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 

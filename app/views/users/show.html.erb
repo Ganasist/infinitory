@@ -3,6 +3,7 @@
   <% title 'People: ' + @user.fullname %>  
   <div class="row">
     <div class="span5">
+      <h1><%= current_user.fullname %></h1>
       <% if @user.icon.present? %>
         <% if @user.icon_processing? %>          
           <h4><%= fa_icon "spinner", class: 'fa-spin fa-lg fa-fw' %> Processing image...</h4>

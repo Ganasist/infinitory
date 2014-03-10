@@ -1,7 +1,7 @@
 class LabsController < ApplicationController
   before_action :set_lab, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  # before_action :check_user!, except: :index
+  before_action :check_user!, except: :index
 
   def index
     @institute = Institute.friendly.find(params[:institute_id])
@@ -106,12 +106,12 @@ class LabsController < ApplicationController
   end
 
   private
-    # def check_user!
-    #   if current_user.lab != Lab.find(params[:id])
-    #     redirect_to current_user
-    #     flash[:alert] = "You cannot access that lab"
-    #   end
-    # end
+    def check_user!
+      unless current_user.lab == Lab.find(params[:id])
+        redirect_to current_user
+        flash[:alert] = "You cannot access that lab"
+      end
+    end
 
     def set_lab
       @lab = Lab.find(params[:id])
