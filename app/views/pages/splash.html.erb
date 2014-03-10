@@ -4,7 +4,9 @@
     <span id="jumbotext">
       <h1>INFINITORY</h1>
       <h3>Enhanced lab inventory management system</h3>
-      <%= link_to " Sign-up", new_user_registration_path, class: "btn btn-warning icon-hand-up" %>
+        <%= link_to new_user_registration_path, class: "btn btn-warning" do %>
+          <i class="fa fa-lg fa-hand-o-up"> Sign-up</i>
+        <% end %>   
     </span>
   </div>
   <div class="body-content text-center">
