@@ -17,6 +17,9 @@ class Lab < ActiveRecord::Base
   has_many :collaborations
   has_many :collaborators, through: :collaborations
 
+  has_many :inverse_collaborations, class_name: 'Collaboration', foreign_key: 'collaborator_id'
+  has_many :inverse_collaborators, through: :inverse_collaborations, source: :lab
+
   before_validation :smart_add_url_protocol, if: Proc.new { |l| l.url.present? && l.url_changed? }
 
   validates :url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }

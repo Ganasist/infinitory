@@ -1,5 +1,12 @@
-<%# cache @incoming do %>
-	<%# @incoming.each do |lab| %>
-		<p><%#= link_to lab.gl.fullname, lab_path(lab) %></p>
-	<%# end %>
-<%# end %>
+<% cache @lab do %>
+	<% for inverse_collaboration in @lab.inverse_collaborations %>
+		<p><%= link_to inverse_collaboration.collaborator.gl.fullname, lab_path(inverse_collaboration.collaborator) %></p>
+		<p>Initiated <%= time_ago_in_words(inverse_collaboration.created_at) %> ago</p>
+		<p><%= link_to ' End collaboration',
+										inverse_collaboration,
+										method: :delete,
+										data: { confirm: "Are you sure you want to end your collaboration with #{inverse_collaboration.collaborator.gl.fullname}? This lab will no longer be able to access your lab's shared items." },
+                    class: 'btn btn-danger fa fa-chain-broken' %></p>
+    <hr>
+	<% end %>
+<% end %>
