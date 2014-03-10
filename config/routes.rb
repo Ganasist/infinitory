@@ -2,7 +2,7 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Infinitory::Application.routes.draw do
-
+  
   resources :resources do
 	  resources :bookings
 	end
@@ -25,7 +25,8 @@ Infinitory::Application.routes.draw do
     resources :labs do
       resources :devices
       resources :reagents
-      resources :users
+      resources :users   
+      resources :collaborations
     end
   end
 

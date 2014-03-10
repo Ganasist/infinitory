@@ -3,10 +3,10 @@
     <%= nav_bar brand: 'INFINITORY', brand_link: user_path(current_user), responsive: false do %>
       <%= menu_group pull: :right do %>
       <span class="text-center">
-        <% if current_user.lab.present? %>
+        <% if !current_user.lab.nil? %>
           <% if current_user.gl? %>
-            <%= link_to "#", class: 'inline-block navbutton' do %>
-              <%= fa_icon 'link', title: 'Linked labs', class: 'fa-2x fa-fw'  %><br><small class="text-center">8</small>
+            <%= link_to lab_collaborations_path(current_user.lab), class: 'inline-block navbutton' do %>
+              <%= fa_icon 'link', title: 'Collaborators', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.collaborations.count %></small>
             <% end %>
           <% end %>
           <%= link_to current_user.lab, class: 'inline-block navbutton' do %>

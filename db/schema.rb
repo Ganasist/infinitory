@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307173652) do
+ActiveRecord::Schema.define(version: 20140308135835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 20140307173652) do
   add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id", using: :btree
   add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id", using: :btree
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
+
+  create_table "collaborations", force: true do |t|
+    t.integer  "lab_id"
+    t.integer  "collaborator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.string   "title",            limit: 50, default: ""

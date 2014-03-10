@@ -7,11 +7,11 @@ namespace :db do
     r = Random.new
     
     1.times do |n|
-      institute = FactoryGirl.create(:institute, city: Faker::Address.city)
+      institute = FactoryGirl.create(:institute)
 
-      1.times do |n|   
+      10.times do |n|   
         gl = User.create!(role:                  'group_leader',
-                          email:                 'test@test.com',
+                          email:                 Faker::Internet.email,
                           institute_name:        institute.name,                  
                           password:              'loislane',
                           password_confirmation: 'loislane')
@@ -44,12 +44,12 @@ namespace :db do
           u.save
         end
 
-        500.times do |n|
+        100.times do |n|
           reagent = FactoryGirl.create(:reagent, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           reagent.user_ids = gl.lab.user_ids.sample(rand(gl.lab.size))
         end
 
-        r.rand(100).times do |n|
+        r.rand(50).times do |n|
           device = FactoryGirl.create(:device, lab: gl.lab, updated_at: rand(gl.created_at..Time.now))
           device.user_ids = gl.lab.user_ids.sample(rand(gl.lab.size))
         end

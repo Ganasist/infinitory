@@ -1,0 +1,36 @@
+<%- model_class = Collaboration -%>
+<div class="page-header">
+  <h2>Your collaborators</h2>
+</div>
+
+<div class="span6">
+  <%= simple_form_for [@lab, @collaborator], html: { class: 'form-inline', autocomplete: 'off' },
+                                     url: url_for(action: 'create', controller: 'collaborations'),
+                                     method: 'post' do |f| %>
+       <%= f.error_notification %>
+     
+       <%= f.association :collaborator,  label: 'Add another lab',
+                                         collection: Lab.all,
+                                         value_method: :email,
+                                         label_method: :email,
+                                         placeholder: 'Lab email address',
+                                         tooltip: ['right', 'This lab will only see your shared items!'] %>
+
+      <%= f.button :submit %>
+    <% end %>
+    <br>
+  <h4 class="text-muted">Groups you share items with:</h4>
+  <br>
+  <%= render 'outgoing' %>
+</div>
+
+<div class="span6">
+  <h4 class="text-muted">Groups who share items with you:</h4>
+  <br>
+    <p>input field to post new collaborator</p>
+  <%#= render 'incoming' %>
+</div>
+
+ 
+
+
