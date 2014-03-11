@@ -1,7 +1,7 @@
 class LabsController < ApplicationController
   before_action :set_lab, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :check_user!, only: :show
+  before_action :check_members_and_collaborators!, only: :show
   before_action :block_outsiders!, except: :show
 
   def index
@@ -29,7 +29,7 @@ class LabsController < ApplicationController
     data_table_lab.new_column('string', 'Name')
     data_table_lab.new_column('number', 'Devices')
     data_table_lab.new_column('number', 'Reagents')
-    data_table_lab.new_column('number', 'Pts/day')
+    data_table_lab.new_column('number', 'pts/day')
     data_table_lab.new_column('number', 'Total points')
     data_table_lab.add_rows(@users.map { |u|[u.fullname,
                                          u.cached_device_count,
@@ -107,7 +107,7 @@ class LabsController < ApplicationController
   end
 
   private
-    def check_user!
+    def check_members_and_collaborators!
       unless (current_user.lab == Lab.find(params[:id])) || Lab.where(id: current_user.lab.inverse_collaborations.pluck(:lab_id)).include?(Lab.find(params[:id]))
         redirect_to current_user
         flash[:alert] = 'You cannot access that lab'

@@ -1,13 +1,9 @@
 <%- model_class = User -%>
-<div class="span12">
+<div class="page-header">
   <h3>
-    <% if params[:tag] %>
-      <%= "Nearby scientists interested in #{params[:tag]}" %>
-    <% else %>
-      <%= link_to @lab do %>
-       <i class="icon-group"></i><%= " #{@lab.gl.fullname} lab members" %>
-       <% end %>
-    <% end %>
+    <%= link_to @lab do %>
+     <i class="icon-group"></i><%= " #{@lab.gl.fullname} lab members" %>
+     <% end %>
   </h3>
 </div>
  

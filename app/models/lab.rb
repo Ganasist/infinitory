@@ -67,7 +67,7 @@ class Lab < ActiveRecord::Base
   end
 
   def gl_lm
-    users.where('role = ? OR role = ?', 'group_leader', 'lab_manager')
+    users.where('role IN (?)', ['group_leader', 'lab_manager'])
   end
 
 	def city

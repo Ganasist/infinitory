@@ -1,12 +1,12 @@
 <% cache @users do %>
-  <table class="table">
+  <table class="table table-striped">
     <tbody id="approved">      
       <% @users.each do |user| %>
         <tr>
           <td>            
-            <% if user.icon.blank? %> 
+            <% if !user.icon.present? %> 
             <h4 class="text-left"> 
-              <%= fa_icon "lightbulb", class: "fa-lg fa-fw" if user.gl? %>
+              <%= fa_icon "lightbulb-o", class: "fa-lg fa-fw" if user.gl? %>
               <%= fa_icon "eye", class: "fa-lg fa-fw" if user.lm? %>
               <%= fa_icon "user", class: "fa-lg fa-fw" if !user.gl_lm? %>
             </h4>
@@ -27,7 +27,7 @@
           <% if current_user.retire_permissions?(user, @lab) %>
             <td>
               <%= link_to '  Retire', retire_user_path(user),
-                                      data: { confirm: "Are you sure you want to retire #{user.fullname}? He/she will be unlinked from everything in the lab." },
+                                      data: { confirm: "Are you sure you want to retire #{user.fullname}? This will unlinked them from everything in the lab." },
                                       class: 'btn btn-info fa fa-chain-broken fa-lg' %>
             </td>
           <% end %>

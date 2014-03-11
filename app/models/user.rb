@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
   end
 
   def retire_permissions?(user, lab)
-    self.gl_lm? && (self.lab = lab) && !user.gl? && user != self
+    gl_lm_lab?(lab) && !user.gl?
   end
 
   def location
@@ -190,8 +190,8 @@ class User < ActiveRecord::Base
     role == 'lab_manager'    
   end
 
-  def gl_lm(lab)
-    self.lab = lab
+  def gl_lm_lab?(this_lab)
+    (role == 'group_leader' || role == 'lab_manager') && self.lab == this_lab
   end
 
   def lab_email
