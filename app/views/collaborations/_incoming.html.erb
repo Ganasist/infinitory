@@ -2,13 +2,13 @@
 	<% for inverse_collaboration in @lab.inverse_collaborations %>
 		<p><%= link_to inverse_collaboration.lab.gl.fullname, lab_path(inverse_collaboration.lab) %></p>
 		<p>
-			<%= link_to inverse_collaboration.lab.reagents.where(shared: false).count %> reagents and 
-			<%= link_to inverse_collaboration.lab.devices.where(shared: false).count %> devices shared
+			<%= inverse_collaboration.lab.reagents.where(shared: false).count %> reagents and 
+			<%= inverse_collaboration.lab.devices.where(shared: false).count %> devices shared
 		</p>
 		<p>Collaboration initiated <%= time_ago_in_words(inverse_collaboration.created_at) %> ago</p>
 		<p><%= link_to ' End Collaboration',
 										destroy_inverse_path(inverse_collaboration),
-										data: { confirm: "Are you sure you want to end your collaboration with #{ inverse_collaboration.lab.gl.fullname }? You lab will no longer have access to their shared inventory." },
+										data: { confirm: "Are you sure you want to end your collaboration with the #{ inverse_collaboration.lab.gl.fullname } lab? Your group will no longer have access to their shared items." },
 										class: 'btn btn-danger fa fa-chain-broken' %>
 	<hr>
 	<% end %>

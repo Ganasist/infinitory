@@ -5,7 +5,7 @@
 		<p><%= link_to ' End collaboration',
 										collaboration,
 										method: :delete,
-										data: { confirm: "Are you sure you want to end your collaboration with #{ collaboration.collaborator.gl.fullname }? This lab will no longer be able to access your lab's shared items." },
+										data: { confirm: "Are you sure you want to end your collaboration with the #{ collaboration.collaborator.gl.fullname } lab? They will no longer be able to access your group's shared items." },
                     class: 'btn btn-danger fa fa-chain-broken' %></p>
     <hr>
 	<% end %>
