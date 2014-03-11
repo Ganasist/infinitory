@@ -1,7 +1,8 @@
 class LabsController < ApplicationController
   before_action :set_lab, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :check_user!, except: :index
+  before_action :check_user!, only: :show
+  before_action :block_outsiders!, except: :show
 
   def index
     @institute = Institute.friendly.find(params[:institute_id])
@@ -107,10 +108,17 @@ class LabsController < ApplicationController
 
   private
     def check_user!
-      unless current_user.lab == Lab.find(params[:id])
+      unless (current_user.lab == Lab.find(params[:id])) || Lab.where(id: current_user.lab.inverse_collaborations.pluck(:lab_id)).include?(Lab.find(params[:id]))
         redirect_to current_user
-        flash[:alert] = "You cannot access that lab"
+        flash[:alert] = 'You cannot access that lab'
       end
+    end
+
+    def block_outsiders!
+      unless (current_user.lab == Lab.find(params[:id]))
+        redirect_to current_user
+        flash[:alert] = 'You cannot access that page'
+      end      
     end
 
     def set_lab

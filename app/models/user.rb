@@ -118,9 +118,9 @@ class User < ActiveRecord::Base
     Rails.cache.fetch([self, "reagent_count"], expires_in: 30.minutes) { self.reagents.count }
   end
 
-  def should_generate_new_friendly_id?
-    first_name_changed? || last_name_changed?  || role_changed?
-  end
+  # def should_generate_new_friendly_id?
+  #   first_name_changed? || last_name_changed?  || role_changed?
+  # end
 
   def reject
     self.approved      = false
