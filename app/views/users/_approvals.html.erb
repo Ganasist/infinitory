@@ -1,5 +1,5 @@
 <% if @approvals.count > 0 && current_user.gl_lm_lab?(@lab) %>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <% if current_user.gl_lm_lab?(@lab) && @approvals.count > 0 %>
         <h4>Members awaiting authorization</h4>
