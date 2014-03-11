@@ -190,6 +190,10 @@ class User < ActiveRecord::Base
     role == 'lab_manager'    
   end
 
+  def gl_lab?(this_lab)
+    (role == 'group_leader') && self.lab == this_lab
+  end
+
   def gl_lm_lab?(this_lab)
     (role == 'group_leader' || role == 'lab_manager') && self.lab == this_lab
   end

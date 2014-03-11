@@ -2,8 +2,8 @@
 	<% for inverse_collaboration in @lab.inverse_collaborations %>
 		<p><%= link_to inverse_collaboration.lab.gl.fullname, lab_path(inverse_collaboration.lab) %></p>
 		<p>
-			<%= inverse_collaboration.lab.reagents.where(shared: false).count %> reagents and 
-			<%= inverse_collaboration.lab.devices.where(shared: false).count %> devices shared
+			<%= inverse_collaboration.lab.reagents.where(shared: true).count %> reagents and 
+			<%= inverse_collaboration.lab.devices.where(shared: true).count %> devices shared
 		</p>
 		<p>Collaboration initiated <%= time_ago_in_words(inverse_collaboration.created_at) %> ago</p>
 		<p><%= link_to ' End Collaboration',

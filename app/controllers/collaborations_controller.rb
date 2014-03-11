@@ -1,7 +1,7 @@
 class CollaborationsController < ApplicationController
 	before_action :set_lab, only: [:index, :create]
 	before_action :authenticate_user!
-  before_action :check_user!
+  before_action :check_user!, only: [:index, :create]
 
 	def index
 		@collaborator = Collaboration.new
@@ -40,15 +40,15 @@ class CollaborationsController < ApplicationController
   def destroy_inverse
     @collaboration = current_user.lab.inverse_collaborations.find(params[:id])
     @collaboration.destroy
-    flash[:notice] = "Your no longer can access items from #{ @collaboration.lab.gl.fullname }'s group."
+    flash[:notice] = "You can no longer can access items from #{ @collaboration.lab.gl.fullname }'s group."
     redirect_to lab_collaborations_path(current_user.lab)
   end
 
 	private
 		def check_user!
-      if current_user.lab != @lab && !current_user.gl?
+      unless current_user.gl_lm_lab?(@lab)
         redirect_to current_user
-        flash[:alert] = "You cannot access reagents from that lab"
+        flash[:alert] = "You cannot access that page"
       end
     end
 
