@@ -1,17 +1,6 @@
 @import "twitter/bootstrap/bootstrap";
 @import "twitter/bootstrap/responsive";
 
-// Set the correct sprite paths
-// @iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings");
-// @iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white");
-
-// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
-// @fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
-// @fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot#iefix");
-// @fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
-// @fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
-// @fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
-
 @buttonWarning: #E68A00;
 @navBarLinkHover: @buttonWarning;
 @navbarBackground: #003399;
@@ -25,6 +14,10 @@ body td {
   font-size: 1.2em;
   line-height: 1.3em;
 	padding-bottom: 15px;
+}
+
+.span12 {
+	margin-left: 0px;
 }
 
 .page-header h3 {
@@ -239,3 +232,136 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
 		line-height: 1.5em;
 	}
 }
+
+
+    /* MARKETING CONTENT
+    -------------------------------------------------- */
+
+    /* Center align the text within the three columns below the carousel */
+    .marketing .span4 {
+      text-align: center;
+    }
+    .marketing h1 {
+      font-weight: normal;
+    }
+    .marketing .span4 p {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+
+    /* Featurettes
+    ------------------------- */
+
+    .featurette-divider {
+      margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    }
+    .featurette {
+      padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+      overflow: hidden; /* Vertically center images part 2: clear their floats. */
+    }
+    .featurette-image {
+    	padding: 10px;
+      margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+    }
+
+    /* Give some space on the sides of the floated elements so text doesn't run right into it. */
+    .featurette-image.pull-left {
+      margin-right: 40px;
+    }
+    .featurette-image.pull-right {
+      margin-left: 40px;
+    }
+
+    /* Thin out the marketing headings */
+    .featurette-heading {
+      font-size: 50px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+
+
+    /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+
+      // .container.navbar-wrapper {
+      //   margin-bottom: 0;
+      //   width: auto;
+      // }
+
+      // .navbar-inner {
+      //   border-radius: 0;
+      //   margin: -20px 0;
+      // }
+
+      .carousel .item {
+        height: 500px;
+      }
+      .carousel img {
+        width: auto;
+        height: 500px;
+      }
+
+      .featurette {
+        height: auto;
+        padding: 0;
+      }
+      .featurette-image.pull-left,
+      .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+      }
+    }
+
+
+    @media (max-width: 767px) {
+
+      // .navbar-inner {
+      //   margin: -20px;
+      // }
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+      .carousel .container {
+
+      }
+      .carousel .item {
+        height: 500px;
+      }
+      .carousel img {
+        height: 500px;
+      }
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-top: 100px;
+      }
+      .carousel-caption h1 {
+        font-size: 30px;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 18px;
+      }
+
+      .marketing .span4 + .span4 {
+        margin-top: 40px;
+      }
+
+      .featurette-heading {
+        font-size: 30px;
+      }
+      .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+    }

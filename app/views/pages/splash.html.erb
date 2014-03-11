@@ -8,53 +8,66 @@
       <% end %>   
   </span>
 </div>
-<div class="body-content text-center">
-  <div class="row">
-    <div class="col-lg-12">
-      <span class="text-center splash-why">Why?</span>
-      <br>
-    </div>
-    <div class="col-lg-4">
-      <h2><%= fa_icon "flask" %> Organize</h2><hr>
-      <p class="lead">Catalog your reagents</p>
-      <p class="lead">Eliminate redundant purchases</p>
-      <p class="lead">Receive depletion & expiration warnings</p><br>
-    </div>
-    <div class="col-lg-4">
-      <h2><%= fa_icon "gears" %> Discover</h2><hr>    
-      <p class="lead">Catalog your devices</p>
-      <p class="lead">Book and track them online</p>
-      <p class="lead">Improve device saturation</p><br>
-   </div>   
-    <div class="col-lg-4">
-      <h2><%= fa_icon "group" %> Collaborate</h2><hr>
-      <p class="lead">Link to other labs</p>
-      <p class="lead">Pool resources efficiently</p>
-      <p class="lead">Monitor everything in real time</p><br>
-    </div>
-    
-    <div class="col-lg-12">
-      <br>
-      <span class="splash-how">How?</span>
-      <br>
-    </div>
-    <div class="col-lg-4">
-      <h2><%= fa_icon "hand-o-up" %> Sign-up</h2><hr>
-      <p class="lead">Group leader signs up</p>
-      <p class="lead">Lab account is generated</p>
-      <p class="lead">Members join lab account</p><br>
-    </div>
-     <div class="col-lg-4">
-      <h2><%= fa_icon "signal" %> Initial catalog</h2><hr>
-      <p class="lead">Establish lab location code</p>
-      <p class="lead">Create global inventory</p>
-      <p class="lead">Users link to items-of-interest</p><br>
-    </div>
-    <div class="col-lg-4">
-      <h2><%= fa_icon "share" %> Steady state</h2><hr>          
-      <p class="lead">Observe lab metrics</p>
-      <p class="lead">Reduce operating costs</p>
-      <p class="lead">Collectively maintain inventory</p><br>
-   </div>   
-  </div>
-</div>
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row" id="why">
+        <div class="span4">
+          <img class="img-circle" src="../images/petri_organize.jpg">
+          <h2 class="text-muted"><%= fa_icon "flask" %> Organize</h2><br>
+          <p class="lead">Catalog your reagents</p>
+          <p class="lead">Eliminate redundant purchases</p>
+          <p class="lead">Get depletion & expiration warnings</p><br>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-circle" src="../images/petri_discover.jpg">
+          <h2 class="text-muted"><%= fa_icon "gears" %> Discover</h2><br>
+          <p class="lead">Catalog your devices</p>
+          <p class="lead">Book and track them online</p>
+          <p class="lead">Improve device saturation</p><br>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-circle" src="../images/petri_collaborate.png">
+          <h2 class="text-muted"><%= fa_icon "group" %> Collaborate</h2><br>
+          <p class="lead">Link to other labs</p>
+          <p class="lead">Pool resources efficiently</p>
+          <p class="lead">Monitor everything in real time</p><br>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div><!-- /.span4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider" id="how">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" src="../images/petri_signup.jpg">
+        <h2 class="featurette-heading">Step 1: <span class="muted">Sign-up</span></h2>
+        <p class="lead">Group leaders first create a personal account, which triggers automatic generation of a lab account. Members then link to their lab account via their group leader's email address. You're ready to begin.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-left" src="../images/petri_initial.jpg">
+        <h2 class="featurette-heading">Step 2: <span class="muted"> Initial catalog</span></h2>
+        <p class="lead">Establish a location code in your lab. Take one day off to perform an inventory together. Add only what you want to track. Catalog anything. Catalog everything.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" src="../images/petri_steady.jpg">
+        <h2 class="featurette-heading">Step 3: <span class="muted">Steady state</span></h2>
+        <p class="lead">Labs can collectively maintain accurate inventories with only five minutes / member / day on Infinitory. Observe history and metrics on anything. Waste less. Do more.</p>
+      </div>
+
+      <hr class="featurette-divider">
