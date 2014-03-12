@@ -1,11 +1,11 @@
 jQuery ->
-	jumboHeight = $(".jumbotron").outerHeight()
+	# jumboHeight = $(".jumbotron").outerHeight()
 
-	parallax = ->
-	  scrolled = $(window).scrollTop()
-	  $(".bg").css "height", (jumboHeight - scrolled) + "px"
-	  return
+	# parallax = ->
+	#   scrolled = $(window).scrollTop()
+	#   $(".bg").css "height", (jumboHeight - scrolled) + "px"
+	#   return
 
-	$(window).scroll (e) ->
-	  parallax()
-	  return
+	# $(window).scroll (e) ->
+	#   parallax()
+	#   return
