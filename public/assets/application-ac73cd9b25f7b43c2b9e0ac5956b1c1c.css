@@ -8926,6 +8926,9 @@ span.badge-25 {
 .marketing .span4 {
   text-align: center;
 }
+.marketing i {
+  color: #2255bb;
+}
 .marketing h1 {
   font-weight: normal;
 }
