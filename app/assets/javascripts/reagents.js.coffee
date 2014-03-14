@@ -16,15 +16,3 @@ jQuery ->
   $("#reagents th a").live "click", ->
     $.getScript @href
     return false
-
-
-
-	$("div#spinner").hide()
-	# when an ajax request starts, show spinner
-	$.ajaxStart ->
-	  $("div#spinner").show()
-	  return
-	# when an ajax request complets, hide spinner    
-	$.ajaxStop ->
-	  $("div#spinner").hide()
-	  return

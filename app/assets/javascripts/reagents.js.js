@@ -12,19 +12,12 @@ jQuery(function() {
   });
   reagent_remaining = $('#reagent_remaining').val();
   $("#reagent_remaining_feedback").html("Amount remaining: " + reagent_remaining + "%");
-  $("#reagent_remaining").change(function() {
+  return $("#reagent_remaining").change(function() {
     reagent_remaining = $('#reagent_remaining').val();
     $("#reagent_remaining_feedback").html("Amount remaining: " + reagent_remaining + "%");
     return $("#reagents th a").live("click", function() {
       $.getScript(this.href);
       return false;
     });
-  });
-  $("div#spinner").hide();
-  $.ajaxStart(function() {
-    $("div#spinner").show();
-  });
-  return $.ajaxStop(function() {
-    $("div#spinner").hide();
   });
 });
