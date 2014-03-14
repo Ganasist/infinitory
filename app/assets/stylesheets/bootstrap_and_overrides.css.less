@@ -256,6 +256,11 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
     	color: @buttonWarning + #222;
     }
 
+    .featurette cite {
+      // vertical-align: bottom;
+      text-align: right;
+    }
+
     .marketing h1 {
       font-weight: normal;
     }
@@ -268,20 +273,21 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
     ------------------------- */
 
     .featurette-divider {
-      margin: 60px 0; /* Space out the Bootstrap <hr> more */
+      margin: 80px 0; /* Space out the Bootstrap <hr> more */
     }
     .featurette {
       padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
       overflow: hidden; /* Vertically center images part 2: clear their floats. */
     }
     .featurette-image {
-      padding: 10px;
-      margin-top: -130px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+      // padding: 10px;
+      margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
     }
 
     /* Give some space on the sides of the floated elements so text doesn't run right into it. */
     .featurette-image.pull-left {
       margin-right: 40px;
+      padding-right: 20px;
     }
     .featurette-image.pull-right {
       margin-left: 40px;
@@ -293,6 +299,14 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
       font-weight: 300;
       line-height: 1;
       letter-spacing: -1px;
+    }
+
+    p.copyright-right {
+      padding-right: 210px;
+    }
+
+    p.copyright-left {
+      padding-left: 210px;
     }
 
     /* RESPONSIVE CSS
@@ -311,6 +325,14 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
         max-width: 40%;
         margin: 0 auto 20px;
       }
+
+      p.copyright-right {
+        padding-right: 100px;
+      }
+
+      p.copyright-left {
+        padding-left: 100px;
+      }
     }
 
 
@@ -326,6 +348,14 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
       .featurette .lead {
         font-size: 18px;
         line-height: 1.5;
+      }
+
+      p.copyright-right {
+        padding-right: 70px;
+      }
+
+      p.copyright-left {
+        padding-left: 70px;
       }
 
     }
