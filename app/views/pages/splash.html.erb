@@ -2,7 +2,7 @@
 <div class="jumbotron">
   <span id="jumbotext">
     <h1>INFINITORY</h1>
-    <h3>Enhanced lab inventory management system</h3>
+    <h3>Lab inventory management</h3>
     <p class="lead"><%= link_to "Sign-up", new_user_registration_path, class: "btn-large btn-warning" %></p>
   </span>
 </div>
@@ -24,7 +24,6 @@
           <p class="lead">Catalog your reagents</p>
           <p class="lead">Eliminate redundant purchases</p>
           <p class="lead">Get depletion & expiration warnings</p><br>
-          <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
         </div><!-- /.span4 -->
         <div class="span4">
           <span class="fa-stack fa-4x">
@@ -35,7 +34,6 @@
           <p class="lead">Catalog your devices</p>
           <p class="lead">Book and track them online</p>
           <p class="lead">Improve user and device saturation</p><br>
-          <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
         </div><!-- /.span4 -->
         <div class="span4">
           <span class="fa-stack fa-4x">
@@ -46,7 +44,6 @@
           <p class="lead">Link to other labs</p>
           <p class="lead">Pool resources efficiently</p>
           <p class="lead">Monitor everything in real time</p><br>
-          <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
         </div><!-- /.span4 -->
       </div><!-- /.row -->
 
@@ -55,7 +52,10 @@
       <hr class="featurette-divider" id="how">
 
       <div class="featurette">
-        <img class="featurette-image pull-right image-responsive" name="name" data-toggle="tooltip" title="KLARI REIS, Systemic Circulation 2" src="../images/petri_signup.jpg">
+        <!-- <a href="http://www.klarireis.com/" target="_blank">
+            <img class="featurette-image pull-right image-responsive" name="name" data-toggle="tooltip" title="Systemic Circulation 2" src="../images/petri_signup.jpg">
+        </a> -->
+
         <h2 class="featurette-heading">Step 1: <span class="muted">Sign-up</span></h2>
         <p class="lead">Group leaders create an account, which triggers automatic generation of a lab account. Members then sign-up and link to their lab's account.</p>
         <p class="lead">Questions? <%= link_to "Answers", page_path('faq'), class: "btn-large btn-warning" %></p>
@@ -63,20 +63,37 @@
 
       <hr class="featurette-divider">
 
-      <div class="featurette">
-        <img class="featurette-image pull-left image-responsive" data-toggle="tooltip" title="KLARI REIS, Hypochondria, 2013" src="../images/petri_initial_catalog.jpg">
-        <h2 class="featurette-heading">Step 2: <span class="muted"> Catalog</span></h2>
+      <div class="featurette">        
+        <!-- <a href="http://www.klarireis.com/" target="_blank">
+          <img class="featurette-image pull-left image-responsive" data-toggle="tooltip" title="Hypochondria, 2013" src="../images/petri_initial_catalog.jpg">
+        </a> -->
+
+        <h2 class="featurette-heading">Step 2: <span class="muted">Catalog</span></h2>
         <p class="lead">Establish a location code in your lab. Set aside one day to take a global inventory together. Catalog only what you want. Add anything. Add everything.</p>
-        <p class="lead">Comments? <%= mail_to "feedback@infinitory.com", "We're listening",class: "btn-large btn-warning" %></p>      
+        <p class="lead">Comments? <%= mail_to "feedback@infinitory.com", "We're listening",class: "btn-large btn-warning" %></p>
       </div>
 
       <hr class="featurette-divider">
 
       <div class="featurette">
-        <img class="featurette-image pull-right image-responsive" data-toggle="tooltip" title="KLARI REIS, Musings in Color, 2013" src="../images/petri_steady_state.jpg">
+        <!-- <a href="http://www.klarireis.com/" target="_blank">
+          <img class="featurette-image pull-right image-responsive" data-toggle="tooltip" title="Musings in Color, 2013" src="../images/petri_steady_state.jpg">
+        </a> -->
+
         <h2 class="featurette-heading">Step 3: <span class="muted">Steady state</span></h2>
-        <p class="lead">Collectively maintain a fresh inventory in under 10 minutes per member per day. Take advantage of real time metrics in your lab. Waste less. Do more.</p>
+        <p class="lead">Collectively maintain a fresh inventory with less than 10 minutes per member per day. Make informed decisions. Waste less. Do more.</p>
         <p class="lead">Ready? <%= link_to "Begin", new_user_registration_path, class: "btn-large btn-warning" %></p>
       </div>
 
       <hr class="featurette-divider">
+
+     <!--  <div class="featurette">    
+        <a href="http://www.klarireis.com/" target="_blank">
+          <img class="featurette-image pull-right image-responsive" data-toggle="tooltip" title="Musings in Color, 2013" src="../images/petri_steady_state.jpg">
+        </a>
+        <h2 class="featurette-heading">Step X: <span class="muted">Steady state</span></h2>
+        <p class="lead">Collectively maintain a fresh inventory with less than 10 minutes per member per day. Make informed decisions. Waste less. Do more.</p>
+        <p class="lead">Ready? <%= link_to "Begin", new_user_registration_path, class: "btn-large btn-warning" %></p>  
+      </div>
+
+      <hr class="featurette-divider"> -->
