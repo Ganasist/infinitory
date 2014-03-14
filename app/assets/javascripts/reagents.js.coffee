@@ -19,7 +19,7 @@ jQuery ->
 
 
 
-	# $("div#spinner").hide()
+	$("div#spinner").hide()
 	# when an ajax request starts, show spinner
 	$.ajaxStart ->
 	  $("div#spinner").show()

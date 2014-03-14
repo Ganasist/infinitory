@@ -20,6 +20,7 @@ jQuery(function() {
       return false;
     });
   });
+  $("div#spinner").hide();
   $.ajaxStart(function() {
     $("div#spinner").show();
   });
