@@ -10,5 +10,5 @@ jQuery(function() {
       hide: 100
     }
   });
-  return $('.best_in_place').best_in_place();
+  return $(".best_in_place").best_in_place();
 });
