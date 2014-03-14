@@ -1,7 +1,6 @@
 <div id="push">
   <% if user_signed_in? %>
-    <%#= nav_bar brand: 'INFINITORY', brand_link: user_path(current_user), static: :top, responsive: false do %>
-    <%= nav_bar static: :top , brand: image_tag('brand-small.png'), brand_link: user_path(current_user), responsive: false do %>
+    <%= nav_bar brand: 'INFINITORY', brand_link: user_path(current_user), static: :top, responsive: false do %>
       <%= menu_group pull: :right do %>
       <span class="text-center">
         <% if current_user.lab.present? %>          
@@ -31,9 +30,7 @@
       <% end %>
     <% end %>
   <% else %>
-    <%#= nav_bar brand: 'INFINITORY', brand_link: root_path, static: :top, responsive: false do %>
-    <%= nav_bar static: :top , brand: image_tag('brand-small.png'), responsive: false do %>
-    
+    <%= nav_bar brand: 'INFINITORY', brand_link: root_path, static: :top, responsive: false do %>    
       <%= menu_group pull: :right do %>
         <%= drop_down 'SIGN-IN' do %>
           <%= simple_form_for('user', url: new_user_session_path,
