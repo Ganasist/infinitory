@@ -196,7 +196,7 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
   height: 400px; /*same height as jumbotron */
   top:0;
   left:0;
-  margin-top: 50px;
+  margin-top: 55px;
   z-index: -1;
 }
 
@@ -205,12 +205,13 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
   height: 400px;
   background:transparent;
   color: @navbarBackground + #222;
+  margin-top: 50px;
   h1 {
     padding-left: 0px;
     padding-right: 0px;
     text-shadow: 1px 1px 1px @navbarBackground - #222;
+    }
   }
-}
 
 .faq {
 	a {
@@ -254,11 +255,6 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
 
     i.fa-flask:hover, i.fa-gears:hover, i.fa-users:hover  {
     	color: @buttonWarning + #222;
-    }
-
-    .featurette cite {
-      // vertical-align: bottom;
-      text-align: right;
     }
 
     .marketing h1 {
@@ -314,6 +310,11 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
 
     @media (max-width: 979px) {
 
+      a.zemp {
+        display: block;
+        float: none;
+      }
+
       .featurette {
         height: auto;
         padding: 0;
@@ -331,12 +332,23 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
       }
 
       p.copyright-left {
-        padding-left: 100px;
+        padding-left: 90px;
       }
     }
 
 
     @media (max-width: 767px) {
+
+      .jumbotron {
+        padding-top: 50px;
+      }
+
+      .zemp {
+        // display: block;
+        // text-align: center;
+        float: right;
+        padding-right: 25px;
+      }
 
       .marketing .span4 + .span4 {
         margin-top: 40px;
@@ -358,4 +370,8 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
         padding-left: 70px;
       }
 
+    }
+
+    @media (max-width: 480px) {
+      
     }
