@@ -34,7 +34,13 @@ $('#user_role').change(function() {
       $('.LMform').removeClass('hidden');
     }
     if ($('#user_role').val() === "group_leader") {
-      return $('.LMform').addClass('hidden');
+      $('.LMform').addClass('hidden');
+    }
+    if ($('#user_role').val() === "group_leader") {
+      $('#GL_INFO').slideDown('fast');
+    }
+    if ($('#user_role').val() !== "group_leader") {
+      return $('#GL_INFO').slideUp('fast');
     }
   };
   if ($('#user_role').val() !== "") {

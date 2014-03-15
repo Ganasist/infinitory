@@ -9,14 +9,17 @@
   <div class="form-inputs">
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: 'Choose your position' %>
       <br>
-      <br>    
+      <div id="GL_INFO">
+        <h4 class="lead">Signing up as a Group Leader will automatically create a Lab Account at your institute linked to your email address.</h4>
+      </div>
+      <br>   
     <div id="inner-form">
         <%= f.input :email, as: :email, label: 'Email address',
         							      placeholder: 'Institutional address recommended',
                             input_html: { class: 'js-email' } %>
       
       <span class="GLform hidden">
-        <%= f.input :institute_name, placeholder: 'Find or create your institute',
+        <%= f.input :institute_name, placeholder: 'Find or create your institute account',
                                      typeahead: Institute.all.pluck(:name) %>
       </span>
 
