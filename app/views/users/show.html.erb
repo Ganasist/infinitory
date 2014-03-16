@@ -50,7 +50,7 @@
             <% if @user.email? %>
             <li>          
               <%= mail_to @user.email do %>
-                <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
+                <%= fa_icon "envelope-o", title: "Email", class: "fa-2x fa-fw"  %>
               <% end %>
             </li>
             <% end %>
@@ -58,7 +58,7 @@
             <% if @user.linkedin_url? %>
              <li>          
               <%= link_to @user.linkedin_url, target: "_blank"  do %>
-                <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-lg fa-fw", id: "linkedin" %>
+                <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-2x fa-fw", id: "linkedin" %>
               <% end %>
             </li>          
             <% end %>
@@ -66,7 +66,7 @@
             <% if @user.xing_url? %>
              <li>          
               <%= link_to @user.xing_url, target: "_blank"  do %>
-                <%= fa_icon "xing", title: "Xing", class: "fa-lg fa-fw", id: "xing" %>
+                <%= fa_icon "xing", title: "Xing", class: "fa-2x fa-fw", id: "xing" %>
               <% end %>
             </li>          
             <% end %>
@@ -74,7 +74,7 @@
             <% if @user.twitter_url? %>
              <li>          
               <%= link_to @user.twitter_url, target: "_blank"  do %>
-                <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw", id: "twitter" %>
+                <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw", id: "twitter" %>
               <% end %>
             </li>          
             <% end %>
@@ -82,7 +82,7 @@
             <% if @user.facebook_url? %>
              <li>          
               <%= link_to @user.facebook_url, target: "_blank"  do %>
-                <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw", id: "facebook" %>
+                <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw", id: "facebook" %>
               <% end %>
             </li>          
             <% end %>  

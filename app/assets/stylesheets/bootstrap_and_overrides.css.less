@@ -113,8 +113,31 @@ a, .navbar a, #invitation, #sign-out {
 	}
 }
 
-li i a &:hover {
-	color: @navbarBackgroundHighlight;
+i  {
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.5s;
+}
+
+i#linkedin:hover {
+  color: #007bb6;
+}
+
+i#xing:hover {
+  color: #126567;
+}
+i#twitter:hover {
+  color: #55ACEE;
+}
+
+i#facebook:hover {
+  color: #3B5998;
+}
+i#google_plus:hover {
+  color: #dd4b39;
 }
 
 h5 a {
@@ -123,6 +146,8 @@ h5 a {
 		color: @navbarBackgroundHighlight;
 	}
 }
+
+
 
 .navbar .brand {
   color: #fff;
@@ -269,16 +294,7 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
     	color: @navbarBackgroundHighlight + #222;
     }
 
-    i.fa-flask, i.fa-gears, i.fa-users  {
-    	-o-transition:.5s;
-		  -ms-transition:.5s;
-		  -moz-transition:.5s;
-		  -webkit-transition:.5s;
-		  /* ...and now for the proper property */
-		  transition:.5s;
-    }
-
-    i.fa-flask:hover, i.fa-gears:hover, i.fa-users:hover  {
+    i.splash:hover  {
     	color: @buttonWarning + #222;
     }
 
