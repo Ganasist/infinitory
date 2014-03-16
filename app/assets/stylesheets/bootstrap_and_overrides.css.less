@@ -16,6 +16,11 @@ body td {
 	padding-bottom: 15px;
 }
 
+#wrapper {
+  min-height:100%;
+  position:relative;
+}
+
 .span12 {
 	margin-left: 0px;
 }
@@ -156,11 +161,12 @@ span.badge-25 {	background-color: @buttonWarning + #444; }
 .footer {
 	font-size: 1em;
 	color: #000;
-	position: fixed;
+	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 30px;
+  width: 100%;
 	background-color: #DDDDDD;
 	padding: 5px;
 	a {
