@@ -28981,7 +28981,7 @@ jQuery(document).on('best_in_place:error', function(event, request, error) {
         hide: 100
       }
     });
-    return $('.best_in_place').best_in_place();
+    return $(".best_in_place").best_in_place();
   });
 
 }).call(this);
@@ -28997,7 +28997,7 @@ jQuery(function() {
       hide: 100
     }
   });
-  return $('.best_in_place').best_in_place();
+  return $(".best_in_place").best_in_place();
 });
 /*! jQuery UI - v1.10.3 - 2013-10-31
 * http://jqueryui.com
@@ -36220,10 +36220,10 @@ jQuery(function() {});
       $('.GLform').addClass('hidden');
     }
     if ($('#user_role').val() !== "group_leader") {
-      $('.LMform').removeClass('hidden');
+      $('.lab_members_form').removeClass('hidden');
     }
     if ($('#user_role').val() === "group_leader") {
-      return $('.LMform').addClass('hidden');
+      return $('.lab_members_form').addClass('hidden');
     }
   });
 
@@ -36237,10 +36237,16 @@ jQuery(function() {});
         $('.GLform').addClass('hidden') && $('#user_institute_name').val([""]) && $('#user_department_id').val([""]);
       }
       if ($('#user_role').val() !== "group_leader") {
-        $('.LMform').removeClass('hidden');
+        $('.lab_members_form').removeClass('hidden');
       }
       if ($('#user_role').val() === "group_leader") {
-        return $('.LMform').addClass('hidden');
+        $('.lab_members_form').addClass('hidden');
+      }
+      if ($('#user_role').val() === "group_leader") {
+        $('#GL_INFO').slideDown('fast');
+      }
+      if ($('#user_role').val() !== "group_leader") {
+        return $('#GL_INFO').slideUp('fast');
       }
     };
     if ($('#user_role').val() !== "") {
@@ -36268,10 +36274,10 @@ jQuery(function() {
     $('.GLform').addClass('hidden');
   }
   if ($('#user_role').val() !== "group_leader") {
-    $('.LMform').removeClass('hidden');
+    $('.lab_members_form').removeClass('hidden');
   }
   if ($('#user_role').val() === "group_leader") {
-    return $('.LMform').addClass('hidden');
+    return $('.lab_members_form').addClass('hidden');
   }
 });
 
@@ -36285,10 +36291,16 @@ $('#user_role').change(function() {
       $('.GLform').addClass('hidden') && $('#user_institute_name').val([""]) && $('#user_department_id').val([""]);
     }
     if ($('#user_role').val() !== "group_leader") {
-      $('.LMform').removeClass('hidden');
+      $('.lab_members_form').removeClass('hidden');
     }
     if ($('#user_role').val() === "group_leader") {
-      return $('.LMform').addClass('hidden');
+      $('.lab_members_form').addClass('hidden');
+    }
+    if ($('#user_role').val() === "group_leader") {
+      $('#GL_INFO').slideDown('fast');
+    }
+    if ($('#user_role').val() !== "group_leader") {
+      return $('#GL_INFO').slideUp('fast');
     }
   };
   if ($('#user_role').val() !== "") {

@@ -14,10 +14,10 @@ jQuery(function() {
     $('.GLform').addClass('hidden');
   }
   if ($('#user_role').val() !== "group_leader") {
-    $('.LMform').removeClass('hidden');
+    $('.lab_members_form').removeClass('hidden');
   }
   if ($('#user_role').val() === "group_leader") {
-    return $('.LMform').addClass('hidden');
+    return $('.lab_members_form').addClass('hidden');
   }
 });
 
@@ -31,10 +31,10 @@ $('#user_role').change(function() {
       $('.GLform').addClass('hidden') && $('#user_institute_name').val([""]) && $('#user_department_id').val([""]);
     }
     if ($('#user_role').val() !== "group_leader") {
-      $('.LMform').removeClass('hidden');
+      $('.lab_members_form').removeClass('hidden');
     }
     if ($('#user_role').val() === "group_leader") {
-      $('.LMform').addClass('hidden');
+      $('.lab_members_form').addClass('hidden');
     }
     if ($('#user_role').val() === "group_leader") {
       $('#GL_INFO').slideDown('fast');

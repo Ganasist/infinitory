@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
+  ROLES_EDIT = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
+                    master's_student project_student technician other]
+
   devise :invitable, :database_authenticatable, :registerable,
          :confirmable, :async, :recoverable, :rememberable,
          :trackable, :validatable, :timeoutable
@@ -41,7 +44,7 @@ class User < ActiveRecord::Base
   after_create  :first_request_email, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
   
   before_update :switch_labs
-  
+    
   after_update  :update_lab_affiliations, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
   
   after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
