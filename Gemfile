@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
-gem 'rails', '4.0.2'
+ruby '2.1.1'
+gem 'rails', '4.1.0.rc1'
 gem 'sass-rails', '~> 4.0.0'
 
 gem 'newrelic_rpm'
@@ -64,7 +64,7 @@ gem 'devise'
 gem 'devise_invitable', github: 'scambra/devise_invitable'
 gem 'devise-async'
 
-gem 'figaro'
+# gem 'figaro', github: 'laserlemon/figaro'
 gem 'pg'
 gem 'rolify'
 gem 'simple_form'
@@ -112,9 +112,8 @@ end
 gem 'faker', '~> 1.2.0'
 gem 'factory_girl_rails'
 
-group :development, :test do  
-  # gem 'factory_girl_rails'
-  gem 'rspec-rails'
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'shoulda-matchers'
   gem 'zeus-parallel_tests'
   gem 'rspec-nc'

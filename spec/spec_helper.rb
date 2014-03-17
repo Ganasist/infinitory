@@ -3,6 +3,7 @@ require 'test/unit'
 
 ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
+require 'minitest/autorun'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'email_spec'
