@@ -3,16 +3,12 @@ Infinitory::Application.configure do
 
   config.i18n.enforce_available_locales = true
 
-  # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
   config.cache_store = :mem_cache_store
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
@@ -21,7 +17,6 @@ Infinitory::Application.configure do
 
   config.active_support.deprecation = :log
 
-  # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
   # Debug mode disables concatenation and preprocessing of assets.
@@ -32,12 +27,13 @@ Infinitory::Application.configure do
 
   Paperclip.options[:command_path] = '/usr/local/bin/convert'
 
-  ActionMailer::Base.smtp_settings = {
-          :address        => 'smtp.sendgrid.net',
-          :port           => '587',
-          :authentication => :plain,
-          :user_name      => ENV['SENDGRID_USERNAME'],
-          :password       => ENV['SENDGRID_PASSWORD'],
-          :domain         => ENV['SENDGRID_DOMAIN']
-  }
+  # ActionMailer::Base.smtp_settings = {
+  #   :address        => 'smtp.gmail.com',
+  #   :domain         => 'mail.google.com',
+  #   :port           => 587,
+  #   :user_name      => 'foo@gmail.com',
+  #   :password       => '******',
+  #   :authentication => :plain,
+  #   :enable_starttls_auto => true
+  # }
 end
