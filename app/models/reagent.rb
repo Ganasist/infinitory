@@ -25,8 +25,8 @@ class Reagent < ActiveRecord::Base
   
   validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another reagent in the lab with that category, name and UID' }
 
-  validates_date :expiration, after: lambda { Date.today }, after_message: 'Expiration date must be set after today',
-  														if: Proc.new { |reagent| reagent.expiration_changed? }
+  # validates_date :expiration, after: lambda { Date.today }, after_message: 'Expiration date must be set after today',
+  # 														if: Proc.new { |reagent| reagent.expiration_changed? }
 
   before_save :set_expiration, if: Proc.new { |reagent| reagent.expiration.blank? }
 

@@ -45,7 +45,7 @@ gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'
 
-gem 'validates_timeliness', '~> 3.0'
+# gem 'validates_timeliness', '~> 3.0'
 
 gem 'email_validator', require: 'email_validator/strict'
 
@@ -64,7 +64,7 @@ gem 'devise'
 gem 'devise_invitable', github: 'scambra/devise_invitable'
 gem 'devise-async'
 
-# gem 'figaro', github: 'laserlemon/figaro'
+gem 'figaro', github: 'laserlemon/figaro'
 gem 'pg'
 gem 'rolify'
 gem 'simple_form'

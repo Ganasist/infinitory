@@ -1,4 +1,4 @@
-$("#reagents").html("<%= escape_javascript(render('reagents')) %>");
+$('#reagents').html('<%= escape_javascript(render("reagents")) %>');
 
 $('#paginator-top').html('<%= escape_javascript(paginate(@reagents,
 																												 remote: true,
@@ -9,4 +9,3 @@ $('#paginator-bottom').html('<%= escape_javascript(paginate(@reagents,
 																												 		remote: true,
 																												 		theme: "twitter-bootstrap", 
                                        									 		pagination_class: "pagination-small pagination-centered").to_s) %>');
-$('#reagents').html('<%= escape_javascript(render("reagents")) %>');

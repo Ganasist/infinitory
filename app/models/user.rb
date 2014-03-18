@@ -73,9 +73,6 @@ class User < ActiveRecord::Base
 
   include PublicActivity::Common
 
-  # extend FriendlyId
-  # friendly_id :slug_candidates, use: [:slugged, :history]
-
   scope :all_gls, -> { where(role: 'group_leader') }
   scope :lm,      -> { where(role:  'lab_manager') }
 

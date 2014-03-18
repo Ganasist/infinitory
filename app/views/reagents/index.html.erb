@@ -14,7 +14,7 @@
       <p><%= link_to "#{@user.lab.gl.fullname} lab's reagents", lab_reagents_path(current_user.lab) %></p>
     <% end %>
     <% if params[:tag] %>
-      <h3>Reagents tagged with <%= "#{params[:tag]}" %></h3>
+      <h3>Reagents tagged with <%= "#{ params[:tag] }" %></h3>
     <% end %>
     <% if params[:user_id].present? %>
       <%= simple_form_for user_reagents_path(current_user.lab), method: :get do %>
@@ -45,17 +45,17 @@
     <div id="paginator-top">
       <%= paginate @reagents, remote: true,
                               theme: 'twitter-bootstrap',
-                              pagination_class: 'pagination-small pagination-centered' %>
+                              pagination_class: "pagination-small pagination-centered" %>
     </div>
 
     <div id="reagents">
-      <%= render 'reagents' %>
+      <%= render "reagents" %>
     </div>
 
     <div id="paginator-bottom">
       <%= paginate @reagents, remote: true,
                               theme: 'twitter-bootstrap',
-                              pagination_class: 'pagination-small pagination-centered' %>
+                              pagination_class: "pagination-small pagination-centered" %>
     </div>
     
   </div>

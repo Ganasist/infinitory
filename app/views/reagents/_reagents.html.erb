@@ -51,7 +51,7 @@
           <%= link_to reagent_path(reagent),
                       method: :delete,                      
                       remote: true,
-                      data: { confirm: "Are you sure you want to delete #{reagent.name}?" } do %>
+                      data: { confirm: "Are you sure you want to delete #{ reagent.name }?" } do %>
             <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete"  %>
           <% end %>
         </td>

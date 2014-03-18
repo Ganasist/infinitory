@@ -133,16 +133,20 @@
     <div class="tab-content">
       <div class="tab-pane fade in active" id="nots">
       <% if @notifications.present? %>
-        <div id"paginator-top">
-          <%= paginate @notifications, theme: 'twitter-bootstrap',
-                                       pagination_class: 'pagination-small pagination-centered' %>
+        <div id="paginator-top">
+          <%= paginate @notifications, remote: true,
+                                       theme: 'twitter-bootstrap',
+                                       pagination_class: "pagination-small pagination-centered" %>
         </div>
+
         <div id="notifications">
-          <%= render 'notifications' %>
+          <%= render "notifications" %>
         </div>
-        <div id"paginator-bottom">
-          <%= paginate @notifications, theme: 'twitter-bootstrap', 
-                                       pagination_class: 'pagination-small pagination-centered' %>
+        
+        <div id="paginator-bottom">
+          <%= paginate @notifications, remote: true,
+                                       theme: 'twitter-bootstrap', 
+                                       pagination_class: "pagination-small pagination-centered" %>
         </div>
          <% else %>
           <br>
@@ -166,9 +170,6 @@
                                     params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
         </div>
-        <% else %>
-          <br>
-          <h4 class="text-center">There are no recent messages</h4>
         <% end %>
       </div>
     </div>  

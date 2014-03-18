@@ -164,7 +164,7 @@
       <div class="<%= if params[:tab] == 'activity' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="activity">
       <% if @activities.present? %>
         <div id="paginator-activities-top">
-          <%= paginate @activities, theme: 'twitter-bootstrap',
+          <%#= paginate @activities, theme: 'twitter-bootstrap',
                                     param_name: 'activities',
                                     params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
@@ -173,15 +173,15 @@
           <%= render 'activities' %>
         </div>
         <div id="paginator-activities-bottom">
-          <%= paginate @activities, theme: 'twitter-bootstrap',
+          <%#= paginate @activities, theme: 'twitter-bootstrap',
                                     param_name: 'activities',
                                     params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
         </div>
-        <% else %>
+      <% else %>
           <br>
           <h4 class="text-center">You have no recent activities</h4>
-        <% end %>
+      <% end %>
       </div>
       <div class="tab-pane fade" id="messages">
         <% if @messages.present? %>
