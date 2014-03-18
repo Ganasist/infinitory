@@ -139,7 +139,8 @@
       <div class="<%= if (params[:tab] == 'nots' || !params[:tab])then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="nots">
         <% if @notifications.present? %>
           <div id="paginator-notifications-top">
-            <%= paginate @notifications, theme: 'twitter-bootstrap',
+            <%= paginate @notifications, remote: true,
+                                         theme: 'twitter-bootstrap',
                                          param_name: 'notifications',
                                          params: { tab: 'nots' },
                                          pagination_class: 'pagination-small pagination-centered' %>
@@ -150,7 +151,8 @@
           </div>
 
           <div id="paginator-notifications-bottom">
-            <%= paginate @notifications, theme: 'twitter-bootstrap',
+            <%= paginate @notifications, remote: true,
+                                         theme: 'twitter-bootstrap',
                                          param_name: 'notifications',
                                          params: { tab: 'nots' },
                                          pagination_class: 'pagination-small pagination-centered' %>
@@ -164,7 +166,8 @@
       <div class="<%= if params[:tab] == 'activity' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="activity">
       <% if @activities.present? %>
         <div id="paginator-activities-top">
-          <%#= paginate @activities, theme: 'twitter-bootstrap',
+          <%= paginate @activities, remote: true,
+                                    theme: 'twitter-bootstrap',
                                     param_name: 'activities',
                                     params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
@@ -173,7 +176,8 @@
           <%= render 'activities' %>
         </div>
         <div id="paginator-activities-bottom">
-          <%#= paginate @activities, theme: 'twitter-bootstrap',
+          <%= paginate @activities, remote: true,
+                                    theme: 'twitter-bootstrap',
                                     param_name: 'activities',
                                     params: { tab: 'activity' },
                                     pagination_class: 'pagination-small pagination-centered' %>
@@ -187,9 +191,9 @@
         <% if @messages.present? %>
         <div id="paginator-activities-top">
           <%= paginate @messages, theme: 'twitter-bootstrap',
-                                    param_name: 'activities',
-                                    params: { tab: 'activity' },
-                                    pagination_class: 'pagination-small pagination-centered' %>
+                                  param_name: 'activities',
+                                  params: { tab: 'activity' },
+                                  pagination_class: 'pagination-small pagination-centered' %>
         </div>
         <div id="activities">
           <br>

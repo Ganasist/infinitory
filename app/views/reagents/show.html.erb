@@ -95,11 +95,15 @@
         <% end %>
       </dl>
       <div class="btn-group">
-        <%= link_to ' Back', lab_reagents_path(@reagent.lab), class: 'btn fa fa-rotate-left'  %>
-        <%= link_to ' Edit', edit_reagent_path(@reagent), class: 'icon-edit btn btn-warning' %>
+        <%= link_to ' Back', lab_reagents_path(@reagent.lab),
+                             class: 'btn fa fa-rotate-left'  %>
+        <%= link_to ' Edit', edit_reagent_path(@reagent),
+                             class: 'icon-edit btn btn-warning' %>
         <%= link_to ' Destroy', reagent_path(@reagent),
-                                  method: 'delete', class: 'icon-trash btn btn-danger' %>
-        <%= link_to ' Clone', clone_reagent_path(@reagent), class: 'icon-code-fork btn btn-info' %>
+                                method: 'delete',
+                                class: 'icon-trash btn btn-danger' %>
+        <%= link_to ' Clone', clone_reagent_path(@reagent),
+                              class: 'icon-code-fork btn btn-info' %>
       </div>
       <hr>
     </div>
@@ -114,7 +118,7 @@
         <div class="tab-pane fade in active" id="history">
 
           <div id="paginator-top">
-            <%#= paginate @activities, remote: true,
+            <%= paginate @activities, remote: true,
                                       theme: 'twitter-bootstrap',
                                       pagination_class: 'pagination-small pagination-centered' %>
           </div>
@@ -124,7 +128,7 @@
           </div>
           
           <div id="paginator-bottom">
-            <%#= paginate @activities, remote: true,
+            <%= paginate @activities, remote: true,
                                       theme: 'twitter-bootstrap',
                                       pagination_class: 'pagination-small pagination-centered' %>
           </div>

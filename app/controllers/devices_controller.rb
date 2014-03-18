@@ -25,7 +25,7 @@ class DevicesController < ApplicationController
   end
 
   def show
-    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).page(params[:page]).per(7).reverse_order
+    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).group("activities.id").page(params[:page]).per(7).reverse_order
   end
 
   def new
