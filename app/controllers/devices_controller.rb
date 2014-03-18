@@ -68,10 +68,11 @@ class DevicesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @device.update(device_params)        
+      if @device.update(device_params)
+        @device.create_activity :update, owner: current_user
+        flash[:notice] = "#{ fullname(@device) } has been updated."
         format.html { redirect_to @device, notice: "#{ fullname(@device) } has been updated." }
         format.json { head :no_content }
-        @device.create_activity :update, owner: current_user
       else
         format.html { render action: 'edit' }
         format.json { render json: @device.errors, status: :unprocessable_entity }
@@ -85,7 +86,7 @@ class DevicesController < ApplicationController
     send_comment(@device, 'removed')
     @device.destroy
     respond_to do |format|
-      format.html { redirect_to lab_devices_url(@lab) }
+      format.html { redirect_to lab_devices_url(@lab), notice: "#{ fullname(@device) } has been removed." }
       format.json { head :no_content }
       format.js
     end
