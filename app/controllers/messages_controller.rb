@@ -11,8 +11,9 @@ class MessagesController < ApplicationController
     @feedback.user = current_user.fullname
     if @feedback.valid?
       MessageMailer.delay(retry: false).feedback_email(@feedback.email, @feedback.user, @feedback.comment)
-      redirect_to current_user, notice: "Your feedback is appreciated!"
       current_user.create_activity :feedback, owner: current_user
+      flash[:notice] = 'Your feedback is appreciated!'
+      redirect_to current_user
     else
       render 'new'
     end
