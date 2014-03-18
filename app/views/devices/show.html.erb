@@ -2,7 +2,7 @@
 <% cache @device do %>
   <% title fullname(@device) %>
   <div class="row">
-    <div class="span6">
+    <div class="span6 devices">
     <% if @device.icon.present? %>
       <% if @device.icon_processing? %>
         <h4><%= fa_icon "spinner", title: "Edit", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
