@@ -41,6 +41,7 @@ gem 'activerecord-import', '>= 0.2.0'
 gem 'merit'
 
 gem 'redis'
+gem 'memcachier'
 gem 'dalli'
 
 gem 'friendly_id', '5.0.0.beta1'

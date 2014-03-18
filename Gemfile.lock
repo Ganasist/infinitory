@@ -219,6 +219,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     merit (2.0.0)
       ambry (~> 0.3.0)
     method_source (0.8.2)
@@ -463,6 +464,7 @@ DEPENDENCIES
   kaminari
   launchy
   less-rails
+  memcachier
   merit
   minitest
   paperclip (~> 3.0)
