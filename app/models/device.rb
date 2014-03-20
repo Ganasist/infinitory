@@ -10,6 +10,9 @@ class Device < ActiveRecord::Base
 	has_many :ownerships
 	has_many :users, through: :ownerships
 
+  has_many :bookings
+  has_many :users, through: :bookings
+
 	validates :name, presence: true
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :currency, inclusion: { in: CURRENCIES }

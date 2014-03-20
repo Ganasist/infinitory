@@ -3,9 +3,9 @@ require 'sidetiq/web'
 
 Infinitory::Application.routes.draw do
   
-  resources :resources do
-	  resources :bookings
-	end
+ #  resources :resources do
+	#   resources :bookings
+	# end
 
   resources :messages, only: [:new, :create]
 

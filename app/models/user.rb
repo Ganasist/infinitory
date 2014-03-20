@@ -28,6 +28,9 @@ class User < ActiveRecord::Base
   has_many :ownerships
   has_many :reagents, through: :ownerships
   has_many :devices, through: :ownerships
+
+  has_many :bookings
+  has_many :devices, through: :bookings
   
   validates :role, presence: true, inclusion: { in: ROLES }
 
