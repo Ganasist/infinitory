@@ -57,7 +57,7 @@ class DevicesController < ApplicationController
       if @clone.save
         @clone.create_activity :clone, owner: current_user
         send_comment(@device, "cloned")
-        format.html { redirect_to @clone, notice: "#{fullname(@clone)} was successfully cloned." }
+        format.html { redirect_to @clone, notice: "#{ fullname(@clone) } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
         format.html { render action: 'edit' }

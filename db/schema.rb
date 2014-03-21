@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140308135835) do
+ActiveRecord::Schema.define(version: 20140320120921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20140308135835) do
   add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id", using: :btree
   add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id", using: :btree
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
+
+  create_table "bookings", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "device_id",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bookings", ["device_id"], name: "index_bookings_on_device_id", using: :btree
+  add_index "bookings", ["user_id"], name: "index_bookings_on_user_id", using: :btree
 
   create_table "collaborations", force: true do |t|
     t.integer  "lab_id"
@@ -365,6 +375,7 @@ ActiveRecord::Schema.define(version: 20140308135835) do
     t.boolean  "icon_processing"
     t.string   "xing_url"
     t.integer  "daily_points",           default: 0
+    t.integer  "bookings_count",         default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
