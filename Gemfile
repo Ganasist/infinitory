@@ -72,7 +72,7 @@ gem 'simple_form'
 
 gem 'high_voltage'
 
-gem 'paperclip', '~> 3.0'
+gem 'paperclip', '~> 4.1'
 gem 'aws-sdk'
 gem 'paperclip-aws'
 gem 'delayed_paperclip'
