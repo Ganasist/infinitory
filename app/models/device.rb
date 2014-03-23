@@ -7,10 +7,10 @@ class Device < ActiveRecord::Base
 	validates_associated :lab
 	validates_presence_of :lab
 
-	has_many :ownerships
+	has_many :ownerships, dependent: :destroy
 	has_many :users, through: :ownerships
 
-  has_many :bookings
+  has_many :bookings, dependent: :destroy
   has_many :users, through: :bookings
 
 	validates :name, presence: true

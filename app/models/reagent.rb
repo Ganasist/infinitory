@@ -7,7 +7,7 @@ class Reagent < ActiveRecord::Base
 	validates_associated :lab
 	validates_presence_of :lab
 
-	has_many :ownerships
+	has_many :ownerships, dependent: :destroy
 	has_many :users, through: :ownerships
 
 	validates :name, presence: true

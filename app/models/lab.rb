@@ -1,7 +1,6 @@
 class Lab < ActiveRecord::Base
   has_merit
-
-	validates :email, presence: true
+  acts_as_commentable
 
 	belongs_to :department, counter_cache: true, touch: true
 	validates_associated :department
@@ -11,17 +10,18 @@ class Lab < ActiveRecord::Base
 	validates :institute, presence: true
 
 	has_many :users
-  has_many :reagents
-  has_many :devices
+  has_many :reagents, dependent: :destroy
+  has_many :devices, dependent: :destroy
 
-  has_many :collaborations
+  has_many :collaborations, dependent: :destroy
   has_many :collaborators, through: :collaborations
 
-  has_many :inverse_collaborations, class_name: 'Collaboration', foreign_key: 'collaborator_id'
+  has_many :inverse_collaborations, class_name: 'Collaboration', foreign_key: 'collaborator_id', dependent: :destroy
   has_many :inverse_collaborators, through: :inverse_collaborations, source: :lab
 
   before_validation :smart_add_url_protocol, if: Proc.new { |l| l.url.present? && l.url_changed? }
 
+  validates :email, presence: true
   validates :url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
   validates :linkedin_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
   validates :xing_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
@@ -36,11 +36,6 @@ class Lab < ActiveRecord::Base
   validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
-
-  acts_as_commentable
-
-  # extend FriendlyId
-  # friendly_id :slug_candidates, use: [:slugged, :history]
 
   def icon_remote_url=(url_value)
      if url_value.present?

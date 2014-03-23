@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322104837) do
+ActiveRecord::Schema.define(version: 20140322144419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20140322104837) do
     t.boolean  "icon_processing"
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
+    t.string   "state"
   end
 
   add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
@@ -220,6 +221,7 @@ ActiveRecord::Schema.define(version: 20140322104837) do
     t.integer  "sash_id"
     t.integer  "level",             default: 0
     t.integer  "daily_points",      default: 0
+    t.string   "state"
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
@@ -376,6 +378,7 @@ ActiveRecord::Schema.define(version: 20140322104837) do
     t.string   "xing_url"
     t.integer  "daily_points",           default: 0
     t.integer  "bookings_count",         default: 0
+    t.string   "state"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
