@@ -1,9 +1,9 @@
 <% cache @lab do %>
 	<% for inverse_collaboration in @lab.inverse_collaborations %>
-		<p><%= link_to inverse_collaboration.lab.gl.fullname, lab_path(inverse_collaboration.lab) %></p>
+		<p><%= link_to Lab.find(inverse_collaboration.lab_id).gl.fullname, lab_path(Lab.find(inverse_collaboration.lab_id)) %></p>
 		<p>
-			<%= inverse_collaboration.lab.reagents.where(shared: true).count %> reagents and 
-			<%= inverse_collaboration.lab.devices.where(shared: true).count %> devices shared
+			<%= pluralize(Lab.find(inverse_collaboration.lab_id).reagents.where(shared: true).count, "reagent") %> and 
+			<%= pluralize(Lab.find(inverse_collaboration.lab_id).devices.where(shared: true).count, "device") %> shared
 		</p>
 		<p>Collaboration initiated <%= time_ago_in_words(inverse_collaboration.created_at) %> ago</p>
 		<p><%= link_to ' End Collaboration',

@@ -28,6 +28,7 @@ class Device < ActiveRecord::Base
   validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another device in the lab with that category, name and UID' }
 
   after_update  :online_status_message, if: Proc.new { |d| d.status_changed? }
+  after_update  :shared_status_message, if: Proc.new { |d| d.shared_changed? }
 
   include PublicActivity::Common
 
@@ -113,6 +114,26 @@ class Device < ActiveRecord::Base
       u.comments.create(comment: comment)
     end
     self.lab.comments.create(comment: comment)
+  end
+
+  def shared_status_message
+    if self.location.present?
+      if self.shared?
+        comment = "#{ self.fullname } (#{ self.location }) was shared with the lab's collaborators"
+      else
+        comment = "#{ self.fullname } (#{ self.location }) was unshared"
+      end
+    else
+      if self.status?
+        comment = "#{ self.fullname } was shared with the lab's collaborators"
+      else
+        comment = "#{ self.fullname } was unshared"
+      end
+    end
+    self.users.each do |u|
+      u.comments.create(comment: comment)
+    end
+    self.lab.comments.create(comment: comment)    
   end
 
   def fullname

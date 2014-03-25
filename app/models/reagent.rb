@@ -28,7 +28,9 @@ class Reagent < ActiveRecord::Base
   # validates_date :expiration, after: lambda { Date.today }, after_message: 'Expiration date must be set after today',
   # 														if: Proc.new { |reagent| reagent.expiration_changed? }
 
-  before_save :set_expiration, if: Proc.new { |reagent| reagent.expiration.blank? }
+  before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
+
+  after_update  :shared_status_message, if: Proc.new { |r| r.shared_changed? }
 
 	include PublicActivity::Common
 
@@ -147,6 +149,26 @@ class Reagent < ActiveRecord::Base
     else
       recipient.comments.build(comment: "#{reagent.name} expires soon. Consider sharing it.")
     end
+  end
+
+  def shared_status_message
+    if self.location.present?
+      if self.shared?
+        comment = "#{ self.fullname } (#{ self.location }) was shared with the lab's collaborators"
+      else
+        comment = "#{ self.fullname } (#{ self.location }) was unshared"
+      end
+    else
+      if self.status?
+        comment = "#{ self.fullname } was shared with the lab's collaborators"
+      else
+        comment = "#{ self.fullname } was unshared"
+      end
+    end
+    self.users.each do |u|
+      u.comments.create(comment: comment)
+    end
+    self.lab.comments.create(comment: comment)    
   end
 
   private

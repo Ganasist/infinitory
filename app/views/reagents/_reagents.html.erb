@@ -19,6 +19,7 @@
     <% @reagents.each do |reagent| %>
       <tr id="<%= reagent.id %>">
         <td>
+          <%= fa_icon "star-o", title: "Shared reagent" if reagent.shared? %>
           <%= fa_icon "paperclip", title: "Attachment" if reagent.pdf.present? %>
           <%= fa_icon "camera-retro", title: "Image" if reagent.icon.present? %>         
           <% if low?(reagent) %>

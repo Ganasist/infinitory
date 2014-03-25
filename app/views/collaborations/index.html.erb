@@ -6,7 +6,11 @@
                                              method: 'post' do |f| %>
        <%= f.error_notification %>
      
-       <%= f.association :collaborator,  label: 'Enter the email of a group leader',
+       <%= f.input :lab_email, as: :email, label: "Group leader's email address",
+                                placeholder: 'Enter an email',
+                                tooltip: ['right', 'This lab must already exist!'] %>
+
+       <%#= f.association :collaborator,  label: 'Enter the email of a group leader',
                                          collection: Lab.all,
                                          value_method: :email,
                                          label_method: :email,
@@ -25,8 +29,8 @@
   <% cache @lab do %>
     <h3 class="text-muted">Groups that can access your items</h3>
     <h4>
-     You share <%= @lab.reagents.where(shared: true).count %> reagents
-     and <%= @lab.devices.where(shared: true).count %> devices
+     You share <%= pluralize(@lab.reagents.where(shared: true).count, "reagent") %>
+     and <%= pluralize(@lab.devices.where(shared: true).count, "device") %>
    </h4>
   <% end %>
   <br>

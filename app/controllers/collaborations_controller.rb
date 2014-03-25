@@ -8,8 +8,8 @@ class CollaborationsController < ApplicationController
 	end
 
 	def create
-		@collaborator = Lab.find_by(email: collaboration_params[:collaborator_id])
-    if !@collaborator.nil?
+		@collaborator = Lab.find_by(email: collaboration_params[:lab_email])
+    if !@collaborator.nil? && (@collaborator != @lab) && !@lab.collaborators.include?(@collaborator)
   	  @collaboration = @lab.collaborations.build(collaborator_id: @collaborator.id)
   	  respond_to do |format|
         if @collaboration.save
@@ -21,10 +21,22 @@ class CollaborationsController < ApplicationController
           format.json { render json: @collaboration.errors, status: :unprocessable_entity }
         end
       end
+    elsif @collaborator == @lab
+      respond_to do |format|
+        format.html { redirect_to lab_collaborations_path(current_user.lab), 
+                      notice: "You cannot collaborate with yourself." }
+        format.json { render action: 'show', status: :created, location: @lab }
+      end
+    elsif @lab.collaborators.include?(@collaborator)
+      respond_to do |format|
+        format.html { redirect_to lab_collaborations_path(current_user.lab), 
+                      notice: "You are already collaborating with that lab." }
+        format.json { render action: 'show', status: :created, location: @lab }
+      end
     else
       respond_to do |format|
         format.html { redirect_to lab_collaborations_path(current_user.lab), 
-                      notice: "You must enter a valid email address." }
+                      notice: "We cannot locate a lab with that email address." }
         format.json { render action: 'show', status: :created, location: @lab }
       end
     end
@@ -40,7 +52,7 @@ class CollaborationsController < ApplicationController
   def destroy_inverse
     @collaboration = current_user.lab.inverse_collaborations.find(params[:id])
     @collaboration.destroy
-    flash[:notice] = "You can no longer can access items from #{ @collaboration.lab.gl.fullname }'s group."
+    flash[:notice] = "You can no longer can access items from that group."
     redirect_to lab_collaborations_path(current_user.lab)
   end
 
@@ -57,6 +69,6 @@ class CollaborationsController < ApplicationController
     end
 
 		def collaboration_params
-      params.require(:collaboration).permit(:lab_id, :collaborator_id)
+      params.require(:collaboration).permit(:lab_id, :collaborator_id, :lab_email)
     end
 end

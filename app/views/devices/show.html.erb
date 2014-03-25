@@ -13,7 +13,10 @@
       <% end %>
     <% end %>
 
-      <h3><%= fullname(@device) %></h3>
+      <h3>
+        <%= fullname(@device) %>
+        <%= fa_icon "star-o", title: "Shared device" if @device.shared? %>
+      </h3>
       <h4><%= @device.category.titleize %></h4>
       <h4><%= link_to "The #{@device.gl.fullname} lab", @device.lab %></h4>
 

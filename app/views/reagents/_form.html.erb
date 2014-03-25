@@ -64,6 +64,8 @@
           <h4>or</h4>
           <%= f.input :icon_remote_url, label: "Enter an image URL" %>
           <hr>
+           <%= f.input :shared, as: :select, include_blank: false, label: "Shared with collaborators" %>
+           <hr>
 
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Linked member(s):',
