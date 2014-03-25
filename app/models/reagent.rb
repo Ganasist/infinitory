@@ -31,6 +31,7 @@ class Reagent < ActiveRecord::Base
   before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
 
   after_update  :shared_status_message, if: Proc.new { |r| r.shared_changed? }
+  after_update  :location_status_message, if: Proc.new { |d| d.location_changed? }
 
 	include PublicActivity::Common
 
@@ -154,16 +155,28 @@ class Reagent < ActiveRecord::Base
   def shared_status_message
     if self.location.present?
       if self.shared?
-        comment = "#{ self.fullname } (#{ self.location }) was shared with the lab's collaborators"
+        comment = "#{ self.fullname } (#{ self.location }) was shared"
       else
         comment = "#{ self.fullname } (#{ self.location }) was unshared"
       end
     else
-      if self.status?
-        comment = "#{ self.fullname } was shared with the lab's collaborators"
+      if self.shared?
+        comment = "#{ self.fullname } was shared"
       else
         comment = "#{ self.fullname } was unshared"
       end
+    end
+    self.users.each do |u|
+      u.comments.create(comment: comment)
+    end
+    self.lab.comments.create(comment: comment)    
+  end
+
+  def location_status_message
+    if self.location.present?
+      comment = "#{ self.fullname } was moved to #{ self.location }"
+    else
+      comment = "#{ self.fullname } was moved to an unknown location"
     end
     self.users.each do |u|
       u.comments.create(comment: comment)

@@ -29,6 +29,7 @@ class Device < ActiveRecord::Base
 
   after_update  :online_status_message, if: Proc.new { |d| d.status_changed? }
   after_update  :shared_status_message, if: Proc.new { |d| d.shared_changed? }
+  after_update  :location_status_message, if: Proc.new { |d| d.location_changed? }
 
   include PublicActivity::Common
 
@@ -119,16 +120,28 @@ class Device < ActiveRecord::Base
   def shared_status_message
     if self.location.present?
       if self.shared?
-        comment = "#{ self.fullname } (#{ self.location }) was shared with the lab's collaborators"
+        comment = "#{ self.fullname } (#{ self.location }) was shared"
       else
         comment = "#{ self.fullname } (#{ self.location }) was unshared"
       end
     else
       if self.status?
-        comment = "#{ self.fullname } was shared with the lab's collaborators"
+        comment = "#{ self.fullname } was shared"
       else
         comment = "#{ self.fullname } was unshared"
       end
+    end
+    self.users.each do |u|
+      u.comments.create(comment: comment)
+    end
+    self.lab.comments.create(comment: comment)    
+  end
+
+  def location_status_message
+    if self.location.present?
+      comment = "#{ self.fullname } was moved to #{ self.location }"
+    else
+      comment = "#{ self.fullname } was moved to an unknown location"
     end
     self.users.each do |u|
       u.comments.create(comment: comment)
