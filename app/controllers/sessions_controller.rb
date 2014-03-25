@@ -2,10 +2,6 @@ class SessionsController < Devise::SessionsController
 
   # before_filter :check_user_confirmation, only: :create
 
-  #
-  # other code here not relevant to the example
-  #
-
 private
 
   # def check_user_confirmation

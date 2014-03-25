@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user.joined = Time.now
     if @user.save
       flash[:notice] = "#{ @user.fullname } has joined your lab"
-      @lab.comments.create(comment: "#{ @user.fullname } joined the lab")
+      @lab.comments.create(comment: "#{ @user.fullname } has joined the lab")
       if !@user.confirmed?
         ConfirmationMailsWorker.perform_async(@user.id)
       else

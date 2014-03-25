@@ -8,7 +8,7 @@
   		Dear <%= @lab.gl.fullname %>, 
   	</p>
     <p>
-      <%= link_to @user.fullname, user_url(@user) %> would like to join your lab!
+      <%= @user.fullname %> would like to <%= link_to "join your lab", lab_users_path(@lab) %>!
     </p>
   </body>
 </html>

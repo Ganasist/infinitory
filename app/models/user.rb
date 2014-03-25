@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_merit
+  acts_as_commentable
 
   ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
@@ -33,6 +34,7 @@ class User < ActiveRecord::Base
   has_many :devices, through: :bookings
   
   validates :role, presence: true, inclusion: { in: ROLES }
+  validates :lab_email, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
 
   validates :linkedin_url, url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
   validates :xing_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
@@ -71,8 +73,6 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :pdf,
                                     :content_type => 'application/pdf',
                                     :message => 'only PDF files allowed'
-                 
-  acts_as_commentable
 
   include PublicActivity::Common
 
@@ -120,10 +120,6 @@ class User < ActiveRecord::Base
   def cached_reagent_count
     Rails.cache.fetch([self, "reagent_count"], expires_in: 30.minutes) { self.reagents.count }
   end
-
-  # def should_generate_new_friendly_id?
-  #   first_name_changed? || last_name_changed?  || role_changed?
-  # end
 
   def reject
     self.approved      = false

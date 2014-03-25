@@ -23,13 +23,13 @@
       <fieldset disabled>
         <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
       </fieldset><br>
-      <p class="lead">If you need to downgrade your status you must delete your account and create a new one. This will also delete your existing Lab Account and all of its reagents and devices.</p>
+      <p class="lead">If you need to downgrade your status you must delete your account and create a new one.</p>
     <% elsif !current_user.gl? && current_user.lab.present? %>
       <%= f.collection_select :role, User::ROLES_EDIT, :to_s, :humanize, 
                                      prompt: 'Choose your position',
                                      required: false %>
       <br><br>
-      <p class="lead">If you need to switch to a Group Leader account you must to leave your current lab first. This will unlink you from your current reagents and devices.</p>
+      <p class="lead">If you need to switch to Group Leader status, please RETIRE from your current lab first. You will be unlinked from all reagents and devices.</p>
     <% else %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',

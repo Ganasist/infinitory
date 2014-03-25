@@ -1,6 +1,6 @@
 <%- model_class = Collaboration -%>
 <div class="page-header">
-  <h2>Your collaborations</h2><br>
+  <h2><%= @lab.gl.last_name %> lab collaborations</h2><br>
   <%= simple_form_for [@lab, @collaborator], html: { class: 'form-vertical', autocomplete: 'off', style: 'width: 300px' },
                                              url: url_for(action: 'create', controller: 'collaborations'),
                                              method: 'post' do |f| %>

@@ -13,7 +13,7 @@ jQuery ->
   $('.lab_members_form').addClass('hidden') if $('#user_role').val() is "group_leader"
 
 	$('#user_role').change ->
-    test = ->
+    form_reactions = ->
       $('.GLform').removeClass('hidden') and $('#user_lab_email').val([""]) if $('#user_role').val() is "group_leader"
       $('.GLform').addClass('hidden') and $('#user_institute_name').val([""]) and $('#user_department_id').val([""]) if $('#user_role').val() isnt "group_leader"
 
@@ -22,6 +22,9 @@ jQuery ->
 
       $('#GL_INFO').slideDown('fast') if $('#user_role').val() is "group_leader"
       $('#GL_INFO').slideUp('fast') if $('#user_role').val() isnt "group_leader"
+
+      # $('#MEMBER_INFO').slideDown('fast') if $('#user_role').val() is "group_leader"
+      # $('#MEMBER_INFO').slideUp('fast') if $('#user_role').val() isnt "group_leader"
 
     $('#inner-form input').prop(
       'disabled', false

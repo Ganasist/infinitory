@@ -3,8 +3,9 @@ class UserMailer < ActionMailer::Base
 
   def request_email(user_id, lab_id)
     @user = User.find(user_id)
-    @lab   = Lab.find(lab_id)
-    mail(to: @lab.email, subject:  "#{ @user.fullname } would like to join your lab")
+    @lab  = Lab.find(lab_id)
+    @test = @lab.gl_lm.pluck(:email)
+    mail(to: @lab.gl_lm.pluck(:email), subject:  "#{ @user.fullname } would like to join your lab")
   end
 
   def welcome_email(user_id, lab_id)
