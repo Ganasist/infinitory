@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322144419) do
+ActiveRecord::Schema.define(version: 20140326114434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20140322144419) do
 
   create_table "devices", force: true do |t|
     t.string   "name",                                                      null: false
-    t.string   "category",                                                  null: false
+    t.string   "category"
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
@@ -201,9 +201,9 @@ ActiveRecord::Schema.define(version: 20140322144419) do
     t.string   "url"
     t.string   "slug"
     t.string   "email"
-    t.integer  "users_count",       default: 0
-    t.integer  "reagents_count",    default: 0
-    t.integer  "devices_count",     default: 0
+    t.integer  "users_count",        default: 0
+    t.integer  "reagents_count",     default: 0
+    t.integer  "devices_count",      default: 0
     t.string   "icon_file_name"
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
@@ -219,14 +219,18 @@ ActiveRecord::Schema.define(version: 20140322144419) do
     t.string   "facebook_url"
     t.string   "google_plus_url"
     t.integer  "sash_id"
-    t.integer  "level",             default: 0
-    t.integer  "daily_points",      default: 0
+    t.integer  "level",              default: 0
+    t.integer  "daily_points",       default: 0
     t.string   "state"
+    t.text     "reagent_categories", default: [], array: true
+    t.text     "device_categories",  default: [], array: true
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
+  add_index "labs", ["device_categories"], name: "index_labs_on_device_categories", using: :gin
   add_index "labs", ["email"], name: "index_labs_on_email", using: :btree
   add_index "labs", ["institute_id"], name: "index_labs_on_institute_id", using: :btree
+  add_index "labs", ["reagent_categories"], name: "index_labs_on_reagent_categories", using: :gin
 
   create_table "merit_actions", force: true do |t|
     t.integer  "user_id"
@@ -270,7 +274,7 @@ ActiveRecord::Schema.define(version: 20140322144419) do
 
   create_table "reagents", force: true do |t|
     t.string   "name",                                                      null: false
-    t.string   "category",                                                  null: false
+    t.string   "category"
     t.string   "location"
     t.decimal  "price",             precision: 9, scale: 2, default: 0.0,   null: false
     t.string   "serial"

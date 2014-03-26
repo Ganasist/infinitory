@@ -37,6 +37,8 @@ class Lab < ActiveRecord::Base
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
 
+  after_create :set_default_arrays
+
   def icon_remote_url=(url_value)
      if url_value.present?
       self.icon = URI.parse(url_value)
@@ -99,7 +101,12 @@ class Lab < ActiveRecord::Base
     users.count
   end
 
-	private
+  def set_default_arrays
+    self.device_categories = %w[centrifuge microscope confocal_microscope FACS PCR qPCR other]
+    self.reagent_categories = %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector other]
+  end
+
+	private   
 
     def smart_add_url_protocol
       unless self.url[/^http:\/\//] || self.url[/^https:\/\//]

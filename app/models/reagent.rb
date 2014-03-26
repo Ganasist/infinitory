@@ -1,6 +1,6 @@
 class Reagent < ActiveRecord::Base
 
-	CATEGORIES = %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector]
+	# CATEGORIES = %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector]
   CURRENCIES = %w[$ €]
 
 	belongs_to :lab, counter_cache: true, touch: true
@@ -11,7 +11,7 @@ class Reagent < ActiveRecord::Base
 	has_many :users, through: :ownerships
 
 	validates :name, presence: true
-  validates :category, presence: true, inclusion: { in: CATEGORIES }
+  validates :category, presence: true, inclusion: { in: Proc.new { |reagent| reagent.lab.reagent_categories } }
   validates :currency, inclusion: { in: CURRENCIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }
   validates :remaining, numericality: true, allow_blank: true, inclusion: { in: 0..100, message: 'The amount remaining must be between 0 and 100' }

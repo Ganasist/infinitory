@@ -1,6 +1,6 @@
 class Device < ActiveRecord::Base
 
-	CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
+	# CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
   CURRENCIES = %w[$ €]
 
 	belongs_to :lab, counter_cache: true, touch: true
@@ -14,13 +14,13 @@ class Device < ActiveRecord::Base
   has_many :users, through: :bookings
 
 	validates :name, presence: true
-  validates :category, presence: true, inclusion: { in: CATEGORIES }
+  validates :category, presence: true, inclusion: { in: Proc.new { |device| device.lab.device_categories } }
   validates :currency, inclusion: { in: CURRENCIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
-  before_validation :smart_add_product_url_protocol, if: Proc.new { |reagent| reagent.product_url.present? && reagent.product_url_changed? }
-  before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |reagent| reagent.purchasing_url.present? && reagent.purchasing_url_changed? }
+  before_validation :smart_add_product_url_protocol, if: Proc.new { |device| device.product_url.present? && device.product_url_changed? }
+  before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |device| device.purchasing_url.present? && device.purchasing_url_changed? }
 
   validates :product_url, presence: true, url: true, allow_blank: true
   validates :purchasing_url, presence: true, url: true, allow_blank: true
@@ -80,6 +80,10 @@ class Device < ActiveRecord::Base
       self.icon = URI.parse(url_value)
       @icon_remote_url = url_value
     end
+  end
+
+  def set_default_category
+    category = "other"
   end
 
   def pdf_remote_url=(url_value)
