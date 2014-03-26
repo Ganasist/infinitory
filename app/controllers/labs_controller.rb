@@ -41,8 +41,8 @@ class LabsController < ApplicationController
     data_table_reagents = GoogleVisualr::DataTable.new
     data_table_reagents.new_column('string', 'Category')
     data_table_reagents.new_column('number', 'Relative amount')
-    data_table_reagents.add_rows(Reagent::CATEGORIES.length)
-    Reagent::CATEGORIES.each_with_index do |val, index| 
+    data_table_reagents.add_rows(@lab.reagent_categories.length)
+    @lab.reagent_categories.each_with_index do |val, index| 
       data_table_reagents.set_cell(index, 0, "#{val}".humanize)
       data_table_reagents.set_cell(index, 1, @lab.reagents_category_count("#{val}"))
     end
@@ -51,8 +51,8 @@ class LabsController < ApplicationController
     data_table_devices = GoogleVisualr::DataTable.new
     data_table_devices.new_column('string', 'Category')
     data_table_devices.new_column('number', 'Relative amount')
-    data_table_devices.add_rows(Device::CATEGORIES.length)
-    Device::CATEGORIES.each_with_index do |val, index| 
+    data_table_devices.add_rows(@lab.device_categories.length)
+    @lab.device_categories.each_with_index do |val, index| 
       data_table_devices.set_cell(index, 0, "#{val}".humanize)
       data_table_devices.set_cell(index, 1, @lab.devices_category_count("#{val}"))
     end
