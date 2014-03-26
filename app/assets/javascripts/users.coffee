@@ -28,12 +28,12 @@ jQuery ->
 
     $('#inner-form input').prop(
       'disabled', false
-      test()
+      form_reactions()
       ) if $('#user_role').val() isnt ""
 
     $('#inner-form input').prop(
       'disabled', true
-      test()
+      form_reactions()
       ) if $('#user_role').val() is "" 
 
 		
