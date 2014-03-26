@@ -5,7 +5,7 @@
       <div class="span5"> 
       <%= f.label "Category (required)" %>
       <br>
-      <%= f.collection_select :category, @lab.reagent_categories, :to_s, :humanize %>
+      <%= f.collection_select :category, Reagent::CATEGORIES, :to_s, :humanize %>
       <br><br>
       <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 

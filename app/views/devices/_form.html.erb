@@ -5,7 +5,7 @@
       <div class="span5"> 
       <%= f.label "Category (required)" %>
       <br>
-      <%= f.collection_select :category, @lab.device_categories, :to_s, :humanize %>
+      <%= f.collection_select :category, Device::CATEGORIES, :to_s, :humanize %>
       <br>
       <br>
       <%= f.input :name, placeholder: 'Required', typeahead: Device.all.pluck(:name).uniq %>

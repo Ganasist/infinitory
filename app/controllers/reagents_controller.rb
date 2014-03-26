@@ -37,6 +37,7 @@ class ReagentsController < ApplicationController
 
   def edit
     @reagent = Reagent.find(params[:id])
+    # @lab = @reagent.lab
   end
 
   def create

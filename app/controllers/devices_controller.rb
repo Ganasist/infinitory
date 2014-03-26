@@ -34,6 +34,7 @@ class DevicesController < ApplicationController
 
   def edit
     @device = Device.find(params[:id])
+    # @lab = @device.lab
   end
 
   def create
