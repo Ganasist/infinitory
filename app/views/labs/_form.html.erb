@@ -2,7 +2,7 @@
 
 <%= f.error_notification %>
   <div class="row">
-    <div class="span5">
+    <div class="span6">
       <%= f.input :room %>
       <%= f.input :email, label: 'Lab email', disabled: true %>
       <%= f.input :url, label: 'Lab website' %>
@@ -10,7 +10,23 @@
       <%= f.input :facebook_url, label: 'Facebook', placeholder: 'https://www.facebook.com/lab' %>
       <%= f.input :google_plus_url, label: 'Google+', placeholder: 'https://plus.google.com/lab' %>
     </div>
-    <div class="span5 pull-right">
+    <div class="span6">
+      <%= f.input :reagent_categories, as: :check_boxes,
+                                       label: 'Reagent categories:',
+                                       collection: @lab.reagent_categories,
+                                       input_html: { style: 'width: 50px' } %>
+
+      <%#= f.input :reagent_categories, as: :string, label: false %>                               
+
+      <br>
+      <%= f.input :device_categories, as: :check_boxes,
+                                      label: 'Device categories:',
+                                      collection: @lab.device_categories,
+                                      input_html: { style: 'width: 50px' } %>
+
+      <%#= f.input :device_categories, as: :string, label: false, input_html: {:rows => 10} %>  
+
+      <hr>                                 
       <strong><h4>Lab picture</h4></strong>
       <p>.jpeg, .png or .gif images < 2 megabytes</p>
       <% if @lab.icon.present? %>
@@ -21,7 +37,7 @@
       <%= f.input :icon_remote_url, label: 'Enter image URL' %>
       <h4>or</h4>
       <%= f.file_field :icon %>
-      <br><br>
+      <br><hr>
     </div>
   </div>
   <div class="row">  

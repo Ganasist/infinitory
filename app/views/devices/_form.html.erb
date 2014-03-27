@@ -5,10 +5,10 @@
       <div class="span5"> 
       <%= f.label "Category (required)" %>
       <br>
-      <%= f.collection_select :category, Device::CATEGORIES, :to_s, :humanize %>
+      <%= f.collection_select :category, @device.lab.device_categories, :to_s, :humanize %>
       <br>
       <br>
-      <%= f.input :name, placeholder: 'Required', typeahead: Device.all.pluck(:name).uniq %>
+      <%= f.input :name, placeholder: 'Required', typeahead: @device.lab.devices.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 
                         tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
       <%= f.collection_radio_buttons :status, [[true, 'Online'] ,[false, 'Offline']], :first, :last %><br><br>

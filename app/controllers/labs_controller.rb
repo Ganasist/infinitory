@@ -126,8 +126,10 @@ class LabsController < ApplicationController
     end
 
     def lab_params
-      params.require(:lab).permit(:email, :room, :lab_id, :department_id, :institute_id, :ajax_section,
-                                  :linkedin_url, :xing_url, :twitter_url, :facebook_url, :google_plus_url,
-                                  :department, :institute, :url, :icon, :delete_icon, :icon_remote_url)
+      params.require(:lab).permit(  { reagent_categories: [] }, { device_categories: [] },
+                                    :email, :room, :lab_id, :department_id, :institute_id, 
+                                    :ajax_section, :linkedin_url, :xing_url, :twitter_url, 
+                                    :facebook_url, :google_plus_url, :department, :institute,
+                                    :url, :icon, :delete_icon, :icon_remote_url)
     end
 end

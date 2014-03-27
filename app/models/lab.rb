@@ -37,7 +37,8 @@ class Lab < ActiveRecord::Base
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
 
-  after_create :set_default_arrays
+  after_create :set_default_categories
+  before_update :remove_empty_categories
 
   def icon_remote_url=(url_value)
      if url_value.present?
@@ -101,27 +102,46 @@ class Lab < ActiveRecord::Base
     users.count
   end
 
-  def set_default_arrays
+  def set_default_categories
     self.device_categories = %w[centrifuge microscope confocal_microscope FACS PCR qPCR other]
     self.reagent_categories = %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector other]
   end
 
-	private   
+  def add_categories(model, categories)
+    if model == "devices"
+      self.device_categories_will_change!
+      self.device_categories += categories
+      self.device_categories.uniq!
+      self.device_categories.sort!
+    elsif model == "reagents"
+      self.reagent_categories_will_change!
+      self.reagent_categories += categories
+      self.reagent_categories.uniq!
+      self.reagent_categories.sort!
+    end
+  end
 
+  def remove_categories(model, categories)
+    if model == "devices"
+      self.device_categories_will_change!
+      self.device_categories -= categories
+    elsif model == "reagents"
+      self.reagent_categories_will_change!
+      self.reagent_categories -= categories
+    end
+  end
+
+  def remove_empty_categories
+    device_categories_will_change!
+    device_categories.reject!(&:blank?)
+    reagent_categories_will_change!
+    reagent_categories.reject!(&:blank?)
+  end
+
+	private   
     def smart_add_url_protocol
       unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
         self.url = 'http://' + self.url
       end
     end
-
-  	def should_generate_new_friendly_id?
-    	name_changed?
-    end
-
-    # def slug_candidates
-    #   [
-    #     :name,
-    #     [:name, :city]
-    #   ]
-    # end
 end
