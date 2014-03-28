@@ -3,9 +3,11 @@
   
     <div class="row">
       <div class="span5"> 
-      <%= f.label "Category (required)" %>
       <br>
-      <%= f.collection_select :category, @reagent.lab.reagent_categories, :to_s, :humanize %>
+      <%= f.input :category, label: 'Category',
+                                  collection: @reagent.lab.reagent_category_list,
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' }, required: false %>
       <br><br>
       <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 

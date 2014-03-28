@@ -67,7 +67,7 @@ class InstitutesController < ApplicationController
 
   private
     def set_institute
-      @institute = Institute.friendly.find(params[:id])
+      @institute = Institute.find(params[:id])
     end
 
     def institute_params
@@ -77,7 +77,7 @@ class InstitutesController < ApplicationController
     end
 
     def find_institute
-      @institute = Institute.friendly.find(params[:id])
+      @institute = Institute.find(params[:id])
       # if request.path != institute_path(@institute)
       #   return redirect_to @institute, :status => :moved_permanently
       # end

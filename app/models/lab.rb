@@ -1,6 +1,7 @@
 class Lab < ActiveRecord::Base
   has_merit
   acts_as_commentable
+  acts_as_taggable_on :device_category, :reagent_category
 
 	belongs_to :department, counter_cache: true, touch: true
 	validates_associated :department
@@ -37,8 +38,8 @@ class Lab < ActiveRecord::Base
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
 
-  after_create :set_default_categories
-  before_update :remove_empty_categories
+  # after_create :set_default_categories
+  # before_update :remove_empty_categories
 
   def icon_remote_url=(url_value)
      if url_value.present?
@@ -103,40 +104,40 @@ class Lab < ActiveRecord::Base
   end
 
   def set_default_categories
-    self.device_categories = %w[centrifuge microscope confocal_microscope FACS PCR qPCR other]
-    self.reagent_categories = %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector other]
+    device_category_list.add %w[centrifuge microscope confocal_microscope FACS PCR qPCR other]
+    reagent_category_list.add %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector other]
   end
 
-  def add_categories(model, categories)
-    if model == "devices"
-      self.device_categories_will_change!
-      self.device_categories += categories
-      self.device_categories.uniq!
-      self.device_categories.sort!
-    elsif model == "reagents"
-      self.reagent_categories_will_change!
-      self.reagent_categories += categories
-      self.reagent_categories.uniq!
-      self.reagent_categories.sort!
-    end
-  end
+  # def add_categories(model, categories)
+  #   if model == "devices"
+  #     self.device_categories_will_change!
+  #     self.device_categories += categories
+  #     self.device_categories.uniq!
+  #     self.device_categories.sort!
+  #   elsif model == "reagents"
+  #     self.reagent_categories_will_change!
+  #     self.reagent_categories += categories
+  #     self.reagent_categories.uniq!
+  #     self.reagent_categories.sort!
+  #   end
+  # end
 
-  def remove_categories(model, categories)
-    if model == "devices"
-      self.device_categories_will_change!
-      self.device_categories -= categories
-    elsif model == "reagents"
-      self.reagent_categories_will_change!
-      self.reagent_categories -= categories
-    end
-  end
+  # def remove_categories(model, categories)
+  #   if model == "devices"
+  #     self.device_categories_will_change!
+  #     self.device_categories -= categories
+  #   elsif model == "reagents"
+  #     self.reagent_categories_will_change!
+  #     self.reagent_categories -= categories
+  #   end
+  # end
 
-  def remove_empty_categories
-    device_categories_will_change!
-    device_categories.reject!(&:blank?)
-    reagent_categories_will_change!
-    reagent_categories.reject!(&:blank?)
-  end
+  # def remove_empty_categories
+  #   device_categories_will_change!
+  #   device_categories.reject!(&:blank?)
+  #   reagent_categories_will_change!
+  #   reagent_categories.reject!(&:blank?)
+  # end
 
 	private   
     def smart_add_url_protocol

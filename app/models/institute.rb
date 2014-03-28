@@ -29,8 +29,8 @@ class Institute < ActiveRecord::Base
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
 
-	extend FriendlyId
-	friendly_id :acronym_and_name, use: [:slugged, :history]
+	# extend FriendlyId
+	# friendly_id :acronym_and_name, use: [:slugged, :history]
 
 	include PgSearch
   pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
@@ -63,9 +63,9 @@ class Institute < ActiveRecord::Base
 	    end
 	  end
 
-	  def should_generate_new_friendly_id?
-		  new_record? || slug.blank?
-		end
+	 #  def should_generate_new_friendly_id?
+		#   new_record? || slug.blank?
+		# end
 
 		def self.global_search(query)
 	    if query.present?

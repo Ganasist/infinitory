@@ -5,7 +5,7 @@ class LabsController < ApplicationController
   before_action :block_outsiders!, except: :show
 
   def index
-    @institute = Institute.friendly.find(params[:institute_id])
+    @institute = Institute.find(params[:institute_id])
     @labs = @institute.labs
 
     if params[:department_id].present?
@@ -38,25 +38,25 @@ class LabsController < ApplicationController
                                          u.cached_total_points] })    
     @chart_lab = GoogleVisualr::Interactive::BubbleChart.new(data_table_lab, lab_scatter_options)
 
-    data_table_reagents = GoogleVisualr::DataTable.new
-    data_table_reagents.new_column('string', 'Category')
-    data_table_reagents.new_column('number', 'Relative amount')
-    data_table_reagents.add_rows(@lab.reagent_categories.length)
-    @lab.reagent_categories.each_with_index do |val, index| 
-      data_table_reagents.set_cell(index, 0, "#{val}".humanize)
-      data_table_reagents.set_cell(index, 1, @lab.reagents_category_count("#{val}"))
-    end
-    @chart_reagents = GoogleVisualr::Interactive::PieChart.new(data_table_reagents, pie_options)
+    # data_table_reagents = GoogleVisualr::DataTable.new
+    # data_table_reagents.new_column('string', 'Category')
+    # data_table_reagents.new_column('number', 'Relative amount')
+    # data_table_reagents.add_rows(@lab.reagent_categories.length)
+    # @lab.reagent_categories.each_with_index do |val, index| 
+    #   data_table_reagents.set_cell(index, 0, "#{val}".humanize)
+    #   data_table_reagents.set_cell(index, 1, @lab.reagents_category_count("#{val}"))
+    # end
+    # @chart_reagents = GoogleVisualr::Interactive::PieChart.new(data_table_reagents, pie_options)
   
-    data_table_devices = GoogleVisualr::DataTable.new
-    data_table_devices.new_column('string', 'Category')
-    data_table_devices.new_column('number', 'Relative amount')
-    data_table_devices.add_rows(@lab.device_categories.length)
-    @lab.device_categories.each_with_index do |val, index| 
-      data_table_devices.set_cell(index, 0, "#{val}".humanize)
-      data_table_devices.set_cell(index, 1, @lab.devices_category_count("#{val}"))
-    end
-    @chart_devices = GoogleVisualr::Interactive::PieChart.new(data_table_devices, pie_options)
+    # data_table_devices = GoogleVisualr::DataTable.new
+    # data_table_devices.new_column('string', 'Category')
+    # data_table_devices.new_column('number', 'Relative amount')
+    # data_table_devices.add_rows(@lab.device_categories.length)
+    # @lab.device_categories.each_with_index do |val, index| 
+    #   data_table_devices.set_cell(index, 0, "#{val}".humanize)
+    #   data_table_devices.set_cell(index, 1, @lab.devices_category_count("#{val}"))
+    # end
+    # @chart_devices = GoogleVisualr::Interactive::PieChart.new(data_table_devices, pie_options)
   end
 
   def new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327133828) do
+ActiveRecord::Schema.define(version: 20140328111513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(version: 20140327133828) do
 
   create_table "devices", force: true do |t|
     t.string   "name",                                                      null: false
-    t.string   "category"
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
@@ -134,9 +133,10 @@ ActiveRecord::Schema.define(version: 20140327133828) do
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
     t.string   "state"
+    t.text     "category",                                  default: [],                 array: true
   end
 
-  add_index "devices", ["lab_id", "name", "uid", "category"], name: "index_devices_on_lab_id_and_name_and_uid_and_category", unique: true, using: :btree
+  add_index "devices", ["category"], name: "index_devices_on_category", using: :gin
   add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree
   add_index "devices", ["tsv_body"], name: "index_devices_on_tsv_body", using: :gin
 
@@ -147,19 +147,6 @@ ActiveRecord::Schema.define(version: 20140327133828) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "friendly_id_slugs", force: true do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type", limit: 40
-    t.string   "scope"
-    t.datetime "created_at"
-  end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "institutes", force: true do |t|
     t.string   "name",                          null: false
@@ -201,9 +188,9 @@ ActiveRecord::Schema.define(version: 20140327133828) do
     t.string   "url"
     t.string   "slug"
     t.string   "email"
-    t.integer  "users_count",        default: 0
-    t.integer  "reagents_count",     default: 0
-    t.integer  "devices_count",      default: 0
+    t.integer  "users_count",       default: 0
+    t.integer  "reagents_count",    default: 0
+    t.integer  "devices_count",     default: 0
     t.string   "icon_file_name"
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
@@ -219,18 +206,14 @@ ActiveRecord::Schema.define(version: 20140327133828) do
     t.string   "facebook_url"
     t.string   "google_plus_url"
     t.integer  "sash_id"
-    t.integer  "level",              default: 0
-    t.integer  "daily_points",       default: 0
+    t.integer  "level",             default: 0
+    t.integer  "daily_points",      default: 0
     t.string   "state"
-    t.text     "reagent_categories", default: [], array: true
-    t.text     "device_categories",  default: [], array: true
   end
 
   add_index "labs", ["department_id"], name: "index_labs_on_department_id", using: :btree
-  add_index "labs", ["device_categories"], name: "index_labs_on_device_categories", using: :gin
   add_index "labs", ["email"], name: "index_labs_on_email", using: :btree
   add_index "labs", ["institute_id"], name: "index_labs_on_institute_id", using: :btree
-  add_index "labs", ["reagent_categories"], name: "index_labs_on_reagent_categories", using: :gin
 
   create_table "merit_actions", force: true do |t|
     t.integer  "user_id"
@@ -274,7 +257,6 @@ ActiveRecord::Schema.define(version: 20140327133828) do
 
   create_table "reagents", force: true do |t|
     t.string   "name",                                                      null: false
-    t.string   "category"
     t.string   "location"
     t.decimal  "price",             precision: 9, scale: 2, default: 0.0,   null: false
     t.string   "serial"
@@ -300,10 +282,11 @@ ActiveRecord::Schema.define(version: 20140327133828) do
     t.boolean  "icon_processing"
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
+    t.text     "category",                                  default: [],                 array: true
   end
 
+  add_index "reagents", ["category"], name: "index_reagents_on_category", using: :gin
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
-  add_index "reagents", ["lab_id", "uid", "name", "category"], name: "index_reagents_on_lab_id_and_uid_and_name_and_category", unique: true, using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["tsv_body"], name: "index_reagents_on_tsv_body", using: :gin
 
@@ -322,12 +305,13 @@ ActiveRecord::Schema.define(version: 20140327133828) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
     t.string "name"
   end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

@@ -47,7 +47,7 @@ gem 'redis'
 gem 'memcachier'
 gem 'dalli'
 
-gem 'friendly_id', '5.0.0.beta1'
+# gem 'friendly_id', '5.0.0.beta1'
 
 # gem 'validates_timeliness', '~> 3.0'
 
@@ -118,8 +118,8 @@ gem 'factory_girl_rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
-  gem 'shoulda-matchers'
-  gem 'zeus-parallel_tests'
+  # gem 'shoulda-matchers'
+  # gem 'zeus-parallel_tests'
   gem 'rspec-nc'
   gem 'minitest'
 end

@@ -6,18 +6,15 @@
       "default_bundle": {
         "development_environment": {
           "prerake": {"rake": []},
+          "runner": ["r"],
           "console": ["c"],
-          "dbconsole": ["db"],
-          "destroy": ["d"],
           "server": ["s"],
           "generate": ["g"],
-          "parallel_rspec": ["p"]
+          "destroy": ["d"],
+          "dbconsole": ["db"]
         },
         "test_environment": {
-          "test_helper": {
-                  "test": ["rspec", "testrb"],
-                  "parallel_rspec_worker": []
-          }
+          "test_helper": {"test": ["rspec", "testrb"]}
         }
       }
     }

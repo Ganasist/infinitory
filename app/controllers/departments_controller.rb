@@ -62,7 +62,7 @@ class DepartmentsController < ApplicationController
 
   private
     def set_institute
-      @institute = Institute.friendly.find(params[:institute_id])
+      @institute = Institute.find(params[:institute_id])
     end
 
     def set_department

@@ -18,7 +18,9 @@
         <%= fullname(@reagent) %>
         <%= fa_icon "star-o", title: "Shared reagent" if @reagent.shared? %>
       </h3>
-      <h4><%= @reagent.category.titleize %></h4>
+      <%= @reagent.category.each do |r| %>
+      <h4>r.titleize</h4>
+      <% end %>
       <h4><%= link_to "The #{@reagent.gl.fullname} lab", @reagent.lab %></h4>
 
       <dl class="dl-vertical">
