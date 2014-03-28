@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328111513) do
+ActiveRecord::Schema.define(version: 20140328110654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,10 +133,8 @@ ActiveRecord::Schema.define(version: 20140328111513) do
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
     t.string   "state"
-    t.text     "category",                                  default: [],                 array: true
   end
 
-  add_index "devices", ["category"], name: "index_devices_on_category", using: :gin
   add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree
   add_index "devices", ["tsv_body"], name: "index_devices_on_tsv_body", using: :gin
 
@@ -282,10 +280,8 @@ ActiveRecord::Schema.define(version: 20140328111513) do
     t.boolean  "icon_processing"
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
-    t.text     "category",                                  default: [],                 array: true
   end
 
-  add_index "reagents", ["category"], name: "index_reagents_on_category", using: :gin
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["tsv_body"], name: "index_reagents_on_tsv_body", using: :gin

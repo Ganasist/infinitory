@@ -1,7 +1,7 @@
 class Lab < ActiveRecord::Base
   has_merit
   acts_as_commentable
-  acts_as_taggable_on :device_category, :reagent_category
+  # acts_as_taggable_on :device_category, :reagent_category
 
 	belongs_to :department, counter_cache: true, touch: true
 	validates_associated :department
@@ -103,10 +103,10 @@ class Lab < ActiveRecord::Base
     users.count
   end
 
-  def set_default_categories
-    device_category_list.add %w[centrifuge microscope confocal_microscope FACS PCR qPCR other]
-    reagent_category_list.add %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector other]
-  end
+  # def set_default_categories
+  #   device_category_list.add %w[centrifuge microscope confocal_microscope FACS PCR qPCR other]
+  #   reagent_category_list.add %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector other]
+  # end
 
   # def add_categories(model, categories)
   #   if model == "devices"

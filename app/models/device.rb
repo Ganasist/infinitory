@@ -3,6 +3,8 @@ class Device < ActiveRecord::Base
 	CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
   CURRENCIES = %w[$ €]
 
+  serialize :category
+
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
 	validates_presence_of :lab

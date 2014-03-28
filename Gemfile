@@ -55,6 +55,8 @@ gem 'email_validator', require: 'email_validator/strict'
 
 gem 'pg_search'
 gem 'hairtrigger'
+
+# gem 'postgres_ext', '~> 2.1.3'
                       
 gem 'turbolinks'
 
