@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
       if user_signed_in?
         if current_user.approved? && !current_user.confirmed?
           redirect_to edit_user_registration_path
-          flash[:alert] = "Please confirm your email address"
+          flash[:alert] = "Please sign-out and confirm your email address"
         elsif !current_user.approved?
           redirect_to edit_user_registration_path
           flash[:alert] = "You currently don't belong to a lab"

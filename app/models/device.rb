@@ -1,6 +1,5 @@
 class Device < ActiveRecord::Base
 
-	# CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
   CURRENCIES = %w[$ €]
 
   acts_as_taggable_on :category

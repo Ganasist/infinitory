@@ -1,7 +1,6 @@
 class Reagent < ActiveRecord::Base
 
-	# CATEGORIES = %w[antibody cell_culture cell_line chemical_powder chemical_solution DNA_sample enzyme kit RNA_sample vector]
-  CURRENCIES = %w[$ €]
+	CURRENCIES = %w[$ €]
 
   acts_as_taggable_on :category
 
