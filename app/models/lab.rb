@@ -1,7 +1,7 @@
 class Lab < ActiveRecord::Base
   has_merit
   acts_as_commentable
-  # acts_as_taggable_on :device_category, :reagent_category
+  acts_as_taggable_on :reagent_category, :device_category
 
 	belongs_to :department, counter_cache: true, touch: true
 	validates_associated :department

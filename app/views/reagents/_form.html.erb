@@ -4,11 +4,10 @@
     <div class="row">
       <div class="span5"> 
       <br>
-      <%#= f.input :category, label: 'Category',
-                             collection: @reagent.lab.reagent_category_list,
-                             as: :check_boxes,
-                             input_html: { style: 'width: 50px' },
-                             required: false %>
+       <%= f.input :category_list, label: 'Categories',
+                                  collection: current_user.lab.reagent_category_list,
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' } %>
       <br><br>
       <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 
@@ -34,7 +33,7 @@
                                    placeholder: 'http://www.example.com',
                                    tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
       <hr>
-      <%= f.input :tag_list, label: 'Keywords',
+      <%#= f.input :tag_list, label: 'Keywords',
                              placeholder: 'Immunology, restriction enzyme, FACS',
                              tooltip: ['right', 'Use a comma separated list of keywords'] %>
       
@@ -76,14 +75,14 @@
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
-                                  input_html: { style: 'width: 50px' } %>
+                                  input_html: { style: 'width: 50px', class: 'linked_users' } %>
       <% else %>
         <%= f.association :users, label: 'Linked member(s):',
                                   collection: User.where(lab: @reagent.lab).order(:first_name),
                                   value_method: :id,
                                   label_method: :fullname,
                                   as: :check_boxes,
-                                  input_html: { style: 'width: 50px' } %>
+                                  input_html: { style: 'width: 50px', class: 'linked_users' } %>
       <% end %>
       <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-default btn-small">

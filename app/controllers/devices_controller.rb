@@ -2,20 +2,21 @@ class DevicesController < ApplicationController
 	before_action :set_device, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
-  before_action :check_user!, only: :show
+  before_action :check_user_show!, only: :show
+  before_action :check_user_index!, only: :index
 
   def index    
-    if params[:tag].present?
-      @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
-    elsif params[:search].present?
-      if params[:user_id].present?   
-        @user = User.find(params[:user_id])
-        @devices = @user.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
-      elsif params[:lab_id].present?
-        @lab = Lab.find(params[:lab_id]) 
-        @devices = @lab.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
-      end
-    elsif params[:user_id].present?
+    # if params[:tag].present?
+    #   @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
+    # elsif params[:search].present?
+    #   if params[:user_id].present?   
+    #     @user = User.find(params[:user_id])
+    #     @devices = @user.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
+    #   elsif params[:lab_id].present?
+    #     @devices = @lab.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
+    #   end
+    # end    
+    if params[:user_id].present?
       @user = User.find(params[:user_id])
       @devices = @user.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
     elsif params[:lab_id].present?
@@ -25,10 +26,12 @@ class DevicesController < ApplicationController
   end
 
   def show
+    @lab = current_user.lab
     @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).group("activities.id").page(params[:page]).per(7).reverse_order
   end
 
   def new
+    @lab = current_user.lab
     @device = Device.new
   end
 
@@ -103,8 +106,18 @@ class DevicesController < ApplicationController
     end
     helper_method :device_sort_direction
 
-    def check_user!
-      if current_user.lab != Device.find(params[:id]).lab
+    def check_user_show!
+      unless current_user.lab == @device.lab
+        redirect_to current_user
+        flash[:alert] = "You cannot access devices from that lab"
+      end
+    end
+
+    def check_user_index!
+      if params[:user_id] && (current_user != User.find(params[:user_id]))
+        redirect_to current_user
+        flash[:alert] = "You cannot access that member's device list"
+      elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
         redirect_to current_user
         flash[:alert] = "You cannot access devices from that lab"
       end
@@ -119,7 +132,7 @@ class DevicesController < ApplicationController
     end
 
     def device_params
-      params.require(:device).permit(:lab_id, { :user_ids => [] }, :name, :category, :location, :price,
+      params.require(:device).permit(:lab_id, { :user_ids => [] }, :name, { :category_list => [] }, :location, :price,
       															 :product_url, :purchasing_url, :serial, :description, :tag_list,
                                      :lock_version, :status, :uid, :shared, :currency,
                                      :pdf, :delete_pdf, :pdf_remote_url,

@@ -1,9 +1,9 @@
 class Device < ActiveRecord::Base
 
-	CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
+	# CATEGORIES = %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system]
   CURRENCIES = %w[$ €]
 
-  serialize :category
+  acts_as_taggable_on :category
 
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
@@ -16,7 +16,7 @@ class Device < ActiveRecord::Base
   has_many :users, through: :bookings
 
 	validates :name, presence: true
-  validates :category, presence: true, inclusion: { in: Proc.new { |device| device.lab.device_categories } }
+  # validates :category, presence: true, inclusion: { in: Proc.new { |device| device.lab.device_category_list } }
   validates :currency, inclusion: { in: CURRENCIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
@@ -27,7 +27,7 @@ class Device < ActiveRecord::Base
   validates :product_url, presence: true, url: true, allow_blank: true
   validates :purchasing_url, presence: true, url: true, allow_blank: true
   
-  validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :category, :name], message: 'There is another device in the lab with that category, name and UID' }
+  validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :name], message: 'There is another device in the lab with that category, name and UID' }
 
   after_update  :online_status_message, if: Proc.new { |d| d.status_changed? }
   after_update  :shared_status_message, if: Proc.new { |d| d.shared_changed? }
@@ -58,7 +58,6 @@ class Device < ActiveRecord::Base
   pg_search_scope :pg_search, against: [:name, :uid, :serial],
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' } }
 
-	acts_as_taggable
 	scope :modified_recently, -> { order("updated_at DESC") }
 
 	# store_accessor :properties, :description
@@ -84,9 +83,9 @@ class Device < ActiveRecord::Base
     end
   end
 
-  def set_default_category
-    category = "other"
-  end
+  # def set_default_category
+  #   category = "other"
+  # end
 
   def pdf_remote_url=(url_value)
      if url_value.present?
@@ -95,9 +94,9 @@ class Device < ActiveRecord::Base
     end
   end
 
-	def relative_percentage(category)
-    self.devices.where(category: category).count
-  end
+	# def relative_percentage(category)
+ #    self.devices.where(category: category).count
+ #  end
 
 	def gl
     User.find_by(email: self.lab.email)

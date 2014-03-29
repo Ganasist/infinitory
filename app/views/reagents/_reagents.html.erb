@@ -31,7 +31,7 @@
           <% end %>
         </td>
         <td><%= best_in_place reagent, :remaining %></td>
-        <td><%#= reagent.category.titleize %></td>  
+        <td><%= reagent.category_list %></td>  
         <td><%= best_in_place reagent, :location %></td>
         <% if reagent.expiration? %>
           <% if reagent.expiration.past? %>

@@ -1,6 +1,6 @@
 jQuery ->
 	$("#check_all:radio").click ->
-		$('.check_boxes').prop 'checked', true
+		$('.linked_users').prop 'checked', true
 
 	$("#check_none:radio").click ->	
-		$('.check_boxes').prop 'checked', false
+		$('.linked_users').prop 'checked', false

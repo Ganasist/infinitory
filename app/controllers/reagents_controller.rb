@@ -2,7 +2,8 @@ class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
-  before_action :check_user!, only: :show
+  before_action :check_user_show!, only: :show
+  before_action :check_user_index!, only: :index
 
   def index    
     if params[:tag].present?
@@ -109,10 +110,20 @@ class ReagentsController < ApplicationController
     end
     helper_method :reagent_sort_direction
 
-    def check_user!
-      if current_user.lab != Reagent.find(params[:id]).lab
+    def check_user_show!
+      unless current_user.lab == @reagent.lab
         redirect_to current_user
-        flash[:alert] = "You cannot access reagents from that lab"
+        flash[:alert] = "You cannot access devices from that lab"
+      end
+    end
+
+    def check_user_index!
+      if params[:user_id] && (current_user != User.find(params[:user_id]))
+        redirect_to current_user
+        flash[:alert] = "You cannot access that member's device list"
+      elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
+        redirect_to current_user
+        flash[:alert] = "You cannot access devices from that lab"
       end
     end
 
@@ -125,7 +136,7 @@ class ReagentsController < ApplicationController
     end
 
     def reagent_params
-      params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, { :category => [] }, :location,
+      params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, { :category_list => [] }, :location,
                                       :product_url, :purchasing_url, :serial, :price, :properties,
                                       :description, :expiration, :remaining, :tag_list, :lock_version,
                                       :quantity, :lot_number, :uid, :shared, :currency, 

@@ -27,7 +27,7 @@
             <%= link_to "#{fullname(device)}", device_path(device), class: "text-danger" %>
           <% end %>
         </td>
-        <td><%= device.category.titleize %></td>  
+        <td><%= device.category_list %></td>  
         <td><%= best_in_place device, :location %></td>
         <td><%= best_in_place device, :price, display_with: :number_to_currency, helper_options: { unit: device.currency } %></td>
         <td><%= time_ago_in_words(device.updated_at) %> ago</td>
