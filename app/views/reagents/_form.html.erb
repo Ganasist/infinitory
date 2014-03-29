@@ -20,6 +20,7 @@
       <%= f.input :expiration, as: :string, placeholder: 'YYYY-MM-DD',
                                             tooltip: ['right', "If an expiration date is not set it will automatically default to 3 years from now"] %>
 
+      
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :lot_number, label: 'Lot number' %>
       <hr>
@@ -32,11 +33,7 @@
       <%= f.input :purchasing_url, label: 'Purchasing website',
                                    placeholder: 'http://www.example.com',
                                    tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
-      <hr>
-      <%#= f.input :tag_list, label: 'Keywords',
-                             placeholder: 'Immunology, restriction enzyme, FACS',
-                             tooltip: ['right', 'Use a comma separated list of keywords'] %>
-      
+          
       <hr>
       <h4><strong>Attachment</strong> (.pdf < 5 megabytes)</h4>
       <br>
