@@ -32,9 +32,14 @@
           <dd><%= best_in_place @device, :location %></dd><br>
         <% end %>
 
-         <% if @device.uid? %>
+        <% if @device.uid? %>
           <dt>Unique ID</dt>
           <dd><%= best_in_place @device, :uid %></dd><br>
+        <% end %>
+
+        <% if @device.description? %>
+          <dt>Description:</dt>
+          <dd><%= best_in_place @device, :description %></dd><br>
         <% end %>
         
         <% unless @device.users.empty? %>

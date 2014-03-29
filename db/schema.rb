@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328142710) do
+ActiveRecord::Schema.define(version: 20140329135842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,6 +280,7 @@ ActiveRecord::Schema.define(version: 20140328142710) do
     t.boolean  "icon_processing"
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
+    t.text     "description"
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree

@@ -20,6 +20,8 @@ class Device < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
+  validates_length_of :description, maximum: 223
+
   before_validation :smart_add_product_url_protocol, if: Proc.new { |device| device.product_url.present? && device.product_url_changed? }
   before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |device| device.purchasing_url.present? && device.purchasing_url_changed? }
 

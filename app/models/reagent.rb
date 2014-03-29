@@ -18,6 +18,8 @@ class Reagent < ActiveRecord::Base
   validates :remaining, numericality: true, allow_blank: true, inclusion: { in: 0..100, message: 'The amount remaining must be between 0 and 100' }
   validates :serial, unique: false, allow_blank: true, allow_nil: true
 
+  validates_length_of :description, maximum: 223
+
   before_validation :smart_add_product_url_protocol, if: Proc.new { |reagent| reagent.product_url.present? && reagent.product_url_changed? }
   before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |reagent| reagent.purchasing_url.present? && reagent.purchasing_url_changed? }
 

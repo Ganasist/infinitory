@@ -19,8 +19,11 @@
                              tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
       <%= f.input :expiration, as: :string, placeholder: 'YYYY-MM-DD',
                                             tooltip: ['right', "If an expiration date is not set it will automatically default to 3 years from now"] %>
-
-      
+       <hr>                                    
+       <label>Description</label><br>
+       <label class="text required control-label" for="comment" id="description_feedback">* 223 characters remaining</label>
+       <%= f.input :description, as: :text, input_html: { rows: 8, id: 'description' }, label: false %>     
+      <hr>
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :lot_number, label: 'Lot number' %>
       <hr>
@@ -94,7 +97,7 @@
     </div>
     <div class="row">
       <div class="span5">
-        <%= f.button :submit, class: 'btn-warning' %><br><br>
+        <%= f.button :submit, class: 'btn-warning', id: 'item_submit' %><br><br>
         <% if params[:lab_id] %>
           <%= link_to 'Cancel', lab_reagents_path(@lab), class: 'btn' %>
         <% else %>

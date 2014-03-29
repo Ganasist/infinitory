@@ -18,6 +18,10 @@
                              placeholder: "'Room 237' or 'Fz3S1B4'",
                              tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
       <hr>
+      <label>Description</label><br>
+       <label class="text required control-label" for="comment" id="description_feedback">* 223 characters remaining</label>
+       <%= f.input :description, as: :text, input_html: { rows: 8, id: 'description' }, label: false %> 
+       <hr>
       <%= f.input :product_url, label: 'Product Website',
                                 placeholder: 'http://www.example.com',
                                 tooltip: ['right', "Enter a valid URL including http:// or https://"] %>
@@ -88,7 +92,7 @@
     </div>
     <div class="row">
       <div class="span5">
-        <%= f.button :submit, class: 'btn-large btn-warning' %><br><br>
+        <%= f.button :submit, class: 'btn-large btn-warning', id: 'item_submit' %><br><br>
         <% if params[:lab_id] %>
           <%= link_to 'Cancel', lab_devices_path(@lab), class: 'btn' %>
         <% else %>

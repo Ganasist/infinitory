@@ -139,7 +139,7 @@ class ReagentsController < ApplicationController
       params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, { :category_list => [] }, :location,
                                       :product_url, :purchasing_url, :serial, :price, :properties,
                                       :description, :expiration, :remaining, :tag_list, :lock_version,
-                                      :quantity, :lot_number, :uid, :shared, :currency, 
+                                      :quantity, :lot_number, :uid, :shared, :currency, :description, 
                                       :pdf, :delete_pdf, :pdf_remote_url,
                                       :icon, :delete_icon, :icon_remote_url)
     end
