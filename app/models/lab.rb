@@ -44,6 +44,12 @@ class Lab < ActiveRecord::Base
   before_update :reorder_categories
   before_create :set_default_categories
 
+  after_destroy :remove_comments, unless: Proc.new { |l| l.comments.nil? }
+
+  def remove_comments
+    self.comments.destroy_all
+  end
+
   def icon_remote_url=(url_value)
      if url_value.present?
       self.icon = URI.parse(url_value)

@@ -36,6 +36,8 @@ class Reagent < ActiveRecord::Base
   after_update  :shared_status_message, if: Proc.new { |r| r.shared_changed? }
   after_update  :location_status_message, if: Proc.new { |d| d.location_changed? }
 
+  # after_destroy :destroy_comments, if: Proc.new { |r| !r.comments.nil? }
+
 	include PublicActivity::Common
 
   attr_accessor :delete_icon

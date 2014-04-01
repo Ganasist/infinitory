@@ -45,15 +45,17 @@ class User < ActiveRecord::Base
   before_create :skip_confirmation!, :skip_confirmation_notification!
   before_create :gl_signup, if: Proc.new { |f| f.gl? }  
   before_create :first_request, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
-  
+
+  after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
+  after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
+
   after_create  :first_request_email, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
   
   before_update :switch_labs
     
   after_update  :update_lab_affiliations, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
   
-  after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
-  after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
+  after_destroy :remove_comments, unless: Proc.new { |u| u.comments.nil? }
 
   attr_accessor :delete_icon
   attr_reader :icon_remote_url  
@@ -159,6 +161,10 @@ class User < ActiveRecord::Base
     else
       "#{first_name} #{last_name}"
     end
+  end
+
+  def remove_comments
+    self.comments.destroy_all
   end
 
   def initials
