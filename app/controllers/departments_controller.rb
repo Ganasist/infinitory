@@ -29,6 +29,9 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
+        if current_user.department.nil?
+          current_user.department = @department
+        end
         format.html { redirect_to institute_department_path(@institute, @department), 
                       notice: 'Department was successfully created.' }
         format.json { render action: 'show', status: :created, location: @department }

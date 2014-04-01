@@ -1,5 +1,18 @@
 <% @notifications.each do |notification| %>
-	<p class="list-group-item-heading lead"><%= time_ago_in_words(notification.created_at) %> ago</p>
-	<h4 class="text-group-item-text"><%= notification.comment %></h4>
+<span id="<%= notification.id %>">
+	<p class="list-group-item-heading lead">
+		<%= time_ago_in_words(notification.created_at) %> ago
+	</p>
+	<h4 class="text-group-item-text">
+		<%= notification.comment %>
+
+		<% if @user == current_user %>
+	  	<%= link_to notification, method: :delete, remote: true do %>
+		  	<%= fa_icon "minus-square-o", class: "fa-lg fa-fw pull-right", title: "Delete" %>
+	  	<% end %>
+	  <% end %>
+  	</span>
+	</h4>
 	<hr>
+</span>
 <% end %>

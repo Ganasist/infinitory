@@ -81,10 +81,18 @@
          <br>
       </dl>
       <div class="btn-group">
-        <%= link_to ' Back', lab_devices_path(@device.lab), class: 'btn'  %>
-        <%= link_to ' Edit', edit_device_path(@device), class: 'icon-edit btn btn-warning' %>
-        <%= link_to ' Destroy', device_path(@device), method: 'delete', class: 'icon-trash btn btn-danger' %>
-        <%= link_to ' Clone', clone_device_path(@device), class: 'icon-code-fork btn btn-info' %>
+        <%= link_to lab_devices_path(@device.lab), class: 'btn' do %>
+          <%= fa_icon "rotate-left", class: "fa fa-lg fa-fw" %>Back
+        <% end %>
+        <%= link_to edit_device_path(@device), class: 'btn btn-warning' do %>
+          <%= fa_icon "edit", class: "fa fa-lg fa-fw" %>Edit
+        <% end %>
+        <%= link_to device_path(@device), method: 'delete', class: 'btn btn-danger' do %>
+          <%= fa_icon "trash-o", class: "fa fa-lg fa-fw" %>Destroy
+        <% end %>
+        <%= link_to clone_device_path(@device), class: 'btn btn-info' do %>
+          <%= fa_icon "code-fork", class: "fa fa-lg fa-fw" %>Clone
+        <% end %>
       </div>
       <hr>
     </div>

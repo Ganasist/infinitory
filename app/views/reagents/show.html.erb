@@ -107,15 +107,18 @@
         <% end %>
       </dl>
       <div class="btn-group">
-        <%= link_to ' Back', lab_reagents_path(@reagent.lab),
-                             class: 'btn fa fa-rotate-left'  %>
-        <%= link_to ' Edit', edit_reagent_path(@reagent),
-                             class: 'icon-edit btn btn-warning' %>
-        <%= link_to ' Destroy', reagent_path(@reagent),
-                                method: 'delete',
-                                class: 'icon-trash btn btn-danger' %>
-        <%= link_to ' Clone', clone_reagent_path(@reagent),
-                              class: 'icon-code-fork btn btn-info' %>
+        <%= link_to lab_reagents_path(@reagent.lab), class: 'btn' do %>
+          <%= fa_icon "rotate-left", class: "fa fa-lg fa-fw" %>Back
+        <% end %>
+        <%= link_to edit_reagent_path(@reagent), class: 'btn btn-warning' do %>
+          <%= fa_icon "edit", class: "fa fa-lg fa-fw" %>Edit
+        <% end %>
+        <%= link_to reagent_path(@reagent),  method: 'delete', class: 'btn btn-danger' do %>
+          <%= fa_icon "trash-o", class: "fa fa-lg fa-fw" %>Destroy
+        <% end %>
+        <%= link_to clone_reagent_path(@reagent), class: 'btn btn-info' do %>
+          <%= fa_icon "code-fork", class: "fa fa-lg fa-fw" %>Clone
+        <% end %>
       </div>
       <hr>
     </div>

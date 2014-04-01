@@ -30,13 +30,6 @@
       <% end %>
     </li>
     <% end %>
-    <% if @department.url? %>
-      <li>          
-        <%= link_to @department.url, target: "_blank" do %>
-          <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
-        <% end %>
-      </li>
-    <% end %>
     <% if @department.twitter_url? %>
      <li>          
       <%= link_to @department.twitter_url, target: "_blank"  do %>
@@ -59,7 +52,16 @@
     </li>          
     <% end %>          
   </ul>
-  <br>
+  <hr>
+
+  <% if @department.url.present? %>
+    <h5>
+    <%= link_to @department.url, target: "_blank" do %>
+      <%= fa_icon "external-link", title: "Website", class: "fa-lg fa-fw"  %> <%= @department.url %>
+    <% end %>
+    </h5>
+  <% end %>
+
   <% if @department.room.present? %>
   	<h5>
     <%= link_to "#" do %>

@@ -3,17 +3,13 @@ require 'sidetiq/web'
 
 Infinitory::Application.routes.draw do
   
- #  resources :resources do
-	#   resources :bookings
-	# end
-
   resources :messages, only: [:new, :create]
+
+  resources :comments, only: :destroy
 
   authenticated :user do
     root to: 'users#show', as: :authenticated_root
   end
-
-  root :to => 'high_voltage/pages#show', id: 'splash'
 
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
                                controllers: { registrations: 'registrations',
@@ -53,6 +49,8 @@ Infinitory::Application.routes.draw do
   post 'versions/:id/revert' => 'versions#revert', as: 'revert_version'
 
   mount Sidekiq::Web, at: '/sidekiq'
+
+  root :to => 'high_voltage/pages#show', id: 'splash'
 
   # match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/ }, via: :get
 end

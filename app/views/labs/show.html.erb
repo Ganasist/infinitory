@@ -26,13 +26,7 @@
       </h4>
       <ul class="inline">
         <br>
-        <% if @lab.email? %>
-        <li>          
-          <%= mail_to @lab.email do %>
-            <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
-          <% end %>
-        </li>
-        <% end %>
+        
         <% if @lab.url? %>
         <li>          
           <%= link_to @lab.url, target: "_blank" do %>
@@ -63,7 +57,15 @@
         <% end %>          
       </ul>
     </span>       
-    </h3>      
+    </h3>
+    <hr>
+      <% if @lab.email? %>
+        <h5>          
+          <%= mail_to @lab.email do %>
+            <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %> <%= @lab.email %>
+          <% end %>
+        </h5>
+      <% end %>
       <% if @lab.room.present? %>
       <h5>
         <%= link_to "#" do %>
@@ -100,13 +102,17 @@
       <% end %>
       </h5>   
     <hr>
-    <h4 class="text-center">Member Overview</h4>
-    <% cache @chart_lab do %>
-      <div id='chart_lab'>
-        <%= render_chart(@chart_lab, 'chart_lab') %>
-      </div>
+
+    <% if @lab.size > 3 %>
+      <h4 class="text-center">Member Overview</h4>
+      <% cache @chart_lab do %>
+        <div id='chart_lab'>
+          <%= render_chart(@chart_lab, 'chart_lab') %>
+        </div>
+      <% end %>
+      <hr>
     <% end %>
-    <hr>
+
     <!-- <h4 class="text-center">Reagent distribution</h4>
     <%# cache @chart_reagents do %>
       <div id='chart_reagents'>
