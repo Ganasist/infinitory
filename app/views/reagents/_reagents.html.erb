@@ -33,16 +33,25 @@
         <td><%= best_in_place reagent, :remaining %></td>
         <td><%= reagent.category_list %></td>  
         <td><%= best_in_place reagent, :location %></td>
-        <% if reagent.expiration? %>
-          <% if reagent.expiration.past? %>
+        <% unless reagent.expiration.nil? %>
+          <% if !reagent.expiration.nil? && reagent.expiration.past? %>
             <td><span class="text-danger"><%= "#{time_ago_in_words(reagent.expiration)}" %> ago</span></dd>
           <% elsif expiring?(reagent) %>    
             <td><span class="text-warning"><%= time_ago_in_words(reagent.expiration) %> from now</span></dd>
           <% else %>
             <td>in <%= time_ago_in_words(reagent.expiration) %></dd>
           <% end %>
+        <% else %>
+          <td>-</td>
         <% end %>
-        <td><%= best_in_place reagent, :price, display_with: :number_to_currency, helper_options: { unit: reagent.currency } %></td>
+
+        <% if reagent.price > 0 %>
+        <td>
+          <%= best_in_place reagent, :price, display_with: :number_to_currency, helper_options: { unit: reagent.currency } %>
+        </td>
+        <% else %>
+          <td>-</td>
+        <% end %>
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
           <%= link_to edit_reagent_path(reagent) do %>

@@ -3,9 +3,10 @@ require 'csv'
 desc "Import items from csv file"
 task :import_csv => [:environment] do
 
-  file = "db/test.csv"
+  file = "db/test_010414.csv"
+  test = file.force_encoding("ISO-8859-1").encode('UTF-8', :invalid => :replace, :replace => '?')
 
-  CSV.foreach(file, headers: true, col_sep: ';') do |row|
+  CSV.foreach(test, headers: true, col_sep: ';') do |row|
     Reagent.create! row.to_hash
   end
 

@@ -56,12 +56,16 @@
           <% end %>
 
         <dt><strong>Expiration</strong></dt>
-        <% if @reagent.expiration.past? %>
-          <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd><br>
-        <% elsif expiring?(@reagent) %>    
-          <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+        <% unless @reagent.expiration.nil? %>
+          <% if @reagent.expiration.past? %>
+            <dd><span class="label label-important"><%= "#{time_ago_in_words(@reagent.expiration)}" %> ago</span></dd><br>
+          <% elsif expiring?(@reagent) %>    
+            <dd><span class="label label-warning"><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+          <% else %>
+            <dd><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+          <% end %>
         <% else %>
-          <dd><%= time_ago_in_words(@reagent.expiration) %> from now</dd><br>
+          <dd>-</dd>
         <% end %>
         
         <% if !@reagent.users.empty? %>

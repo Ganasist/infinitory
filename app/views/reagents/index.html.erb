@@ -21,20 +21,20 @@
         <%= text_field_tag :search, params[:query],
                                     class: 'search-field', 
                                     placeholder: "Search your reagents",
-                                    data: { provide: :typeahead, source: current_user.reagents.pluck(:name).uniq },
-                                    autocomplete: :off %>
+                                    # data: { provide: :typeahead, source: current_user.reagents.pluck(:name).uniq },
+                                    autocomplete: :on %>
       <% end %>
     <% elsif params[:lab_id].present? %>
       <%= simple_form_for lab_reagents_path, method: :get do %>
         <%= text_field_tag :search, params[:query],
                                     class: 'search-field',
                                     placeholder: "Search lab reagents",
-                                    data: { provide: :typeahead, source: @lab.reagents.pluck(:name).uniq },
-                                    autocomplete: :off  %>
+                                    # data: { provide: :typeahead, source: @lab.reagents.pluck(:name).uniq },
+                                    autocomplete: :on  %>
         <ul class="nav nav-pills nav-justified">
           <li class="active"><a href="#notifications" data-toggle="tab">Lab</a></li>
-          <li><a href="#activity" data-toggle="tab">+ Institute</a></li>
-          <li><a href="#messages" data-toggle="tab">+ Local</a></li>
+          <li class="disabled"><a href="#activity" data-toggle="tab">+ Institute</a></li>
+          <li class="disabled"><a href="#messages" data-toggle="tab">+ Local</a></li>
         </ul><br>
       <% end %>
     <% end %>

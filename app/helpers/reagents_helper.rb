@@ -1,15 +1,21 @@
 module ReagentsHelper
 
   def expiring?(reagent)
-    (reagent.expiration - Date.today).to_i < 30
+  	unless reagent.expiration.nil?
+	    (reagent.expiration - Date.today).to_i < 30
+	  end
   end
 
   def low?(reagent)
-  	reagent.remaining.between?(11, 25)
+  	unless reagent.expiration.nil?
+	  	reagent.remaining.between?(11, 25)
+	  end
   end
 
   def almost_empty?(reagent)
-  	reagent.remaining.between?(0, 10)
+  	unless reagent.expiration.nil?
+	  	reagent.remaining.between?(0, 10)
+	  end
   end
 end
 

@@ -26,12 +26,12 @@ class Reagent < ActiveRecord::Base
   validates :product_url, url: true, allow_blank: true
   validates :purchasing_url, url: true, allow_blank: true
   
-  validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :name], message: 'There is another reagent in the lab with that category, name and UID' }
+  validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :name, :description], message: 'There is another reagent in the lab with that description, name and UID' }
 
   # validates_date :expiration, after: lambda { Date.today }, after_message: 'Expiration date must be set after today',
   # 														if: Proc.new { |reagent| reagent.expiration_changed? }
 
-  before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
+  # before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
 
   after_update  :shared_status_message, if: Proc.new { |r| r.shared_changed? }
   after_update  :location_status_message, if: Proc.new { |d| d.location_changed? }
@@ -64,7 +64,7 @@ class Reagent < ActiveRecord::Base
     	new_reagent.remaining  = 100
     	new_reagent.activities = []
       if original_reagent.expiration.past?
-        new_reagent.expiration = Date.today + 3.years
+        new_reagent.expiration = Date.today + 5.years
       end
       if original_reagent.icon.present?
       	new_reagent.icon = original_reagent.icon
@@ -90,9 +90,8 @@ class Reagent < ActiveRecord::Base
   end
 
 	include PgSearch
-  pg_search_scope :pg_search, against: [:name, :uid, :serial],
-                   				 		using: { tsearch: { prefix: true, dictionary: 'english' }}
-
+  pg_search_scope :pg_search, against: [:name, :uid, :serial, :location, :description],
+                   				 		using: { tsearch: { prefix: true, dictionary: 'english' } }
 
 	scope :modified_recently, -> { order("updated_at Desc") }
 	scope :expired, 					-> { where("expiration < ?", Date.today )}
@@ -200,9 +199,9 @@ class Reagent < ActiveRecord::Base
       end
     end
 
-  	def set_expiration
-			self.expiration = 3.years.from_now
-  	end
+  	# def set_expiration
+			# self.expiration = 5.years.from_now
+  	# end
 
 	  def self.text_search(query)
 	    if query.present?
