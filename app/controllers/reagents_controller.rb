@@ -93,6 +93,7 @@ class ReagentsController < ApplicationController
     send_comment(@reagent, "removed")
     @reagent.destroy
     respond_to do |format|
+      flash[:notice] = "#{ fullname(@reagent) } has been removed."
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
       format.js
