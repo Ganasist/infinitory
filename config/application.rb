@@ -20,8 +20,8 @@ module Infinitory
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.1'    # <--- Bump it up!
 
-    config.assets.enabled = true
-    config.assets.digest = true
+    # config.assets.enabled = true
+    # config.assets.digest = true
 
     config.filter_parameters += [:password, :password_confirmation]
 
