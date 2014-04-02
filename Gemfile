@@ -94,6 +94,9 @@ gem 'validate_url'
 
 gem 'seed_dump'
 
+gem 'asset_sync'
+gem 'unf'
+
 group :production do
   gem 'rails_12factor'
 end
