@@ -473,7 +473,7 @@ DEPENDENCIES
   database_cleaner
   debugger
   delayed_paperclip
-  devise
+  devise (~> 3.0)
   devise-async
   devise_invitable!
   email_spec

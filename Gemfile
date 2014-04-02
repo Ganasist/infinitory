@@ -68,7 +68,7 @@ gem 'twitter-bootstrap-rails'
 gem 'font-awesome-rails'
 gem 'bootstrap-switch-rails'
 
-gem 'devise'
+gem 'devise', '~> 3.0'
 gem 'devise_invitable', github: 'scambra/devise_invitable'
 gem 'devise-async'
 
