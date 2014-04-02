@@ -2,7 +2,7 @@ jQuery ->
   # $("a[rel~=popover], .has-popover").popover()
   # $("a[rel~=tooltip], .has-tooltip").tooltip()
 
-  $('.dropdown-toggle').dropdown() 
+  # $('.dropdown-toggle').dropdown() 
   
   $("a[rel=popover]").popover()
   $(".tooltip").tooltip()
