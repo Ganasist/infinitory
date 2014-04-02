@@ -23,20 +23,20 @@ class CollaborationsController < ApplicationController
       end
     elsif @collaborator == @lab
       respond_to do |format|
-        format.html { redirect_to lab_collaborations_path(current_user.lab), 
-                      notice: "You cannot collaborate with yourself." }
+        flash[:error] = "You cannot collaborate with yourself."
+        format.html { redirect_to lab_collaborations_path(current_user.lab) }
         format.json { render action: 'show', status: :created, location: @lab }
       end
     elsif @lab.collaborators.include?(@collaborator)
       respond_to do |format|
-        format.html { redirect_to lab_collaborations_path(current_user.lab), 
-                      notice: "You are already collaborating with that lab." }
+        flash[:error] = "You are already collaborating with that lab."
+        format.html { redirect_to lab_collaborations_path(current_user.lab) }
         format.json { render action: 'show', status: :created, location: @lab }
       end
     else
       respond_to do |format|
-        format.html { redirect_to lab_collaborations_path(current_user.lab), 
-                      notice: "We cannot locate a lab with that email address." }
+        flash[:error] = "We cannot locate a lab with that email address."
+        format.html { redirect_to lab_collaborations_path(current_user.lab) }
         format.json { render action: 'show', status: :created, location: @lab }
       end
     end

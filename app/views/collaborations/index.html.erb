@@ -1,6 +1,10 @@
 <%- model_class = Collaboration -%>
 <div class="page-header">
-  <h2><%= @lab.gl.last_name %> lab collaborations</h2><br>
+  <h2><%= @lab.gl.last_name %> lab collaborations</h2>
+  <h4>
+     Your group currently shares <%= pluralize(@lab.reagents.where(shared: true).count, "reagent") %>
+     and <%= pluralize(@lab.devices.where(shared: true).count, "device") %>
+   </h4><br>
   <%= simple_form_for [@lab, @collaborator], html: { class: 'form-vertical', autocomplete: 'off', style: 'width: 300px' },
                                              url: url_for(action: 'create', controller: 'collaborations'),
                                              method: 'post' do |f| %>
@@ -25,21 +29,17 @@
     <br>  
 </div>
 
-<div class="span5 text-center">
+<div class="span5 text-center pull-left">
   <% cache @lab do %>
-    <h3 class="text-muted well">Groups that can access your items</h3>
-    <h4>
-     You share <%= pluralize(@lab.reagents.where(shared: true).count, "reagent") %>
-     and <%= pluralize(@lab.devices.where(shared: true).count, "device") %>
-   </h4>
+    <h3 class="text-muted well">Groups that can access your lab (<%= @lab.collaborators.count %>)</h3>
   <% end %>
   <br>
   <%= render 'outgoing' %>
   <br>
 </div>
 
-<div class="span5 text-center">
-  <h3 class="text-muted text-center well">Groups your lab can access</h3>
+<div class="span5 text-center pull-right">
+  <h3 class="text-muted text-center well">Groups your lab can access (<%= @lab.inverse_collaborators.count %>)</h3>
   <br>
   <%= render 'incoming' %>
   <br>
