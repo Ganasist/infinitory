@@ -27,7 +27,7 @@
 
 <div class="span5 text-center">
   <% cache @lab do %>
-    <h3 class="text-muted">Groups that can access your items</h3>
+    <h3 class="text-muted well">Groups that can access your items</h3>
     <h4>
      You share <%= pluralize(@lab.reagents.where(shared: true).count, "reagent") %>
      and <%= pluralize(@lab.devices.where(shared: true).count, "device") %>
@@ -39,7 +39,7 @@
 </div>
 
 <div class="span5 text-center">
-  <h3 class="text-muted text-center">Groups your lab can access</h3>
+  <h3 class="text-muted text-center well">Groups your lab can access</h3>
   <br>
   <%= render 'incoming' %>
   <br>
