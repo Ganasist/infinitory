@@ -30,8 +30,8 @@ Infinitory::Application.configure do
   config.assets.initialize_on_precompile = true
 
   # Generate digests for assets URLs.
-  config.assets.enabled = true
-  config.assets.digest  = true
+  # config.assets.enabled = true
+  # config.assets.digest  = true
 
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.1'
