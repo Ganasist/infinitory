@@ -85,7 +85,7 @@ gem 'paperclip-aws'
 gem 'delayed_paperclip'
 gem 'rmagick'
 
-gem 'sidekiq'
+gem 'sidekiq', '~> 2.17.7'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'sidetiq'
