@@ -47,7 +47,9 @@
 
         <% if reagent.price > 0 %>
         <td>
-          <%= best_in_place reagent, :price, display_with: :number_to_currency, helper_options: { unit: reagent.currency } %>
+          <%= best_in_place reagent, :price,
+                                      display_with: :number_to_currency,
+                                      helper_options: { unit: reagent.currency } %>
         </td>
         <% else %>
           <td>-</td>
@@ -59,9 +61,9 @@
           <% end %>
 
           <%= link_to reagent_path(reagent),
-                      method: :delete,                      
-                      remote: true,
-                      data: { confirm: "Are you sure you want to delete #{ reagent.name }?" } do %>
+                      method: :delete,
+                      data: { confirm: "Are you sure you want to delete #{ reagent.name }?" },
+                      remote: true do %>
             <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete"  %>
           <% end %>
         </td>
