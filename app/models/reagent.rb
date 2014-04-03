@@ -12,7 +12,7 @@ class Reagent < ActiveRecord::Base
 	has_many :users, through: :ownerships
 
 	validates :name, presence: true
-  # validates :category, presence: true, inclusion: { in: Proc.new { |reagent| reagent.lab.reagent_category_list } }
+  # validates :category, allow_blank: true, inclusion: { in: ->(r) { r.lab.reagent_category_list }, message: "ZEMPP" }
   validates :currency, inclusion: { in: CURRENCIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }
   validates :remaining, numericality: true, allow_blank: true, inclusion: { in: 0..100, message: 'The amount remaining must be between 0 and 100' }

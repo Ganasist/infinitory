@@ -1,8 +1,12 @@
-Updated
-<% if activity.trackable && activity.trackable.uid.present? %>
-	<%= link_to "#{activity.trackable.name}-#{activity.trackable.uid}", activity.trackable %>
-<% elsif activity.trackable %>
-	<%= link_to "#{activity.trackable.name}", activity.trackable %>
+<% if @device.present? %>
+	Updated by
 <% else %>
-  a device (which has since been removed)
+	Updated
+	<% if activity.trackable && activity.trackable.uid.present? %>
+		<%= link_to "#{activity.trackable.name}-#{activity.trackable.uid}", activity.trackable %>
+	<% elsif activity.trackable %>
+		<%= link_to "#{activity.trackable.name}", activity.trackable %>
+	<% else %>
+	  a device (which has since been removed)
+	<% end %>
 <% end %>

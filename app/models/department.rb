@@ -34,7 +34,7 @@ class Department < ActiveRecord::Base
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
 
-  after_destroy :remove_comments, unless: Proc.new { |d| d.comments.nil? }
+  before_destroy :remove_comments, unless: Proc.new { |d| d.comments.nil? }
 
   def remove_comments
     self.comments.destroy_all

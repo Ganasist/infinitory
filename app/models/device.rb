@@ -11,11 +11,11 @@ class Device < ActiveRecord::Base
 	has_many :ownerships, dependent: :destroy
 	has_many :users, through: :ownerships
 
-  has_many :bookings, dependent: :destroy
-  has_many :users, through: :bookings
+  # has_many :bookings, dependent: :destroy
+  # has_many :users, through: :bookings
 
 	validates :name, presence: true
-  # validates :category, presence: true, inclusion: { in: Proc.new { |device| device.lab.device_category_list } }
+  # validates :category, inclusion: { in: Proc.new { |device| device.lab.device_category_list }, message: "This device's category must belong to the lab's general category list." }
   validates :currency, inclusion: { in: CURRENCIES }
   validates :price, numericality: { greater_than_or_equal_to: 0, message: 'Must be a positive number or 0' }, allow_blank: true
   validates :serial, unique: false, allow_blank: true, allow_nil: true

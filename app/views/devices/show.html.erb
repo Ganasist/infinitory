@@ -14,7 +14,7 @@
     <% end %>
 
       <h3>
-        <%= fullname(@device) %>
+        <%= best_in_place @device, :name %> <%= best_in_place @device, :uid %>
         <%= fa_icon "star-o", title: "Shared device" if @device.shared? %>
       </h3>
       <h4><%= @device.category_list %></h4>

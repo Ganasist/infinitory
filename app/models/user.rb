@@ -30,8 +30,8 @@ class User < ActiveRecord::Base
   has_many :reagents, through: :ownerships
   has_many :devices, through: :ownerships
 
-  has_many :bookings, dependent: :destroy
-  has_many :devices, through: :bookings
+  # has_many :bookings, dependent: :destroy
+  # has_many :devices, through: :bookings
   
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :lab_email, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
     
   after_update  :update_lab_affiliations, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
   
-  after_destroy :remove_comments, unless: Proc.new { |u| u.comments.nil? }
+  before_destroy :remove_comments, unless: Proc.new { |u| u.comments.nil? }
 
   attr_accessor :delete_icon
   attr_reader :icon_remote_url  

@@ -33,7 +33,7 @@ class Institute < ActiveRecord::Base
 	# extend FriendlyId
 	# friendly_id :acronym_and_name, use: [:slugged, :history]
 
-  after_destroy :remove_comments, unless: Proc.new { |i| i.comments.nil? }
+  before_destroy :remove_comments, unless: Proc.new { |i| i.comments.nil? }
 
 	include PgSearch
   pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
