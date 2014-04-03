@@ -6,7 +6,7 @@
       <div class="span5"> 
       <br>
        <%= f.input :category_list, label: 'Categories',
-                                  collection: current_user.lab.reagent_category_list,
+                                  collection: current_user.lab.reagent_category_list.sort_by(&:downcase),
                                   as: :check_boxes,
                                   input_html: { style: 'width: 50px' } %>
       <br><br>

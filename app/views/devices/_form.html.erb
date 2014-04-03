@@ -4,7 +4,7 @@
     <div class="row">
       <div class="span5"> 
       <%= f.input :category_list, label: 'Categories',
-                                  collection: current_user.lab.device_category_list,
+                                  collection: current_user.lab.device_category_list.sort_by(&:downcase),
                                   as: :check_boxes,
                                   input_html: { style: 'width: 50px' } %>
       <br>
