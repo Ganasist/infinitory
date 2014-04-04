@@ -12,14 +12,13 @@
       <br><br>
       <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 
-                        tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %> 
+                        tooltip: ['right', "When you have multiple copies of the same item, use a unique ID to distinguish them."] %> 
       <%= f.input :quantity, label: "Original quantity" %>
       <%= f.input :remaining, as: :range, label_html: { id: "reagent_remaining_feedback" },
                               input_html: { step: 5 }, label: "Amount remaining: #{ @reagent.remaining }%" %><br>
       <%= f.input :location, label: 'Location in lab', placeholder: "'Room 237' or 'Fz3S1B4'",
                              tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
-      <%= f.input :expiration, as: :string, placeholder: 'YYYY-MM-DD',
-                                            tooltip: ['right', "If an expiration date is not set it will automatically default to 3 years from now"] %>
+      <%= f.input :expiration, as: :string, placeholder: 'YYYY-MM-DD' %>
        <hr>                                    
        <label>Description</label><br>
        <label class="text required control-label" for="comment" id="description_feedback">* 223 characters remaining</label>
