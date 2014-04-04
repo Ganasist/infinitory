@@ -194,6 +194,7 @@ GEM
     font-awesome-rails (4.0.3.1)
       railties (>= 3.2, < 5.0)
     formatador (0.2.4)
+    fullcalendar-rails (1.6.4.0)
     google_visualr (2.2.0)
     guard (2.6.0)
       formatador (>= 0.2.4)
@@ -484,6 +485,7 @@ DEPENDENCIES
   figaro!
   fog
   font-awesome-rails
+  fullcalendar-rails
   google_visualr (>= 2.1)
   guard-bundler
   guard-rails

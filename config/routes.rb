@@ -2,10 +2,6 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Infinitory::Application.routes.draw do
-  
-  resources :messages, only: [:new, :create]
-
-  resources :comments, only: :destroy
 
   authenticated :user do
     root to: 'users#show', as: :authenticated_root
@@ -19,9 +15,11 @@ Infinitory::Application.routes.draw do
  
   resources :institutes, shallow: true do
     resources :labs do
-      resources :devices
+      resources :devices do
+        resources :bookings
+      end
       resources :reagents
-      resources :users   
+      resources :users
       resources :collaborations
     end
   end
@@ -33,7 +31,11 @@ Infinitory::Application.routes.draw do
   resources :user, except: [:index, :show, :new, :create, :edit, :update, :delete] do
     resources :reagents, only: [:index, :show]
     resources :devices,  only: [:index, :show]
+    resources :bookings, only: [:index, :show]
   end
+
+  resources :messages, only: [:new, :create]
+  resources :comments, only: :destroy
 
   get 'tags/:tag', to: 'reagents#index', as: :tag
 

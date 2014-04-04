@@ -1,0 +1,35 @@
+<h1>Listing bookings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Device</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><%= booking.title %></td>
+        <td><%= booking.description %></td>
+        <td><%= booking.start_time %></td>
+        <td><%= booking.end_time %></td>
+        <td><%= booking.device_id %></td>
+        <td><%= booking.user_id %></td>
+        <td><%= link_to 'Show', booking %></td>
+        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Booking', new_device_booking_path(params[:device_id]) %>

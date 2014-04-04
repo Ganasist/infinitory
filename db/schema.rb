@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329135842) do
+ActiveRecord::Schema.define(version: 20140404123619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,8 +46,12 @@ ActiveRecord::Schema.define(version: 20140329135842) do
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
 
   create_table "bookings", force: true do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "device_id",  null: false
+    t.string   "title"
+    t.text     "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "device_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -133,6 +137,7 @@ ActiveRecord::Schema.define(version: 20140329135842) do
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
     t.string   "state"
+    t.integer  "bookings_count"
   end
 
   add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree

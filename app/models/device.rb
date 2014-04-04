@@ -11,8 +11,8 @@ class Device < ActiveRecord::Base
 	has_many :ownerships, dependent: :destroy
 	has_many :users, through: :ownerships
 
-  # has_many :bookings, dependent: :destroy
-  # has_many :users, through: :bookings
+  has_many :bookings, dependent: :destroy
+  has_many :users, through: :bookings
 
 	validates :name, presence: true
   # validates :category, inclusion: { in: Proc.new { |device| device.lab.device_category_list }, message: "This device's category must belong to the lab's general category list." }

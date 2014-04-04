@@ -30,8 +30,8 @@ class User < ActiveRecord::Base
   has_many :reagents, through: :ownerships
   has_many :devices, through: :ownerships
 
-  # has_many :bookings, dependent: :destroy
-  # has_many :devices, through: :bookings
+  has_many :bookings, dependent: :destroy
+  has_many :devices, through: :bookings
   
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :lab_email, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
