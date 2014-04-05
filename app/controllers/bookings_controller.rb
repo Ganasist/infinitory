@@ -7,7 +7,7 @@ class BookingsController < ApplicationController
       @bookings = @device.bookings
     elsif params[:user_id]
       @user = User.find(params[:user_id])
-      @bookings = @user.bookings.sort_by(&:start_time)
+      @bookings = @user.bookings.sort_by(&:start_time).reverse
     end  
   end
 
