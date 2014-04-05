@@ -3,27 +3,31 @@ class BookingsController < ApplicationController
 
   # GET /bookings
   def index
-    @bookings = Booking.all
+    @device = Device.find(params[:device_id])
+    @bookings = @device.bookings
+    # @bookings = Booking.all
   end
 
   # GET /bookings/1
   def show
+    @device = @booking.device
   end
 
   # GET /bookings/new
   def new
-    @booking = Booking.new
     @device = Device.find(params[:device_id])
+    @booking = Booking.new
   end
 
   # GET /bookings/1/edit
   def edit
+    @user = current_user
   end
 
   # POST /bookings
   def create
-    @booking = Booking.new(booking_params)
-
+    @device = Device.find(params[:device_id])
+    @booking = @device.bookings.new(booking_params)
     if @booking.save
       redirect_to @booking, notice: 'Booking was successfully created.'
     else
@@ -42,17 +46,16 @@ class BookingsController < ApplicationController
 
   # DELETE /bookings/1
   def destroy
+    @device = @booking.device
     @booking.destroy
-    redirect_to bookings_url, notice: 'Booking was successfully destroyed.'
+    redirect_to device_bookings_url(@device), notice: 'Booking was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_booking
       @booking = Booking.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def booking_params
       params.require(:booking).permit(:title, :description, :start_time, :end_time, :device_id, :user_id)
     end
