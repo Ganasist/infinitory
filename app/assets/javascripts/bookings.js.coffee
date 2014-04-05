@@ -1,2 +1,2 @@
-# jQuery ->
-# 	$('#calendar').fullCalendar()
+jQuery ->
+	$('#calendar').fullCalendar()
