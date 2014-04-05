@@ -105,6 +105,7 @@ group :production do
 end
 
 group :development do
+  gem 'spring'
   gem 'thin'
   # gem 'rack-mini-profiler'
   gem 'brakeman', :require => false
@@ -129,7 +130,6 @@ gem 'factory_girl_rails'
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   # gem 'shoulda-matchers'
-  # gem 'zeus-parallel_tests'
   gem 'rspec-nc'
   gem 'minitest'
 end

@@ -5,7 +5,6 @@ class BookingsController < ApplicationController
   def index
     @device = Device.find(params[:device_id])
     @bookings = @device.bookings
-    # @bookings = Booking.all
   end
 
   # GET /bookings/1
