@@ -8,7 +8,7 @@ class BookingsController < ApplicationController
     elsif params[:user_id]
       @user = User.find(params[:user_id])
       @bookings = @user.bookings.sort_by(&:start_time).reverse
-    end  
+    end
   end
 
   def show

@@ -35633,9 +35633,7 @@ jQuery(document).on('best_in_place:error', function(event, request, error) {
     });
 });
 (function() {
-  jQuery(function() {
-    return $('#calendar').fullCalendar();
-  });
+
 
 }).call(this);
 (function() {

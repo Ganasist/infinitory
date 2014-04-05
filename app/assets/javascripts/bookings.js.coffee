@@ -1,2 +1,5 @@
 jQuery ->
-	$('#calendar').fullCalendar()
+	$('#calendar').fullCalendar(
+		defaultView: 'agendaWeek',
+		events:'bookings.json'
+		)
