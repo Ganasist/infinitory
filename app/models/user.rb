@@ -28,10 +28,10 @@ class User < ActiveRecord::Base
 
   has_many :ownerships, dependent: :destroy
   has_many :reagents, through: :ownerships
-  has_many :devices, through: :ownerships
+  has_many :device_ownerships, through: :ownerships, class_name: "Device", foreign_key: "device_id", source: :device
 
   has_many :bookings, dependent: :destroy
-  has_many :devices, through: :bookings
+  has_many :device_bookings, through: :bookings, class_name: "Device", foreign_key: "device_id", source: :device
   
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :lab_email, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
@@ -116,11 +116,15 @@ class User < ActiveRecord::Base
   end
 
   def cached_device_count
-    Rails.cache.fetch([self, "device_count"], expires_in: 30.minutes) { self.devices.count }
+    Rails.cache.fetch([self, "device_count"], expires_in: 30.minutes) { self.device_ownerships.count }
   end
 
   def cached_reagent_count
     Rails.cache.fetch([self, "reagent_count"], expires_in: 30.minutes) { self.reagents.count }
+  end
+
+  def cached_booking_count
+    Rails.cache.fetch([self, "booking_count"], expires_in: 30.minutes) { self.bookings.count }
   end
 
   def reject

@@ -1,29 +1,29 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
-  # GET /bookings
   def index
-    @device = Device.find(params[:device_id])
-    @bookings = @device.bookings
+    if params[:device_id]
+      @device = Device.find(params[:device_id])
+      @bookings = @device.bookings
+    elsif params[:user_id]
+      @user = User.find(params[:user_id])
+      @bookings = @user.bookings.sort_by(&:start_time)
+    end  
   end
 
-  # GET /bookings/1
   def show
     @device = @booking.device
   end
 
-  # GET /bookings/new
   def new
     @device = Device.find(params[:device_id])
     @booking = Booking.new
   end
 
-  # GET /bookings/1/edit
   def edit
     @user = current_user
   end
 
-  # POST /bookings
   def create
     @device = Device.find(params[:device_id])
     @booking = @device.bookings.new(booking_params)
@@ -34,7 +34,6 @@ class BookingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bookings/1
   def update
     if @booking.update(booking_params)
       redirect_to @booking, notice: 'Booking was successfully updated.'
@@ -43,7 +42,6 @@ class BookingsController < ApplicationController
     end
   end
 
-  # DELETE /bookings/1
   def destroy
     @device = @booking.device
     @booking.destroy

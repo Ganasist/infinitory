@@ -46,9 +46,9 @@
           <dd><%= best_in_place @device, :description %></dd><br>
         <% end %>
         
-        <% unless @device.users.empty? %>
+        <% unless @device.user_ownerships.empty? %>
           <dt><strong>Linked members(s)</strong></dt>
-          <% @device.users.each do |user| %>
+          <% @device.user_ownerships.each do |user| %>
           <dd><%= link_to user.fullname, user %></dd>
           <% end %><br>
         <% end %>

@@ -18,7 +18,7 @@ class DevicesController < ApplicationController
     # end    
     if params[:user_id].present?
       @user = User.find(params[:user_id])
-      @devices = @user.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
+      @devices = @user.device_ownerships.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
       @devices = @lab.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
@@ -133,7 +133,7 @@ class DevicesController < ApplicationController
     end
 
     def device_params
-      params.require(:device).permit(:lab_id, { :user_ids => [] }, :name, { :category_list => [] }, :location, :price,
+      params.require(:device).permit(:lab_id, { :user_ownership_ids => [] }, :name, { :category_list => [] }, :location, :price,
       															 :product_url, :purchasing_url, :serial, :description, :tag_list,
                                      :lock_version, :status, :uid, :shared, :currency,
                                      :pdf, :delete_pdf, :pdf_remote_url,

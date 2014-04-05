@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140404123619) do
+ActiveRecord::Schema.define(version: 20140405115524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,8 @@ ActiveRecord::Schema.define(version: 20140404123619) do
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
     t.string   "state"
-    t.integer  "bookings_count"
+    t.integer  "bookings_count",                            default: 0
+    t.integer  "users_count",                               default: 0
   end
 
   add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree
@@ -286,6 +287,7 @@ ActiveRecord::Schema.define(version: 20140404123619) do
     t.string   "currency",                                  default: "$"
     t.boolean  "shared",                                    default: false, null: false
     t.text     "description"
+    t.integer  "users_count",                               default: 0
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
