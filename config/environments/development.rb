@@ -25,6 +25,9 @@ Infinitory::Application.configure do
   config.assets.debug = true
   config.serve_static_assets = true
 
+  config.action_controller.asset_host =  "//#{ENV['S3_PRO_BUCKET_NAME']}.s3.amazonaws.com"
+  config.action_mailer.asset_host = "http://#{ENV['S3_PRO_BUCKET_NAME']}.s3.amazonaws.com"
+
   Paperclip.options[:command_path] = '/usr/local/bin/convert'
 
   # ActionMailer::Base.smtp_settings = {
