@@ -1,6 +1,7 @@
 jQuery ->
 	$('#calendar').fullCalendar(
-		weekends: false,
 		defaultView: 'agendaWeek',
-		events:'bookings.json'
+		events:'bookings.json',
+		theme: true,
+		allDayDefault: false
 		)

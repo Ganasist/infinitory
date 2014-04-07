@@ -14,4 +14,8 @@ class Booking < ActiveRecord::Base
 	  end	  	
   end
 
+  def all_day?
+    self.duration > 3600
+  end
+
 end

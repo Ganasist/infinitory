@@ -1,5 +1,5 @@
 <% if params[:device_id] %>
-  <h3>Booking sheet for <%= link_to @device.name, @device %></h3>
+  <h3>Booking sheet for <%= link_to @device.fullname, @device %></h3>
 <% elsif params[:user_id] %>
   <h3>Bookings for <%= link_to @user.fullname, @user %></h3>
 <% end %>
