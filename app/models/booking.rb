@@ -2,7 +2,7 @@ class Booking < ActiveRecord::Base
 	belongs_to :user, touch: true, counter_cache: :bookings_count 
   belongs_to :device, touch: true, counter_cache: :bookings_count
 
-  before_update :set_all_day
+  before_save :set_all_day
 
   def duration_accurate
     end_time - start_time
