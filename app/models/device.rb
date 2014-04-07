@@ -60,8 +60,6 @@ class Device < ActiveRecord::Base
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' } }
 
 	scope :modified_recently, -> { order("updated_at DESC") }
-
-	# store_accessor :properties, :description
   
   amoeba do
     enable

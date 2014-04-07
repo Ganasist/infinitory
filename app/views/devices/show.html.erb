@@ -14,10 +14,10 @@
     <% end %>
 
       <h3>        
-        <%= fa_icon "star-o", title: "Shared device" if @device.shared? %>
+        <%= fa_icon 'star-o', title: 'Shared device' if @device.shared? %>
         <%= best_in_place @device, :name %> <%= best_in_place @device, :uid %>
         <%= link_to device_bookings_path(@device), class: 'btn btn-warning' do %>
-          <%= fa_icon "book", class: "fa fa-lg fa-fw" %>Booking Sheet
+          <%= fa_icon 'book', class: 'fa fa-lg fa-fw' %>Booking Sheet
         <% end %>
       </h3>
       <h4><%= @device.category_list %></h4>

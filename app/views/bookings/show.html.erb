@@ -12,22 +12,27 @@
 
 <p>
   <strong>Start time:</strong>
-  <%= @booking.start_time %>
+  <%= @booking.start_time.to_formatted_s(:short) %>
 </p>
 
 <p>
   <strong>End time:</strong>
-  <%= @booking.end_time %>
+  <%= @booking.end_time.to_formatted_s(:short) %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @booking.duration %>
 </p>
 
 <p>
   <strong>Device:</strong>
-  <%= @booking.device_id %>
+  <%= link_to @booking.device.fullname, @booking.device %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @booking.user_id %>
+  <%= link_to @booking.user.fullname, @booking.user %>
 </p>
 
 <%= link_to 'Edit', edit_booking_path(@booking) %> |
