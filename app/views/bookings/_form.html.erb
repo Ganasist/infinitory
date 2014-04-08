@@ -4,8 +4,8 @@
   <div class="form-inputs">
     <%= f.input :title %>
     <%= f.input :description %>
-    <%= f.input :start_time %>
-    <%= f.input :end_time %>
+    <%= f.input :start_time, as: :text, input_html: { id: "datetimepicker_start" } %>
+    <%= f.input :end_time, as: :text, input_html: { id: "datetimepicker_end" } %>
     <%= f.input :device_id, as: :hidden %>
     <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
   </div>
