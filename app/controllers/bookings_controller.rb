@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
   def index
     if params[:device_id]
       @device = Device.find(params[:device_id])
-      @bookings = @device.bookings
+      @bookings = @device.bookings.sort_by(&:start_time).reverse
     elsif params[:user_id]
       @user = User.find(params[:user_id])
       @bookings = @user.bookings.sort_by(&:start_time).reverse
@@ -18,10 +18,13 @@ class BookingsController < ApplicationController
   def new
     @device = Device.find(params[:device_id])
     @booking = Booking.new
+    @bookings = @device.bookings
   end
 
   def edit
     @user = current_user
+    @booking = Booking.find(params[:id])
+    @bookings = @booking.device.bookings
   end
 
   def create
