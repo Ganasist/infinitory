@@ -2,7 +2,6 @@ jQuery ->
 	$('#calendar').fullCalendar
 		defaultView: 'agendaWeek'
 		events:'bookings.json'
-		# theme: true
 		allDayDefault: false
 		firstHour: 8
 		firstDay: 1
@@ -17,7 +16,6 @@ jQuery ->
 	$('#calendar_edit').fullCalendar
 		defaultView: 'agendaWeek'
 		events:'edit.json'
-		theme: true
 		allDayDefault: false
 		firstHour: 8
 		firstDay: 1
@@ -26,7 +24,6 @@ jQuery ->
 	$('#calendar_new').fullCalendar
 		defaultView: 'agendaWeek'
 		events:'new.json'
-		theme: true
 		allDayDefault: false
 		firstHour: 8
 		firstDay: 1

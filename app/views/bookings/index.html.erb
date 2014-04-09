@@ -29,7 +29,10 @@
             <%= link_to booking.device.fullname, booking.device %>
           </td>
         <% end %>
-        <td><%= booking.start_time.to_formatted_s(:short) %></td>
+        <td>
+          <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Offline" if booking.in_progress? && params[:device_id] %>
+          <%= booking.start_time.to_formatted_s(:short) %>
+        </td>
         <td><%= booking.duration %></td>
         <td><%= booking.user.fullname if params[:device_id] %></td>
         <td><%= link_to 'Show', booking %></td>
