@@ -7,14 +7,15 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <% if params[:device_id] %>
+        <th>User</th>
+      <% end %>
+      <th>Booked on</th>
       <% unless params[:device_id] %>
         <th>Device</th>
       <% end %>
       <th>Start time</th>
       <th>Duration</th>
-      <% if params[:device_id] %>
-        <th>Member</th>
-      <% end %>
       <th class="text-right" colspan="3"></th>
     </tr>
   </thead>
@@ -23,22 +24,36 @@
     <% @bookings.each do |booking| %>
 
       <tr class="<%= if booking.finished? then 'text-danger' end %>">
+        
+        <% if params[:device_id] %>
+          <td><%= booking.user.fullname %></td>
+        <% end %>
+
+        <td><%= booking.created_at.to_formatted_s(:short) %></td>
+
         <% unless params[:device_id] %> 
           <td>
-            <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Offline" if booking.in_progress? %>
+            <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Now running" if booking.in_progress? %>
             <%= link_to booking.device.fullname, booking.device %>
           </td>
         <% end %>
+
         <td>
-          <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Offline" if booking.in_progress? && params[:device_id] %>
+          <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Now running" if booking.in_progress? && params[:device_id] %>
           <%= booking.start_time.to_formatted_s(:short) %>
         </td>
+
         <td><%= booking.duration %></td>
-        <td><%= booking.user.fullname if params[:device_id] %></td>
-        <td><%= link_to 'Show', booking %></td>
+
+        <% unless params[:device_id] %>
+          <td><%= link_to 'Show', device_bookings_path(booking.device_id) %></td>
+        <% else %>
+          <td><%= link_to 'Show', booking_path(booking) %></td>
+        <% end %>
+
         <% if !booking.finished? %>
           <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-          <td><%= link_to 'Destroy', booking, method: :delete %></td>
+          <td><%= link_to 'Remove', booking, method: :delete %></td>
         <% end %>
       </tr>
     <% end %>
