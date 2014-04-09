@@ -4,17 +4,21 @@ class Booking < ActiveRecord::Base
 
   before_save :set_all_day
 
+  validates :user_id, :device_id, :start_time, :end_time, presence: true
+
+  validates_with BookingValidator
+
   def duration_accurate
     end_time - start_time
   end
 
   def duration
   	if (duration_accurate / 60) <= 120
-	  	(duration_accurate / 60).round(0).to_s + " min"
+	  	(duration_accurate / 60).round(0).to_s + ' min'
 	  elsif 120 < (duration_accurate / 60) && (duration_accurate / 60)  <= 1440
-	  	(duration_accurate / 3600).round(1).to_s + " hrs"
+	  	(duration_accurate / 3600).round(1).to_s + ' hrs'
 	  elsif 1440 < (duration_accurate / 60)
-	  	(duration_accurate / 86400).round(1).to_s + " days"
+	  	(duration_accurate / 86400).round(1).to_s + ' days'
 	  end	  	
   end
 

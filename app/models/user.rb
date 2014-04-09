@@ -12,10 +12,13 @@ class User < ActiveRecord::Base
          :confirmable, :async, :recoverable, :rememberable,
          :trackable, :validatable, :timeoutable
 
+  # ADD THESE FIELDS TO THE SIGN-UP FORM, NO NEED TO 
+  # validates_acceptance_of :privacy_policy, :terms_of_service
+
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
   validates :institute_name, presence: { message: "You must enter your institute's name" },
-                             allow_blank: true, if: Proc.new{ |f| f.gl? }
+                             allow_blank: true, if: Proc.new{ |u| u.gl? }
   
   belongs_to :department, counter_cache: true, touch: true
   validates_associated :department
@@ -24,7 +27,7 @@ class User < ActiveRecord::Base
   belongs_to :lab, touch: true, counter_cache: true
   validates_associated :lab
   validates :lab, presence: { message: 'Your group leader must create an account first' },
-                    unless: Proc.new{ |f| f.gl? || !f.new_record? }, allow_blank: true
+                    unless: Proc.new{ |u| u.gl? || !u.new_record? }, allow_blank: true
 
   has_many :ownerships, dependent: :destroy
   has_many :reagents, through: :ownerships
