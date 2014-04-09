@@ -2,7 +2,7 @@ jQuery ->
 	$('#calendar').fullCalendar
 		defaultView: 'agendaWeek'
 		events:'bookings.json'
-		theme: true
+		# theme: true
 		allDayDefault: false
 		firstHour: 8
 		firstDay: 1

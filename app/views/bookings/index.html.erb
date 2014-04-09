@@ -1,7 +1,7 @@
 <% if params[:device_id] %>
   <h3>Booking sheet for <%= link_to @device.fullname, @device %></h3>
 <% elsif params[:user_id] %>
-  <h3>Bookings for <%= link_to @user.fullname, @user %></h3>
+  <h3>Your bookings</h3>
 <% end %>
 
 <table class="table table-striped">
@@ -21,16 +21,22 @@
 
   <tbody>
     <% @bookings.each do |booking| %>
-      <tr>
-        <% unless params[:device_id] %>
-          <td><%= link_to booking.device.fullname, booking.device %></td>
+
+      <tr class="<%= if booking.finished? then 'text-danger' end %>">
+        <% unless params[:device_id] %> 
+          <td>
+            <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Offline" if booking.in_progress? %>
+            <%= link_to booking.device.fullname, booking.device %>
+          </td>
         <% end %>
         <td><%= booking.start_time.to_formatted_s(:short) %></td>
         <td><%= booking.duration %></td>
         <td><%= booking.user.fullname if params[:device_id] %></td>
         <td><%= link_to 'Show', booking %></td>
-        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-        <td><%= link_to 'Destroy', booking, method: :delete %></td>
+        <% if !booking.finished? %>
+          <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+          <td><%= link_to 'Destroy', booking, method: :delete %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

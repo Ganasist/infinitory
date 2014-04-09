@@ -17,6 +17,7 @@
     <% @devices.each do |device| %>
       <tr id="<%= device.id %>">
         <td>
+          <%#= fa_icon "gear", class: "fa-lg fa-spin", title: "Offline" %>
           <%= fa_icon "wrench", title: "Offline" unless device.status? %>
           <%= fa_icon "star-o", title: "Shared device" if device.shared? %>          
           <%= fa_icon "paperclip", title: "Attachment" if device.pdf.present? %>

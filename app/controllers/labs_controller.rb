@@ -68,7 +68,7 @@ class LabsController < ApplicationController
 
   def create
     if lab_params[:institute_id].present?
-      @institute = Institute.find(params[lab_params])
+      @institute = Institute.find(lab_params)
       @lab = @institute.lab.new(lab_params)
     else
       @lab = Lab.new(lab_params)
