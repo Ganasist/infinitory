@@ -24,7 +24,7 @@
     <% @bookings.each do |booking| %>
 
       <tr class="<%= if booking.finished? then 'text-danger' end %>">
-        
+
         <% if params[:device_id] %>
           <td><%= booking.user.fullname %></td>
         <% end %>
@@ -47,14 +47,13 @@
 
         <% unless params[:device_id] %>
           <td><%= link_to 'Show', device_bookings_path(booking.device_id) %></td>
-        <% else %>
-          <td><%= link_to 'Show', booking_path(booking) %></td>
         <% end %>
 
         <% if !booking.finished? %>
           <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
           <td><%= link_to 'Remove', booking, method: :delete %></td>
         <% end %>
+
       </tr>
     <% end %>
   </tbody>
