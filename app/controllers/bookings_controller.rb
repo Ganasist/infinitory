@@ -42,6 +42,7 @@ class BookingsController < ApplicationController
     if @booking.update(booking_params)
       redirect_to device_bookings_path(@booking.device), notice: 'Booking was successfully updated.'
     else
+      flash[:error] = 'There was a problem editing this booking'
       render action: 'edit'
     end
   end
