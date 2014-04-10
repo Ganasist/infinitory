@@ -1,0 +1,10 @@
+$("#bookings").html("<%= escape_javascript(render('bookings')) %>");
+
+$('#paginator-top').html('<%= escape_javascript(paginate(@bookings,
+																												 remote: true,
+																												 theme: "twitter-bootstrap", 
+                                       									 pagination_class: "pagination-small pagination-centered").to_s) %>');
+$('#paginator-bottom').html('<%= escape_javascript(paginate(@bookings,
+																												    remote: true,
+																												 	  theme: "twitter-bootstrap", 
+                                       									    pagination_class: "pagination-small pagination-centered").to_s) %>');

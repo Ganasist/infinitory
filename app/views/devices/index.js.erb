@@ -8,5 +8,3 @@ $('#paginator-bottom').html('<%= escape_javascript(paginate(@devices,
 																												    remote: true,
 																												 	  theme: "twitter-bootstrap", 
                                        									    pagination_class: "pagination-small pagination-centered").to_s) %>');
-
-$('#devices').html('<%= escape_javascript(render("devices")) %>');

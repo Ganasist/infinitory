@@ -4,10 +4,10 @@ class BookingsController < ApplicationController
   def index
     if params[:device_id]
       @device = Device.find(params[:device_id])
-      @bookings = @device.bookings.sort_by(&:start_time).reverse
+      @bookings = @device.bookings.page(params[:page]).modified_recently
     elsif params[:user_id]
       @user = User.find(params[:user_id])
-      @bookings = @user.bookings.sort_by(&:start_time).reverse
+      @bookings = @user.bookings.page(params[:page]).modified_recently
     end
   end
 
@@ -31,7 +31,7 @@ class BookingsController < ApplicationController
     @device = Device.find(params[:device_id])
     @booking = @device.bookings.new(booking_params)
     if @booking.save
-      redirect_to @booking, notice: 'Booking was successfully created.'
+      redirect_to device_bookings_path(@booking.device), notice: 'Booking was successfully created.'
     else
       flash[:error] = 'There was a problem booking this device'
       render action: 'new'
@@ -40,7 +40,7 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
-      redirect_to @booking, notice: 'Booking was successfully updated.'
+      redirect_to device_bookings_path(@booking.device), notice: 'Booking was successfully updated.'
     else
       render action: 'edit'
     end

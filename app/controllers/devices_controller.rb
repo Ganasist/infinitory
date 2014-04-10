@@ -5,17 +5,7 @@ class DevicesController < ApplicationController
   before_action :check_user_show!, only: :show
   before_action :check_user_index!, only: :index
 
-  def index    
-    # if params[:tag].present?
-    #   @devices = Device.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
-    # elsif params[:search].present?
-    #   if params[:user_id].present?   
-    #     @user = User.find(params[:user_id])
-    #     @devices = @user.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
-    #   elsif params[:lab_id].present?
-    #     @devices = @lab.devices.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
-    #   end
-    # end    
+  def index
     if params[:user_id].present?
       @user = User.find(params[:user_id])
       @devices = @user.device_ownerships.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)

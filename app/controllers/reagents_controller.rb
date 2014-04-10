@@ -6,11 +6,7 @@ class ReagentsController < ApplicationController
   before_action :check_user_index!, only: :index
 
   def index    
-    if params[:tag].present?
-      @reagents = Reagent.tagged_with(params[:tag]).modified_recently.page(params[:page]).per(12)
-    
-    elsif params[:search].present?
-      
+    if params[:search].present?      
       if params[:user_id].present?   
         @user = User.find(params[:user_id])
         @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
@@ -18,7 +14,6 @@ class ReagentsController < ApplicationController
         @lab = Lab.find(params[:lab_id]) 
         @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
       end
-
     elsif params[:user_id].present?
       @user = User.find(params[:user_id])
       @reagents = @user.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)

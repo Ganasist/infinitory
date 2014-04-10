@@ -1,4 +1,8 @@
 class Booking < ActiveRecord::Base
+
+  paginates_per 8
+  scope :modified_recently, -> { order("end_time Desc") }
+
 	belongs_to :user, touch: true, counter_cache: :bookings_count 
   belongs_to :device, touch: true, counter_cache: :bookings_count
 
