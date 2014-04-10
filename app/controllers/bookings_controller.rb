@@ -4,10 +4,10 @@ class BookingsController < ApplicationController
   def index
     if params[:device_id]
       @device = Device.find(params[:device_id])
-      @bookings = @device.bookings.page(params[:page]).modified_recently
+      @bookings = @device.bookings.page(params[:page]).end_time_desc
     elsif params[:user_id]
       @user = User.find(params[:user_id])
-      @bookings = @user.bookings.page(params[:page]).modified_recently
+      @bookings = @user.bookings.page(params[:page]).end_time_desc
     end
   end
 

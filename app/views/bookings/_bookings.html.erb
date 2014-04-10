@@ -43,7 +43,7 @@
           <td><%= link_to 'Show', device_bookings_path(booking.device_id) %></td>
         <% end %>
 
-        <% if !booking.finished? %>
+        <% if !booking.expired_one_day? %>
           <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
           <td><%= link_to 'Remove', booking, method: :delete %></td>
         <% end %>

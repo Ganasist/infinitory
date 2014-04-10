@@ -448,6 +448,8 @@ GEM
     uuidtools (2.1.4)
     validate_url (0.2.0)
       activemodel (>= 3.0.0)
+    validates_overlap (0.2.0)
+      rails (>= 3.0.0)
     warden (1.2.3)
       rack (>= 1.0)
     xpath (2.0.0)
@@ -542,4 +544,5 @@ DEPENDENCIES
   unf
   unicorn
   validate_url
+  validates_overlap
   yaml_db!

@@ -1,7 +1,7 @@
 class Booking < ActiveRecord::Base
 
   paginates_per 8
-  scope :modified_recently, -> { order("end_time Desc") }
+  scope :end_time_desc, -> { order("end_time Desc") }
 
 	belongs_to :user, touch: true, counter_cache: :bookings_count 
   belongs_to :device, touch: true, counter_cache: :bookings_count
@@ -9,6 +9,8 @@ class Booking < ActiveRecord::Base
   before_save :set_all_day
 
   validates :user_id, :device_id, :start_time, :end_time, presence: true
+
+  validates :start_time, :end_time, overlap: { scope: "device_id", exclude_edges: ["start_time", "end_time"], message_content: "Overlaps with an existing booking, please pick a different time!" }
 
   validates_with BookingValidator
 
@@ -33,6 +35,10 @@ class Booking < ActiveRecord::Base
 
   def finished?
     self.end_time < Time.now
+  end
+
+  def expired_one_day?
+    self.end_time < 1.day.ago
   end
 
   private

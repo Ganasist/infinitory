@@ -5,6 +5,7 @@ gem 'rails', '4.1.0.rc1'
 gem 'sass-rails', '~> 4.0.0'
 
 gem 'fullcalendar-rails'
+gem 'validates_overlap'
 
 gem 'newrelic_rpm'
 gem 'braintree'

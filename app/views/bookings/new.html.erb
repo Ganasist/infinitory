@@ -1,7 +1,10 @@
-<h1>New booking</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', device_bookings_path(@device) %>
-
-<div id="calendar_new"></div>
+<div class="row">
+	<div class="span3">
+		<h1>New booking</h1>
+		<%= render 'form' %>
+		<%= link_to 'Back', device_bookings_path(@device) %>
+	</div>
+	<div class="span9">
+		<div id="calendar_new"></div>
+	</div>
+</div>

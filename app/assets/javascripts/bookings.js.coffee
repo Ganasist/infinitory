@@ -7,6 +7,8 @@ jQuery ->
 		firstDay: 1
 		columnFormat: { week: 'ddd d/M' }
 		timeFormat: 'H:mm{ - H:mm}'
+		axisFormat: 'H:mm{ - H:mm}'
+		height: 650
 
 		# eventClick: (calEvent, jsEvent, view) ->
 		# 	console.log('User: ' + calEvent.member)
@@ -22,6 +24,8 @@ jQuery ->
 		firstDay: 1
 		columnFormat: { week: 'ddd d/M' }
 		timeFormat: 'H:mm{ - H:mm}'
+		axisFormat: 'H:mm{ - H:mm}'
+		height: 650
 
 	$('#calendar_new').fullCalendar
 		defaultView: 'agendaWeek'
@@ -31,6 +35,8 @@ jQuery ->
 		firstDay: 1
 		columnFormat: { week: 'ddd d/M' }
 		timeFormat: 'H:mm{ - H:mm}'
+		axisFormat: 'H:mm{ - H:mm}'
+		height: 650
 
 	$('#datetimepicker_start').datetimepicker
 		minDate: 0
