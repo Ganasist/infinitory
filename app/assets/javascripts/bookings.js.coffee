@@ -35,6 +35,7 @@ jQuery ->
 	$('#datetimepicker_start').datetimepicker
 		minDate: 0
 		step: 30
+		dayOfWeekStart: 1
 		roundTime: 'round'
 		# onShow: (ct) ->
 		# 	@setOptions maxDate: (if $("#datetimepicker_end").val() then $("#datetimepicker_end").val() else false)
@@ -42,6 +43,9 @@ jQuery ->
 	$('#datetimepicker_end').datetimepicker
 		minDate: 0
 		step: 30
+		dayOfWeekStart: 1
 		roundTime: 'round'
 		# onShow: (ct) ->
   #     @setOptions minDate: (if $("#datetimepicker_start").val() then $("#datetimepicker_start").val() else false)
+
+
