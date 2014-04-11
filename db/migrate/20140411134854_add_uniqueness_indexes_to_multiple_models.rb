@@ -1,5 +1,7 @@
 class AddUniquenessIndexesToMultipleModels < ActiveRecord::Migration
   def change
+  	remove_index :departments, :email
+  	remove_index :institutes, :email
   	add_index :collaborations, [:lab_id, :collaborator_id], unique: true
   	add_index :devices, [:lab_id, :name, :uid], unique: true
   	add_index :departments, :email, unique: true
