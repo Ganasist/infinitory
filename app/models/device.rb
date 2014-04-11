@@ -9,10 +9,10 @@ class Device < ActiveRecord::Base
 	validates_presence_of :lab
 
 	has_many :ownerships, dependent: :destroy
-	has_many :user_ownerships, through: :ownerships, class_name: "User", foreign_key: "user_id", source: :user
+	has_many :user_ownerships, through: :ownerships, class_name: 'User', foreign_key: 'user_id', source: :user
 
   has_many :bookings, dependent: :destroy
-  has_many :user_bookings, through: :bookings, class_name: "User", foreign_key: "user_id", source: :user
+  has_many :user_bookings, through: :bookings, class_name: 'User', foreign_key: 'user_id', source: :user
 
 	validates :name, presence: true
   # validates :category, inclusion: { in: Proc.new { |device| device.lab.device_category_list }, message: "This device's category must belong to the lab's general category list." }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140411105258) do
+ActiveRecord::Schema.define(version: 20140411134854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20140411105258) do
     t.datetime "updated_at"
   end
 
+  add_index "collaborations", ["lab_id", "collaborator_id"], name: "index_collaborations_on_lab_id_and_collaborator_id", unique: true, using: :btree
+
   create_table "comments", force: true do |t|
     t.string   "title",            limit: 50, default: ""
     t.text     "comment"
@@ -109,7 +111,7 @@ ActiveRecord::Schema.define(version: 20140411105258) do
     t.integer  "daily_points",      default: 0
   end
 
-  add_index "departments", ["email"], name: "index_departments_on_email", using: :btree
+  add_index "departments", ["email"], name: "index_departments_on_email", unique: true, using: :btree
   add_index "departments", ["institute_id"], name: "index_departments_on_institute_id", using: :btree
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
 
@@ -143,6 +145,7 @@ ActiveRecord::Schema.define(version: 20140411105258) do
     t.integer  "users_count",                               default: 0
   end
 
+  add_index "devices", ["lab_id", "name", "uid"], name: "index_devices_on_lab_id_and_name_and_uid", unique: true, using: :btree
   add_index "devices", ["lab_id"], name: "index_devices_on_lab_id", using: :btree
   add_index "devices", ["tsv_body"], name: "index_devices_on_tsv_body", using: :gin
 
@@ -179,9 +182,10 @@ ActiveRecord::Schema.define(version: 20140411105258) do
     t.integer  "sash_id"
     t.integer  "level",             default: 0
     t.integer  "daily_points",      default: 0
+    t.string   "time_zone"
   end
 
-  add_index "institutes", ["email"], name: "index_institutes_on_email", using: :btree
+  add_index "institutes", ["email"], name: "index_institutes_on_email", unique: true, using: :btree
   add_index "institutes", ["name", "address"], name: "index_institutes_on_name_and_address", unique: true, using: :btree
   add_index "institutes", ["slug"], name: "index_institutes_on_slug", unique: true, using: :btree
 
@@ -261,6 +265,9 @@ ActiveRecord::Schema.define(version: 20140411105258) do
     t.datetime "updated_at"
   end
 
+  add_index "ownerships", ["user_id", "device_id"], name: "index_ownerships_on_user_id_and_device_id", unique: true, using: :btree
+  add_index "ownerships", ["user_id", "reagent_id"], name: "index_ownerships_on_user_id_and_reagent_id", unique: true, using: :btree
+
   create_table "reagents", force: true do |t|
     t.string   "name",                                                      null: false
     t.string   "location"
@@ -293,6 +300,7 @@ ActiveRecord::Schema.define(version: 20140411105258) do
   end
 
   add_index "reagents", ["expiration"], name: "index_reagents_on_expiration", using: :btree
+  add_index "reagents", ["lab_id", "name", "uid", "description"], name: "index_reagents_on_lab_id_and_name_and_uid_and_description", unique: true, using: :btree
   add_index "reagents", ["lab_id"], name: "index_reagents_on_lab_id", using: :btree
   add_index "reagents", ["tsv_body"], name: "index_reagents_on_tsv_body", using: :gin
 
