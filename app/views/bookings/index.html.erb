@@ -4,29 +4,21 @@
   <h3>Your bookings</h3>
 <% end %>
 
-
 <div class="span12">
   <hr>
   <div id="paginator-top">
-
     <%= paginate @bookings, remote: true,
                            theme: 'twitter-bootstrap', 
                            pagination_class: 'pagination-small pagination-centered' %>
   </div>
-
   <div id="bookings">
     <%= render 'bookings' %>
   </div>
 </div>
-
-
-
 <br>
-
 <% if params[:device_id] %>
   <%= link_to 'New Booking', new_device_booking_path(params[:device_id]) %>
 <% end %>
-
 <hr>
 <div id="calendar"></div>
 

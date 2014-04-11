@@ -10,7 +10,7 @@ class Booking < ActiveRecord::Base
 
   validates :user_id, :device_id, :start_time, :end_time, presence: true
 
-  validates :start_time, :end_time, overlap: { scope: "device_id", exclude_edges: ["start_time", "end_time"], message_content: "Overlaps with an existing booking, please pick a different time!" }
+  validates :start_time, :end_time, overlap: { scope: "device_id", exclude_edges: ["start_time", "end_time"], message_content: "Overlaps with another booking, please pick a different time!" }
 
   validates_with BookingValidator
 

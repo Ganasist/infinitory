@@ -8,7 +8,8 @@
       <% unless params[:device_id] %>
         <th>Device</th>
       <% end %>
-      <th>Start time</th>
+      <th>Start</th>
+      <th>End</th>
       <th>Duration</th>
       <th class="text-right" colspan="3"></th>
     </tr>
@@ -36,6 +37,8 @@
           <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Now running" if booking.in_progress? && params[:device_id] %>
           <%= booking.start_time.to_formatted_s(:short) %>
         </td>
+
+        <td><%= booking.end_time.to_formatted_s(:short) %></td>
 
         <td><%= booking.duration %></td>
 
