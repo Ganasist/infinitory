@@ -1,9 +1,11 @@
 <% if params[:device_id] %>
-  <h3>Booking sheet for <%= link_to @device.fullname, @device %></h3>
+  <h3>
+    Booking sheet for <%= link_to @device.fullname, @device %>
+    <%= link_to "", new_device_booking_path(params[:device_id]), class: 'fa fa-plus-square btn btn-warning' %>
+  </h3>
 <% elsif params[:user_id] %>
   <h3>Your bookings</h3>
 <% end %>
-
 <div class="span12">
   <hr>
   <div id="paginator-top">
@@ -15,10 +17,6 @@
     <%= render 'bookings' %>
   </div>
 </div>
-<br>
-<% if params[:device_id] %>
-  <%= link_to 'New Booking', new_device_booking_path(params[:device_id]) %>
-<% end %>
 <hr>
 <div id="calendar"></div>
 

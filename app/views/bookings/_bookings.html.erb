@@ -43,7 +43,7 @@
         <td><%= booking.duration %></td>
 
         <% unless params[:device_id] %>
-          <td><%= link_to 'Show', device_bookings_path(booking.device_id) %></td>
+          <td><%= link_to 'Schedule', device_bookings_path(booking.device_id) %></td>
         <% end %>
 
         <% if !booking.expired_one_day? %>

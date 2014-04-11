@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140407105106) do
+ActiveRecord::Schema.define(version: 20140411105258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140407105106) do
     t.boolean  "all_day"
   end
 
+  add_index "bookings", ["device_id", "start_time", "end_time"], name: "index_bookings_on_device_id_and_start_time_and_end_time", unique: true, using: :btree
   add_index "bookings", ["device_id"], name: "index_bookings_on_device_id", using: :btree
   add_index "bookings", ["user_id"], name: "index_bookings_on_user_id", using: :btree
 
