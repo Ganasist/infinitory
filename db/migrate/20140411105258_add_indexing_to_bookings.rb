@@ -1,5 +1,6 @@
 class AddIndexingToBookings < ActiveRecord::Migration
   def change
-  	add_index :bookings, [:device_id, :start_time, :end_time], unique: true
+  	add_index :bookings, :start_time
+  	add_index :bookings, :end_time
   end
 end

@@ -57,8 +57,9 @@ ActiveRecord::Schema.define(version: 20140411134854) do
     t.boolean  "all_day"
   end
 
-  add_index "bookings", ["device_id", "start_time", "end_time"], name: "index_bookings_on_device_id_and_start_time_and_end_time", unique: true, using: :btree
   add_index "bookings", ["device_id"], name: "index_bookings_on_device_id", using: :btree
+  add_index "bookings", ["end_time"], name: "index_bookings_on_end_time", using: :btree
+  add_index "bookings", ["start_time"], name: "index_bookings_on_start_time", using: :btree
   add_index "bookings", ["user_id"], name: "index_bookings_on_user_id", using: :btree
 
   create_table "collaborations", force: true do |t|
