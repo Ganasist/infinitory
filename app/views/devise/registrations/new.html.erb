@@ -34,8 +34,8 @@
     </div>
   </div>
       <div>
-        <%#= f.input :privacy_policy, as: :check_boxes %>
-        <%#= f.input :terms_of_service, as: :check_boxes %>
+        <%= f.input :privacy_policy, as: :boolean, boolean_style: :inline %>
+        <%= f.input :tos_agreement, as: :boolean, boolean_style: :inline %>
         <%= f.button :submit, 'Sign up', class: "btn-warning" %>
       </div>
       <br>

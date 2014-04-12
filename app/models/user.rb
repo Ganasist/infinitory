@@ -12,8 +12,9 @@ class User < ActiveRecord::Base
          :confirmable, :async, :recoverable, :rememberable,
          :trackable, :validatable, :timeoutable
 
-  # ADD THESE FIELDS TO THE SIGN-UP FORM, NO NEED TO 
-  # validates_acceptance_of :privacy_policy, :terms_of_service
+  # ADD THESE FIELDS TO THE SIGN-UP FORM 
+  validates_acceptance_of :tos_agreement, on: :create, allow_nil: false, acceptance: 1, on: :create
+  validates_acceptance_of :privacy_policy, on: :create, allow_nil: false, acceptance: 1, on: :create
 
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
@@ -31,19 +32,19 @@ class User < ActiveRecord::Base
 
   has_many :ownerships, dependent: :destroy
   has_many :reagents, through: :ownerships
-  has_many :device_ownerships, through: :ownerships, class_name: "Device", foreign_key: "device_id", source: :device
+  has_many :device_ownerships, through: :ownerships, class_name: 'Device', foreign_key: 'device_id', source: :device
 
   has_many :bookings, dependent: :destroy
-  has_many :device_bookings, through: :bookings, class_name: "Device", foreign_key: "device_id", source: :device
+  has_many :device_bookings, through: :bookings, class_name: 'Device', foreign_key: 'device_id', source: :device
   
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :lab_email, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
 
-  validates :linkedin_url, url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
-  validates :xing_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
-  validates :twitter_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
-  validates :facebook_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
-  validates :google_plus_url,  url: { message: "Invalid URL, please include http:// or https://"}, allow_blank: true
+  validates :linkedin_url, url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
+  validates :xing_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
+  validates :twitter_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
+  validates :facebook_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
+  validates :google_plus_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
 
   before_create :skip_confirmation!, :skip_confirmation_notification!
   before_create :gl_signup, if: Proc.new { |f| f.gl? }  

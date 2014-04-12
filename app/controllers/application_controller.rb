@@ -83,14 +83,14 @@ class ApplicationController < ActionController::Base
           redirect_to edit_user_registration_path
           flash[:alert] = "You currently don't belong to a lab"
           if current_user.save && !current_user.lab.blank?
-            flash[:alert] = "Please wait for approval to join the #{current_user.gl.fullname} lab"
+            flash[:success] = "Please wait for approval to join the #{current_user.gl.fullname} lab"
           end
         end
       end
     end
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_email,
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_email, :tos_agreement, :privacy_policy,
                                                               :institute_name, :password, 
                                                               :approved, :password_confirmation) }
 
