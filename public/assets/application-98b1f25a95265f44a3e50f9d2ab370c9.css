@@ -14181,3 +14181,8 @@ div.actions {
 div#GL_INFO {
   display: none;
 }
+
+/* line 5, /Users/johntrichereau/Desktop/Dropbox/web_apps/infinitory/app/assets/stylesheets/users.css.scss */
+#user_terms {
+  width: 5%;
+}

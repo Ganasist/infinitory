@@ -12,9 +12,11 @@ class User < ActiveRecord::Base
          :confirmable, :async, :recoverable, :rememberable,
          :trackable, :validatable, :timeoutable
 
-  # ADD THESE FIELDS TO THE SIGN-UP FORM 
-  validates_acceptance_of :tos_agreement, on: :create, allow_nil: false, acceptance: 1, on: :create
-  validates_acceptance_of :privacy_policy, on: :create, allow_nil: false, acceptance: 1, on: :create
+  # ADD THIS FIELD TO THE SIGN-UP FORM 
+  validates_acceptance_of :terms, on: :create, allow_nil: false, acceptance: 1, on: :create
+  
+  # validates_acceptance_of :tos_agreement, on: :create, allow_nil: false, acceptance: 1, on: :create
+  # validates_acceptance_of :privacy_policy, on: :create, allow_nil: false, acceptance: 1, on: :create
 
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
