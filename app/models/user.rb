@@ -42,11 +42,12 @@ class User < ActiveRecord::Base
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :lab_email, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
 
-  validates :linkedin_url, url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
-  validates :xing_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
-  validates :twitter_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
-  validates :facebook_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
-  validates :google_plus_url,  url: { message: 'Invalid URL, please include http:// or https://' }, allow_blank: true
+  validates :linkedin_url,
+            :xing_url,
+            :twitter_url,
+            :facebook_url, 
+            :google_plus_url,
+            url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
   before_create :skip_confirmation!, :skip_confirmation_notification!
   before_create :gl_signup, if: Proc.new { |f| f.gl? }  

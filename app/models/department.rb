@@ -12,12 +12,11 @@ class Department < ActiveRecord::Base
 	before_validation :smart_add_url_protocol, if: Proc.new { |d| d.url.present? && d.url_changed? }
 	before_validation :default_addresses, if: Proc.new { |d| d.institute.present? && !d.address.present? && d.address_changed? }
 
-	validates :url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :linkedin_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :xing_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :twitter_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :facebook_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :google_plus_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+	validates :url,
+            :twitter_url,
+            :facebook_url, 
+            :google_plus_url,
+            url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
 	validates :email, email: true, allow_blank: true, uniqueness: true
 

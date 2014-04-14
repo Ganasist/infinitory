@@ -15,12 +15,11 @@ class Institute < ActiveRecord::Base
  
 	before_validation :smart_add_url_protocol, if: Proc.new { |i| i.url.present? && i.url_changed? }
 
-	validates :url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :linkedin_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :xing_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :twitter_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :facebook_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :google_plus_url, url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+	validates :url,
+						:twitter_url,
+						:facebook_url, 
+						:google_plus_url,
+						url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
 	attr_accessor :delete_icon
   attr_reader :icon_remote_url
@@ -32,6 +31,8 @@ class Institute < ActiveRecord::Base
 
 	# extend FriendlyId
 	# friendly_id :acronym_and_name, use: [:slugged, :history]
+
+	after_save :set_time_zone, if: Proc.new { |i| i.time_zone.present? && i.time_zone_changed? }
 
   before_destroy :remove_comments, unless: Proc.new { |i| i.comments.nil? }
 
@@ -52,6 +53,15 @@ class Institute < ActiveRecord::Base
   end
 
 	protected
+
+		def set_time_zone
+			self.labs.all.each do |l|
+				l.devices.all.each do |d|
+					d.time_zone = self.time_zone
+					d.save
+				end
+			end
+		end
 
 		def smart_add_url_protocol
 		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]

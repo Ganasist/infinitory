@@ -26,12 +26,11 @@ class Lab < ActiveRecord::Base
   before_validation :smart_add_url_protocol, if: Proc.new { |l| l.url.present? && l.url_changed? }
 
   validates :email, presence: true
-  validates :url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :linkedin_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :xing_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :twitter_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :facebook_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-  validates :google_plus_url, :url => { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
+  validates :url,
+            :twitter_url,
+            :facebook_url, 
+            :google_plus_url,
+            url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
   attr_accessor :delete_icon
   attr_reader :icon_remote_url

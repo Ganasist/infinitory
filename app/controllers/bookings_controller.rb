@@ -29,7 +29,9 @@ class BookingsController < ApplicationController
 
   def create
     @device = Device.find(params[:device_id])
-    @booking = @device.bookings.new(booking_params)
+    Time.use_zone(@device.time_zone) do
+      @booking = @device.bookings.new(booking_params)
+    end
     if @booking.save
       redirect_to device_bookings_path(@booking.device), notice: 'Booking was successfully created.'
     else

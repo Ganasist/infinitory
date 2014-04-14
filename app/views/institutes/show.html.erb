@@ -33,35 +33,35 @@
     <% if @institute.email? %>
     <li>          
       <%= mail_to @institute.email do %>
-        <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %>
+        <%= fa_icon "envelope-o", title: "Email", class: "fa-2x fa-fw"  %>
       <% end %>
     </li>
     <% end %>
     <% if @institute.url? %>
       <li>          
         <%= link_to @institute.url, target: "_blank" do %>
-          <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
+          <%= fa_icon "globe", title: "Website", class: "fa-2x fa-fw"  %>
         <% end %>
       </li>
     <% end %>
     <% if @institute.twitter_url? %>
      <li>          
       <%= link_to @institute.twitter_url, target: "_blank"  do %>
-        <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+        <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw", id: "twitter" %>
       <% end %>
     </li>          
     <% end %>
     <% if @institute.facebook_url? %>
      <li>          
       <%= link_to @institute.facebook_url, target: "_blank"  do %>
-        <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
+        <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw", id: "facebook" %>
       <% end %>
     </li>          
     <% end %>
     <% if @institute.google_plus_url? %>
      <li>
       <%= link_to @institute.google_plus_url, target: "_blank" do %>
-        <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw" %>
+        <%= fa_icon "google-plus", title: "Google+", class: "fa-2x fa-fw", id: "google_plus" %>
       <% end %>
     </li>          
     <% end %>          
