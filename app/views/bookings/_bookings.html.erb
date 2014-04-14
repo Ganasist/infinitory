@@ -24,7 +24,7 @@
           <td><%= booking.user.fullname %></td>
         <% end %>
 
-        <td><%= booking.created_at.in_time_zone(booking.device.time_zone).to_formatted_s(:short) %></td>
+        <td><%= booking.updated_at.to_formatted_s(:short) %></td>
 
         <% unless params[:device_id] %> 
           <td>
@@ -35,10 +35,10 @@
 
         <td>
           <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Now running" if booking.in_progress? && params[:device_id] %>
-          <%= booking.start_time.in_time_zone(booking.device.time_zone).to_formatted_s(:short) %>
+          <%= booking.start_time.to_formatted_s(:short) %>
         </td>
 
-        <td><%= booking.end_time.in_time_zone(booking.device.time_zone).to_formatted_s(:short) %></td>
+        <td><%= booking.end_time.to_formatted_s(:short) %></td>
 
         <td><%= booking.duration %></td>
 
