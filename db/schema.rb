@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140414175335) do
+ActiveRecord::Schema.define(version: 20140415142845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20140414175335) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "all_day"
+    t.integer  "duration"
   end
 
   add_index "bookings", ["device_id"], name: "index_bookings_on_device_id", using: :btree
@@ -144,7 +145,6 @@ ActiveRecord::Schema.define(version: 20140414175335) do
     t.string   "state"
     t.integer  "bookings_count",                            default: 0
     t.integer  "users_count",                               default: 0
-    t.string   "time_zone"
   end
 
   add_index "devices", ["lab_id", "name", "uid"], name: "index_devices_on_lab_id_and_name_and_uid", unique: true, using: :btree
@@ -184,7 +184,6 @@ ActiveRecord::Schema.define(version: 20140414175335) do
     t.integer  "sash_id"
     t.integer  "level",             default: 0
     t.integer  "daily_points",      default: 0
-    t.string   "time_zone"
   end
 
   add_index "institutes", ["email"], name: "index_institutes_on_email", unique: true, using: :btree

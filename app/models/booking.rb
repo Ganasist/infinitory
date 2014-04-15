@@ -17,11 +17,17 @@ class Booking < ActiveRecord::Base
 
   validates_with BookingValidator
 
+  after_save :duration_to_database
+
   def duration_accurate
     end_time - start_time
   end
 
-  def duration
+  def duration_to_database
+    self.duration = self.duration_accurate
+  end
+
+  def duration_calculation
   	if (duration_accurate / 60) <= 120
 	  	(duration_accurate / 60).round(0).to_s + ' min'
 	  elsif 120 < (duration_accurate / 60) && (duration_accurate / 60) < 2880
