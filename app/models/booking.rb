@@ -17,7 +17,7 @@ class Booking < ActiveRecord::Base
 
   validates_with BookingValidator
 
-  after_save :duration_to_database
+  before_save :duration_to_database
 
   def duration_accurate
     end_time - start_time
