@@ -1,7 +1,7 @@
 jQuery ->
 	$('#calendar').fullCalendar
-		defaultView: 'agendaWeek'
 		events:'bookings.json'
+		defaultView: 'agendaWeek'
 		allDayDefault: false
 		firstHour: 8
 		firstDay: 1
@@ -10,26 +10,9 @@ jQuery ->
 		axisFormat: 'H:mm{ - H:mm}'
 		height: 650
 
-		# eventRender: (event, element) ->
-		# 	element.popover
-		# 	alert('event.name')
-		    # title: event.name
-		    # placement: "right"
-		    # content: +"<br />Start: " + event.starts_at + "<br />End: " + event.ends_at + "<br />Description: " + event.description
-
-		# eventClick: (calEvent, jsEvent, view) ->
-		# 	console.log('User: ' + calEvent.member)
-
-		eventMouseover: (calEvent, jsEvent, view) ->
-			console.log('Device: ' + calEvent.title)
-			calEvent.popover
-		    title: calEvent.title
-		    placement: "right"
-		    content: +"<br />Start: " + calEvent.title + "<br />End: " + calEvent.title + "<br />Description: " + calEvent.title
-
 	$('#calendar_edit').fullCalendar
-		defaultView: 'agendaWeek'
 		events:'edit.json'
+		defaultView: 'agendaWeek'
 		allDayDefault: false
 		firstHour: 8
 		firstDay: 1
@@ -39,8 +22,8 @@ jQuery ->
 		height: 650
 
 	$('#calendar_new').fullCalendar
-		defaultView: 'agendaWeek'
 		events:'new.json'
+		defaultView: 'agendaWeek'
 		allDayDefault: false
 		firstHour: 8
 		firstDay: 1

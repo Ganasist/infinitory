@@ -26,15 +26,13 @@
 
         <td><%= booking.updated_at.to_formatted_s(:short) %></td>
 
-        <% unless params[:device_id] %> 
+        <% if params[:user_id] %> 
           <td>
-            <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Now running" if booking.in_progress? %>
             <%= link_to booking.device.fullname, booking.device %>
           </td>
         <% end %>
 
         <td>
-          <%= fa_icon "gear", class: "fa-lg fa-spin", title: "Now running" if booking.in_progress? && params[:device_id] %>
           <%= booking.start_time.to_formatted_s(:short) %>
         </td>
 

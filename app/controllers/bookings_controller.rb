@@ -5,9 +5,11 @@ class BookingsController < ApplicationController
     if params[:device_id]
       @device = Device.find(params[:device_id])
       @bookings = @device.bookings.page(params[:page]).end_time_desc
+      @calendar_data = @device.bookings.end_time_desc.limit(100)
     elsif params[:user_id]
       @user = User.find(params[:user_id])
       @bookings = @user.bookings.page(params[:page]).end_time_desc
+      @calendar_data = @user.bookings.end_time_desc.limit(100)
     end
   end
 
@@ -29,9 +31,7 @@ class BookingsController < ApplicationController
 
   def create
     @device = Device.find(params[:device_id])
-    Time.use_zone(@device.time_zone) do
-      @booking = @device.bookings.new(booking_params)
-    end
+    @booking = @device.bookings.new(booking_params)
     if @booking.save
       redirect_to device_bookings_path(@booking.device), notice: 'Booking was successfully created.'
     else
