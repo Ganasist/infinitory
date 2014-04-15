@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415142845) do
+ActiveRecord::Schema.define(version: 20140415154610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,8 +46,6 @@ ActiveRecord::Schema.define(version: 20140415142845) do
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
 
   create_table "bookings", force: true do |t|
-    t.string   "title"
-    t.text     "description"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "device_id"
