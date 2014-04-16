@@ -31,6 +31,8 @@ gem 'bootstrap-kaminari-views'
 
 gem 'google_visualr', '>= 2.1'
 
+gem 'oink'
+
 gem 'acts-as-taggable-on'
 gem 'acts_as_commentable'
 

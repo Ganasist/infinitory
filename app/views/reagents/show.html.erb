@@ -15,8 +15,8 @@
     <% end %>
 
       <h3>
-        <%= fullname(@reagent) %>
-        <%= fa_icon "star-o", title: "Shared reagent" if @reagent.shared? %>
+        <%= fa_icon 'star-o', title: 'Shared device' if @reagent.shared? %>
+        <%= best_in_place @reagent, :name %> <%= best_in_place @reagent, :uid %>
       </h3>
 
       <h4>

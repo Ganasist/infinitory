@@ -25,8 +25,6 @@ class Device < ActiveRecord::Base
   before_validation :smart_add_product_url_protocol, if: Proc.new { |device| device.product_url.present? && device.product_url_changed? }
   before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |device| device.purchasing_url.present? && device.purchasing_url_changed? }
 
-  before_save :set_time_zone, if: Proc.new { |d| d.lab.institute.time_zone.present? }
-
   validates :product_url, presence: true, url: true, allow_blank: true
   validates :purchasing_url, presence: true, url: true, allow_blank: true
   
@@ -164,11 +162,6 @@ class Device < ActiveRecord::Base
   end
 
   private
-
-    def set_time_zone
-      self.time_zone = self.lab.institute.time_zone
-    end
-
     def smart_add_product_url_protocol
       unless self.product_url[/^http:\/\//] || self.product_url[/^https:\/\//]
         self.product_url = 'http://' + self.product_url
