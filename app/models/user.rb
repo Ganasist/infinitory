@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_many :device_bookings, through: :bookings, class_name: 'Device', foreign_key: 'device_id', source: :device
   
   validates :role, presence: true, inclusion: { in: ROLES }
-  validates :lab_email, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
+  validates :lab_email, on: :create, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
 
   validates :linkedin_url,
             :xing_url,
@@ -147,13 +147,13 @@ class User < ActiveRecord::Base
   # end 
 
   def retire
-    self.approved      = false
-    self.reagent_ids   = []
-    self.device_ids    = []
-    self.lab_id        = nil
-    self.institute_id  = nil
-    self.department_id = nil
-    self.joined        = nil
+    self.reagent_ids           = []
+    self.device_ownership_ids  = []
+    self.lab_id                = nil
+    self.department_id         = nil
+    self.institute_id          = nil
+    self.approved              = false
+    self.joined                = nil
   end
 
   def retire_permissions?(user, lab)
