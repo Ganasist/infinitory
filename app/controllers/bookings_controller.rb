@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :check_device_bookable
 
   def index
     if params[:device_id]
@@ -56,6 +57,15 @@ class BookingsController < ApplicationController
   end
 
   private
+    def check_device_bookable
+      if params[:device_id]
+        unless Device.find(params[:device_id]).bookable?
+          redirect_to current_user
+          flash[:alert] = "That device can't be booked"
+        end
+      end
+    end
+
     def set_booking
       @booking = Booking.find(params[:id])
     end

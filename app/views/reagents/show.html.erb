@@ -16,7 +16,11 @@
 
       <h3>
         <%= fa_icon 'star-o', title: 'Shared device' if @reagent.shared? %>
-        <%= best_in_place @reagent, :name %> <%= best_in_place @reagent, :uid %>
+        <%= best_in_place @reagent, :name %>
+
+        <% if @reagent.uid.present? %>
+          <%= best_in_place @reagent, :uid %>
+        <% end %>
       </h3>
 
       <h4>

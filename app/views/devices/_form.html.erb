@@ -12,7 +12,11 @@
       <%= f.input :name, placeholder: 'Required', typeahead: current_user.lab.devices.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 
                         tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
+      
       <%= f.collection_radio_buttons :status, [[true, 'Online'] ,[false, 'Offline']], :first, :last %><br><br>
+
+      <%= f.collection_radio_buttons :bookable, [[true, 'Bookable'] ,[false, 'Not bookable']], :first, :last %><br><br>
+
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :location, label: 'Location in lab',
                              placeholder: "'Room 237' or 'Fz3S1B4'",
