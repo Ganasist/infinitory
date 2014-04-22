@@ -3,25 +3,27 @@
   
     <div class="row">
       <div class="span5"> 
-      <%= f.input :category_list, label: 'Categories',
-                                  collection: current_user.lab.device_category_list.sort_by(&:downcase),
-                                  as: :check_boxes,
-                                  input_html: { style: 'width: 50px' } %>
-      <br>
-      <br>
+      
       <%= f.input :name, placeholder: 'Required', typeahead: current_user.lab.devices.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 
                         tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
       
-      <%= f.collection_radio_buttons :status, [[true, 'Online'] ,[false, 'Offline']], :first, :last %><br><br>
+      <%= f.collection_radio_buttons :status, [[true, 'Online'] ,[false, 'Offline']], :first, :last %><br>
 
-      <%= f.collection_radio_buttons :bookable, [[true, 'Bookable'] ,[false, 'Not bookable']], :first, :last %><br><br>
+      <%= f.input :bookable, as: :boolean, inline_label: 'Bookable', label: false,
+                            input_html: { style: 'width: 23px'} %><br>
 
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :location, label: 'Location in lab',
                              placeholder: "'Room 237' or 'Fz3S1B4'",
                              tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
       <hr>
+      <%= f.input :category_list, label: 'Category',
+                                  collection: current_user.lab.device_category_list.sort_by(&:downcase),
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' } %>
+      <br>
+
       <label>Description</label><br>
        <label class="text required control-label" for="comment" id="description_feedback">* 223 characters remaining</label>
        <%= f.input :description, as: :text, input_html: { rows: 6, id: 'description' }, label: false %> 
@@ -66,7 +68,7 @@
           <h4>or</h4>
           <%= f.input :icon_remote_url, label: "Enter an image URL" %>
           <hr>
-           <%= f.input :shared, as: :select, include_blank: false, label: "Shared with collaborators" %>
+           <%= f.input :shared, as: :select, include_blank: false, label: "Shared with collaborators?" %>
            <hr>
 
       <% if params[:lab_id] %>    

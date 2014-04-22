@@ -5,11 +5,7 @@
     <div class="row">
       <div class="span5"> 
       <br>
-       <%= f.input :category_list, label: 'Categories',
-                                  collection: current_user.lab.reagent_category_list.sort_by(&:downcase),
-                                  as: :check_boxes,
-                                  input_html: { style: 'width: 50px' } %>
-      <br><br>
+       
       <%= f.input :name, placeholder: 'Required', typeahead: Reagent.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 
                         tooltip: ['right', "When you have multiple copies of the same item, use a unique ID to distinguish them."] %> 
@@ -19,7 +15,12 @@
       <%= f.input :location, label: 'Location in lab', placeholder: "'Room 237' or 'Fz3S1B4'",
                              tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
       <%= f.input :expiration, as: :string, placeholder: 'YYYY-MM-DD' %>
-       <hr>                                    
+       <hr>
+       <%= f.input :category_list, label: 'Categories',
+                                  collection: current_user.lab.reagent_category_list.sort_by(&:downcase),
+                                  as: :check_boxes,
+                                  input_html: { style: 'width: 50px' } %>
+      <br>                                  
        <label>Description</label><br>
        <label class="text required control-label" for="comment" id="description_feedback">* 223 characters remaining</label>
        <%= f.input :description, as: :text, input_html: { rows: 6, id: 'description' }, label: false %>     
@@ -66,7 +67,7 @@
           <h4>or</h4>
           <%= f.input :icon_remote_url, label: "Enter an image URL" %>
           <hr>
-           <%= f.input :shared, as: :select, include_blank: false, label: "Shared with collaborators" %>
+           <%= f.input :shared, as: :select, include_blank: false, label: "Shared with collaborators?" %>
            <hr>
 
       <% if params[:lab_id] %>    

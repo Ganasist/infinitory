@@ -23,10 +23,6 @@ class Booking < ActiveRecord::Base
     end_time - start_time
   end
 
-  def duration_to_database
-    self.duration = self.duration_accurate
-  end
-
   def duration_calculation
   	if (duration_accurate / 60) <= 120
 	  	(duration_accurate / 60).round(0).to_s + ' min'
@@ -50,6 +46,10 @@ class Booking < ActiveRecord::Base
   end
 
   private
+    def duration_to_database
+      self.duration = self.duration_accurate
+    end
+  
     def set_all_day
       if self.duration_accurate > 86400
         self.all_day = true
