@@ -20,12 +20,12 @@ class DevicesController < ApplicationController
     @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).group("activities.id").page(params[:page]).per(7).reverse_order
   
     data_table = GoogleVisualr::DataTable.new
-    data_table.new_column("number", "Saturation" )
+    data_table.new_column("number", "% Saturated" )
 
-    data_table.add_rows(30)
+    data_table.add_rows(60)
 
-    for i in 0..29 do
-      data_table.set_cell(i,0,rand(24))
+    for i in 0..59 do
+      data_table.set_cell(i,0,rand(100))
       i += 1
     end
 
