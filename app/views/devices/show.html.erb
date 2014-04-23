@@ -36,6 +36,11 @@
         <% end %>
       </h4>
 
+      <% if @device.bookable? %>
+        <div id='chart' data-toggle='tooltip' title='30 day trend' data-placement='bottom'></div>
+        <%= render_chart @chart, 'chart' %>
+      <% end %>
+
       <dl class="dl-vertical">
         <% unless @device.location.empty? %>
           <dt><strong>Location</strong></dt>

@@ -18,6 +18,20 @@ class DevicesController < ApplicationController
   def show
     @lab = current_user.lab
     @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).group("activities.id").page(params[:page]).per(7).reverse_order
+  
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column("number", "Saturation" )
+
+    data_table.add_rows(30)
+
+    for i in 0..29 do
+      data_table.set_cell(i,0,rand(24))
+      i += 1
+    end
+
+    opts   = { width: 320, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }
+    @chart = GoogleVisualr::Image::SparkLine.new(data_table, opts)
+
   end
 
   def new
