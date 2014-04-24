@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140423141423) do
+ActiveRecord::Schema.define(version: 20140424163513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,11 +47,11 @@ ActiveRecord::Schema.define(version: 20140423141423) do
 
   create_table "blogs", force: true do |t|
     t.string   "title"
-    t.string   "subtitle"
     t.text     "entry"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url",        default: "#"
+    t.string   "bitly_url"
   end
 
   create_table "bookings", force: true do |t|
