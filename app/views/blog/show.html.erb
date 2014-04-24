@@ -3,14 +3,13 @@
 	<div class="span8 offset2">
 		<p id="notice"><%= notice %></p>
 		<br>
-		<p><%= @blog.bitly_url %></p>
 		<%= link_to "Main Archive", blog_index_path %>
 		<br><br>
 		  <p class="text-muted"><%= @blog.updated_at.strftime("%A, %d %B %Y").upcase %></p>
 		  <h4>
 		    <%= link_to @blog.title, blog_index_path %>
 		  </h4>
-		  <p class="blog_entry"><%= @blog.entry %></p>
+		  <p class="blog_entry"><%= @blog.entry.html_safe %></p>
 		  <br>
 
 	    <div class="social-likes" data-url="<%= @blog.bitly_url %>">

@@ -1,29 +1,27 @@
 <% if params[:id] %>
 
-	<%= simple_form_for @blog, html: { class: 'form-horizontal' } do |f| %>
+	<%= simple_form_for @blog, html: { class: 'form-vertical' } do |f| %>
 		<%= f.error_notification %>
 	  <div class="form-inputs">
 	    <%= f.input :title %>
 	    <%= f.input :url %>
-	    <%= f.input :entry %>
+	    <%= f.input :entry, input_html: { rows: 23, style: 'width: 600px' } %>
 	  </div>
-	  <div class="form-actions">
-	    <%= f.button :submit %>
-	  </div>
+	    <%= f.button :submit, class: 'btn-warning', id: 'item_submit' %>
+	  <br>
 	<% end %>
 
 <% else %>
 
-	<%= simple_form_for @blog, html: { class: 'form-horizontal' }, url: blog_index_path do |f| %>
+	<%= simple_form_for @blog, html: { class: 'form-vertical' }, url: blog_index_path do |f| %>
 		<%= f.error_notification %>
 	  <div class="form-inputs">
 	    <%= f.input :title %>
 	    <%= f.input :url %>
-	    <%= f.input :entry %>
+	    <%= f.input :entry, input_html: { rows: 23, style: 'width: 600px' } %>
 	  </div>
-	  <div class="form-actions">
-	    <%= f.button :submit %>
-	  </div>
+	    <%= f.button :submit, class: 'btn-warning', id: 'item_submit' %> 
+	  <br>
 	<% end %>
 
 <% end %>
