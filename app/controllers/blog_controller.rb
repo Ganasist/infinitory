@@ -13,8 +13,10 @@ class BlogController < ApplicationController
   end
 
   def show
-    # client = Bitly.client
-    # @url = client.shorten(request.original_url)
+    if Rails.env.production?
+      client = Bitly.client
+      @url = client.shorten(request.original_url)
+    end
   end
 
   def edit
