@@ -3,7 +3,7 @@
 	<div class="span8 offset2">
 		<p id="notice"><%= notice %></p>
 		<br>
-		<p><%= @url.short_url if Rails.env.production? %></p>
+		
 		<%= link_to "Main Archive", blog_index_path %>
 		<br><br>
 		  <p class="text-muted"><%= @blog.updated_at.strftime("%A, %d %B %Y").upcase %></p>
