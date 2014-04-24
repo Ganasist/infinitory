@@ -14,7 +14,8 @@ class BlogController < ApplicationController
 
   def show
     if Rails.env.production?
-      b = Bitly.client
+      # b = Bitly.client
+      b = Bitly.new(ENV['BITLY_USERNAME'],ENV['BITLY_API_KEY'])
       @url = b.shorten(request.original_url)
     end
   end
