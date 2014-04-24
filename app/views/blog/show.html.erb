@@ -20,10 +20,12 @@
 	      <div class="twitter" title="Share link on Twitter">Twitter</div>
 	      <div class="plusone" title="Share link on Google+">Google+</div>
 	    </div>
+	    <br>
 
 		  <% if user_signed_in? && current_user.super_admin? %>
-		    <td><%= link_to 'Edit', edit_blog_path(@blog) %></td>
-		    <td><%= link_to 'Destroy', @blog, method: :delete %></td>
+		  <hr>
+		    <p><%= link_to 'Edit', edit_blog_path(@blog) %></p>
+		    <p><%= link_to 'Destroy', @blog, method: :delete %></p>
 		  <% end %>
 
 	</div>
