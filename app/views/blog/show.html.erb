@@ -8,15 +8,12 @@
 		<br><br>
 		  <p class="text-muted"><%= @blog.updated_at.strftime("%A, %d %B %Y").upcase %></p>
 		  <h4>
-		    <%= link_to @blog.url, target: "_blank" do %>
-		        <%= @blog.title %>
-		    <% end %>
+		    <%= link_to @blog.title, blog_index_path %>
 		  </h4>
 		  <p class="blog_entry"><%= @blog.entry %></p>
 		  <br>
 
 	    <div class="social-likes">
-	    	<!-- Fix this Facebook button so it stops showing a link to "www.twitter.com" -->
 	      <div class="facebook" title="Share link on Facebook">Facebook</div>
 	      <div class="twitter" data-via="infinitory" title="Share link on Twitter">Twitter</div>
 	      <div class="plusone" title="Share link on Google+">Google+</div>

@@ -3,9 +3,7 @@
   <p class="text-muted"><%= day.strftime("%A, %d %B %Y").upcase %></p>
   <% blog.each do |b| %>
     <h4>
-      <%= link_to b.url, target: "_blank" do %>
-          <%= b.title %>
-      <% end %>
+      <%= link_to b.title, b %>
     </h4>
     <p class="blog_entry"><%= b.entry.html_safe %></p>
     <br>
