@@ -1,5 +1,3 @@
-<% content_for :title, "Infinitory - #{ @url }" %>
-
 <div class="row">
 	<div class="span8 offset2">
 		<p id="notice"><%= notice %></p>
@@ -15,9 +13,9 @@
 		  <p class="blog_entry"><%= @blog.entry %></p>
 		  <br>
 
-	    <div class="social-likes">
+	    <div class="social-likes" data-url=<%= request.original_url %> data-title="<%= @blog.title %>">
 	      <div class="facebook" title="Share link on Facebook">Facebook</div>
-	      <div class="twitter" title="Share link on Twitter">Twitter</div>
+	      <div class="twitter" data-via="infinitory" title="Share link on Twitter">Twitter</div>
 	      <div class="plusone" title="Share link on Google+">Google+</div>
 	    </div>
 	    <br>
