@@ -7,6 +7,8 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'fullcalendar-rails'
 gem 'validates_overlap'
 
+gem 'bitly', '~> 0.9.0'
+
 gem 'newrelic_rpm'
 gem 'braintree'
 

@@ -1,10 +1,11 @@
 class BlogController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
   # before_action :authenticate_user!, except: :index
-  before_action :authenticate_super_admin, except: :index
+  before_action :authenticate_super_admin, except: [:index, :show]
 
   def index
     @blogs = Blog.all.page(params[:page]).per(3).order('created_at DESC')
+    @blog_days = @blogs.group_by { |t|  t.created_at.beginning_of_day }
   end
 
   def new
@@ -12,7 +13,10 @@ class BlogController < ApplicationController
   end
 
   def show
-    
+    if Rails.env.production?
+      client = Bitly.client
+      @url = client.shorten(request.original_url)
+    end
   end
 
   def edit

@@ -1,16 +1,19 @@
-<% @blogs.each do |blog| %>
-  <p class="text-muted"><%= blog.updated_at.strftime("%A, %d %B %Y").upcase %></p>
-  <br>
-  <h4>
-    <%= link_to blog.url, target: "_blank" do %>
-        <%= blog.title %>
+<% @blog_days.each do |day, blog| %>
+
+  <p class="text-muted"><%= day.strftime("%A, %d %B %Y").upcase %></p>
+  <% blog.each do |b| %>
+    <h4>
+      <%= link_to b.url, target: "_blank" do %>
+          <%= b.title %>
+      <% end %>
+    </h4>
+    <p class="blog_entry"><%= b.entry.html_safe %></p>
+    <br>
+    <% if user_signed_in? && current_user.super_admin? %>
+      <p><%= link_to 'Edit', edit_blog_path(b) %></p>
+      <p><%= link_to 'Destroy', b, method: :delete %></p>
     <% end %>
-  </h4>
-  <p><%= blog.entry %></p>
-  <br>
-  <% if user_signed_in? && current_user.super_admin? %>
-    <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-    <td><%= link_to 'Destroy', blog, method: :delete %></td>
+    <br><br>
   <% end %>
   <hr>
 <% end %>

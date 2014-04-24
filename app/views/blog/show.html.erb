@@ -1,3 +1,5 @@
+<% content_for :title, "Infinitory - #{ @url.short_url }" if Rails.env.production? %>
+
 <div class="row">
 	<div class="span8 offset2">
 		<p id="notice"><%= notice %></p>
@@ -10,8 +12,15 @@
 		        <%= @blog.title %>
 		    <% end %>
 		  </h4>
-		  <p><%= @blog.entry %></p>
+		  <p class="blog_entry"><%= @blog.entry %></p>
 		  <br>
+
+	    <div class="social-likes">
+	      <div class="facebook" title="Share link on Facebook">Facebook</div>
+	      <div class="twitter" title="Share link on Twitter">Twitter</div>
+	      <div class="plusone" title="Share link on Google+">Google+</div>
+	    </div>
+
 		  <% if user_signed_in? && current_user.super_admin? %>
 		    <td><%= link_to 'Edit', edit_blog_path(@blog) %></td>
 		    <td><%= link_to 'Destroy', @blog, method: :delete %></td>
