@@ -25,5 +25,10 @@ class UserMailer < ActionMailer::Base
     @lab  = Lab.find(lab_id)
     mail(to: @user.email, subject: "Farewell from the #{ @lab.gl.fullname } lab")
   end
+
+  def gl_signup_admin_email(user_id)
+    @user = User.find(user_id)
+    mail(to: "admin@infinitory.com", subject: "A group leader #{@user.email} has signed up!")
+  end
   
 end

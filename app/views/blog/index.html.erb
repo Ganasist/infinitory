@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="span8 offset2">
+    <% if user_signed_in? && current_user.super_admin? %>
+       <%= link_to 'New Entry', new_blog_path %>
+    <% end %>
+
+    <br><br>
+
+    <div id="blogs">         
+      <%= render 'blogs' %>
+    </div>
+
+    <div id="paginator-bottom">
+      <%= paginate @blogs, remote: true,
+                           theme: 'twitter-bootstrap',
+                           pagination_class: "pagination-small pagination-centered" %>
+    </div>
+  </div>
+</div>

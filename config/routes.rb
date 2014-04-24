@@ -3,6 +3,8 @@ require 'sidetiq/web'
 
 Infinitory::Application.routes.draw do
 
+  resources :blog
+
   authenticated :user do
     root to: 'users#show', as: :authenticated_root
   end

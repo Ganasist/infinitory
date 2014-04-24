@@ -110,11 +110,14 @@
               <% end %>
             </h5>
             <% end %>
-            <h5>
-              <%= link_to @user.institute do %>
-              <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
-              <% end %>
-            </h5>
+
+            <% if @user.institute.present? %>
+              <h5>
+                <%= link_to @user.institute do %>
+                <i class="fa fa-fw fa-lg fa-building-o"></i><%= " #{@user.institute.name}" %>
+                <% end %>
+              </h5>
+            <% end %>
           </dl>        
         </h3>
        </span> 

@@ -23,8 +23,6 @@ jQuery ->
       $('#GL_INFO').slideDown('fast') if $('#user_role').val() is "group_leader"
       $('#GL_INFO').slideUp('fast') if $('#user_role').val() isnt "group_leader"
 
-      # $('#MEMBER_INFO').slideDown('fast') if $('#user_role').val() is "group_leader"
-      # $('#MEMBER_INFO').slideUp('fast') if $('#user_role').val() isnt "group_leader"
 
     $('#inner-form input').prop(
       'disabled', false

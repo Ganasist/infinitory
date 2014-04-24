@@ -91,8 +91,8 @@ class ApplicationController < ActionController::Base
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:role, :email, :lab_email, :terms,
-                                                              :institute_name, :password, 
-                                                              :approved, :password_confirmation) }
+                                                              :institute, :department,
+                                                              :password, :approved, :password_confirmation) }
 
       devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
 

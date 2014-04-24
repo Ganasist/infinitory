@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="span8 offset2">
+		<p id="notice"><%= notice %></p>
+		<br>
+		<%= link_to "Main Archive", blog_index_path %>
+		<br><br>
+		  <p class="text-muted"><%= @blog.updated_at.strftime("%A, %d %B %Y").upcase %></p>
+		  <h4>
+		    <%= link_to @blog.url, target: "_blank" do %>
+		        <%= @blog.title %>
+		    <% end %>
+		  </h4>
+		  <p><%= @blog.entry %></p>
+		  <br>
+		  <% if user_signed_in? && current_user.super_admin? %>
+		    <td><%= link_to 'Edit', edit_blog_path(@blog) %></td>
+		    <td><%= link_to 'Destroy', @blog, method: :delete %></td>
+		  <% end %>
+
+	</div>
+</div>

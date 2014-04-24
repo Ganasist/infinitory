@@ -12,11 +12,7 @@ class User < ActiveRecord::Base
          :confirmable, :async, :recoverable, :rememberable,
          :trackable, :validatable, :timeoutable
 
-  # ADD THIS FIELD TO THE SIGN-UP FORM 
-  validates_acceptance_of :terms, on: :create, allow_nil: false, acceptance: 1, on: :create
-  
-  # validates_acceptance_of :tos_agreement, on: :create, allow_nil: false, acceptance: 1, on: :create
-  # validates_acceptance_of :privacy_policy, on: :create, allow_nil: false, acceptance: 1, on: :create
+  validates_acceptance_of :terms, on: :create, allow_nil: false, acceptance: 1
 
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
@@ -56,8 +52,9 @@ class User < ActiveRecord::Base
   after_invitation_accepted :gl_invited, if: Proc.new { |f| f.gl? }
   after_invitation_accepted :approve_user, if: Proc.new { |f| !f.gl? }
 
-  after_create  :first_request_email, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
-  
+  after_create :first_request_email, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
+  after_create :gl_signup_alert_email, if: Proc.new { |f| f.gl? }
+
   before_update :switch_labs
     
   after_update  :update_lab_affiliations, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
@@ -261,11 +258,12 @@ class User < ActiveRecord::Base
 
   def gl_signup
     self.approved = true
-    self.joined = Time.now      
+    self.joined = Time.now
     self.send_confirmation_instructions
-    self.lab = Lab.create(email: self.email,
-                          institute: self.institute,
-                          department: self.department)
+  end
+
+  def gl_signup_alert_email
+    UserMailer.delay_for(1.second, retry: true).gl_signup_admin_email(self.id)
   end
 
   def gl_invited

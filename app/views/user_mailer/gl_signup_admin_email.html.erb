@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @user.email %> has requested a group leader account!</h1>
+    <p>
+      Department: <% @user.department if @user.department %>
+    </p>
+    <p>
+      Institute: <% @user.institute %>. Confirm their info immediately!
+    </p>
+  </body>
+</html>

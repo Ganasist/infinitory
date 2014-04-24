@@ -1,0 +1,6 @@
+$('#blogs').html('<%= escape_javascript(render("blogs")) %>');
+
+$('#paginator-bottom').html('<%= escape_javascript(paginate(@blogs,
+																												 		remote: true,
+																												 		theme: "twitter-bootstrap", 
+                                       									 		pagination_class: "pagination-small pagination-centered").to_s) %>');

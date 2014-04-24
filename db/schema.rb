@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422113615) do
+ActiveRecord::Schema.define(version: 20140423141423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 20140422113615) do
   add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id", using: :btree
   add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id", using: :btree
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
+
+  create_table "blogs", force: true do |t|
+    t.string   "title"
+    t.string   "subtitle"
+    t.text     "entry"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "url",        default: "#"
+  end
 
   create_table "bookings", force: true do |t|
     t.datetime "start_time"
@@ -381,6 +390,7 @@ ActiveRecord::Schema.define(version: 20140422113615) do
     t.integer  "daily_points",           default: 0
     t.integer  "bookings_count",         default: 0
     t.string   "state"
+    t.boolean  "super_admin",            default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

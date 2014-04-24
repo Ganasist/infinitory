@@ -1,0 +1,29 @@
+<% if params[:id] %>
+
+	<%= simple_form_for @blog, html: { class: 'form-horizontal' } do |f| %>
+		<%= f.error_notification %>
+	  <div class="form-inputs">
+	    <%= f.input :title %>
+	    <%= f.input :url %>
+	    <%= f.input :entry %>
+	  </div>
+	  <div class="form-actions">
+	    <%= f.button :submit %>
+	  </div>
+	<% end %>
+
+<% else %>
+
+	<%= simple_form_for @blog, html: { class: 'form-horizontal' }, url: blog_index_path do |f| %>
+		<%= f.error_notification %>
+	  <div class="form-inputs">
+	    <%= f.input :title %>
+	    <%= f.input :url %>
+	    <%= f.input :entry %>
+	  </div>
+	  <div class="form-actions">
+	    <%= f.button :submit %>
+	  </div>
+	<% end %>
+
+<% end %>

@@ -6,33 +6,38 @@
                               html: { class: 'form-inline register', autocomplete: 'off' } ) do |f| %>
 <%= f.error_notification %>
 <div class="span5">
+
   <div class="form-inputs">
     <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: 'Choose your position' %>
     <br>
     <div id="GL_INFO">
-      <h4 class="lead">If you are a Group Leader a new lab account will be created in your name.</h4>
+      <h4 class="lead">You will be confirmed and a lab account created for you.</h4>
     </div>
-    <br>   
+    <br>
+
     <div id="inner-form">
         <%= f.input :email, as: :email, label: 'Email address',
-        							      placeholder: 'Institutional address recommended',
                             input_html: { class: 'js-email' } %>
       
       <span class="GLform">
-        <%= f.input :institute_name, placeholder: 'Find or create your institute account',
-                                     typeahead: Institute.all.pluck(:name) %>
+        <%= f.input :department, placeholder: "Optional", typeahead: Department.all.pluck(:name) %>
+      </span>
+
+      <span class="GLform">
+        <%= f.input :institute, typeahead: Institute.all.pluck(:name) %>
       </span>
 
       <span class="lab_members_form">
         <%= f.input :lab_email, as: :email, label: "Group leader's email address",
                                 placeholder: 'Link to your lab account',
-                                tooltip: ['right', 'Make sure your Group Leader already has an account!'] %>
+                                tooltip: ['right', 'Your Group Leader must already have an account!'] %>
       </span>
 
         <%= f.input :password, input_html: { class: 'js-password' } %>
         <%= f.input :password_confirmation, input_html: { class: 'js-password-confirmation' } %>
     </div>
   </div>
+
       <div>
         <%= content_for(:the_links) do %>
             I accept the <%= link_to "Terms of Use", page_path('terms') %> 
