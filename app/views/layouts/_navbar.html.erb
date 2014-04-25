@@ -30,7 +30,9 @@
   <% end %>
 <% else %>
   <%= nav_bar brand: 'INFINITORY', brand_link: root_path, static: :top, responsive: false do %>    
-    <%= menu_group pull: :right do %>
+    <%= menu_group pull: :right do %>      
+      <%= menu_item "Blog", blog_index_path %>
+      <%= menu_item "FAQ", page_path('faq') %>
       <%= drop_down 'SIGN-IN' do %>
         <%= simple_form_for('user', url: new_user_session_path,
                                     defaults: { input_html: { style: 'width: 210px' } },

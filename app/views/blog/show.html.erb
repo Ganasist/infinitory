@@ -12,9 +12,9 @@
 		  <p class="blog_entry"><%= @blog.entry.html_safe %></p>
 		  <br>
 
-	    <div class="social-likes" data-url="<%= @blog.bitly_url %>">
+	    <div class="social-likes" data-url="<%= @blog.bitly_url %>" data-counters="no">
 	      <div class="facebook" title="Share link on Facebook">Facebook</div>
-	      <div class="twitter" title="Share link on Twitter">Twitter</div>
+	      <div class="twitter" data-via="ganasist" title="Share link on Twitter">Twitter</div>
 	      <div class="plusone" title="Share link on Google+">Google+</div>
 	    </div>
 	    <br>
