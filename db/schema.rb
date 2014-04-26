@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424163513) do
+ActiveRecord::Schema.define(version: 20140425145441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,7 +114,6 @@ ActiveRecord::Schema.define(version: 20140424163513) do
     t.string   "twitter_url"
     t.string   "xing_url"
     t.string   "facebook_url"
-    t.string   "google_plus_url"
     t.integer  "sash_id"
     t.integer  "level",             default: 0
     t.integer  "daily_points",      default: 0
@@ -188,7 +187,6 @@ ActiveRecord::Schema.define(version: 20140424163513) do
     t.string   "twitter_url"
     t.string   "xing_url"
     t.string   "facebook_url"
-    t.string   "google_plus_url"
     t.integer  "sash_id"
     t.integer  "level",             default: 0
     t.integer  "daily_points",      default: 0
@@ -223,7 +221,6 @@ ActiveRecord::Schema.define(version: 20140424163513) do
     t.string   "twitter_url"
     t.string   "xing_url"
     t.string   "facebook_url"
-    t.string   "google_plus_url"
     t.integer  "sash_id"
     t.integer  "level",             default: 0
     t.integer  "daily_points",      default: 0
@@ -379,7 +376,6 @@ ActiveRecord::Schema.define(version: 20140424163513) do
     t.datetime "icon_updated_at"
     t.string   "twitter_url"
     t.string   "facebook_url"
-    t.string   "google_plus_url"
     t.string   "linkedin_url"
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"

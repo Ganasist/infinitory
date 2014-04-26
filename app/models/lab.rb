@@ -28,8 +28,7 @@ class Lab < ActiveRecord::Base
   validates :email, presence: true
   validates :url,
             :twitter_url,
-            :facebook_url, 
-            :google_plus_url,
+            :facebook_url,
             url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
   attr_accessor :delete_icon

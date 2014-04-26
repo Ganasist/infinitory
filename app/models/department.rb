@@ -14,8 +14,7 @@ class Department < ActiveRecord::Base
 
 	validates :url,
             :twitter_url,
-            :facebook_url, 
-            :google_plus_url,
+            :facebook_url,
             url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
 	validates :email, email: true, allow_blank: true, uniqueness: true

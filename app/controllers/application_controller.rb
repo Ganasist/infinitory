@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
 
       devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :role, :approved,
                                                                      :lab_email, :department_id, :institute_name,
-                                                                     :linkedin_url, :xing_url, :twitter_url, :facebook_url, :google_plus_url,
+                                                                     :linkedin_url, :xing_url, :twitter_url, :facebook_url,
                                                                      :password, :password_confirmation,
                                                                      :pdf, :delete_pdf, :pdf_remote_url,
                                                                      :icon, :delete_icon, :icon_remote_url) }

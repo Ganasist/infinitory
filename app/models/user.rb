@@ -41,8 +41,7 @@ class User < ActiveRecord::Base
   validates :linkedin_url,
             :xing_url,
             :twitter_url,
-            :facebook_url, 
-            :google_plus_url,
+            :facebook_url,
             url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
   before_create :skip_confirmation!, :skip_confirmation_notification!
