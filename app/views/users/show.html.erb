@@ -85,14 +85,6 @@
                 <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw", id: "facebook" %>
               <% end %>
             </li>          
-            <% end %>  
-
-            <% if @user.google_plus_url? %>
-             <li>
-              <%= link_to @user.google_plus_url, target: "_blank" do %>
-                <%= fa_icon "google-plus", title: "Google+", class: "fa-lg fa-fw", id: "google_plus" %>
-              <% end %>
-            </li>          
             <% end %>          
           </ul>
           <dl class="dl-horizontal">          
