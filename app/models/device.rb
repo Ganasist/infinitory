@@ -162,7 +162,7 @@ class Device < ActiveRecord::Base
 
   private
     before_validation :smart_add_product_url_protocol,
-                      if: Proc.new { |d| d.product_url.present? && d.product_url_changed? }
+                      if: Proc.new { |d| d.product_url_changed? && d.product_url_present? }
     def smart_add_product_url_protocol
       unless self.product_url[/^http:\/\//] || self.product_url[/^https:\/\//]
         self.product_url = 'http://' + self.product_url
@@ -170,7 +170,7 @@ class Device < ActiveRecord::Base
     end
 
     before_validation :smart_add_purchasing_url_protocol,
-                      if: Proc.new { |d| d.purchasing_url.present? && d.purchasing_url_changed? }
+                      if: Proc.new { |d| d.purchasing_url_changed? && d.purchasing_url.present? }
     def smart_add_purchasing_url_protocol
       unless self.purchasing_url[/^http:\/\//] || self.purchasing_url[/^https:\/\//]
         self.purchasing_url = 'http://' + self.purchasing_url

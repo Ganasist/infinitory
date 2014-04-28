@@ -185,7 +185,7 @@ class Reagent < ActiveRecord::Base
 
   private
     before_validation :smart_add_product_url_protocol,
-                      if: Proc.new { |r| r.product_url.present? && r.product_url_changed? }
+                      if: Proc.new { |r| r.product_url_changed? && r.product_url.present? }
     def smart_add_product_url_protocol
       unless self.product_url[/^http:\/\//] || self.product_url[/^https:\/\//]
         self.product_url = 'http://' + self.product_url
@@ -193,7 +193,7 @@ class Reagent < ActiveRecord::Base
     end
     
     before_validation :smart_add_purchasing_url_protocol,
-                      if: Proc.new { |r| r.purchasing_url.present? && r.purchasing_url_changed? }
+                      if: Proc.new { |r| r.purchasing_url_changed? && r.purchasing_url.present? }
     def smart_add_purchasing_url_protocol
       unless self.purchasing_url[/^http:\/\//] || self.purchasing_url[/^https:\/\//]
         self.purchasing_url = 'http://' + self.purchasing_url
