@@ -12,8 +12,6 @@ class Institute < ActiveRecord::Base
   validates :name, presence: true, allow_blank: false
 
   validates :email, email: true, allow_blank: true, uniqueness: true
- 
-	before_validation :smart_add_url_protocol, if: Proc.new { |i| i.url.present? && i.url_changed? }
 
 	validates :url,
 						:twitter_url,
@@ -31,8 +29,6 @@ class Institute < ActiveRecord::Base
 	# extend FriendlyId
 	# friendly_id :acronym_and_name, use: [:slugged, :history]
 
-  before_destroy :remove_comments, unless: Proc.new { |i| i.comments.nil? }
-
 	include PgSearch
   pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
                   using: { tsearch: { prefix: true,
@@ -45,12 +41,17 @@ class Institute < ActiveRecord::Base
   	end
   end
 
+
+  before_destroy :remove_comments,
+  							 unless: Proc.new { |i| i.comments.nil? }
   def remove_comments
     self.comments.destroy_all
   end
 
 	protected
 
+		before_validation :smart_add_url_protocol,
+											if: Proc.new { |i| i.url.present? && i.url_changed? }
 		def smart_add_url_protocol
 		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
 		    self.url = 'http://' + self.url

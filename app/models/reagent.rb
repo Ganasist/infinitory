@@ -20,9 +20,6 @@ class Reagent < ActiveRecord::Base
 
   validates_length_of :description, maximum: 223
 
-  before_validation :smart_add_product_url_protocol, if: Proc.new { |reagent| reagent.product_url.present? && reagent.product_url_changed? }
-  before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |reagent| reagent.purchasing_url.present? && reagent.purchasing_url_changed? }
-
   validates :product_url, url: true, allow_blank: true
   validates :purchasing_url, url: true, allow_blank: true
   
@@ -32,11 +29,6 @@ class Reagent < ActiveRecord::Base
   # 														if: Proc.new { |reagent| reagent.expiration_changed? }
 
   # before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
-
-  after_update  :shared_status_message, if: Proc.new { |r| r.shared_changed? }
-  after_update  :location_status_message, if: Proc.new { |d| d.location_changed? }
-
-  # after_destroy :destroy_comments, if: Proc.new { |r| !r.comments.nil? }
 
 	include PublicActivity::Common
 
@@ -155,6 +147,8 @@ class Reagent < ActiveRecord::Base
     end
   end
 
+  after_update  :shared_status_message,
+                if: Proc.new { |r| r.shared_changed? }
   def shared_status_message
     if self.location.present?
       if self.shared?
@@ -175,6 +169,8 @@ class Reagent < ActiveRecord::Base
     self.lab.comments.create(comment: comment)    
   end
 
+  after_update  :location_status_message,
+                if: Proc.new { |d| d.location_changed? }
   def location_status_message
     if self.location.present?
       comment = "#{ self.fullname } was moved to #{ self.location }"
@@ -188,13 +184,16 @@ class Reagent < ActiveRecord::Base
   end
 
   private
-
+    before_validation :smart_add_product_url_protocol,
+                      if: Proc.new { |r| r.product_url.present? && r.product_url_changed? }
     def smart_add_product_url_protocol
       unless self.product_url[/^http:\/\//] || self.product_url[/^https:\/\//]
         self.product_url = 'http://' + self.product_url
       end
     end
-
+    
+    before_validation :smart_add_purchasing_url_protocol,
+                      if: Proc.new { |r| r.purchasing_url.present? && r.purchasing_url_changed? }
     def smart_add_purchasing_url_protocol
       unless self.purchasing_url[/^http:\/\//] || self.purchasing_url[/^https:\/\//]
         self.purchasing_url = 'http://' + self.purchasing_url

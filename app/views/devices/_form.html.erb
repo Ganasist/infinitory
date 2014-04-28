@@ -72,14 +72,14 @@
            <hr>
 
       <% if params[:lab_id] %>    
-        <%= f.association :user_ownerships, label: 'Linked member(s):',
+        <%= f.association :users, label: 'Linked member(s):',
                                             collection: User.where(lab: @lab).order(:first_name),
                                             value_method: :id,
                                             label_method: :fullname,
                                             as: :check_boxes,
                                             input_html: { style: 'width: 50px', class: 'linked_users' } %>
       <% else %>
-        <%= f.association :user_ownerships, label: 'Linked member(s):',
+        <%= f.association :users, label: 'Linked member(s):',
                                             collection: User.where(lab: @device.lab).order(:first_name),
                                             value_method: :id,
                                             label_method: :fullname,

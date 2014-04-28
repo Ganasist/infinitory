@@ -5,7 +5,6 @@ class Lab < ActiveRecord::Base
   REAGENT_CATEGORIES = ["antibody", "enzyme", "kit", "vector", "cell culture", "chemical solution", "DNA sample", "RNA sample"]
   DEVICE_CATEGORIES = ["centrifuge", "microscope", "FACS", "PCR", "qPCR", "other", "confocal microscope", "-20 Freezer", "-80 Freezer", "Liquid Nitrogen"]
   
-
 	belongs_to :department, counter_cache: true, touch: true
 	validates_associated :department
 	
@@ -22,8 +21,6 @@ class Lab < ActiveRecord::Base
 
   has_many :inverse_collaborations, class_name: 'Collaboration', foreign_key: 'collaborator_id', dependent: :destroy, inverse_of: :lab
   has_many :inverse_collaborators, through: :inverse_collaborations, source: :lab
-
-  before_validation :smart_add_url_protocol, if: Proc.new { |l| l.url.present? && l.url_changed? }
 
   validates :email, presence: true
   validates :url,
@@ -121,6 +118,9 @@ class Lab < ActiveRecord::Base
   end
 
 	private   
+
+    before_validation :smart_add_url_protocol,
+                      if: Proc.new { |l| l.url.present? && l.url_changed? }
     def smart_add_url_protocol
       unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
         self.url = 'http://' + self.url

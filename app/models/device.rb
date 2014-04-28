@@ -9,7 +9,7 @@ class Device < ActiveRecord::Base
 	validates_presence_of :lab
 
 	has_many :ownerships, dependent: :destroy
-	has_many :user_ownerships, through: :ownerships, class_name: 'User', foreign_key: 'user_id', source: :user
+	has_many :users, through: :ownerships
 
   has_many :bookings, dependent: :destroy
   has_many :user_bookings, through: :bookings, class_name: 'User', foreign_key: 'user_id', source: :user
@@ -22,17 +22,10 @@ class Device < ActiveRecord::Base
 
   validates_length_of :description, maximum: 223
 
-  before_validation :smart_add_product_url_protocol, if: Proc.new { |device| device.product_url.present? && device.product_url_changed? }
-  before_validation :smart_add_purchasing_url_protocol, if: Proc.new { |device| device.purchasing_url.present? && device.purchasing_url_changed? }
-
   validates :product_url, presence: true, url: true, allow_blank: true
   validates :purchasing_url, presence: true, url: true, allow_blank: true
   
   validates :uid, allow_blank: true, uniqueness: { scope: [:lab_id, :name], message: 'There is another device in the lab with that category, name and UID' }
-
-  after_update  :online_status_message, if: Proc.new { |d| d.status_changed? }
-  after_update  :shared_status_message, if: Proc.new { |d| d.shared_changed? }
-  after_update  :location_status_message, if: Proc.new { |d| d.location_changed? }
 
   include PublicActivity::Common
 
@@ -101,6 +94,8 @@ class Device < ActiveRecord::Base
     User.find_by(email: self.lab.email)
   end
 
+  after_update  :online_status_message,
+                if: Proc.new { |d| d.status_changed? }
   def online_status_message
     if self.location.present?
       if self.status?
@@ -121,6 +116,8 @@ class Device < ActiveRecord::Base
     self.lab.comments.create(comment: comment)
   end
 
+  after_update  :shared_status_message,
+                if: Proc.new { |d| d.shared_changed? }
   def shared_status_message
     if self.location.present?
       if self.shared?
@@ -129,7 +126,7 @@ class Device < ActiveRecord::Base
         comment = "#{ self.fullname } (#{ self.location }) was unshared"
       end
     else
-      if self.status?
+      if self.shared?
         comment = "#{ self.fullname } was shared"
       else
         comment = "#{ self.fullname } was unshared"
@@ -141,6 +138,8 @@ class Device < ActiveRecord::Base
     self.lab.comments.create(comment: comment)    
   end
 
+  after_update  :location_status_message,
+                if: Proc.new { |d| d.location_changed? }
   def location_status_message
     if self.location.present?
       comment = "#{ self.fullname } was moved to #{ self.location }"
@@ -162,12 +161,16 @@ class Device < ActiveRecord::Base
   end
 
   private
+    before_validation :smart_add_product_url_protocol,
+                      if: Proc.new { |d| d.product_url.present? && d.product_url_changed? }
     def smart_add_product_url_protocol
       unless self.product_url[/^http:\/\//] || self.product_url[/^https:\/\//]
         self.product_url = 'http://' + self.product_url
       end
     end
 
+    before_validation :smart_add_purchasing_url_protocol,
+                      if: Proc.new { |d| d.purchasing_url.present? && d.purchasing_url_changed? }
     def smart_add_purchasing_url_protocol
       unless self.purchasing_url[/^http:\/\//] || self.purchasing_url[/^https:\/\//]
         self.purchasing_url = 'http://' + self.purchasing_url

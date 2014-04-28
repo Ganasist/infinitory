@@ -6,8 +6,6 @@ class Booking < ActiveRecord::Base
 	belongs_to :user, touch: true, counter_cache: :bookings_count 
   belongs_to :device, touch: true, counter_cache: :bookings_count
 
-  before_save :set_all_day
-
   validates :user_id, :device_id, :start_time, :end_time, presence: true
 
   validates :start_time, :end_time,
@@ -50,6 +48,7 @@ class Booking < ActiveRecord::Base
       self.duration = self.duration_accurate
     end
   
+    before_save :set_all_day
     def set_all_day
       if self.duration_accurate > 86400
         self.all_day = true

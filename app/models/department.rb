@@ -9,9 +9,6 @@ class Department < ActiveRecord::Base
 	has_many :labs
 	has_many :users
 
-	before_validation :smart_add_url_protocol, if: Proc.new { |d| d.url.present? && d.url_changed? }
-	before_validation :default_addresses, if: Proc.new { |d| d.institute.present? && !d.address.present? && d.address_changed? }
-
 	validates :url,
             :twitter_url,
             :facebook_url,
@@ -55,12 +52,16 @@ class Department < ActiveRecord::Base
 
 	protected
 
+		before_validation :smart_add_url_protocol,
+											if: Proc.new { |d| d.url.present? && d.url_changed? }
 		def smart_add_url_protocol
 		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
 		    self.url = 'http://' + self.url
 		  end
 		end
 
+		before_validation :default_addresses,
+											if: Proc.new { |d| d.institute.present? && !d.address.present? && d.address_changed? }
 		def default_addresses
 			self.address = self.institute.address if self.address.blank?
 		end
