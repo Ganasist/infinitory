@@ -32,8 +32,7 @@ class DepartmentsController < ApplicationController
         if current_user.department.nil?
           current_user.department = @department
         end
-        format.html { redirect_to institute_department_path(@institute, @department), 
-                      notice: 'Department was successfully created.' }
+        format.html { redirect_to institute_department_path(@institute, @department) }
         format.json { render action: 'show', status: :created, location: @department }
       else
         format.html { render action: 'new' }
@@ -45,8 +44,7 @@ class DepartmentsController < ApplicationController
   def update
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to institute_department_path(@institute, @department), 
-                      notice: 'Department was successfully updated.' }
+        format.html { redirect_to institute_department_path(@institute, @department) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -58,7 +56,7 @@ class DepartmentsController < ApplicationController
   def destroy
     @department.destroy
     respond_to do |format|
-      format.html { redirect_to institute_departments_path(@institute) }
+      format.html { redirect_to institute_departments_path(@institute), notice: 'Department removed.' }
       format.json { head :no_content }
     end
   end

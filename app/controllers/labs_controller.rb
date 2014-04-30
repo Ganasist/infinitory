@@ -76,7 +76,7 @@ class LabsController < ApplicationController
     
     respond_to do |format|
       if @lab.save
-        format.html { redirect_to @lab, notice: 'Lab was successfully created.' }
+        format.html { redirect_to @lab }
         format.json { render action: 'show', status: :created, location: @lab }
       else
         format.html { render action: 'new' }
@@ -88,7 +88,7 @@ class LabsController < ApplicationController
   def update
     respond_to do |format|
       if @lab.update(lab_params)
-        format.html { redirect_to @lab, notice: 'Lab was successfully updated.' }
+        format.html { redirect_to @lab }
         format.json { head :no_content }
         format.js
       else

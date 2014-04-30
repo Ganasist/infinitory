@@ -1,6 +1,7 @@
 class Lab < ActiveRecord::Base
   has_merit
   acts_as_commentable
+  
   acts_as_taggable_on :reagent_category, :device_category
   REAGENT_CATEGORIES = ["antibody", "enzyme", "kit", "vector", "cell culture", "chemical solution", "DNA sample", "RNA sample"]
   DEVICE_CATEGORIES = ["centrifuge", "microscope", "FACS", "PCR", "qPCR", "other", "confocal microscope", "-20 Freezer", "-80 Freezer", "Liquid Nitrogen"]
@@ -66,7 +67,6 @@ class Lab < ActiveRecord::Base
 
   def gl
 		User.find_by(email: self.email)
-    # self.users.where(role: "group_leader").to_a
   end
 
   def gl_lm

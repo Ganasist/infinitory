@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   private
     rescue_from ActiveRecord::RecordNotFound do |exception|
       if user_signed_in?
-        flash[:alert] = "User #{ params[:id] } wasn't found."
+        flash[:alert] = "User wasn't found."
         redirect_to current_user
       else
         flash[:alert] = "You need to sign in or sign up before continuing."

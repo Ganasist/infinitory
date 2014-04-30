@@ -32,7 +32,7 @@ class InstitutesController < ApplicationController
     @institute = Institute.new(institute_params)
     respond_to do |format|
       if @institute.save
-        format.html { redirect_to @institute, notice: 'Institute was successfully created.' }
+        format.html { redirect_to @institute }
         format.json { render action: 'show', status: :created, location: @institute }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class InstitutesController < ApplicationController
   def update
     respond_to do |format|
       if @institute.update(institute_params)
-        format.html { redirect_to @institute, notice: 'Institute was successfully updated.' }
+        format.html { redirect_to @institute }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

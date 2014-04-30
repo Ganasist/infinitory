@@ -41,7 +41,7 @@ class ReagentsController < ApplicationController
       if @reagent.save
         @reagent.create_activity :create, owner: current_user
         send_comment(@reagent, "created")
-        format.html { redirect_to @reagent, notice: "#{ fullname(@reagent) } was successfully created." }
+        format.html { redirect_to @reagent }
         format.json { render action: 'show', status: :created, location: @reagent }
       else
         format.html { render action: 'new' }
@@ -71,8 +71,7 @@ class ReagentsController < ApplicationController
         @reagent.create_activity :update, owner: current_user
         if @reagent.remaining < 21
           @reagent.reagent_low
-        end        
-        flash[:notice] = "#{ fullname(@reagent) } has been updated."
+        end
         format.html { redirect_to @reagent }
         format.json { head :no_content }
       else

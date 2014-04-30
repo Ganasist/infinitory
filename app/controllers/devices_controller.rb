@@ -50,7 +50,7 @@ class DevicesController < ApplicationController
       if @device.save
         @device.create_activity :create, owner: current_user
         send_comment(@device, "created")
-        format.html { redirect_to @device, notice: "#{fullname(@device)} was successfully created." }
+        format.html { redirect_to @device }
         format.json { render action: 'show', status: :created, location: @device }
       else
         format.html { render action: 'new' }
@@ -78,8 +78,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.update(device_params)
         @device.create_activity :update, owner: current_user
-        flash[:notice] = "#{ fullname(@device) } has been updated."
-        format.html { redirect_to @device, notice: "#{ fullname(@device) } has been updated." }
+        format.html { redirect_to @device }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
