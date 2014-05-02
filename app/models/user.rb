@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   end
 
   def cached_booking_count
-    Rails.cache.fetch([self, "booking_count"], expires_in: 30.minutes) { self.bookings.count }
+    Rails.cache.fetch([self, "booking_count"], expires_in: 15.minutes) { self.bookings.where('end_time > ?', Time.now).count }
   end
 
   def reject

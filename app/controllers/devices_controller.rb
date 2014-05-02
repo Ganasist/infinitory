@@ -24,10 +24,8 @@ class DevicesController < ApplicationController
 
     data_table.add_rows(60)
 
-
     for i in 0..59 do
       data_table.set_cell(i,0,rand(100))
-      i += 1
     end
 
     opts   = { width: 320, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }

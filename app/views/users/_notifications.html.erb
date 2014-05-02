@@ -7,12 +7,12 @@
 		<%= notification.comment %>
 
 		<% if @user == current_user %>
-	  	<%= link_to notification, method: :delete, remote: true do %>
+			<%= link_to notification, method: :delete, remote: true do %>
 		  	<%= fa_icon "minus-square-o", class: "fa-lg fa-fw pull-right", title: "Delete" %>
-	  	<% end %>
+	  	<% end %>			
 	  <% end %>
-  	</span>
 	</h4>
+	</span>
 	<hr>
 </span>
 <% end %>
