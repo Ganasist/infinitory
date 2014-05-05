@@ -1,6 +1,6 @@
 <% @blog_days.each do |day, blog| %>
 
-  <p class="text-muted"><%= day.strftime("%A, %d %B %Y").upcase %></p>
+  <p class="text-muted"><%= day.strftime("%A, %e %B %Y").upcase %></p>
   <% blog.each do |b| %>
     <h4>
       <%= link_to b.title, b %>
