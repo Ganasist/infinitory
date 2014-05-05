@@ -131,11 +131,13 @@ class User < ActiveRecord::Base
   end
 
   def reject
-    self.approved      = false
-    self.lab_id        = nil
-    self.institute_id  = nil
-    self.department_id = nil
-    self.joined        = nil
+    self.class.transaction do
+      self.lab_id        = nil
+      self.department_id = nil
+      self.institute_id  = nil
+      self.approved      = false
+      self.joined        = nil
+    end
   end
 
   # def approve
@@ -143,13 +145,15 @@ class User < ActiveRecord::Base
   # end 
 
   def retire
-    self.reagent_ids           = []
-    self.device_ownership_ids  = []
-    self.lab_id                = nil
-    self.department_id         = nil
-    self.institute_id          = nil
-    self.approved              = false
-    self.joined                = nil
+    self.class.transaction do
+      self.reagent_ids           = []
+      self.device_ownership_ids  = []
+      self.lab_id                = nil
+      self.department_id         = nil
+      self.institute_id          = nil
+      self.approved              = false
+      self.joined                = nil
+    end
   end
 
   def retire_permissions?(user, lab)
@@ -172,14 +176,6 @@ class User < ActiveRecord::Base
 
   def remove_comments
     self.comments.destroy_all
-  end
-
-  def initials
-    if self.first_name.blank? || self.last_name.blank?
-      ""
-    else
-      self[0,1]
-    end    
   end
 
   def gl

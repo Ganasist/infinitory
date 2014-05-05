@@ -5,7 +5,13 @@
     <h4>
       <%= link_to b.title, b %>
     </h4>
-    <p class="blog_entry"><%= b.entry.html_safe %></p>
+    <!-- 
+    COPY AND PASTE THIS TEMPLATE FOR POSTS:
+    <p class="blog_entry"></p>
+    <blockquote></blockquote>
+    <p class="blog_entry"> </p>
+    -->
+    <%= b.entry.html_safe %>
     <br>
     <% if user_signed_in? && current_user.super_admin? %>
       <p><%= link_to 'Edit', edit_blog_path(b) %></p>
