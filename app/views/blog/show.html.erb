@@ -9,7 +9,7 @@
 		  <h4>
 		    <%= link_to @blog.title, blog_index_path %>
 		  </h4>
-		  <p class="blog_entry"><%= @blog.entry.html_safe %></p>
+		  <%= @blog.entry.html_safe %>
 		  <br>
 
 	    <div class="social-likes" data-url="<%= @blog.bitly_url %>" data-counters="no">
