@@ -24,7 +24,7 @@ class ReagentsController < ApplicationController
   end
 
   def show
-    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).group("activities.id").page(params[:page]).per(7).reverse_order
+    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).where(trackable_type: "Reagent").group("activities.id").page(params[:page]).per(7).reverse_order
   end
 
   def new
