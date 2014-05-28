@@ -121,6 +121,7 @@
         <% end %>          
     </div>
 <% end %>
+
   <div class="span7 inline-block">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
@@ -131,7 +132,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
 
-      <div class="<%= if (params[:tab] == 'nots' || !params[:tab])then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="nots">
+      <div class="<%= if (params[:tab] == 'nots' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="nots">
         <% if @notifications.present? %>
           <div id="paginator-notifications-top">
             <%= paginate @notifications, remote: true,
