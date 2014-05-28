@@ -12,14 +12,15 @@ class ApplicationController < ActionController::Base
 
   protected
 
+    helper_method :pie_options
     def pie_options
       { width: '100%', height: '100%', pieSliceText: 'none', fontSize: 12,
         legend: { position: 'labeled', alignment: 'center' }, 
         chartArea: { width: "92%", height: "92%" },
         tooltip: { textStyle: { fontSize: 15 }, text: 'value' } }
     end
-    helper_method :pie_options
 
+    helper_method :lab_scatter_options
     def lab_scatter_options
       {width: '100%', height: 400,
        fontSize: 16,
@@ -40,8 +41,8 @@ class ApplicationController < ActionController::Base
                 viewWindowMode: 'pretty',
                 gridlines: { color: 'white' } } }
     end
-    helper_method :lab_scatter_options
 
+    helper_method :fullname
     def fullname(item)
       if item.uid.present?
         "#{ item.name }-#{ item.uid }"
@@ -49,8 +50,8 @@ class ApplicationController < ActionController::Base
         "#{ item.name }"
       end
     end
-    helper_method :fullname
 
+    helper_method :send_comment
     def send_comment(item, action)      
       if item.location.present?
         item.users.each do |u|
@@ -64,7 +65,6 @@ class ApplicationController < ActionController::Base
         item.lab.comments.create(comment: "#{ fullname(item) } was #{ action } by #{ current_user.fullname }")
       end
     end
-    helper_method :send_comment
 
     def after_sign_in_path_for(resource)
       user_path(current_user)
