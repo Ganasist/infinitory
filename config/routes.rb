@@ -36,6 +36,7 @@ Infinitory::Application.routes.draw do
     resources :bookings, only: [:index, :show]
   end
 
+  resources :requests, only: [:new, :create]
   resources :messages, only: [:new, :create]
   resources :comments, only: :destroy
 

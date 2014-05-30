@@ -2,10 +2,7 @@ class User < ActiveRecord::Base
   has_merit
   acts_as_commentable
 
-  ROLES = %w[group_leader lab_manager research_associate postdoctoral_researcher doctoral_candidate 
-                    master's_student project_student technician other]
-
-  ROLES_EDIT = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
+  ROLES = %w[lab_manager research_associate postdoctoral_researcher doctoral_candidate 
                     master's_student project_student technician other]
 
   devise :invitable, :database_authenticatable, :registerable,

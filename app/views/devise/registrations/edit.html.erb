@@ -25,7 +25,7 @@
       </fieldset><br>
       <p class="lead">If you need to downgrade your status you must delete your account and create a new one.</p>
     <% elsif !current_user.gl? && current_user.lab.present? %>
-      <%= f.collection_select :role, User::ROLES_EDIT, :to_s, :humanize, 
+      <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',
                                      required: false %>
       <br><br>

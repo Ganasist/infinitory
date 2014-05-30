@@ -1,0 +1,9 @@
+<%= simple_form_for @request, html: { class: 'form-vertical' } do |f| %>
+  <div class="form-inputs">                          
+    <%= f.error_notification %>
+    <%= f.input :email %>
+	  <%= f.input :department, label: "Department (optional)" %>
+	  <%= f.input :institute, label: "University or Institute" %>
+    <%= f.button :submit, "Send request!", id: "feedback_submit", class: "btn btn-warning" %>
+  </div>
+<% end %>
