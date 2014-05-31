@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     def pie_options
       { width: '100%', height: '100%', pieSliceText: 'none', fontSize: 12,
         legend: { position: 'labeled', alignment: 'center' }, 
-        chartArea: { width: "92%", height: "92%" },
+        chartArea: { width: '92%', height: '92%' },
         tooltip: { textStyle: { fontSize: 15 }, text: 'value' } }
     end
 
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
        vAxis: { title: 'Linked reagents',
                 titleTextStyle: { fontSize: 18 },
                 logScale: false,
-                textPosition: "none",
+                textPosition: 'none',
                 viewWindowMode: 'pretty',
                 gridlines: { color: 'white' } } }
     end
