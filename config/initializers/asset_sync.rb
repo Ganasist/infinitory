@@ -1,7 +1,7 @@
 if defined?(AssetSync)
   AssetSync.configure do |config|
     config.fog_provider = 'AWS'
-    config.fog_directory = ENV['S3_PRO_BUCKET_NAME']
+    config.fog_directory = ENV['S3_LIVE_BUCKET_NAME']
     # These can be found under Access Keys in AWS Security Credentials
     config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
     config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
