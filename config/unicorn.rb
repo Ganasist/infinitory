@@ -22,12 +22,12 @@ after_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     config = ActiveRecord::Base.configurations[Rails.env]
     config['reaping_frequency'] = ENV['DB_REAP_FREQ'] || 10 # seconds
-    config['pool']            =   ENV['DB_POOL'] || 2
+    config['pool']            =   ENV['DB_POOL'] || 10
     ActiveRecord::Base.establish_connection(config)
   end
 
   Sidekiq.configure_client do |config|
-    config.redis = { url: ENV['REDISTOGO_URL'], size: 1, namespace: "infinitory_#{Rails.env}"}
+    config.redis = { url: ENV['LIVE_REDISTOGO_URL'], size: 1, namespace: "infinitory_#{Rails.env}"}
   end
   
   Sidekiq.configure_server do |config|
