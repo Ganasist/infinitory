@@ -11,8 +11,9 @@ Paperclip::Attachment.default_options[:s3_options]     = { :server_side_encrypti
 
 Paperclip::Attachment.default_options[:s3_credentials] = { :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
 																											     :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'] }																						          
-if Rails.env.production?
-	Paperclip::Attachment.default_options[:s3_credentials] = { :bucket => ENV['S3_PRO_BUCKET_NAME'] }
+
+if Rails.env.production? || Rails.env.staging?
+	Paperclip::Attachment.default_options[:s3_credentials] = { :bucket => ENV['S3_LIVE_BUCKET_NAME'] }
 else
 	Paperclip::Attachment.default_options[:s3_credentials] = { :bucket => ENV['S3_DEV_BUCKET_NAME'] }
 end
