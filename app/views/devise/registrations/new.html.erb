@@ -1,13 +1,12 @@
 <span class="text-center">
 	<h2>Lab member registration</h2>
-  <h4>Group leaders <%= link_to "go here", new_request_path %></h4>
+  <h4>Group leaders -><p class="inline-block lead"><%= link_to "Register here", new_request_path, class: "btn btn-warning" %></p></h4></h4>
 </span>
 <br>
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
                               html: { class: 'form-inline register', autocomplete: 'off' } ) do |f| %>
 <%= f.error_notification %>
 <div class="span5">
-
   <div class="form-inputs">
     <%= f.collection_select :role, User::ROLES, :to_s, :humanize, prompt: 'Choose your position' %>
     <br>
