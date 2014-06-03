@@ -1,6 +1,10 @@
 :verbose: false
-:concurrency:  5
+:concurrency: 5
 :queues:
   - [default, 4]
   - [mailer, 5]
   - [paperclip, 6]
+staging:
+	:concurrency: 10
+production:
+  :concurrency: 10
