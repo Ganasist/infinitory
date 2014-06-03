@@ -28,16 +28,12 @@ after_fork do |server, worker|
 
   Sidekiq.configure_client do |config|
     config.redis = { url: ENV['LIVE_REDISTOGO_URL'],
-                  size: (Sidekiq.options[:concurrency]),
-             namespace: "infinitory_#{Rails.env}"}
-    # config.redis = { url: ENV['LIVE_REDISTOGO_URL'], size: 1, namespace: "infinitory_#{Rails.env}"}
+                    size: 1,
+               namespace: "infinitory_#{Rails.env}"}
   end
   
   Sidekiq.configure_server do |config|
-    config.redis = { url: ENV['LIVE_REDISTOGO_URL'],
-                  size: (Sidekiq.options[:concurrency]), 
-             namespace: "infinitory_#{Rails.env}"}
     config.poll_interval = 15
-    # config.redis = { size: 5 }
+    config.redis = { size: 5 }
   end
 end
