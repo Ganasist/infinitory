@@ -4,7 +4,3 @@
   - [default, 4]
   - [mailer, 5]
   - [paperclip, 6]
-staging:
-	:concurrency: 10
-production:
-  :concurrency: 10
