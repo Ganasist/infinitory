@@ -1,8 +1,8 @@
-:verbose: false
+:verbose: true
 :concurrency:  25
 :queues:
   - [often, 7]
   - [default, 5]
   - [seldom, 3]
 production:
-  :concurrency: 2
+  :concurrency: 12
