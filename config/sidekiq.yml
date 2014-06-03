@@ -1,8 +1,6 @@
-:verbose: true
-:concurrency:  25
+:verbose: false
+:concurrency:  3
 :queues:
-  - [often, 7]
-  - [default, 5]
-  - [seldom, 3]
-production:
-  :concurrency: 2
+  - [default, 4]
+  - [mailer, 5]
+  - [paperclip, 6]
