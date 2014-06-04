@@ -18,7 +18,7 @@ describe User do
     expect_it { to validate_presence_of(:password) }
     expect_it { to validate_confirmation_of(:password) }
     expect_it { to ensure_length_of(:password).is_at_least(8).is_at_most(128) }
-    expect_it { to ensure_inclusion_of(:role).in_array(%w[group_leader lab_manager research_associate postdoctoral_researcher 
+    expect_it { to ensure_inclusion_of(:role).in_array(%w[lab_manager research_associate postdoctoral_researcher 
                                                        doctoral_candidate master's_student project_student technician other]) }
   end
 
@@ -117,8 +117,8 @@ describe User do
     expect(gl.fullname).to eql gl.email
   end
 
-  it 'is not approved until their lab approves them' do
-    user = create(:user, lab: gl.lab)
+  it 'is not approved until their lab approves them', focus: true do
+    user = build(:user, lab_email: "zeststs")
     expect(user.approved).to be_false
   end
 

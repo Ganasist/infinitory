@@ -1,4 +1,3 @@
-
 guard :bundler do
   watch('Gemfile')
   # Uncomment next line if your Gemfile contains the `gemspec' command.
@@ -9,7 +8,6 @@ guard 'rails' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end
-
 
 guard :rspec do
   watch(%r{^spec/.+_spec\.rb$})

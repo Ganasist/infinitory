@@ -121,7 +121,6 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
   gem 'guard-bundler'
   gem 'guard-rails'
-  gem 'guard-rspec'
   gem 'hub', :require=>nil
   gem 'quiet_assets'
   gem 'rb-fchange', :require => false
@@ -135,11 +134,12 @@ gem 'faker', '~> 1.2.0'
 gem 'factory_girl_rails', :require => false
 
 group :development, :test do
+  gem 'guard-rspec', '~> 4.2.6', git: 'https://github.com/guard/guard-rspec.git', branch: 'master'
   gem 'rspec', '~> 3.0.0.beta2'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-nc'
   gem 'minitest'
   gem 'shoulda-matchers'
-  gem 'rspec-nc'
 end
 
 group :test do
