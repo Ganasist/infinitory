@@ -400,6 +400,8 @@ GEM
       activerecord
       activesupport
     sexp_processor (4.4.3)
+    shoulda-matchers (2.5.0)
+      activesupport (>= 3.0.0)
     sidekiq (2.17.7)
       celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
@@ -555,6 +557,7 @@ DEPENDENCIES
   ruby-graphviz
   sass-rails (~> 4.0.0)
   seed_dump
+  shoulda-matchers
   sidekiq (~> 2.17.7)
   sidetiq
   simple_form
