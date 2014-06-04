@@ -551,7 +551,7 @@ DEPENDENCIES
   rmagick
   rolify
   rspec-nc
-  rspec-rails (~> 3.0.0.beta)
+  rspec-rails
   ruby-graphviz
   sass-rails (~> 4.0.0)
   seed_dump
