@@ -283,6 +283,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
+    newrelic_rpm (3.8.1.221)
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -538,6 +539,7 @@ DEPENDENCIES
   memcachier
   merit
   minitest
+  newrelic_rpm
   oink
   paperclip (~> 4.1)
   paperclip-aws

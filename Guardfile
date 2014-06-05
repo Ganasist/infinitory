@@ -1,3 +1,5 @@
+notification :growl_notify
+
 guard :bundler do
   watch('Gemfile')
   # Uncomment next line if your Gemfile contains the `gemspec' command.
