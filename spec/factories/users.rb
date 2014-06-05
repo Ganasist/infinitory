@@ -7,6 +7,7 @@ FactoryGirl.define do
                                      master's_student project_student technician other].sample
     password               'loislane'
     password_confirmation  'loislane'
+    terms                  '1'
     confirmed_at Time.now  # required if the Devise Confirmable module is used
 
     factory :admin do

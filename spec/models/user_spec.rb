@@ -14,6 +14,7 @@ describe User do
 
   context 'validations' do
     expect_it { to validate_presence_of(:role) }
+    expect_it { to validate_uniqueness_of(:email) }
     expect_it { to validate_presence_of(:email) }
     expect_it { to validate_presence_of(:password) }
     expect_it { to validate_confirmation_of(:password) }
@@ -24,32 +25,58 @@ describe User do
 
   context 'database columns' do
     expect_it { to have_db_column(:email).of_type(:string).with_options(default: "", null: false) }
-    expect_it { to have_db_column(:first_name).of_type(:string) }
-    expect_it { to have_db_column(:last_name).of_type(:string) }
-    expect_it { to have_db_column(:role).of_type(:string) }
-    expect_it { to have_db_column(:slug).of_type(:string) }
+    expect_it { to have_db_column(:encrypted_password).of_type(:string).with_options(default: "", null: false) }
     expect_it { to have_db_column(:reset_password_token).of_type(:string) }
     expect_it { to have_db_column(:reset_password_sent_at).of_type(:datetime) }
-    expect_it { to have_db_column(:approved).of_type(:boolean).with_options(default: false, null: false) }
-    expect_it { to have_db_column(:joined).of_type(:datetime) }
-    expect_it { to have_db_column(:unconfirmed_email).of_type(:string) }
-    expect_it { to have_db_column(:encrypted_password).of_type(:string).with_options(default: "", null: false) }
     expect_it { to have_db_column(:remember_created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:sign_in_count).of_type(:integer).with_options(default: 0) }
     expect_it { to have_db_column(:current_sign_in_at).of_type(:datetime) }
     expect_it { to have_db_column(:last_sign_in_at).of_type(:datetime) }
     expect_it { to have_db_column(:current_sign_in_ip).of_type(:string) }
     expect_it { to have_db_column(:last_sign_in_ip).of_type(:string) }
-    expect_it { to have_db_column(:sign_in_count).of_type(:integer).with_options(default: 0) }
-    expect_it { to have_db_column(:lab_id).of_type(:integer) }
-    expect_it { to have_db_column(:department_id).of_type(:integer) }
-    expect_it { to have_db_column(:institute_id).of_type(:integer) }
     expect_it { to have_db_column(:confirmation_token).of_type(:string) }
     expect_it { to have_db_column(:confirmed_at).of_type(:datetime) }
     expect_it { to have_db_column(:confirmation_sent_at).of_type(:datetime) }
+    expect_it { to have_db_column(:unconfirmed_email).of_type(:string) }
     expect_it { to have_db_column(:created_at).of_type(:datetime) }
     expect_it { to have_db_column(:updated_at).of_type(:datetime) }
-    expect_it { to have_db_column(:icon).of_type(:string) }
-    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }    
+    expect_it { to have_db_column(:lab_id).of_type(:integer) }
+    expect_it { to have_db_column(:first_name).of_type(:string) }
+    expect_it { to have_db_column(:last_name).of_type(:string) }
+    expect_it { to have_db_column(:role).of_type(:string) }
+    expect_it { to have_db_column(:institute_id).of_type(:integer) }
+    expect_it { to have_db_column(:department_id).of_type(:integer) }
+    expect_it { to have_db_column(:approved).of_type(:boolean).with_options(default: false, null: false) }
+    expect_it { to have_db_column(:joined).of_type(:datetime) }
+    expect_it { to have_db_column(:slug).of_type(:string) }
+    expect_it { to have_db_column(:invitation_token).of_type(:string) }
+    expect_it { to have_db_column(:invitation_created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:invitation_sent_at).of_type(:datetime) }
+    expect_it { to have_db_column(:invitation_accepted_at).of_type(:datetime) }
+    expect_it { to have_db_column(:invitation_limit).of_type(:integer) }
+    expect_it { to have_db_column(:invited_by_id).of_type(:integer) }
+    expect_it { to have_db_column(:invited_by_type).of_type(:string) }
+    expect_it { to have_db_column(:sash_id).of_type(:integer) }
+    expect_it { to have_db_column(:level).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:reagents_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:devices_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:icon_file_name).of_type(:string) }
+    expect_it { to have_db_column(:icon_content_type).of_type(:string) }
+    expect_it { to have_db_column(:icon_file_size).of_type(:integer) }
+    expect_it { to have_db_column(:icon_updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:twitter_url).of_type(:string) }
+    expect_it { to have_db_column(:facebook_url).of_type(:string) }
+    expect_it { to have_db_column(:linkedin_url).of_type(:string) }
+    expect_it { to have_db_column(:pdf_file_name).of_type(:string) }
+    expect_it { to have_db_column(:pdf_content_type).of_type(:string) }
+    expect_it { to have_db_column(:pdf_file_size).of_type(:integer) }
+    expect_it { to have_db_column(:pdf_updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }
+    expect_it { to have_db_column(:xing_url).of_type(:string) }
+    expect_it { to have_db_column(:daily_points).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:bookings_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:state).of_type(:string) }
+    expect_it { to have_db_column(:super_admin).of_type(:boolean).with_options(default: false) }
   end
 
   context 'database indexes' do
@@ -84,12 +111,6 @@ describe User do
     expect(build(:user, role: "")).to have(2).errors_on(:role)
   end
 
-  it 'is invalid with an existing email address' do
-    user = create(:user, lab: gl.lab)
-    user2 = build(:user, email: user.email)
-    expect(user2).to have(1).errors_on(:email)
-  end
-
   it 'is valid with a valid email address' do
     addresses = %w[user@foo.com user_@_foo.org example@foo.com]
     addresses.each do |address|
@@ -117,9 +138,13 @@ describe User do
     expect(gl.fullname).to eql gl.email
   end
 
-  it 'is not approved until their lab approves them', focus: true do
-    user = build(:user, lab_email: "zeststs")
-    expect(user.approved).to be_false
+  it 'should respond to lab_email' do
+    user { should respond_to(:lab_email) }
+  end
+
+  xit 'is not approved until their lab approves them' do
+    user.save
+    expect(user.approved?).to be_false
   end
 
   it 'is valid without a lab if it is not a new account' do
@@ -192,7 +217,7 @@ describe User do
       user = build(:user, first_name: 'Bob', last_name: 'Toner')
       expect(user.fullname).to eq 'Bob Toner'
     end
-  end  
+  end
 
   it { should respond_to(:reject) }
   it { should respond_to(:retire) }
