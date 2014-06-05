@@ -4,7 +4,7 @@ guard :bundler do
   # watch(/^.+\.gemspec/)
 end
 
-guard 'rails' do
+guard 'rails', cmd:"spring rails s -b 127.0.0.1" do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end
