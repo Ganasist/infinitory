@@ -1,18 +1,17 @@
-class MessagesController < ApplicationController
+class FeedbacksController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @feedback = Message.new
+    @feedback = Feedback.new
   end
 
   def create
-    @feedback = Message.new(params[:message])
+    @feedback = Feedback.new(params[:feedback])
     @feedback.email = current_user.email
     @feedback.user = current_user.fullname
     if @feedback.valid?
-      MessageMailer.delay(retry: false).feedback_email(@feedback.email, @feedback.user, @feedback.comment)
+      FeedbackMailer.delay(retry: false).feedback_email(@feedback.email, @feedback.user, @feedback.comment)
       current_user.create_activity :feedback, owner: current_user
-      # flash[:notice] = 'Your feedback is appreciated!'
       redirect_to current_user, notice: 'Your feedback is appreciated!'
     else
       render 'new'
@@ -20,7 +19,7 @@ class MessagesController < ApplicationController
   end
 
   private
-    def message_params
-      params.require(:message).permit(:message)
+    def feedback_params
+      params.require(:feedback).permit(:feedback)
     end
 end

@@ -5,6 +5,43 @@ describe Lab do
   let(:gl) { create(:admin) }
   let(:lab) { gl.lab }
 
+  context 'database columns' do
+    expect_it { to have_db_column(:department_id).of_type(:integer) }
+    expect_it { to have_db_column(:institute_id).of_type(:integer) }
+    expect_it { to have_db_column(:created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:room).of_type(:string) }
+    expect_it { to have_db_column(:url).of_type(:string) }    
+    expect_it { to have_db_column(:slug).of_type(:string) }
+    expect_it { to have_db_column(:email).of_type(:string) }
+    expect_it { to have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:reagents_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:devices_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:icon_file_name).of_type(:string) }
+    expect_it { to have_db_column(:icon_content_type).of_type(:string) }
+    expect_it { to have_db_column(:icon_file_size).of_type(:integer) }
+    expect_it { to have_db_column(:icon_updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:pdf_file_name).of_type(:string) }
+    expect_it { to have_db_column(:pdf_content_type).of_type(:string) }
+    expect_it { to have_db_column(:pdf_file_size).of_type(:integer) }
+    expect_it { to have_db_column(:pdf_updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }
+    expect_it { to have_db_column(:linkedin_url).of_type(:string) }
+    expect_it { to have_db_column(:twitter_url).of_type(:string) }
+    expect_it { to have_db_column(:xing_url).of_type(:string) }
+    expect_it { to have_db_column(:facebook_url).of_type(:string) }
+    expect_it { to have_db_column(:sash_id).of_type(:integer) }
+    expect_it { to have_db_column(:level).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:daily_points).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:state).of_type(:string) }
+  end
+
+  context 'database indexes' do
+    expect_it { to have_db_index(:department_id) }
+    expect_it { to have_db_index(:email) }
+    expect_it { to have_db_index(:institute_id) }
+  end
+
   context 'relationships' do
     expect_it { to belong_to(:institute) }
     expect_it { to belong_to(:department) }
@@ -17,27 +54,7 @@ describe Lab do
     expect_it { to validate_presence_of(:email) }
   end
 
-  context 'database columns' do
-    expect_it { to have_db_column(:department_id).of_type(:integer) }
-    expect_it { to have_db_column(:institute_id).of_type(:integer) }
-    expect_it { to have_db_column(:room).of_type(:string) }
-    expect_it { to have_db_column(:created_at).of_type(:datetime) }
-    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
-    expect_it { to have_db_column(:url).of_type(:string) }    
-    expect_it { to have_db_column(:icon).of_type(:string) }
-    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }
-    expect_it { to have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
-    expect_it { to have_db_column(:email).of_type(:string) }
-  end
-
-  context 'database indexes' do
-    expect_it { to have_db_index(:email) }
-    expect_it { to have_db_index(:department_id) }
-    expect_it { to have_db_index(:institute_id) }
-  end
-
-
-  context 'Lab methods' do
+  context 'methods' do
 
   end
 

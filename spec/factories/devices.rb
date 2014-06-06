@@ -3,7 +3,6 @@ require 'securerandom'
 
 FactoryGirl.define do
   factory :device do
-    institute
     lab
     name                   { Faker::Lorem.word }
     currency               { %w[$ €].sample }

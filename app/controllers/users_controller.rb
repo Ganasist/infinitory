@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       redirect_to @user, status: :moved_permanently
     end
     @activities = PublicActivity::Activity.includes(:trackable).where(owner_id: @user.id).group("activities.id").page(params[:activities]).per(10).reverse_order
-    @notifications = @user.comments.recent.page(params[:notifications]).per(10)
+    @comments = @user.comments.recent.page(params[:comments]).per(10)
   end
 
   def approve

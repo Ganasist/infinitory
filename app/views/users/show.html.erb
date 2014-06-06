@@ -125,40 +125,36 @@
   <div class="span7 inline-block">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
-      <li class="<%= 'active' if !params[:tab] || params[:tab] == 'nots' %>"><a href="#nots" data-toggle="pill">Notifications</a></li>
+      <li class="<%= 'active' if !params[:tab] || params[:tab] == 'comments' %>"><a href="#comment" data-toggle="pill">Notifications</a></li>
       <li class="<%= 'active' if params[:tab] == 'activity' %>"><a href="#activity" data-toggle="pill">Activity</a></li>
-      <li class="disabled"><a href="#messages" data-toggle="pill">Messages</a></li>
+      <li class="disabled"><a href="#message" data-toggle="pill">Messages</a></li>
     </ul><br>
     <!-- Tab panes -->
     <div class="tab-content">
-
-      <div class="<%= if (params[:tab] == 'nots' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="nots">
-        <% if @notifications.present? %>
-          <div id="paginator-notifications-top">
-            <%= paginate @notifications, remote: true,
-                                         theme: 'twitter-bootstrap',
-                                         param_name: 'notifications',
-                                         params: { tab: 'nots' },
-                                         pagination_class: 'pagination-small pagination-centered' %>
+      <div class="<%= if (params[:tab] == 'comments' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="comment">
+        <% if @comments.present? %>
+          <div id="paginator-comments-top">
+            <%= paginate @comments, remote: true,
+                                    theme: 'twitter-bootstrap',
+                                    param_name: 'comments',
+                                    params: { tab: 'comments' },
+                                    pagination_class: 'pagination-small pagination-centered' %>
           </div>
-
-          <div id="notifications">
-            <%= render 'notifications' %>
+          <div id="comments">
+            <%= render 'comments' %>
           </div>
-
-          <div id="paginator-notifications-bottom">
-            <%= paginate @notifications, remote: true,
-                                         theme: 'twitter-bootstrap',
-                                         param_name: 'notifications',
-                                         params: { tab: 'nots' },
-                                         pagination_class: 'pagination-small pagination-centered' %>
+          <div id="paginator-comments-bottom">
+            <%= paginate @comments, remote: true,
+                                    theme: 'twitter-bootstrap',
+                                    param_name: 'comments',
+                                    params: { tab: 'comments' },
+                                    pagination_class: 'pagination-small pagination-centered' %>
           </div>
         <% else %>
           <br>
           <h4 class="text-center">No notifications</h4>
         <% end %>
       </div>
-
       <div class="<%= if params[:tab] == 'activity' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="activity">
       <% if @activities.present? %>
         <div id="paginator-activities-top">
@@ -183,22 +179,23 @@
           <h4 class="text-center">No recent activities</h4>
       <% end %>
       </div>
-      <div class="tab-pane fade" id="messages">
+      <div class="tab-pane fade" id="message">
+
         <% if @messages.present? %>
-        <div id="paginator-activities-top">
+        <div id="paginator-messages-top">
           <%= paginate @messages, theme: 'twitter-bootstrap',
-                                  param_name: 'activities',
-                                  params: { tab: 'activity' },
+                                  param_name: 'messages',
+                                  params: { tab: 'message' },
                                   pagination_class: 'pagination-small pagination-centered' %>
         </div>
         <div id="activities">
           <br>
-          <%= render 'activities' %>
+          <%= render 'messages' %>
         </div>
-        <div id="paginator-activities-bottom">
+        <div id="paginator-messages-bottom">
           <%= paginate @messages, theme: 'twitter-bootstrap',
-                                    param_name: 'activities',
-                                    params: { tab: 'activity' },
+                                    param_name: 'messages',
+                                    params: { tab: 'message' },
                                     pagination_class: 'pagination-small pagination-centered' %>
         </div>
         <% else %>

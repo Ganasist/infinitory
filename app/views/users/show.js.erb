@@ -1,16 +1,16 @@
-$('#paginator-notifications-top').html('<%= escape_javascript(paginate(@notifications,
+$('#paginator-comments-top').html('<%= escape_javascript(paginate(@comments,
 																																			 remote: true, 
 																																			 theme: "twitter-bootstrap",
-																																			 param_name: "notifications",
-																																			 params: { tab: "nots" },
+																																			 param_name: "comments",
+																																			 params: { tab: "comments" },
                                        																 pagination_class: "pagination-small pagination-centered").to_s) %>');
-$('#paginator-notifications-bottom').html('<%= escape_javascript(paginate(@notifications,
-																																			 		remote: true, 
+$('#paginator-comments-bottom').html('<%= escape_javascript(paginate(@comments,
+																																		      remote: true, 
 																																			 		theme: "twitter-bootstrap",
-																																				  param_name: "notifications",
-																																				  params: { tab: "nots" }, 
+																																				  param_name: "comments",
+																																				  params: { tab: "comments" }, 
                                        																 		pagination_class: "pagination-small pagination-centered").to_s) %>');
-$('#notifications').html('<%= escape_javascript(render("notifications")) %>');
+$('#comments').html('<%= escape_javascript(render("comments")) %>');
 
 
 $('#paginator-activities-top').html('<%= escape_javascript(paginate(@activities,

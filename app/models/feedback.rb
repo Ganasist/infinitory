@@ -1,4 +1,4 @@
-class Message
+class Feedback
 	include ActiveAttr::Model
 
   attribute :email

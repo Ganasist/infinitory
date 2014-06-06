@@ -1,4 +1,4 @@
-<%= simple_form_for @feedback, html: { class: 'form-vertical' } do |f| %>
+<%= simple_form_for @feedback, url: feedback_path, html: { class: 'form-vertical' } do |f| %>
   <div class="form-inputs">                          
     <%= f.error_notification %>
     <%= f.input :comment, as: :text, label_html: { id: "comment_feedback" }, label: "",

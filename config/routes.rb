@@ -37,7 +37,7 @@ Infinitory::Application.routes.draw do
   end
 
   resources :requests, only: [:new, :create]
-  resources :messages, only: [:new, :create]
+  resource :feedback, only: [:new, :create]
   resources :comments, only: :destroy
 
   get 'tags/:tag', to: 'reagents#index', as: :tag

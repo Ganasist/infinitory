@@ -4,21 +4,6 @@ describe Device do
 
   let(:device) { build_stubbed(:device) }
 
-  context 'relationships' do
-    expect_it { to belong_to(:lab).counter_cache(true).touch(true) }
-    expect_it { to have_many(:ownerships).dependent(:destroy) }
-    expect_it { to have_many(:users).through(:ownerships) }
-  end
-
-  context 'validations' do
-    expect_it { to validate_presence_of(:name) }
-    expect_it { to validate_presence_of(:lab) }
-    expect_it { to ensure_inclusion_of(:currency).in_array(%w[$ €]) }    
-    expect_it { to validate_numericality_of(:price).with_message(/Must be a positive number or 0/).is_greater_than_or_equal_to(0) }
-    expect_it { to_not allow_value(-1).for(:price) }
-    expect_it { to ensure_length_of(:description).is_at_most(223) }
-  end
-
   context 'database columns' do
   	expect_it { to have_db_column(:name).of_type(:string).with_options(null: false) }
     expect_it { to have_db_column(:location).of_type(:string) }
@@ -46,8 +31,8 @@ describe Device do
     expect_it { to have_db_column(:shared).of_type(:boolean).with_options(default: false, null: false) }
     expect_it { to have_db_column(:state).of_type(:string) }
     expect_it { to have_db_column(:bookings_count).of_type(:integer) }
-    expect_it { to have_db_column(:users_count).of_type(:integer) }
-    expect_it { to have_db_column(:bookable).of_type(:boolean) }
+    expect_it { to have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:bookable).of_type(:boolean).with_options(default: false) }
   end
 
   context 'database indexes' do
@@ -56,7 +41,22 @@ describe Device do
     expect_it { to have_db_index(:tsv_body) }
   end
 
-  context 'Device methods' do
+  context 'relationships' do
+    expect_it { to belong_to(:lab).counter_cache(true).touch(true) }
+    expect_it { to have_many(:ownerships).dependent(:destroy) }
+    expect_it { to have_many(:users).through(:ownerships) }
+  end
+
+  context 'validations' do
+    expect_it { to validate_presence_of(:name) }
+    expect_it { to validate_presence_of(:lab) }
+    expect_it { to ensure_inclusion_of(:currency).in_array(%w[$ €]) }    
+    expect_it { to validate_numericality_of(:price).with_message(/Must be a positive number or 0/).is_greater_than_or_equal_to(0) }
+    expect_it { to_not allow_value(-1).for(:price) }
+    expect_it { to ensure_length_of(:description).is_at_most(223) }
+  end
+
+  context 'methods' do
 
   end
 

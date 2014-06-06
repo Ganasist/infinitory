@@ -1,7 +1,38 @@
 require 'spec_helper'
 
 describe Department do
-  let(:department) { build(:department) }
+  let(:department) { build_stub(:department) }
+
+  context 'database columns' do
+    expect_it { to have_db_column(:name).of_type(:string).with_options(null: false) }
+    expect_it { to have_db_column(:institute_id).of_type(:integer) }
+    expect_it { to have_db_column(:address).of_type(:text) }
+    expect_it { to have_db_column(:created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:url).of_type(:string) }
+    expect_it { to have_db_column(:room).of_type(:string) }
+    expect_it { to have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:labs_count).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:email).of_type(:string) }
+    expect_it { to have_db_column(:icon_file_name).of_type(:string) }
+    expect_it { to have_db_column(:icon_content_type).of_type(:string) }
+    expect_it { to have_db_column(:icon_file_size).of_type(:integer) }
+    expect_it { to have_db_column(:icon_updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }
+    expect_it { to have_db_column(:linkedin_url).of_type(:string) }
+    expect_it { to have_db_column(:twitter_url).of_type(:string) }
+    expect_it { to have_db_column(:xing_url).of_type(:string) }
+    expect_it { to have_db_column(:facebook_url).of_type(:string) }
+    expect_it { to have_db_column(:sash_id).of_type(:integer) }
+    expect_it { to have_db_column(:level).of_type(:integer).with_options(default: 0) }
+    expect_it { to have_db_column(:daily_points).of_type(:integer).with_options(default: 0) }
+  end
+
+  context 'database indexes' do
+    expect_it { to have_db_index(:email).unique(true) }  
+    expect_it { to have_db_index(:institute_id) }
+    expect_it { to have_db_index([:name, :institute_id]).unique(true) }
+  end
 
   context 'relationships' do
     expect_it { to belong_to(:institute) }
@@ -14,33 +45,7 @@ describe Department do
     expect_it { to validate_uniqueness_of(:name).case_insensitive.scoped_to(:institute_id).with_message(/A department with that name is already registered at this institute./) }
   end
 
-  context 'database columns' do
-    expect_it { to have_db_column(:name).of_type(:string) }
-    expect_it { to have_db_column(:latitude).of_type(:float) }
-    expect_it { to have_db_column(:longitude).of_type(:float) }
-    expect_it { to have_db_column(:institute_id).of_type(:integer) }
-    expect_it { to have_db_column(:country).of_type(:string) }
-    expect_it { to have_db_column(:room).of_type(:string) }
-    expect_it { to have_db_column(:address).of_type(:text) }
-    expect_it { to have_db_column(:created_at).of_type(:datetime) }
-    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
-    expect_it { to have_db_column(:country).of_type(:string) }
-    expect_it { to have_db_column(:url).of_type(:string) }    
-    expect_it { to have_db_column(:icon).of_type(:string) }
-    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }
-    expect_it { to have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
-    expect_it { to have_db_column(:labs_count).of_type(:integer).with_options(default: 0) }
-    expect_it { to have_db_column(:email).of_type(:string) }
-  end
-
-  context 'database indexes' do
-    expect_it { to have_db_index([:name, :institute_id]).unique(true) }
-    expect_it { to have_db_index(:email) }  
-    expect_it { to have_db_index(:institute_id) }  
-    expect_it { to have_db_index([:latitude, :longitude]) }
-  end
-
-  context 'Department methods' do
+  context 'methods' do
 
   end
 

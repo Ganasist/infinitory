@@ -3,6 +3,44 @@ require 'spec_helper'
 describe Reagent do
   let(:reagent) { build(:reagent) }
 
+  context 'database columns' do
+    expect_it { to have_db_column(:name).of_type(:string).with_options(null: false) }
+    expect_it { to have_db_column(:location).of_type(:string) }
+    expect_it { to have_db_column(:price).of_type(:decimal).with_options(precision: 9, scale: 2, default: 0.0, null: false) }
+    expect_it { to have_db_column(:serial).of_type(:string) }
+    expect_it { to have_db_column(:created_at).of_type(:datetime) }
+    expect_it { to have_db_column(:updated_at).of_type(:datetime) }    
+    expect_it { to have_db_column(:lab_id).of_type(:integer) }
+    expect_it { to have_db_column(:product_url).of_type(:string) }
+    expect_it { to have_db_column(:expiration).of_type(:date) }
+    expect_it { to have_db_column(:remaining).of_type(:integer).with_options(default: 100, null: false) }
+    expect_it { to have_db_column(:uid).of_type(:string) }
+    expect_it { to have_db_column(:lot_number).of_type(:string) }
+    expect_it { to have_db_column(:quantity).of_type(:string) }
+    expect_it { to have_db_column(:icon_file_name).of_type(:string) }
+    expect_it { to have_db_column(:icon_content_type).of_type(:string) }
+    expect_it { to have_db_column(:icon_file_size).of_type(:integer) }
+    expect_it { to have_db_column(:icon_updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:tsv_body).of_type(:tsvector) }
+    expect_it { to have_db_column(:purchasing_url).of_type(:string) }
+    expect_it { to have_db_column(:pdf_file_name).of_type(:string) }
+    expect_it { to have_db_column(:pdf_content_type).of_type(:string) }
+    expect_it { to have_db_column(:pdf_file_size).of_type(:integer) }
+    expect_it { to have_db_column(:pdf_updated_at).of_type(:datetime) }
+    expect_it { to have_db_column(:icon_processing).of_type(:boolean) }
+    expect_it { to have_db_column(:currency).of_type(:string).with_options(default: "$") }
+    expect_it { to have_db_column(:shared).of_type(:boolean).with_options(default: false, null: false) }
+    expect_it { to have_db_column(:description).of_type(:text) }
+    expect_it { to have_db_column(:users_count).of_type(:integer).with_options(default: 0) }
+  end
+
+  context 'database indexes' do    
+    expect_it { to have_db_index(:expiration) }
+    expect_it { to have_db_index([:lab_id, :name, :uid, :description]).unique(true) }
+    expect_it { to have_db_index(:lab_id) }
+    expect_it { to have_db_index(:tsv_body) }
+  end
+
   context 'relationships' do
     expect_it { to belong_to(:lab) }
     expect_it { to have_many(:ownerships) }
@@ -18,30 +56,7 @@ describe Reagent do
     expect_it { to validate_numericality_of(:remaining) }
   end
 
-  context 'database columns' do
-  	expect_it { to have_db_column(:name).of_type(:string).with_options(null: false) }
-  	expect_it { to have_db_column(:category).of_type(:string).with_options(null: false) }
-		expect_it { to have_db_column(:location).of_type(:string) } 
-    expect_it { to have_db_column(:url).of_type(:string) }    
-    expect_it { to have_db_column(:price).of_type(:decimal).with_options(precision: 9, scale: 2) }
-    expect_it { to have_db_column(:serial).of_type(:string) }
-    expect_it { to have_db_column(:created_at).of_type(:datetime) }
-    expect_it { to have_db_column(:updated_at).of_type(:datetime) }
-		expect_it { to have_db_column(:properties).of_type(:hstore) }
-    expect_it { to have_db_column(:lab_id).of_type(:integer) }
-    expect_it { to have_db_column(:user_id).of_type(:integer) }
-    expect_it { to have_db_column(:quantity).of_type(:string) }
-  end
-
-  context 'database indexes' do
-    expect_it { to have_db_index([:lab_id, :uid, :name, :category]).unique(true) }
-    expect_it { to have_db_index(:lab_id) }
-    expect_it { to have_db_index(:user_id) }
-    expect_it { to have_db_index(:properties) }
-  end
-
-
-  context 'Reagent methods' do
+  context 'methods' do
 
   end
 
