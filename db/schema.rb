@@ -124,14 +124,14 @@ ActiveRecord::Schema.define(version: 20140530125853) do
   add_index "departments", ["name", "institute_id"], name: "index_departments_on_name_and_institute_id", unique: true, using: :btree
 
   create_table "devices", force: true do |t|
-    t.string   "name",                                      null: false
+    t.string   "name",                                                      null: false
     t.string   "location"
     t.string   "serial"
     t.integer  "lab_id"
     t.string   "product_url"
     t.string   "uid"
     t.text     "description"
-    t.decimal  "price",                                     precision: 9, scale: 2, default: 0.0,   null: false
+    t.decimal  "price",             precision: 9, scale: 2, default: 0.0,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "status",                                    default: true

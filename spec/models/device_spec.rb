@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Device do
-  let(:device) { build(:device) }
+
+  let(:device) { build_stubbed(:device) }
 
   context 'relationships' do
     expect_it { to belong_to(:lab).counter_cache(true).touch(true) }

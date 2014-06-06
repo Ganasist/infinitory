@@ -3,10 +3,9 @@ require 'securerandom'
 
 FactoryGirl.define do
   factory :device do
+    institute
     lab
     name                   { Faker::Lorem.word }
-    category               { %w[calocages centrifuge confocal_microscope FACS PCR_machine RT-PCR telemetry_system].sample }
-    
     currency               { %w[$ €].sample }
     price                  { Random.rand(100000) }
     serial                 { SecureRandom.hex(Random.rand(2..8)) }
