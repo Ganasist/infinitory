@@ -36,6 +36,11 @@ describe Lab do
     expect_it { to have_db_index(:institute_id) }
   end
 
+
+  context 'Lab methods' do
+
+  end
+
   it 'is valid with a GL and institute' do
     expect(lab).to be_valid
   end

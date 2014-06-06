@@ -5,22 +5,35 @@ describe User do
   let(:user) { build(:user) }
 
   context 'relationships' do
-    expect_it { to belong_to(:lab) }
-    expect_it { to belong_to(:department) }
-    expect_it { to belong_to(:institute) }
-    expect_it { to have_many(:ownerships) }
+    expect_it { to belong_to(:lab).touch.counter_cache }
+    expect_it { to belong_to(:department).touch.counter_cache }
+    expect_it { to belong_to(:institute).touch.counter_cache }
+    expect_it { to have_many(:ownerships).dependent(:destroy) }
     expect_it { to have_many(:reagents).through(:ownerships) }
+    expect_it { to have_many(:device_ownerships).through(:ownerships).class_name('Device') }
+    expect_it { to have_many(:bookings).dependent(:destroy) }
+    expect_it { to have_many(:device_bookings).through(:bookings).class_name('Device') }
   end
 
   context 'validations' do
     expect_it { to validate_presence_of(:role) }
-    expect_it { to validate_uniqueness_of(:email) }
     expect_it { to validate_presence_of(:email) }
+    expect_it { to validate_uniqueness_of(:email) }
+    expect_it { to validate_acceptance_of(:terms) }
     expect_it { to validate_presence_of(:password) }
     expect_it { to validate_confirmation_of(:password) }
     expect_it { to ensure_length_of(:password).is_at_least(8).is_at_most(128) }
     expect_it { to ensure_inclusion_of(:role).in_array(%w[lab_manager research_associate postdoctoral_researcher 
                                                        doctoral_candidate master's_student project_student technician other]) }
+    expect_it { to allow_value('http://foo.com', 'http://bar.com/baz').for(:linkedin_url) }
+    expect_it { to allow_value('http://foo.com', 'http://bar.com/baz').for(:xing_url) }
+    expect_it { to allow_value('http://foo.com', 'http://bar.com/baz').for(:twitter_url) }
+    expect_it { to allow_value('http://foo.com', 'http://bar.com/baz').for(:facebook_url) }
+    expect_it { to_not allow_value('htp://foo.com', 'http://barcom/baz').for(:linkedin_url) }
+    expect_it { to_not allow_value('htp://foo.com', 'http://barcom/baz').for(:xing_url) }
+    expect_it { to_not allow_value('htp://foo.com', 'http://barcom/baz').for(:twitter_url) }
+    expect_it { to_not allow_value('htp://foo.com', 'http://barcom/baz').for(:facebook_url) }
+
   end
 
   context 'database columns' do
@@ -80,13 +93,19 @@ describe User do
   end
 
   context 'database indexes' do
-    expect_it { to have_db_index(:email).unique(true) }
-    expect_it { to have_db_index(:slug).unique(true) }
-    expect_it { to have_db_index(:lab_id) }
-    expect_it { to have_db_index(:department_id) }
-    expect_it { to have_db_index(:institute_id) }
     expect_it { to have_db_index(:confirmation_token).unique(true) }
+    expect_it { to have_db_index(:department_id) }
+    expect_it { to have_db_index(:email).unique(true) }
+    expect_it { to have_db_index(:institute_id) }
+    expect_it { to have_db_index(:invitation_token).unique(true) }
+    expect_it { to have_db_index(:invited_by_id) }
+    expect_it { to have_db_index(:lab_id) }
     expect_it { to have_db_index(:reset_password_token).unique(true) }
+    expect_it { to have_db_index(:slug).unique(true) }
+  end
+
+  context 'User methods' do
+
   end
 
   it 'is invalid without an email address' do
@@ -142,15 +161,13 @@ describe User do
     user { should respond_to(:lab_email) }
   end
 
-  xit 'is not approved until their lab approves them' do
+  it 'is not approved until their lab approves them' do
     user.save
-    expect(user.approved?).to be_false
+    expect(user.approved?).to be_falsey
   end
 
   it 'is valid without a lab if it is not a new account' do
-    gl.save
-    user = create(:user, lab: gl.lab)
-    user.lab = nil
+    user = create(:user)
     expect(user).to be_valid
   end
 
@@ -188,7 +205,7 @@ describe User do
     end
 
     it 'returns true when gl is called on a group leader' do
-      expect(gl.gl?).to be_true
+      expect(gl.gl?).to be_truthy
     end
   end
 
@@ -202,7 +219,7 @@ describe User do
     end
 
     it 'returns false when gl? is called' do
-      expect(user.gl?).to be_false
+      expect(user.gl?).to be_falsey
     end
   end
 

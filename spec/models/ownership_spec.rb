@@ -13,4 +13,9 @@ describe Ownership do
     expect_it { to have_db_column(:created_at).of_type(:datetime) }
     expect_it { to have_db_column(:updated_at).of_type(:datetime) }
   end
+
+
+  context 'Ownership methods' do
+
+  end
 end

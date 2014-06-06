@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   has_many :bookings, dependent: :destroy
   has_many :device_bookings, through: :bookings, class_name: 'Device', foreign_key: 'device_id', source: :device
   
-  validates :role, presence: true, inclusion: { in: ROLES }
+  validates :role, presence: true, inclusion: { in: ROLES }, if: Proc.new { |u| !u.gl? }
   validates :lab_email, on: :create, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
 
   validates :linkedin_url,

@@ -134,6 +134,7 @@ gem 'faker', '~> 1.2.0'
 gem 'factory_girl_rails', :require => false
 
 group :development, :test do
+  gem 'spring-commands-rspec'
   gem 'guard-rspec', '~> 4.2.6', git: 'https://github.com/guard/guard-rspec.git', branch: 'master'
   gem 'rspec', '~> 3.0.0.beta2'
   gem 'rspec-rails', '~> 3.0.0.beta'

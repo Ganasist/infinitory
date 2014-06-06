@@ -40,6 +40,11 @@ describe Reagent do
     expect_it { to have_db_index(:properties) }
   end
 
+
+  context 'Reagent methods' do
+
+  end
+
   it 'is invalid without a lab' do
     reagent.lab = nil
     expect(reagent).to have(1).errors_on(:lab)

@@ -39,6 +39,10 @@ describe Institute do
     expect_it { to have_db_index([:latitude, :longitude]) }
   end
 
+  context 'Institute methods' do
+
+  end
+
   it 'is invalid without a name' do
     expect(build(:institute, name: "")).to have(1).errors_on(:name)
   end
