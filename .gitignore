@@ -28,7 +28,6 @@ db/*.sqlite3
 .redcar/
 .sass-cache
 /config/config.yml
-/config/newrelic.yml
 /config/initializers/secret_token.rb
 /coverage.data
 /coverage/
