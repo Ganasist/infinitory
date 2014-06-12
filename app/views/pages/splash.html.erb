@@ -11,12 +11,15 @@
 
   <!-- Three columns of text below the carousel -->
   <div class="row">
+    <h2 class="text-center text-muted first_heading" id="top_line">Welcome to Infinitory</h2>
+    <h2 class="text-center text-muted first_heading" id="bottom_line">Lab management for scientists</h2>
+    
     <div class="span4">
       <span class="fa-stack fa-4x">
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="splash fa fa-flask fa-stack-1x fa-inverse"></i>
       </span>      
-      <h2 class="text-muted test1">Organize</h2><br>
+      <h2 class="text-muted lead">ORGANIZE</h2>
       <p class="lead">Catalog your reagents</p>
       <p class="lead">Eliminate redundant purchases</p>
       <p class="lead">Get depletion & expiration warnings</p><br>
@@ -26,7 +29,7 @@
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="splash fa fa-gears fa-stack-1x fa-inverse"></i>
       </span>
-      <h2 class="text-muted">Discover</h2><br>
+      <h3 class="text-muted lead">DISCOVER</h3>
       <p class="lead">Catalog your devices</p>
       <p class="lead">Book & track them online</p>
       <p class="lead">Enhance user & device saturation</p><br>
@@ -36,7 +39,7 @@
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="splash fa fa-users fa-stack-1x fa-inverse"></i>
       </span>
-      <h2 class="text-muted">Integrate</h2><br>
+      <h2 class="text-muted lead">INTEGRATE</h2>
       <p class="lead">Link to collaborators</p>
       <p class="lead">Pool resources effectively</p>
       <p class="lead">Monitor everything in real time</p><br>
@@ -45,25 +48,32 @@
 
   <!-- START THE FEATURETTES -->
 
+  <hr class="featurette-divider-devices">
+
+  <h2 class="featurette-heading text-center text-muted">At your desk. On the go.</h2>
+  <div class="featurette text-center">
+    <%= image_tag("infinitory_imac.png", class: "featurette-image devices") %>
+    <%= image_tag("infinitory_macbook.png", class: "featurette-image devices") %>
+    <%= image_tag("infinitory_iPad.png", class: "featurette-image devices") %>
+  </div>
+
   <hr class="featurette-divider">
 
   <div class="featurette">
     <a href="http://www.klarireis.com/" target="_blank">
-      <!-- <img class="featurette-image pull-right" src="../images/petri_signup.jpg"> -->
       <%= image_tag("petri_signup.jpg", class: "featurette-image pull-right") %>
     </a>
 
     <h2 class="featurette-heading">Step 1: <span class="muted">Sign-up</span></h2>
     <p class="lead">Group leaders request a lab account. We create it. Lab members sign-up and link to the lab account.</p>
     <p class="lead">Questions? <%= link_to "Answers", page_path('faq'), class: "btn-large btn-warning btn-custom" %></p>
-  
   </div>
   <p class="text-right copyright-right"><small>© Klari Art LLC</small></p>
+
   <hr class="featurette-divider">
 
   <div class="featurette">    
     <a href="http://www.klarireis.com/" target="_blank">
-      <!-- <img class="featurette-image pull-left"  src="../images/petri_initial_catalog.jpg"> -->
       <%= image_tag("petri_initial_catalog.jpg", class: "featurette-image pull-left") %>
     </a>
 
@@ -72,17 +82,17 @@
     <p class="lead zemp">Curious? <%= mail_to "feedback@infinitory.com", "Contact us",class: "btn-large btn-warning btn-custom" %></p>
   </div>
   <p class="text-left copyright-left"><small>© Klari Art LLC</small></p>
+
   <hr class="featurette-divider">
 
   <div class="featurette">
     <a href="http://www.klarireis.com/" target="_blank">
-      <!-- <img class="featurette-image pull-right" src="../images/petri_steady_state.jpg"> -->
       <%= image_tag("petri_steady_state.jpg", class: "featurette-image pull-right") %>
     </a>
     <h2 class="featurette-heading">Step 3: <span class="muted">Proceed</span></h2>
     <p class="lead">Make informed decisions to save time and money. Waste fewer resources. Get more done.</p>
     <p class="lead">Ready? <%= link_to "Request an account", new_request_path, class: "btn-large btn-warning btn-custom" %></p>
   </div>
-
   <p class="text-right copyright-right"><small>© Klari Art LLC</small></p>
+
   <hr class="featurette-divider">
