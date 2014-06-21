@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
 
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :orphans, except: [:edit, :update, :destroy]
