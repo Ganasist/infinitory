@@ -9,16 +9,12 @@ class AverageDailyPointsWorker
   def perform
 
     today = DateTime.now
-    User.where('joined < ?', 2.days.ago).find_in_batches do |b|
-      b.each do |u|
-
+    User.where('joined < ?', 2.days.ago).find_each do |u|
         if Rails.env.development? || Rails.env.staging?
           u.add_points(rand(50))          
         end
-
       	u.daily_points = (u.points / (today - u.joined.to_datetime).to_i)
       	u.save
-      end
     end
 
     # This is a snapshot of lab's CURRENT members, not an historical average!!
