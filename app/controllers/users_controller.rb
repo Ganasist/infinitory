@@ -13,6 +13,16 @@ class UsersController < ApplicationController
     if request.path != user_path(@user)
       redirect_to @user, status: :moved_permanently
     end
+
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column("number", "Activity" )
+    data_table.add_rows(60)
+    for i in 0..(@user.sparkline_points.length - 1) do
+      data_table.set_cell(i,0,@user.sparkline_points[i])
+    end
+    opts   = { width: 420, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }
+    @chart = GoogleVisualr::Image::SparkLine.new(data_table, opts)
+
     @activities = PublicActivity::Activity.includes(:trackable).where(owner_id: @user.id).group("activities.id").page(params[:activities]).per(10).reverse_order
     @comments = @user.comments.recent.page(params[:comments]).per(10)
   end

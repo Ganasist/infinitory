@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530125853) do
+ActiveRecord::Schema.define(version: 20140624100138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -395,6 +395,7 @@ ActiveRecord::Schema.define(version: 20140530125853) do
     t.integer  "bookings_count",         default: 0
     t.string   "state"
     t.boolean  "super_admin",            default: false
+    t.integer  "sparkline_points",       default: [0],   null: false, array: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
