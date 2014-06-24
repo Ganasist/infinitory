@@ -65,6 +65,14 @@ class Lab < ActiveRecord::Base
   	institute.name
   end
 
+  def cached_total_points
+    Rails.cache.fetch([self.points, "cached_total_points"], expires_in: 1.hour) { self.points }
+  end
+
+  def cached_daily_points
+    Rails.cache.fetch([self.daily_points, "cached_daily_scores"], expires_in: 1.day) { self.daily_points }
+  end
+
   def gl
 		User.find_by(email: self.email)
   end

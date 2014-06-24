@@ -25,6 +25,15 @@ class LabsController < ApplicationController
     @institute = @lab.institute
     @notifications = @lab.comments.recent.page(params[:page]).per(16)
 
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column("number", "Activity" )
+    data_table.add_rows(60)
+    for i in 0..(@lab.sparkline_points.length - 1) do
+      data_table.set_cell(i,0,@lab.sparkline_points[i])
+    end
+    opts   = { width: 525, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }
+    @sparkline_chart = GoogleVisualr::Image::SparkLine.new(data_table, opts)
+
     data_table_lab = GoogleVisualr::DataTable.new
     data_table_lab.new_column('string', 'Name')
     data_table_lab.new_column('number', 'Devices')

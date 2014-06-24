@@ -23,7 +23,19 @@
                           edit_lab_path(@lab), class: 'btn-small btn-warning' %>
           </div>
         <% end %>
-      </h4>
+        <br><br>
+        <small class="lead">
+          <% if @lab.points > 0 %>
+            <%= number_with_delimiter(@lab.cached_total_points) || '0' %> pts <br>
+            <%= pluralize(@lab.cached_daily_points || '0', 'pt' )%>/day
+
+              <div id='chart' data-toggle='tooltip' title='Daily activity' data-placement='bottom'></div>
+              <%= render_chart @sparkline_chart, 'chart' %>
+          <% end %>
+        </small> 
+      </h4>      
+
+
       <ul class="inline">
         <br>
         
