@@ -7,7 +7,7 @@ class AverageDailyPointsWorker
   end
   
   def perform
-
+    # User's average daily points
     today = DateTime.now
     User.where('joined < ?', 2.days.ago).find_each do |u|
         if Rails.env.development? || Rails.env.staging?
@@ -17,7 +17,7 @@ class AverageDailyPointsWorker
       	u.save
     end
 
-    # This is a snapshot of lab's CURRENT members, not an historical average!!
+    # Lab's average and total points. This is a snapshot of lab's CURRENT members, not an historical average!!
     Lab.find_each do |l|
       lab_daily_points = 0
       lab_total_points = 0
@@ -30,7 +30,6 @@ class AverageDailyPointsWorker
       l.add_points(lab_total_points)
       l.save
     end
-
   end
 
 end

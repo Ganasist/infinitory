@@ -34,7 +34,6 @@ class BookingsController < ApplicationController
     @device = Device.find(params[:device_id])
     @booking = @device.bookings.new(booking_params)
     if @booking.save
-      # redirect_to device_bookings_path(@booking.device), notice: 'Booking created.'
       redirect_to device_bookings_path(@booking.device)
     else
       flash[:error] = 'There was a problem booking this device'
@@ -54,7 +53,7 @@ class BookingsController < ApplicationController
   def destroy
     @device = @booking.device
     @booking.destroy
-    redirect_to device_bookings_url(@device), notice: 'Booking destroyed.'
+    redirect_to device_bookings_url(@device), notice: 'Booking removed.'
   end
 
   private
