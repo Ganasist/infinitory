@@ -45,7 +45,6 @@
 
           <%= link_to device_path(device),
                       method: :delete,
-                      data: { confirm: "Are you sure you want to delete #{device.name}?" },
                       remote: true do %>
             <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete"  %>
           <% end %>
