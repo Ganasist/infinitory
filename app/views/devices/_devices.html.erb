@@ -1,55 +1,55 @@
 <%- model_class = Device -%>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= device_sortable 'name' %></th>
-      <th><%= device_sortable 'category' %></th>
-      <th><%= device_sortable 'location' %></th>
-      <% if params[:tag] %>
-        <th><%= device_sortable 'tags' %></th>
-      <% end %>
-      <th><%= device_sortable 'price' %></th>
-      <th><%= device_sortable 'updated_at', 'Last updated' %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @devices.each do |device| %>
-      <tr id="<%= device.id %>">
-        <td>
-          <%#= fa_icon "gear", class: "fa-lg fa-spin", title: "Offline" %>
-          <%= fa_icon "wrench", title: "Offline" unless device.status? %>
-          <%= fa_icon "star-o", title: "Shared device" if device.shared? %>          
-          <%= fa_icon "paperclip", title: "Attachment" if device.pdf.present? %>
-          <%= fa_icon "camera-retro", title: "Image" if device.icon.present? %>
-          <% if device.status? %>
-            <%= link_to "#{fullname(device)}", device_path(device) %>
-          <% else %>
-            <%= link_to "#{fullname(device)}", device_path(device), class: "text-danger" %>
-          <% end %>
-        </td>
-        <td><%= device.category_list %></td>  
-        <td><%= best_in_place device, :location %></td>
-        <td><%= best_in_place device, :price, display_with: :number_to_currency, helper_options: { unit: device.currency } %></td>
-        <td><%= time_ago_in_words(device.updated_at) %> ago</td>
-        <td>
-          <% if device.bookable? %>
-            <%= link_to device_bookings_path(device) do %>
-              <%= fa_icon "calendar", class: "fa-lg fa-fw", title: "Schedule"  %>
-            <% end %>
-          <% end %>
-
-          <%= link_to edit_device_path(device) do %>
-            <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
-          <% end %>
-
-          <%= link_to device_path(device),
-                      method: :delete,
-                      remote: true do %>
-            <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete"  %>
-          <% end %>
-        </td>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= device_sortable 'name' %></th>
+        <th><%= device_sortable 'category' %></th>
+        <th><%= device_sortable 'location' %></th>
+        <% if params[:tag] %>
+          <th><%= device_sortable 'tags' %></th>
+        <% end %>
+        <th><%= device_sortable 'price' %></th>
+        <th><%= device_sortable 'updated_at', 'Last updated' %></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+    <tbody>
+      <% @devices.each do |device| %>
+        <tr id="<%= device.id %>">
+          <td>
+            <%#= fa_icon "gear", class: "fa-lg fa-spin", title: "Offline" %>
+            <%= fa_icon "wrench", title: "Offline" unless device.status? %>
+            <%= fa_icon "star-o", title: "Shared device" if device.shared? %>          
+            <%= fa_icon "paperclip", title: "Attachment" if device.pdf.present? %>
+            <%= fa_icon "camera-retro", title: "Image" if device.icon.present? %>
+            <% if device.status? %>
+              <%= link_to "#{fullname(device)}", device_path(device) %>
+            <% else %>
+              <%= link_to "#{fullname(device)}", device_path(device), class: "text-danger" %>
+            <% end %>
+          </td>
+          <td><%= device.category_list %></td>  
+          <td><%= best_in_place device, :location %></td>
+          <td><%= best_in_place device, :price, display_with: :number_to_currency, helper_options: { unit: device.currency } %></td>
+          <td><%= time_ago_in_words(device.updated_at) %> ago</td>
+          <td>
+            <% if device.bookable? %>
+              <%= link_to device_bookings_path(device) do %>
+                <%= fa_icon "calendar", class: "fa-lg fa-fw", title: "Schedule"  %>
+              <% end %>
+            <% end %>
+
+            <%= link_to edit_device_path(device) do %>
+              <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
+            <% end %>
+
+            <%= link_to device_path(device),
+                        method: :delete,
+                        remote: true do %>
+              <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete"  %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
 </table>
