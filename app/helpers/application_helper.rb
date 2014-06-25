@@ -11,13 +11,20 @@ module ApplicationHelper
 	def badging(activity)
 		if (activity.key == "user.feedback")
 			raw('<span class="badge badge-1 pull-right">+1</span>')
-		elsif (activity.key == "reagent.update") || (activity.key == "device.update") || (activity.key == "booking.update")
+		elsif (activity.key == "reagent.update") ||
+					(activity.key == "device.update") || 
+					(activity.key == "booking.update")
 			raw('<span class="badge badge-2 pull-right">+2</span>')
-		elsif (activity.key == "reagent.create") || (activity.key == "device.create") || (activity.key == "booking.create")
+		elsif (activity.key == "reagent.create") ||
+					(activity.key == "device.create") ||
+					(activity.key == "booking.create")
 	  	raw('<span class="badge badge-3 pull-right">+3</span>')
-	  elsif (activity.key == "reagent.clone") || (activity.key == "device.clone")
+	  elsif (activity.key == "reagent.clone") ||
+	  			(activity.key == "device.clone")
 	  	raw('<span class="badge badge-4 pull-right">+4</span>')
-	  elsif (activity.key == "reagent.delete") || (activity.key == "device.delete") || (activity.key == "booking.delete")
+	  elsif (activity.key == "reagent.delete") ||
+	  			(activity.key == "device.delete") ||
+	  			(activity.key == "booking.delete")
 	   	raw('<span class="badge badge-5 pull-right">+5</span>')
 	  elsif (activity.key == "user.invitation")
 	   	raw('<span class="badge badge-10 pull-right">+10</span>')
