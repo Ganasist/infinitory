@@ -29,7 +29,7 @@
             <%= number_with_delimiter(@lab.cached_total_points) || '0' %> pts <br>
             <%= pluralize(@lab.cached_daily_points || '0', 'pt' )%>/day
 
-              <div id='chart' data-toggle='tooltip' title='Daily activity' data-placement='bottom'></div>
+              <div id='chart' data-toggle='tooltip' title='60 day trend' data-placement='bottom'></div>
               <%= render_chart @sparkline_chart, 'chart' %>
           <% end %>
         </small> 
