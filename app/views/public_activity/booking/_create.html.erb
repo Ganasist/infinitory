@@ -1,0 +1,6 @@
+Booked
+<% if activity.trackable.present? %>
+	<%= link_to "#{activity.trackable.device.fullname}", activity.trackable.device %>
+<% else %>
+  a device (which has since been removed)
+<% end %>

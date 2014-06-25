@@ -24,10 +24,10 @@ module Merit
       #   'photos#create'
       # ]
       score 1, on: ['messages#create']
-      score 2, on: ['reagents#update', 'devices#update']
-      score 3, on: ['reagents#create', 'devices#create']
+      score 2, on: ['reagents#update', 'devices#update', 'bookings#update']
+      score 3, on: ['reagents#create', 'devices#create', 'bookings#create']
       score 4, on: ['reagents#clone', 'devices#clone']
-      score 5, on: ['reagents#destroy', 'devices#destroy']
+      score 5, on: ['reagents#destroy', 'devices#destroy', 'bookings#destroy']
     end
   end
 end

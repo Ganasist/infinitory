@@ -34,7 +34,8 @@ class BookingsController < ApplicationController
     @device = Device.find(params[:device_id])
     @booking = @device.bookings.new(booking_params)
     if @booking.save
-      # redirect_to device_bookings_path(@booking.device), notice: 'Booking created.'
+      @booking.create_activity :create, owner: current_user
+      send_comment(@device, "booked")
       redirect_to device_bookings_path(@booking.device)
     else
       flash[:error] = 'There was a problem booking this device'
@@ -44,6 +45,8 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
+      @booking.create_activity :update, owner: current_user
+      send_comment(@booking.device, "updated")
       redirect_to device_bookings_path(@booking.device)
     else
       flash[:error] = 'There was a problem editing this booking'
@@ -52,9 +55,11 @@ class BookingsController < ApplicationController
   end
 
   def destroy
+    @booking.create_activity :delete, owner: current_user
+    send_comment(@booking.device, 'canceled')
     @device = @booking.device
     @booking.destroy
-    redirect_to device_bookings_url(@device), notice: 'Booking destroyed.'
+    redirect_to device_bookings_url(@device), notice: 'Booking removed.'
   end
 
   private

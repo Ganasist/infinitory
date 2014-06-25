@@ -1,5 +1,7 @@
 class Booking < ActiveRecord::Base
 
+  include PublicActivity::Common
+
   paginates_per 8
   scope :end_time_desc, -> { order('end_time Desc') }
 
