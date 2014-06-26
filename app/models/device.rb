@@ -87,6 +87,18 @@ class Device < ActiveRecord::Base
     User.find_by(email: self.lab.email)
   end
 
+  def fullname
+    if self.uid.present? && self.location.present?
+        "#{self.name}-#{self.uid} (#{self.location})"
+    elsif self.uid.present? && !self.location.present?
+        "#{self.name}-#{self.uid}"
+    elsif !self.uid.present? && self.location.present?
+      "#{self.name} (#{self.location})"
+    elsif !self.uid.present? && !self.location.present?
+      "#{self.name}"
+    end
+  end
+
   after_update :online_status_worker, if: Proc.new { |d| d.status_changed? }
   def online_status_worker
     OnlineStatusWorker.perform_async(self.id)    
@@ -100,14 +112,6 @@ class Device < ActiveRecord::Base
   after_update :location_status_worker, if: Proc.new { |d| d.location_changed? }
   def location_status_worker
     LocationStatusWorker.perform_async("device", self.id)
-  end
-
-  def fullname
-    if self.uid.present?
-      "#{self.name}-#{self.uid}"
-    else
-      "#{self.name}"
-    end
   end
 
   private

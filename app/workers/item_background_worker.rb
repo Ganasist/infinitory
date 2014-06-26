@@ -11,17 +11,9 @@ class ItemBackgroundWorker
     current_user = User.find(current_user_id)  		
 
     if type == "reagent" || type == "device"
-    	if item.location.present?
-        comment = "#{ item.fullname } (#{ item.location }) was #{ action } by #{ current_user.fullname }"
-      else
-        comment = "#{ item.fullname } was #{ action } by #{ current_user.fullname }"
-      end
+      comment = "#{ item.fullname } was #{ action } by #{ current_user.fullname }"
     elsif type == "booking"
-      if item.location.present?
-        comment = "#{ current_user.fullname } #{ action } a booking for #{ item.fullname } (#{ item.location })"
-      else
-        comment = "#{ current_user.fullname } #{ action } a booking for #{ item.fullname }"
-      end
+      comment = "#{ current_user.fullname } #{ action } a booking for #{ item.fullname }"
     end
     item.users.each do |u|
       u.comments.create(comment: comment)

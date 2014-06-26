@@ -10,7 +10,7 @@ class LocationStatusWorker
   	end
     
   	if item.location.present?
-      comment = "#{ item.fullname } was moved to #{ item.location }"
+      comment = "#{ item.fullname } was relocated"
     else
       comment = "#{ item.fullname } was moved to an unknown location"
     end
