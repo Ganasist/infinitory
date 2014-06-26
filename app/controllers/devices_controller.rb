@@ -63,7 +63,7 @@ class DevicesController < ApplicationController
         format.html { redirect_to @clone, notice: "#{ fullname(@clone) } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit', notice: "There was a problem cloning" }
         format.json { render json: @clone.errors, status: :unprocessable_entity }
       end
     end
@@ -135,7 +135,7 @@ class DevicesController < ApplicationController
       params.require(:device).permit(:lab_id, { :user_ids => [] }, :name,
                                      { :category_list => [] }, :location, :price,
       															 :product_url, :purchasing_url, :serial, :description,
-                                     :bookable, :lock_version, :status, :uid, :shared, 
+                                     :bookable, :status, :uid, :shared, 
                                      :currency, :pdf, :delete_pdf, :pdf_remote_url,
                                      :icon, :delete_icon, :icon_remote_url)
     end

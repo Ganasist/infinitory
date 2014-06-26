@@ -71,7 +71,6 @@ class ReagentsController < ApplicationController
         @reagent.create_activity :update, owner: current_user
         if @reagent.remaining < 21
           ReagentDepletionWorker.perform_async(@reagent.id)
-          # @reagent.reagent_low
         end
         format.html { redirect_to @reagent }
         format.json { head :no_content }
@@ -134,7 +133,7 @@ class ReagentsController < ApplicationController
     def reagent_params
       params.require(:reagent).permit(:lab_id, { :user_ids => [] }, :name, { :category_list => [] }, :location,
                                       :product_url, :purchasing_url, :serial, :price, :properties,
-                                      :description, :expiration, :remaining, :tag_list, :lock_version,
+                                      :description, :expiration, :remaining, :tag_list,
                                       :quantity, :lot_number, :uid, :shared, :currency, :description, 
                                       :pdf, :delete_pdf, :pdf_remote_url,
                                       :icon, :delete_icon, :icon_remote_url)

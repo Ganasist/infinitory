@@ -56,9 +56,10 @@ class Device < ActiveRecord::Base
   
   amoeba do
     enable
-    customize(lambda { |original_device,new_device|
-      new_device.uid       = SecureRandom.hex(2)
+    customize(lambda { |original_device, new_device|
+      new_device.uid        = SecureRandom.hex(2)
       new_device.activities = []
+      new_device.bookings   = []
       if original_device.icon.present?
         new_device.icon = original_device.icon
       end
@@ -86,70 +87,23 @@ class Device < ActiveRecord::Base
     end
   end
 
-	# def relative_percentage(category)
- #    self.devices.where(category: category).count
- #  end
-
 	def gl
     User.find_by(email: self.lab.email)
   end
 
-  after_update  :online_status_message,
-                if: Proc.new { |d| d.status_changed? }
-  def online_status_message
-    if self.location.present?
-      if self.status?
-        comment = "#{ self.fullname } (#{ self.location }) was taken online"
-      else
-        comment = "#{ self.fullname } (#{ self.location }) was taken offline"
-      end
-    else
-      if self.status?
-        comment = "#{ self.fullname } was taken online"
-      else
-        comment = "#{ self.fullname } was taken offline"
-      end
-    end
-    self.users.each do |u|
-      u.comments.create(comment: comment)
-    end
-    self.lab.comments.create(comment: comment)
+  after_update :online_status_worker, if: Proc.new { |d| d.status_changed? }
+  def online_status_worker
+    OnlineStatusWorker.perform_async(self.id)    
   end
 
-  after_update  :shared_status_message,
-                if: Proc.new { |d| d.shared_changed? }
-  def shared_status_message
-    if self.location.present?
-      if self.shared?
-        comment = "#{ self.fullname } (#{ self.location }) was shared"
-      else
-        comment = "#{ self.fullname } (#{ self.location }) was unshared"
-      end
-    else
-      if self.shared?
-        comment = "#{ self.fullname } was shared"
-      else
-        comment = "#{ self.fullname } was unshared"
-      end
-    end
-    self.users.each do |u|
-      u.comments.create(comment: comment)
-    end
-    self.lab.comments.create(comment: comment)    
+  after_update :share_status_worker, if: Proc.new { |d| d.shared_changed? }
+  def share_status_worker
+    ShareStatusWorker.perform_async("device", self.id)
   end
 
-  after_update  :location_status_message,
-                if: Proc.new { |d| d.location_changed? }
-  def location_status_message
-    if self.location.present?
-      comment = "#{ self.fullname } was moved to #{ self.location }"
-    else
-      comment = "#{ self.fullname } was moved to an unknown location"
-    end
-    self.users.each do |u|
-      u.comments.create(comment: comment)
-    end
-    self.lab.comments.create(comment: comment)    
+  after_update :location_status_worker, if: Proc.new { |d| d.location_changed? }
+  def location_status_worker
+    LocationStatusWorker.perform_async("device", self.id)
   end
 
   def fullname

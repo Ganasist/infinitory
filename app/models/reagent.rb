@@ -53,7 +53,7 @@ class Reagent < ActiveRecord::Base
 
 	amoeba do
     enable
-    customize(lambda { |original_reagent,new_reagent|
+    customize(lambda { |original_reagent, new_reagent|
     	new_reagent.uid        = SecureRandom.hex(2)
     	new_reagent.remaining  = 100
     	new_reagent.activities = []
@@ -96,24 +96,6 @@ class Reagent < ActiveRecord::Base
     User.find_by(email: self.lab.email)
   end
 
-  # def relative_percentage(category)
-  #   self.reagents.where(category: category).count
-  # end
-
-  # def reagent_low
-  #   if self.location.present?
-  #     self.users.each do |u|
-  #       u.comments.create(comment: "#{ self.fullname } (#{ self.location }) had only #{ self.remaining }% remaining")
-  #     end
-  #     self.lab.comments.create(comment: "#{ self.fullname } (#{ self.location }) had only #{ self.remaining }% remaining")  
-  #   else
-  #     self.users.each do |u|
-  #       u.comments.create(comment: "#{ self.fullname } had only #{ self.remaining }% remaining")
-  #     end
-  #     self.lab.comments.create(comment: "#{ self.fullname } had only #{ self.remaining }% remaining")
-  #   end
-  # end
-
   def fullname
     if self.uid.present?
       "#{self.name}-#{self.uid}"
@@ -147,40 +129,14 @@ class Reagent < ActiveRecord::Base
     end
   end
 
-  after_update  :shared_status_message,
-                if: Proc.new { |r| r.shared_changed? }
-  def shared_status_message
-    if self.location.present?
-      if self.shared?
-        comment = "#{ self.fullname } (#{ self.location }) was shared"
-      else
-        comment = "#{ self.fullname } (#{ self.location }) was unshared"
-      end
-    else
-      if self.shared?
-        comment = "#{ self.fullname } was shared"
-      else
-        comment = "#{ self.fullname } was unshared"
-      end
-    end
-    self.users.each do |u|
-      u.comments.create(comment: comment)
-    end
-    self.lab.comments.create(comment: comment)    
+  after_update :share_status_worker, if: Proc.new { |r| r.shared_changed? }
+  def share_status_worker
+    ShareStatusWorker.perform_async("reagent", self.id)
   end
 
-  after_update  :location_status_message,
-                if: Proc.new { |d| d.location_changed? }
-  def location_status_message
-    if self.location.present?
-      comment = "#{ self.fullname } was moved to #{ self.location }"
-    else
-      comment = "#{ self.fullname } was moved to an unknown location"
-    end
-    self.users.each do |u|
-      u.comments.create(comment: comment)
-    end
-    self.lab.comments.create(comment: comment)    
+  after_update :location_status_worker, if: Proc.new { |r| r.location_changed? }
+  def location_status_worker
+    LocationStatusWorker.perform_async("reagent", self.id)
   end
 
   private
