@@ -67,8 +67,8 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    helper_method :send_booking_comment
-    def send_booking_comment(item, action)      
+    helper_method :send_booking_destroy_comment
+    def send_booking_destroy_comment(item, action)      
       if item.location.present?
         item.users.each do |u|
           u.comments.create(comment: "#{ current_user.fullname } #{ action } a booking for #{ fullname(item) } (#{ item.location })")

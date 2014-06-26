@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span3">
-		<h1>New booking</h1>
+		<h2><small>New <%= @device.fullname %> booking</small></h2>
 		<%= render 'form' %>
 		<%= link_to 'Back', device_bookings_path(@device) %>
 	</div>
