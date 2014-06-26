@@ -132,7 +132,7 @@ class DevicesController < ApplicationController
     end
 
     def device_params
-      params.require(:device).permit(:lab_id, { :user_ownership_ids => [] }, :name,
+      params.require(:device).permit(:lab_id, { :user_ids => [] }, :name,
                                      { :category_list => [] }, :location, :price,
       															 :product_url, :purchasing_url, :serial, :description,
                                      :bookable, :lock_version, :status, :uid, :shared, 
