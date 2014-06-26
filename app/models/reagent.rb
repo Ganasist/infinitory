@@ -90,8 +90,6 @@ class Reagent < ActiveRecord::Base
 	scope :modified_recently, -> { order("updated_at Desc") }
 	scope :expired, 					-> { where("expiration < ?", Date.today )}
 
-	# store_accessor :properties, :description
-
   def gl
     User.find_by(email: self.lab.email)
   end
