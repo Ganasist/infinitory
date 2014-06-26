@@ -44,7 +44,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         @device.create_activity :create, owner: current_user
-        send_comment(@device, "created")
+        ItemBackgroundWorker.perform_async("device", @device.id, 'created', current_user.id)
         format.html { redirect_to @device }
         format.json { render action: 'show', status: :created, location: @device }
       else
@@ -59,7 +59,7 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @clone.save
         @clone.create_activity :clone, owner: current_user
-        send_comment(@device, "cloned")
+        ItemBackgroundWorker.perform_async("device", @device.id, 'cloned', current_user.id)
         format.html { redirect_to @clone, notice: "#{ fullname(@clone) } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
@@ -83,9 +83,9 @@ class DevicesController < ApplicationController
   end
 
   def destroy
+    send_destroy_comment(@device, 'removed')
     @lab = @device.lab
     @device.create_activity :delete, owner: current_user
-    send_comment(@device, 'removed')
     @device.destroy
     respond_to do |format|
       flash[:notice] = "#{ fullname(@device) } has been removed."

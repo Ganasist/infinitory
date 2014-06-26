@@ -52,8 +52,8 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    helper_method :send_comment
-    def send_comment(item, action)      
+    helper_method :send_destroy_comment
+    def send_destroy_comment(item, action)      
       if item.location.present?
         item.users.each do |u|
           u.comments.create(comment: "#{ fullname(item) } (#{ item.location }) was #{ action } by #{ current_user.fullname }")

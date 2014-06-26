@@ -40,7 +40,7 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @reagent.save
         @reagent.create_activity :create, owner: current_user
-        send_comment(@reagent, "created")
+        ItemBackgroundWorker.perform_async("reagent", @reagent.id, 'created', current_user.id)
         format.html { redirect_to @reagent }
         format.json { render action: 'show', status: :created, location: @reagent }
       else
@@ -55,7 +55,7 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @clone.save
         @clone.create_activity :clone, owner: current_user
-        send_comment(@reagent, "cloned")
+        ItemBackgroundWorker.perform_async("reagent", @reagent.id, 'cloned', current_user.id)
         format.html { redirect_to @clone, notice: "#{ fullname(@clone) } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
@@ -82,9 +82,9 @@ class ReagentsController < ApplicationController
   end
 
   def destroy
+    send_destroy_comment(@reagent, 'removed')
     @lab = @reagent.lab
     @reagent.create_activity :delete, owner: current_user
-    send_comment(@reagent, "removed")
     @reagent.destroy
     respond_to do |format|
       flash[:notice] = "#{ fullname(@reagent) } has been removed."
