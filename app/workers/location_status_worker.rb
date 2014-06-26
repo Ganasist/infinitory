@@ -8,7 +8,7 @@ class LocationStatusWorker
   	elsif type == "device"
   		item = Device.find(item_id)
   	end
-
+    
   	if item.location.present?
       comment = "#{ item.fullname } was moved to #{ item.location }"
     else

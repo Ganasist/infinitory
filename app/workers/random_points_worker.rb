@@ -4,7 +4,7 @@ class RandomPointsWorker
   include Sidetiq::Schedulable
 
   recurrence backfill: true do
-    daily.hour_of_day(1)
+    daily
   end
   
 	if Rails.env.development? || Rails.env.staging?

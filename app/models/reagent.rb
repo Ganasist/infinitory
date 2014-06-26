@@ -97,37 +97,41 @@ class Reagent < ActiveRecord::Base
   end
 
   def fullname
-    if self.uid.present?
-      "#{self.name}-#{self.uid}"
-    else
+    if self.uid.present? && self.location.present?
+        "#{self.name}-#{self.uid} (#{self.location})"
+    elsif self.uid.present? && !self.location.present?
+        "#{self.name}-#{self.uid}"
+    elsif !self.uid.present? && self.location.present?
+      "#{self.name} (#{self.location})"
+    elsif !self.uid.present? && !self.location.present?
       "#{self.name}"
     end
   end
 
-  def self.expiration_notice
-    Reagent.where(expiration: [28.days.from_now, 14.days.from_now]).find_in_batches(batch_size: 50) do |reagents|
-      message = []
-      reagents.each do |reagent|
-        reagent.users.each do |user|
-          test << expiration_message(reagent, user)
-        end
-        test << expiration_message(reagent, reagent.lab)
-      end      
-      Comment.import(message)
-    end
-  end
+  # def self.expiration_notice
+  #   Reagent.where(expiration: [28.days.from_now, 14.days.from_now]).find_in_batches(batch_size: 50) do |reagents|
+  #     message = []
+  #     reagents.each do |reagent|
+  #       reagent.users.each do |user|
+  #         test << expiration_message(reagent, user)
+  #       end
+  #       test << expiration_message(reagent, reagent.lab)
+  #     end      
+  #     Comment.import(message)
+  #   end
+  # end
 
-  def self.expiration_message(reagent, recipient)
-    if reagent.uid.present? && !reagent.location.present?
-      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} expires soon. Consider sharing it.")
-    elsif !reagent.uid.present? && reagent.location.present?
-      recipient.comments.build(comment: "#{reagent.name} (#{reagent.location}) expires soon. Consider sharing it.")
-    elsif reagent.uid.present? && reagent.location.present?
-      recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.location}) expires soon. Consider sharing it.")
-    else
-      recipient.comments.build(comment: "#{reagent.name} expires soon. Consider sharing it.")
-    end
-  end
+  # def self.expiration_message(reagent, recipient)
+  #   if reagent.uid.present? && !reagent.location.present?
+  #     recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} expires soon. Consider sharing it.")
+  #   elsif !reagent.uid.present? && reagent.location.present?
+  #     recipient.comments.build(comment: "#{reagent.name} (#{reagent.location}) expires soon. Consider sharing it.")
+  #   elsif reagent.uid.present? && reagent.location.present?
+  #     recipient.comments.build(comment: "#{reagent.name}-#{reagent.uid} (#{reagent.location}) expires soon. Consider sharing it.")
+  #   else
+  #     recipient.comments.build(comment: "#{reagent.name} expires soon. Consider sharing it.")
+  #   end
+  # end
 
   after_update :reagent_depletion_worker, if: Proc.new { |r| r.remaining < 21 }
   def reagent_depletion_worker
@@ -160,10 +164,6 @@ class Reagent < ActiveRecord::Base
         self.purchasing_url = 'http://' + self.purchasing_url
       end
     end
-
-  	# def set_expiration
-			# self.expiration = 5.years.from_now
-  	# end
 
 	  def self.text_search(query)
 	    if query.present?

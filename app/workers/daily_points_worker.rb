@@ -8,7 +8,6 @@ class DailyPointsWorker
   end
   
   def perform
-    
     today = DateTime.now
 
     Lab.find_each do |l|

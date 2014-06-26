@@ -67,7 +67,7 @@ class BookingsController < ApplicationController
       if params[:device_id]
         unless Device.find(params[:device_id]).bookable?
           redirect_to current_user
-          flash[:alert] = "That device is not bookable"
+          flash[:alert] = 'That device is not bookable'
         end
       end
     end
