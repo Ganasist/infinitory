@@ -69,9 +69,6 @@ class ReagentsController < ApplicationController
     respond_to do |format|
       if @reagent.update(reagent_params)
         @reagent.create_activity :update, owner: current_user
-        if @reagent.remaining < 21
-          ReagentDepletionWorker.perform_async(@reagent.id)
-        end
         format.html { redirect_to @reagent }
         format.json { head :no_content }
       else

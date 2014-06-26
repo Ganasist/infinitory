@@ -75,11 +75,7 @@ class Device < ActiveRecord::Base
       @icon_remote_url = url_value
     end
   end
-
-  # def set_default_category
-  #   category = "other"
-  # end
-
+  
   def pdf_remote_url=(url_value)
      if url_value.present?
       self.pdf = URI.parse(url_value)
