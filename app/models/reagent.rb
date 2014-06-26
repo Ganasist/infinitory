@@ -100,19 +100,19 @@ class Reagent < ActiveRecord::Base
   #   self.reagents.where(category: category).count
   # end
 
-  def reagent_low
-    if self.location.present?
-      self.users.each do |u|
-        u.comments.create(comment: "#{ self.fullname } (#{ self.location }) had only #{ self.remaining }% remaining")
-      end
-      self.lab.comments.create(comment: "#{ self.fullname } (#{ self.location }) had only #{ self.remaining }% remaining")  
-    else
-      self.users.each do |u|
-        u.comments.create(comment: "#{ self.fullname } had only #{ self.remaining }% remaining")
-      end
-      self.lab.comments.create(comment: "#{ self.fullname } had only #{ self.remaining }% remaining")
-    end
-  end
+  # def reagent_low
+  #   if self.location.present?
+  #     self.users.each do |u|
+  #       u.comments.create(comment: "#{ self.fullname } (#{ self.location }) had only #{ self.remaining }% remaining")
+  #     end
+  #     self.lab.comments.create(comment: "#{ self.fullname } (#{ self.location }) had only #{ self.remaining }% remaining")  
+  #   else
+  #     self.users.each do |u|
+  #       u.comments.create(comment: "#{ self.fullname } had only #{ self.remaining }% remaining")
+  #     end
+  #     self.lab.comments.create(comment: "#{ self.fullname } had only #{ self.remaining }% remaining")
+  #   end
+  # end
 
   def fullname
     if self.uid.present?
@@ -124,14 +124,14 @@ class Reagent < ActiveRecord::Base
 
   def self.expiration_notice
     Reagent.where(expiration: [28.days.from_now, 14.days.from_now]).find_in_batches(batch_size: 50) do |reagents|
-      test = []
+      message = []
       reagents.each do |reagent|
         reagent.users.each do |user|
           test << expiration_message(reagent, user)
         end
         test << expiration_message(reagent, reagent.lab)
       end      
-      Comment.import(test)
+      Comment.import(message)
     end
   end
 
