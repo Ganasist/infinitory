@@ -99,17 +99,17 @@ class Device < ActiveRecord::Base
     end
   end
 
-  after_update :online_status_worker, if: Proc.new { |d| d.status_changed? }
+  after_save :online_status_worker, if: Proc.new { |d| d.status_changed? }
   def online_status_worker
     OnlineStatusWorker.perform_async(self.id)    
   end
 
-  after_update :share_status_worker, if: Proc.new { |d| d.shared_changed? }
+  after_save :share_status_worker, if: Proc.new { |d| d.shared_changed? }
   def share_status_worker
     ShareStatusWorker.perform_async("device", self.id)
   end
 
-  after_update :location_status_worker, if: Proc.new { |d| d.location_changed? }
+  after_save :location_status_worker, if: Proc.new { |d| d.location_changed? }
   def location_status_worker
     LocationStatusWorker.perform_async("device", self.id)
   end

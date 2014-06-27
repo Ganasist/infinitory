@@ -15,7 +15,7 @@ class ShareStatusWorker
     else
       comment = "#{ item.fullname } was unshared"
     end
-    
+
     item.users.each do |u|
       u.comments.create(comment: comment)
     end

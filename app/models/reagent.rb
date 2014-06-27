@@ -106,17 +106,17 @@ class Reagent < ActiveRecord::Base
     end
   end
 
-  after_update :reagent_depletion_worker, if: Proc.new { |r| r.remaining < 21 }
+  after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining < 21 }
   def reagent_depletion_worker
     ReagentDepletionWorker.perform_async(self.id)
   end
 
-  after_update :share_status_worker, if: Proc.new { |r| r.shared_changed? }
+  after_save :share_status_worker, if: Proc.new { |r| r.shared_changed? }
   def share_status_worker
     ShareStatusWorker.perform_async("reagent", self.id)
   end
 
-  after_update :location_status_worker, if: Proc.new { |r| r.location_changed? }
+  after_save :location_status_worker, if: Proc.new { |r| r.location_changed? }
   def location_status_worker
     LocationStatusWorker.perform_async("reagent", self.id)
   end
