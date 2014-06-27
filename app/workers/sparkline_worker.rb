@@ -1,5 +1,4 @@
 class SparklineWorker
-
 	include Sidekiq::Worker
   include Sidetiq::Schedulable
 
