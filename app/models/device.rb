@@ -111,7 +111,7 @@ class Device < ActiveRecord::Base
 
   after_save :bookable_status_worker, if: Proc.new { |d| d.bookable_changed? }
   def bookable_status_worker
-    BookableStatusWorker.perform_async("device", self.id)    
+    BookableStatusWorker.perform_async(self.id)    
   end
 
   after_save :location_status_worker, if: Proc.new { |d| d.location_changed? }
