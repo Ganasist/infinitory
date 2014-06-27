@@ -109,6 +109,11 @@ class Device < ActiveRecord::Base
     ShareStatusWorker.perform_async("device", self.id)
   end
 
+  after_save :bookable_status_worker, if: Proc.new { |d| d.bookable_changed? }
+  def bookable_status_worker
+    BookableStatusWorker.perform_async("device", self.id)    
+  end
+
   after_save :location_status_worker, if: Proc.new { |d| d.location_changed? }
   def location_status_worker
     LocationStatusWorker.perform_async("device", self.id)
