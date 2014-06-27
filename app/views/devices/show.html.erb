@@ -29,7 +29,7 @@
       
       <h4><%= @device.category_list %></h4>
       
-      <h4><%= link_to "The #{@device.gl.fullname} lab", @device.lab %></h4>
+      <h4><%= link_to "The #{ @device.gl.fullname } lab", @device.lab %></h4>
 
       <h4>
         <% if !@device.status? %>

@@ -67,21 +67,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    helper_method :send_booking_destroy_comment
-    def send_booking_destroy_comment(item, action)      
-      if item.location.present?
-        item.users.each do |u|
-          u.comments.create(comment: "#{ current_user.fullname } #{ action } a booking for #{ fullname(item) } (#{ item.location })")
-        end
-        item.lab.comments.create(comment: "#{ current_user.fullname } #{ action } a booking for #{ fullname(item) } (#{ item.location })")
-      else
-        item.users.each do |u|
-          u.comments.create(comment: "#{ current_user.fullname } #{ action } a booking for #{ fullname(item) }")
-        end
-        item.lab.comments.create(comment: "#{ current_user.fullname } #{ action } a booking for #{ fullname(item) }")
-      end
-    end
-
     def after_sign_in_path_for(resource)
       user_path(current_user)
     end

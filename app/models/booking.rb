@@ -45,6 +45,11 @@ class Booking < ActiveRecord::Base
     self.end_time < Time.zone.now - 1.day
   end
 
+  before_destroy { |booking| booking.booking_destroy_worker }
+  def booking_destroy_worker
+    ItemBackgroundWorker.perform_async('booking', self.device.id, 'canceled', self.user_id)
+  end
+
   private
     def duration_to_database
       self.duration = self.duration_accurate

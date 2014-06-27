@@ -44,12 +44,4 @@ module ApplicationHelper
     direction = (column == device_sort_column && device_sort_direction == 'asc') ? 'desc' : 'asc'
     link_to title, sort: column, direction: direction, remote: true
   end
-
-	# def fullname(item)
- #  	if item.uid.present?
- #  		"#{item.name}-#{item.uid}"
- #  	else
- #  		"#{item.name}"
- #  	end
- #  end
 end
