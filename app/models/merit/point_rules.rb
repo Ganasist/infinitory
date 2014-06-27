@@ -3,7 +3,13 @@ module Merit
     include Merit::PointRulesMethods
     def initialize
       score 1, on: ['messages#create']
+
       score 2, on: ['reagents#update', 'devices#update', 'bookings#update']
+      # %w(serial location description product_url purchasing_url).each do |attribute|
+      #   score 2, on: ['reagents#update', 'devices#update'] do |item|
+      #     item.attribute.present?
+      #   end
+      # end
       score 2, on: 'reagents#update' do |item|
         item.expiration.present?
       end
@@ -31,6 +37,11 @@ module Merit
       score 5, on: ['reagents#update', 'devices#update'] do |item|
         item.shared?
       end
+      # %w(icon pdf).each do |attribute|
+      #   score 5, on: ['reagents#update', 'devices#update'] do |item|
+      #     item.attribute.present?
+      #   end
+      # end
       score 5, on: ['reagents#update', 'devices#update'] do |item|
         item.icon.present?
       end
@@ -38,7 +49,13 @@ module Merit
         item.pdf.present?
       end
 
+
       score 3, on: ['reagents#create', 'devices#create', 'bookings#create']
+      # %w(serial location description product_url purchasing_url).each do |attribute|
+      #   score 3, on: ['reagents#create', 'devices#create]' do |item|
+      #     item.attribute.present?
+      #   end
+      # end
       score 3, on: 'reagents#create' do |item|
         item.expiration.present?
       end
@@ -66,6 +83,11 @@ module Merit
       score 10, on: ['reagents#create', 'devices#create'] do |item|
         item.shared?
       end
+      # %w(icon pdf).each do |attribute|
+      #   score 10, on: ['reagents#create', 'devices#create]' do |item|
+      #     item.attribute.present?
+      #   end
+      # end
       score 10, on: ['reagents#create', 'devices#create'] do |item|
         item.icon.present?
       end
@@ -74,6 +96,11 @@ module Merit
       end
 
       score 4, on: ['reagents#clone', 'devices#clone']
+      # %w(serial location description product_url purchasing_url).each do |attribute|
+      #   score 4, on: ['reagents#clone', 'devices#clone]' do |item|
+      #     item.attribute.present?
+      #   end
+      # end
       score 4, on: 'reagents#clone' do |item|
         item.expiration.present?
       end
@@ -101,6 +128,11 @@ module Merit
       score 15, on: ['reagents#clone', 'devices#clone'] do |item|
         item.shared?
       end
+      # %w(pdf icon).each do |attribute|
+      #   score 15, on: ['reagents#clone', 'devices#clone]' do |item|
+      #     item.attribute.present?
+      #   end
+      # end
       score 15, on: ['reagents#clone', 'devices#clone'] do |item|
         item.icon.present?
       end
