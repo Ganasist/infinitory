@@ -1,2 +1,2 @@
-$('#<%= @comment.id %>').css("color", "#bc0303");
+$('#<%= @comment.id %>').children().css( "color", "#bc0303" ).css( "font-weight", "bold");
 $('#<%= @comment.id %>').fadeOut(200);

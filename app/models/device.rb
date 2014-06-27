@@ -11,7 +11,7 @@ class Device < ActiveRecord::Base
 	has_many :ownerships, dependent: :destroy
 	has_many :users, through: :ownerships
 
-  has_many :bookings, dependent: :destroy
+  has_many :bookings
   has_many :user_bookings, through: :bookings, class_name: 'User', foreign_key: 'user_id', source: :user
 
 	validates :name, presence: true

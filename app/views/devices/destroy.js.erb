@@ -1,2 +1,2 @@
-$('#<%= @device.id %>').css("color", "#bc0303");
+$('#<%= @device.id %>').children().css( "color", "#bc0303" ).css( "font-weight", "bold");
 $('#<%= @device.id %>').fadeOut(200);

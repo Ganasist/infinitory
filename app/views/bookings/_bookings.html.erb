@@ -26,9 +26,15 @@
 
         <td><%= booking.updated_at.to_formatted_s(:short) %></td>
 
-        <% if params[:user_id] %> 
+        <% if params[:user_id] && booking.device %> 
           <td>
             <%= link_to booking.device.fullname, booking.device %>
+          </td>
+        <% elsif params[:device_id] && booking.device %>
+
+        <% else %> 
+          <td>
+            REMOVED
           </td>
         <% end %>
 
@@ -40,13 +46,22 @@
 
         <td><%= booking.duration_calculation %></td>
 
-        <% unless params[:device_id] %>
-          <td><%= link_to 'Schedule', device_bookings_path(booking.device_id) %></td>
-        <% end %>
+        <% if booking.device && booking.device.bookable %>
+          <% unless params[:device_id] %>
+            <td><%= link_to 'Schedule', device_bookings_path(booking.device_id) %></td>
+          <% end %>
 
-        <% if !booking.expired_one_day? %>
-          <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-          <td><%= link_to 'Remove', booking, method: :delete %></td>
+          <% if !booking.expired_one_day? %>
+            <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+            <td><%= link_to 'Remove', booking, method: :delete %></td>
+          <% else %>
+            <td></td>
+            <td></td>
+          <% end %>
+        <% else %>
+          <td></td>
+          <td></td>
+          <td></td>
         <% end %>
 
       </tr>

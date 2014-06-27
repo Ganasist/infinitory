@@ -1,4 +1,3 @@
-
 # Be sure to restart your server when you modify this file.
 #
 # Points are a simple integer value which are given to "meritable" resources
