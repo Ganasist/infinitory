@@ -4,6 +4,8 @@ class BookableStatusWorker
 
   def perform(item_id)
 
+    item = Reagent.find(item_id)
+
     if item.bookable?
       comment = "#{ item.fullname } is now bookable"
     else
