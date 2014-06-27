@@ -4,7 +4,7 @@ class SparklineWorker
   include Sidetiq::Schedulable
 
   recurrence backfill: true do
-    daily.hour_of_day(2)
+    daily
   end
 
 	def perform

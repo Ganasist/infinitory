@@ -106,7 +106,7 @@ class Reagent < ActiveRecord::Base
     end
   end
 
-  after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining < 21 }
+  after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining_changed? && r.remaining < 21 }
   def reagent_depletion_worker
     ReagentDepletionWorker.perform_async(self.id)
   end
