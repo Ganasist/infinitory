@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624134044) do
+ActiveRecord::Schema.define(version: 20140627105828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(version: 20140624134044) do
     t.string   "state"
     t.integer  "bookings_count",                            default: 0
     t.integer  "users_count",                               default: 0
-    t.boolean  "bookable",                                  default: false
+    t.boolean  "bookable",                                  default: false, null: false
   end
 
   add_index "devices", ["lab_id", "name", "uid"], name: "index_devices_on_lab_id_and_name_and_uid", unique: true, using: :btree
