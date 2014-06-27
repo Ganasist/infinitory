@@ -1,6 +1,5 @@
 <% @comments.each do |comment| %>
 <span id="<%= comment.id %>">
-	<div class="spinner" id="spinner-<%= comment.id %>">TESTING</div>
 	<p class="list-group-item-heading lead">
 		<%= time_ago_in_words(comment.created_at) %> ago
 	</p>

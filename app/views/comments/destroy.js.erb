@@ -1,13 +1,2 @@
-$(document).ajaxStart ->
-	$('#<%= @comment.id %>').children().css( "color", "#bc0303" ).css( "font-weight", "bold");
-	$('#<%= @comment.id %>').fadeOut(2000);
-  $("spinner-<%= @comment.id %>").show()
-  return
-
-$(document).ajaxStop ->
-  $("spinner-<%= @comment.id %>").hide()
-  return
-
-
-// $('#<%= @comment.id %>').children().css( "color", "#bc0303" ).css( "font-weight", "bold");
-// $('#<%= @comment.id %>').fadeOut(200);
+$('#<%= @comment.id %>').children().css( "color", "#bc0303" ).css( "font-weight", "bold");
+$('#<%= @comment.id %>').fadeOut(200);
