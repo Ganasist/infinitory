@@ -3,7 +3,7 @@ class DailyPointsWorker
 	include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrence backfill: true do
+  recurrence backfill: false do
     daily
   end
   
