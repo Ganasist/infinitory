@@ -1,6 +1,8 @@
-Updated a booking for
-<% if activity.trackable.present? %>
-	<%= link_to "#{activity.trackable.device.fullname}", activity.trackable %>
+Updated a booking
+<% if activity.trackable %>
+	for <%= link_to "#{activity.trackable.device.fullname}", activity.trackable.device %>
+<% elsif !activity.trackable %>
+	for a device that no longer exists
 <% else %>
-  a device (which has since been removed)
+  which has since been canceled
 <% end %>

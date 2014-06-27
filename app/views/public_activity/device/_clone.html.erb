@@ -2,10 +2,8 @@
 	Cloned by
 <% else %>
 	Cloned
-	<% if activity.trackable && activity.trackable.uid.present? %>
-		<%= link_to "#{activity.trackable.name}-#{activity.trackable.uid}", activity.trackable %>
-	<% elsif activity.trackable %>
-		<%= link_to "#{activity.trackable.name}", activity.trackable %>
+	<% if activity.trackable %>
+		<%= link_to "#{activity.trackable.fullname}", activity.trackable %>
 	<% else %>
 	  a device (which has since been removed)
 	<% end %>

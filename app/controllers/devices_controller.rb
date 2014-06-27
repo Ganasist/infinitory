@@ -60,7 +60,7 @@ class DevicesController < ApplicationController
       if @clone.save
         @clone.create_activity :clone, owner: current_user
         ItemBackgroundWorker.perform_async("device", @device.id, 'cloned', current_user.id)
-        format.html { redirect_to @clone, notice: "#{ fullname(@clone) } was successfully cloned." }
+        format.html { redirect_to @clone, notice: "#{ @clone.fullname } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
         format.html { render action: 'edit', notice: "There was a problem cloning" }
@@ -88,7 +88,7 @@ class DevicesController < ApplicationController
     @device.create_activity :delete, owner: current_user
     @device.destroy
     respond_to do |format|
-      flash[:notice] = "#{ fullname(@device) } has been removed."
+      flash[:notice] = "#{ @device.fullname } has been removed."
       format.html { redirect_to lab_devices_url(@lab) }
       format.json { head :no_content }
       format.js
