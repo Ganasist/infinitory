@@ -1,20 +1,20 @@
 class BookableStatusWorker
 	include Sidekiq::Worker
-  sidekiq_options retry: true, backtrace: true
+  sidekiq_options retry: false, backtrace: true
 
   def perform(item_id)
 
-    item = Reagent.find(item_id)
+    device = Reagent.find(item_id)
 
-    if item.bookable?
+    if device.bookable?
       comment = "#{ item.fullname } is now bookable"
     else
       comment = "#{ item.fullname } is no longer bookable"
     end
 
-    item.users.each do |u|
+    device.users.each do |u|
       u.comments.create(comment: comment)
     end
-    item.lab.comments.create(comment: comment) 
+    device.lab.comments.create(comment: comment) 
   end
 end
