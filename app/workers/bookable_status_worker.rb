@@ -4,12 +4,12 @@ class BookableStatusWorker
 
   def perform(item_id)
 
-    device = Reagent.find(item_id)
+    device = Device.find(item_id)
 
     if device.bookable?
-      comment = "#{ item.fullname } is now bookable"
+      comment = "#{ device.fullname } is now bookable"
     else
-      comment = "#{ item.fullname } is no longer bookable"
+      comment = "#{ device.fullname } is no longer bookable"
     end
 
     device.users.each do |u|
