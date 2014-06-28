@@ -146,10 +146,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.wrapper :tag => 'div', :class => 'controls' do |ba|
-      ba.wrapper :tag => 'label', :class => 'checkbox' do |bb|
-        bb.use :input
-        bb.use :label_text
-      end
+      ba.use :label_input, :wrap_with => { :class => 'checkbox inline' }
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
