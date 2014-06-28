@@ -41,9 +41,9 @@
             <%= f.input :email, required: false, autofocus: true %>
             <%= f.input :password, required: false %>
           </div>
-          <div class="splash form-inputs">
+          <div class="splash form-inputs text-center">
             <%= f.button :submit, 'Sign in', class: 'btn-warning btn-custom'   %><br><br>
-            <%= link_to 'Forgot your password?', new_password_path('user'), id: 'forgot_password', class: "text-center" %>
+            <%= link_to 'Forgot your password?', new_password_path('user'), id: 'forgot_password' %>
           </div>
         <% end %>
       <% end %>
