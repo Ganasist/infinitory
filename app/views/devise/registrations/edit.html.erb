@@ -23,7 +23,7 @@
       <fieldset disabled>
         <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
       </fieldset><br>
-      <p class="lead">If you need to downgrade your status you must delete your account and create a new one.</p>
+      <p class="lead">If you need to downgrade your status you must delete your account and <%= link_to "request", new_request_path, class: "btn btn-warning" %> a Group Leader account.</p>
     <% elsif !current_user.gl? && current_user.lab.present? %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',
@@ -35,11 +35,7 @@
                                      prompt: 'Choose your position',
                                      required: false %>
       <br>
-      <div id="GL_INFO">
-        <h4 class="lead">Signing up as a Group Leader will automatically create a Lab Account that will be linked to you at your institute.</h4>
-      </div>
     <% end %>
-
       <br>
       <hr>
     <span class="lab_members_form">
@@ -51,7 +47,7 @@
     
     <span class="GLform">
     <% if current_user.gl? %>
-      <%= f.input :institute_name, placeholder: 'Find or create your institute',
+      <%= f.input :institute_name, placeholder: 'Find or create your institute account',
                                    typeahead: Institute.all.pluck(:name).uniq %>
        <% if current_user.institute.present? %>                         
         <span id="department_select">

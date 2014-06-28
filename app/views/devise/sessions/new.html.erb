@@ -9,7 +9,10 @@
   
     <%= f.input :email, required: false, autofocus: true %>
     <%= f.input :password, required: false %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+
+    <%= f.input :remember_me, as: :boolean,
+                              boolean_style: :inline,
+                              wrapper: :inline_checkbox if devise_mapping.rememberable? %>
   
     <%= f.button :submit, "Sign in", class: "btn-warning" %>
 <% end %>
