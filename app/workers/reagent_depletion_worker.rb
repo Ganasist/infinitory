@@ -1,6 +1,6 @@
 class ReagentDepletionWorker
   include Sidekiq::Worker
-  sidekiq_options retry: false, backtrace: true
+  sidekiq_options retry: true, backtrace: true
 
   def perform(reagent_id)
     reagent = Reagent.find(reagent_id)    

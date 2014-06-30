@@ -16,6 +16,9 @@ module Merit
       score 2, on: 'reagents#update' do |item|
         item.lot_number.present?
       end
+      score 2, on: 'reagents#update' do |item|
+        item.quantity.present?
+      end
       score 2, on: ['reagents#update', 'devices#update'] do |item|
         item.serial.present?
       end
@@ -62,6 +65,9 @@ module Merit
       score 3, on: 'reagents#create' do |item|
         item.lot_number.present?
       end
+      score 3, on: 'reagents#create' do |item|
+        item.quantity.present?
+      end
       score 3, on: ['reagents#create', 'devices#create'] do |item|
         item.serial.present?
       end
@@ -106,6 +112,9 @@ module Merit
       end
       score 4, on: 'reagents#clone' do |item|
         item.lot_number.present?
+      end
+      score 4, on: 'reagents#clone' do |item|
+        item.quantity.present?
       end
       score 4, on: ['reagents#clone', 'devices#clone'] do |item|
         item.serial.present?

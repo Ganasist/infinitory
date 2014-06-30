@@ -106,19 +106,27 @@ class Reagent < ActiveRecord::Base
     end
   end
 
+  def fullname_without_location
+    if self.uid.present?
+        "#{self.name}-#{self.uid}"
+    elsif !self.uid.present?
+      "#{self.name}"
+    end
+  end
+
   after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining_changed? && r.remaining < 21 }
   def reagent_depletion_worker
-    ReagentDepletionWorker.perform_async(self.id)
+    ReagentDepletionWorker.delay_for(3.seconds).perform_async(self.id)
   end
 
   after_save :share_status_worker, if: Proc.new { |r| r.shared_changed? }
   def share_status_worker
-    ShareStatusWorker.perform_async("reagent", self.id)
+    ShareStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
   end
 
   after_save :location_status_worker, if: Proc.new { |r| r.location_changed? }
   def location_status_worker
-    LocationStatusWorker.perform_async("reagent", self.id)
+    LocationStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
   end
 
   private

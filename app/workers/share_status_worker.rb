@@ -1,9 +1,8 @@
 class ShareStatusWorker
 	include Sidekiq::Worker
-  sidekiq_options retry: false, backtrace: true
+  sidekiq_options retry: true, backtrace: true
 
   def perform(type, item_id)
-
   	if type == "reagent"
 	  	item = Reagent.find(item_id)
 	  elsif type == "device"

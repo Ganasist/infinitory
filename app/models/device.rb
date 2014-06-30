@@ -99,24 +99,32 @@ class Device < ActiveRecord::Base
     end
   end
 
-  after_save :online_status_worker, if: Proc.new { |d| d.status_changed? }
-  def online_status_worker
-    OnlineStatusWorker.perform_async(self.id)    
+  def fullname_without_location
+    if self.uid.present?
+        "#{self.name}-#{self.uid}"
+    elsif !self.uid.present?
+      "#{self.name}"
+    end
   end
 
-  after_save :share_status_worker, if: Proc.new { |d| d.shared_changed? }
-  def share_status_worker
-    ShareStatusWorker.perform_async("device", self.id)
+  after_save :online_status_worker, if: Proc.new { |d| d.status_changed? }
+  def online_status_worker
+    OnlineStatusWorker.delay_for(3.seconds).perform_async(self.id)    
   end
 
   after_save :bookable_status_worker, if: Proc.new { |d| d.bookable_changed? }
   def bookable_status_worker
-    BookableStatusWorker.perform_async(self.id)    
+    BookableStatusWorker.delay_for(3.seconds).perform_async(self.id)    
+  end
+  
+  after_save :share_status_worker, if: Proc.new { |d| d.shared_changed? }
+  def share_status_worker
+    ShareStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
   end
 
   after_save :location_status_worker, if: Proc.new { |d| d.location_changed? }
   def location_status_worker
-    LocationStatusWorker.perform_async("device", self.id)
+    LocationStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
   end
 
   private

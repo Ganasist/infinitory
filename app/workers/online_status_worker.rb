@@ -1,6 +1,6 @@
 class OnlineStatusWorker
 	include Sidekiq::Worker
-  sidekiq_options retry: false, backtrace: true
+  sidekiq_options retry: true, backtrace: true
 
   def perform(item_id)
   	item = Device.find(item_id)

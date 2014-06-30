@@ -1,6 +1,6 @@
 class ItemBackgroundWorker
   include Sidekiq::Worker
-  sidekiq_options retry: false, backtrace: true
+  sidekiq_options retry: true, backtrace: true
   
   def perform(type, item_id, action, current_user_id)
     if type == "reagent"
