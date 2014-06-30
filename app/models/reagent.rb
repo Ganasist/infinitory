@@ -124,7 +124,7 @@ class Reagent < ActiveRecord::Base
     ShareStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
   end
 
-  after_save :location_status_worker, if: Proc.new { |r| r.location_changed? }
+  after_update :location_status_worker, if: Proc.new { |r| !r.new_record? && r.location_changed? }
   def location_status_worker
     LocationStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
   end

@@ -7,9 +7,9 @@ class BookableStatusWorker
     device = Device.find(item_id)
 
     if device.bookable?
-      comment = "#{ device.fullname } is now bookable"
+      comment = "#{ device.fullname } was made bookable"
     else
-      comment = "#{ device.fullname } is no longer bookable"
+      comment = "#{ device.fullname } was made not bookable"
     end
 
     device.users.each do |u|

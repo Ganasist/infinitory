@@ -122,7 +122,7 @@ class Device < ActiveRecord::Base
     ShareStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
   end
 
-  after_save :location_status_worker, if: Proc.new { |d| d.location_changed? }
+  after_update :location_status_worker, if: Proc.new { |d| !d.new_record? && d.location_changed? }
   def location_status_worker
     LocationStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
   end
