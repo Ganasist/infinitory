@@ -7,7 +7,7 @@ end
 
 Sidekiq.configure_server do |config|
   config.redis = { url: ENV['LIVE_REDISTOGO_URL'],
-  								size: 3, 
+  								size: 5, 
   					 namespace: "infinitory_#{Rails.env}"}
   config.poll_interval = 5
 end
