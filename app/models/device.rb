@@ -107,27 +107,27 @@ class Device < ActiveRecord::Base
     end
   end
 
-  after_save :online_status_worker, if: Proc.new { |d| d.status_changed? }
-  def online_status_worker
-    OnlineStatusWorker.delay_for(3.seconds).perform_async(self.id)    
-  end
-
-  after_save :bookable_status_worker, if: Proc.new { |d| d.bookable_changed? }
-  def bookable_status_worker
-    BookableStatusWorker.delay_for(3.seconds).perform_async(self.id)    
-  end
-  
-  after_save :share_status_worker, if: Proc.new { |d| d.shared_changed? }
-  def share_status_worker
-    ShareStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
-  end
-
-  after_update :location_status_worker, if: Proc.new { |d| !d.new_record? && d.location_changed? }
-  def location_status_worker
-    LocationStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
-  end
-
   private
+    after_save :online_status_worker, if: Proc.new { |d| d.status_changed? }
+    def online_status_worker
+      OnlineStatusWorker.delay_for(3.seconds).perform_async(self.id)    
+    end
+
+    after_save :bookable_status_worker, if: Proc.new { |d| d.bookable_changed? }
+    def bookable_status_worker
+      BookableStatusWorker.delay_for(3.seconds).perform_async(self.id)    
+    end
+    
+    after_save :share_status_worker, if: Proc.new { |d| d.shared_changed? }
+    def share_status_worker
+      ShareStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
+    end
+
+    after_update :location_status_worker, if: Proc.new { |d| !d.new_record? && d.location_changed? }
+    def location_status_worker
+      LocationStatusWorker.delay_for(3.seconds).perform_async("device", self.id)
+    end
+
     before_validation :smart_add_product_url_protocol,
                       if: Proc.new { |d| d.product_url_changed? && d.product_url.present? }
     def smart_add_product_url_protocol

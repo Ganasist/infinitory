@@ -114,22 +114,23 @@ class Reagent < ActiveRecord::Base
     end
   end
 
-  after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining_changed? && r.remaining < 21 }
-  def reagent_depletion_worker
-    ReagentDepletionWorker.delay_for(3.seconds).perform_async(self.id)
-  end
-
-  after_save :share_status_worker, if: Proc.new { |r| r.shared_changed? }
-  def share_status_worker
-    ShareStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
-  end
-
-  after_update :location_status_worker, if: Proc.new { |r| !r.new_record? && r.location_changed? }
-  def location_status_worker
-    LocationStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
-  end
-
   private
+
+    after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining_changed? && r.remaining < 21 }
+    def reagent_depletion_worker
+      ReagentDepletionWorker.delay_for(3.seconds).perform_async(self.id)
+    end
+
+    after_save :share_status_worker, if: Proc.new { |r| r.shared_changed? }
+    def share_status_worker
+      ShareStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
+    end
+
+    after_update :location_status_worker, if: Proc.new { |r| !r.new_record? && r.location_changed? }
+    def location_status_worker
+      LocationStatusWorker.delay_for(3.seconds).perform_async("reagent", self.id)
+    end
+  
     before_validation :smart_add_product_url_protocol,
                       if: Proc.new { |r| r.product_url_changed? && r.product_url.present? }
     def smart_add_product_url_protocol
