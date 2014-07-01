@@ -1,6 +1,6 @@
 class BookableStatusWorker
 	include Sidekiq::Worker
-  sidekiq_options retry: true, backtrace: true
+  sidekiq_options retry: false, backtrace: true
 
   def perform(item_id)
 
