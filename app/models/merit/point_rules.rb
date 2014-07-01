@@ -32,7 +32,7 @@ module Merit
         end
       end
 
-       %w(expiration? lot_number?).each do |attribute|
+      %w(expiration? lot_number?).each do |attribute|
         score 2, on: 'reagents#update' do |item|
           item.method(attribute).call
         end
