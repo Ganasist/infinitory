@@ -39,11 +39,6 @@
           <dt>Unique ID</dt>
           <dd><%= best_in_place @reagent, :uid %></dd><br>
         <% end %>
-
-        <% if @reagent.description? %>
-          <dt>Description:</dt>
-          <dd><%= best_in_place @reagent, :description %></dd><br>
-        <% end %>
         
         <% if @reagent.quantity.present? %>
           <dt><strong>Original quantity</strong></dt>
@@ -70,6 +65,11 @@
           <% end %>
         <% else %>
           <dd>-</dd>
+        <% end %>
+
+         <% if @reagent.description? %>
+          <dt>Description:</dt>
+          <dd><%= best_in_place @reagent, :description %></dd><br>
         <% end %>
         
         <% if !@reagent.users.empty? %>
