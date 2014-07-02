@@ -1,8 +1,8 @@
 jQuery ->
-	$.ajaxStart ->
+	$( document ).ajaxStart ->
   console.log('starting...')
   return
  
-	$.ajaxStop ->
+	$( document ).ajaxStop ->
 	  console.log('finished!')
 	  return
