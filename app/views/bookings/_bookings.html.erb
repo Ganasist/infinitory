@@ -11,7 +11,7 @@
       <th>Start</th>
       <th>End</th>
       <th>Duration</th>
-      <th class="text-right" colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -46,46 +46,28 @@
 
         <td><%= booking.duration_calculation %></td>
 
-
-        <%= link_to device_path(device),
-                        method: :delete,
-                        remote: true do %>
-        <%= fa_icon "trash-o", title: "Delete",
-                               class: "fa-lg fa-fw pull-right", 
-                                  id: "delete_button_#{device.id}"  %>
-        <% end %>
-        
-    
         <% if booking.device && booking.device.bookable %>
-          <% unless params[:device_id] %>
+          <td>
+          <% unless params[:device_id] %>            
               <%= link_to device_bookings_path(booking.device_id) do %>
-                <%= fa_icon "calendar", class: "fa-lg fa-fw pull-right", title: "Schedule"  %>
+                <%= fa_icon "calendar", class: "fa-lg fa-fw", title: "Schedule"  %>
+              <% end %>            
+          <% end %>
+
+          <% if !booking.expired_one_day? %>            
+              <%= link_to edit_booking_path(booking) do %>
+                <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
               <% end %>
-            <% end %>
-        <% end %>
-
-          <% if !booking.expired_one_day? %>
-            <%= link_to edit_booking_path(booking) do %>
-              <%= fa_icon "edit", class: "fa-lg fa-fw pull-right", title: "Edit"  %>
-            <% end %>
-
-            <%= link_to booking,
-                            method: :delete,
-                            remote: true do %>
-            <%= fa_icon "trash-o", title: "Delete",
-                                   class: "fa-lg fa-fw pull-right", 
-                                      id: "booking_button_#{booking.id}"  %>
-            <% end %>
-          <% else %>
-            <td></td>
-            <td></td>
+              <%= link_to booking, method: :delete do %>
+                <%= fa_icon "trash-o", title: "Delete",
+                                       class: "fa-lg fa-fw", 
+                                          id: "delete_button_#{booking.id}"  %>
+              <% end %>
+            </td>
           <% end %>
         <% else %>
           <td></td>
-          <td></td>
-          <td></td>
         <% end %>
-
       </tr>
     <% end %>
   </tbody>
