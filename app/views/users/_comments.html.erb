@@ -4,11 +4,14 @@
 		<%= time_ago_in_words(comment.created_at) %> ago
 	</p>
 	<h4 class="text-group-item-text">
+
 			<%= comment.comment %>		
 
 		<% if @user == current_user %>
 			<%= link_to comment, method: :delete, remote: true do %>
-		  	<%= fa_icon "minus-square-o", class: "fa-lg fa-fw pull-right", title: "Delete" %>
+		  	<%= fa_icon "minus-square-o", title: "Delete", 
+		  																class: "fa-lg fa-fw pull-right", 
+		  																	 id: "delete_button_#{comment.id}" %>
 	  	<% end %>	
 	  <% end %>
 	</h4>

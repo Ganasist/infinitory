@@ -8,22 +8,34 @@ class DevicesController < ApplicationController
   def index
     if params[:user_id].present?
       @user = User.find(params[:user_id])
-      @devices = @user.device_ownerships.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
+      @devices = @user.device_ownerships
+                      .order(device_sort_column + ' ' + device_sort_direction)
+                      .modified_recently
+                      .page(params[:page]).per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
-      @devices = @lab.devices.order(device_sort_column + ' ' + device_sort_direction).modified_recently.page(params[:page]).per(12)
+      @devices = @lab.devices
+                     .order(device_sort_column + ' ' + device_sort_direction)
+                     .modified_recently
+                     .page(params[:page])
+                     .per(12)
     end    
   end
 
   def show
     @lab = current_user.lab
-    @activities = PublicActivity::Activity.includes(:trackable, :owner).where('trackable_id=? AND trackable_type=?', params[:id], "Device").group("activities.id").page(params[:page]).per(7).reverse_order
+    @activities = PublicActivity::Activity.includes(:trackable, :owner)
+                                          .where('trackable_id=? AND trackable_type=?', params[:id], "Device")
+                                          .group("activities.id")
+                                          .page(params[:page])
+                                          .per(7)
+                                          .reverse_order
   
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column("number", "% Saturated" )
 
     data_table.add_rows(60)
-    for i in 0..59 do
+    (0..59).each do |i|
       data_table.set_cell(i,0,rand(100))
     end
     opts   = { width: 320, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }

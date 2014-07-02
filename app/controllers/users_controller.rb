@@ -5,7 +5,10 @@ class UsersController < ApplicationController
 
   def index    
     @lab = Lab.find(params[:lab_id])
-    @users = @lab.users.includes(:sash).where(approved: true).order('joined ASC')
+    @users = @lab.users
+                 .includes(:sash)
+                 .where(approved: true)
+                 .order('joined ASC')
     @approvals = @lab.users.where(approved: false)
   end
 
@@ -17,14 +20,21 @@ class UsersController < ApplicationController
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column("number", "Activity" )
     data_table.add_rows(60)
-    for i in 0..(@user.sparkline_points.length - 1) do
+    (0..(@user.sparkline_points.length - 1)).each do |i|
       data_table.set_cell(i,0,@user.sparkline_points[i])
     end
     opts   = { width: 420, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }
     @chart = GoogleVisualr::Image::SparkLine.new(data_table, opts)
 
-    @activities = PublicActivity::Activity.includes(:trackable).where(owner_id: @user.id).group("activities.id").page(params[:activities]).per(10).reverse_order
-    @comments = @user.comments.recent.page(params[:comments]).per(10)
+    @activities = PublicActivity::Activity.includes(:trackable).where(owner_id: @user.id)
+                                                               .group("activities.id")
+                                                               .page(params[:activities])
+                                                               .per(10)
+                                                               .reverse_order
+    @comments = @user.comments
+                     .recent
+                     .page(params[:comments])
+                     .per(10)
   end
 
   def approve
@@ -39,7 +49,7 @@ class UsersController < ApplicationController
         UserMailer.delay(retry: false).welcome_email(@user.id, current_user.lab_id)
       end
     else
-      flash[:alert] = "#{ @user.fullname } couldn't be added..."
+      flash[:alert] = "#{ @user.fullname } couldn't be approved..."
     end
     redirect_to lab_users_path(current_user.lab)
   end

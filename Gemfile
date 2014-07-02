@@ -69,8 +69,8 @@ gem 'hairtrigger'
 
 # gem 'postgres_ext', '~> 2.1.3'
                       
-gem 'turbolinks'
-gem 'jquery-turbolinks'
+# gem 'turbolinks'
+# gem 'jquery-turbolinks'
 
 gem 'therubyracer'
 gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS

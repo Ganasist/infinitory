@@ -19,7 +19,6 @@ class LabsController < ApplicationController
       redirect_to @lab, status: :moved_permanently
     end
     @gl = User.where(lab_id: @lab, role: 'group_leader').first
-    # @activities = PublicActivity::Activity.includes(:trackable, :owner).where(owner_id: @lab.user_ids).limit(25).order('created_at desc')
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
@@ -28,7 +27,7 @@ class LabsController < ApplicationController
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column("number", "Activity" )
     data_table.add_rows(60)
-    for i in 0..(@lab.sparkline_points.length - 1) do
+    (0..(@lab.sparkline_points.length - 1)).each do |i|
       data_table.set_cell(i,0,@lab.sparkline_points[i])
     end
     opts   = { width: 525, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }
@@ -41,10 +40,10 @@ class LabsController < ApplicationController
     data_table_lab.new_column('number', 'pts/day')
     data_table_lab.new_column('number', 'Total points')
     data_table_lab.add_rows(@users.map { |u|[u.fullname,
-                                         u.cached_device_count,
-                                         u.cached_reagent_count,
-                                         u.cached_daily_points,
-                                         u.cached_total_points] })    
+                                             u.cached_device_count,
+                                             u.cached_reagent_count,
+                                             u.cached_daily_points,
+                                             u.cached_total_points] })    
     @chart_lab = GoogleVisualr::Interactive::BubbleChart.new(data_table_lab, lab_scatter_options)
 
     # data_table_reagents = GoogleVisualr::DataTable.new

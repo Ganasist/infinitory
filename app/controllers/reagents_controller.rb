@@ -9,22 +9,44 @@ class ReagentsController < ApplicationController
     if params[:search].present?      
       if params[:user_id].present?   
         @user = User.find(params[:user_id])
-        @reagents = @user.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
+        @reagents = @user.reagents
+                         .text_search(params[:search])
+                         .modified_recently
+                         .page(params[:page])
+                         .per(12)
       elsif params[:lab_id].present?
         @lab = Lab.find(params[:lab_id]) 
-        @reagents = @lab.reagents.text_search(params[:search]).modified_recently.page(params[:page]).per(12)
+        @reagents = @lab.reagents
+                        .text_search(params[:search])
+                        .modified_recently
+                        .page(params[:page])
+                        .per(12)
       end
     elsif params[:user_id].present?
       @user = User.find(params[:user_id])
-      @reagents = @user.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)
+      @reagents = @user.reagents
+                       .order(reagent_sort_column + ' ' + reagent_sort_direction)
+                       .modified_recently
+                       .page(params[:page])
+                       .per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
-      @reagents = @lab.reagents.order(reagent_sort_column + ' ' + reagent_sort_direction).modified_recently.page(params[:page]).per(12)
+      @reagents = @lab.reagents
+                      .order(reagent_sort_column + ' ' + reagent_sort_direction)
+                      .modified_recently
+                      .page(params[:page])
+                      .per(12)
     end
   end
 
   def show
-    @activities = PublicActivity::Activity.includes(:trackable, :owner).where(trackable_id: params[:id]).where(trackable_type: "Reagent").group("activities.id").page(params[:page]).per(7).reverse_order
+    @activities = PublicActivity::Activity.includes(:trackable, :owner)
+                                          .where(trackable_id: params[:id])
+                                          .where(trackable_type: "Reagent")
+                                          .group("activities.id")
+                                          .page(params[:page])
+                                          .per(7)
+                                          .reverse_order
   end
 
   def new
