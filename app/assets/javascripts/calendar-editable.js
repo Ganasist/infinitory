@@ -1,8 +1,3 @@
-/*! jQuery UI - v1.10.3 - 2013-10-31
-* http://jqueryui.com
-* Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.droppable.js, jquery.ui.resizable.js, jquery.ui.selectable.js, jquery.ui.sortable.js, jquery.ui.effect.js, jquery.ui.effect-drop.js, jquery.ui.effect-fade.js, jquery.ui.effect-scale.js, jquery.ui.effect-slide.js, jquery.ui.effect-transfer.js
-* Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
-
 (function( $, undefined ) {
 
 var uuid = 0,

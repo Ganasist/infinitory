@@ -65,7 +65,7 @@
           <%= link_to reagent_path(reagent),
                       method: :delete,
                       remote: true do %>
-            <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete"  %>
+            <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete", id: "delete_#{reagent.id}"  %>
           <% end %>
         </td>
       </tr>

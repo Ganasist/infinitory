@@ -106,7 +106,7 @@ class ReagentsController < ApplicationController
     @reagent.create_activity :delete, owner: current_user
     @reagent.destroy
     respond_to do |format|
-      flash[:notice] = "#{ @reagent.fullname } has been removed."
+      # flash[:notice] = "#{ @reagent.fullname } has been removed."
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
       format.js
