@@ -20,10 +20,10 @@
     <%= f.input :last_name %>
 
     <% if current_user.gl? %>
-      <fieldset disabled>
+      <fieldset>
         <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
       </fieldset><br>
-      <p class="lead">If you need to downgrade your status you must delete your account and <%= link_to "request", new_request_path, class: "btn btn-warning" %> a Group Leader account.</p>
+      <p class="lead">If you need to downgrade your status you must delete your account and <%= link_to "Request", new_request_path, class: "btn btn-warning" %> a Group Leader account.</p>
     <% elsif !current_user.gl? && current_user.lab.present? %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',
