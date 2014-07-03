@@ -100,7 +100,6 @@ class DevicesController < ApplicationController
     @device.create_activity :delete, owner: current_user
     @device.destroy
     respond_to do |format|
-      # flash[:notice] = "#{ @device.fullname } has been removed."
       format.html { redirect_to lab_devices_url(@lab) }
       format.json { head :no_content }
       format.js

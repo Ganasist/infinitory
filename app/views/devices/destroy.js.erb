@@ -1,2 +1,4 @@
 $('#<%= @device.id %>').children().css( "color", "#bc0303" ).css( "font-weight", "bold");
 $('#<%= @device.id %>').children().fadeOut(250);
+
+$('#lab_devices_count').empty().append('<%= pluralize(@lab.devices_count - 1, "device") %>');

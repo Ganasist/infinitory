@@ -2,10 +2,7 @@
 <div class="row">
   <div class="span6">
     <% if @lab %>
-      <h4>
-        The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>: <%= @lab.reagents_count %> Reagents
-        <%= link_to "", new_lab_reagent_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %><br><br>
-      </h4>  
+      <%= render partial: 'lab_reagent_count' %>
     <% elsif params[:user_id].present? %>        
       <h3>
         My reagents

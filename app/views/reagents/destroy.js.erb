@@ -1,2 +1,3 @@
 $('#<%= @reagent.id %>').children().css( "color", "#bc0303" ).css( "font-weight", "bold");
 $('#<%= @reagent.id %>').children().fadeOut(250);
+$('#lab_reagents_count').empty().append('<%= pluralize(@lab.reagents_count - 1, "reagent") %>');

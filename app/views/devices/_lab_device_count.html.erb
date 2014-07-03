@@ -1,0 +1,4 @@
+<h4>
+  The <%= link_to "#{@lab.gl.fullname} Lab", @lab %>: <span id="lab_devices_count"><%= pluralize(@lab.devices_count, "device") %></span>
+  <%= link_to "", new_lab_device_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %>
+</h4>

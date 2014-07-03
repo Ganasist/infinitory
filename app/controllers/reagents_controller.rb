@@ -65,6 +65,7 @@ class ReagentsController < ApplicationController
         ItemBackgroundWorker.perform_async("reagent", @reagent.id, 'created', current_user.id)
         format.html { redirect_to @reagent }
         format.json { render action: 'show', status: :created, location: @reagent }
+        format.js
       else
         format.html { render action: 'new' }
         format.json { render json: @reagent.errors, status: :unprocessable_entity }
@@ -106,7 +107,6 @@ class ReagentsController < ApplicationController
     @reagent.create_activity :delete, owner: current_user
     @reagent.destroy
     respond_to do |format|
-      # flash[:notice] = "#{ @reagent.fullname } has been removed."
       format.html { redirect_to lab_reagents_url(@lab) }
       format.json { head :no_content }
       format.js
