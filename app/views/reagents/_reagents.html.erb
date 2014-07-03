@@ -50,7 +50,7 @@
         <td>
           <%= best_in_place reagent, :price,
                                       display_with: :number_to_currency,
-                                      helper_options: { unit: reagent.currency } %>
+                                      helper_options: { unit: reagent.currency, precision: 0 } %>
         </td>
         <% else %>
           <td>-</td>

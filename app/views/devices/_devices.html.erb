@@ -30,23 +30,27 @@
           </td>
           <td><%= device.category_list %></td>  
           <td><%= best_in_place device, :location %></td>
-          <td><%= best_in_place device, :price, display_with: :number_to_currency, helper_options: { unit: device.currency } %></td>
+          <td><%= best_in_place device, :price, 
+                                        display_with: :number_to_currency, 
+                                        helper_options: { unit: device.currency, precision: 0 } %></td>
           <td><%= time_ago_in_words(device.updated_at) %> ago</td>
           <td>
+            <% if device.bookable? %>
+              <%= link_to device_bookings_path(device) do %>
+                <%= fa_icon "calendar", class: "fa-lg fa-fw", title: "Schedule"  %>
+              <% end %>
+            <% end %>
+            
+            <%= link_to edit_device_path(device) do %>
+              <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
+            <% end %>
+            
             <%= link_to device_path(device),
                         method: :delete,
                         remote: true do %>
               <%= fa_icon "trash-o", title: "Delete",
-                                     class: "fa-lg fa-fw pull-right", 
+                                     class: "fa-lg fa-fw", 
                                         id: "delete_button_#{device.id}"  %>
-            <% end %>
-            <%= link_to edit_device_path(device) do %>
-              <%= fa_icon "edit", class: "fa-lg fa-fw pull-right", title: "Edit"  %>
-            <% end %>
-            <% if device.bookable? %>
-              <%= link_to device_bookings_path(device) do %>
-                <%= fa_icon "calendar", class: "fa-lg fa-fw pull-right", title: "Schedule"  %>
-              <% end %>
             <% end %>
           </td>
         </tr>
