@@ -1,21 +1,21 @@
+ajax = ->
+	$(document).ajaxStart ->
+		$("#ajax_div").fadeTo(75, 0.55)
+		$("#ajax_spinner").fadeTo(75, 1)
+		return
+	$(document).ajaxStop ->
+		$("#ajax_div").fadeTo(75, 1)
+		$("#ajax_spinner").fadeTo(75, 0)
+		return
 
-$ =>
-	ajax = ->
-		$(document).ajaxStart ->
-			$("#ajax_div").fadeTo(75, 0.55)
-			$("#ajax_spinner").fadeTo(75, 1)
-		$(document).ajaxStop ->
-			$("#ajax_div").fadeTo(75, 1)
-			$("#ajax_spinner").fadeTo(75, 0)
+$(document).ready(ajax)
+# $(document).on('page:load', ajax)
 
-	$(document).ready(ajax)
-	$(document).on('page:load', ajax)
-
-	startSpinner = ->
-	  $("html").css "cursor", "progress"
-	  return
-	stopSpinner = ->
-	  $("html").css "cursor", "auto"
-	  return
-	$(document).on "page:fetch", startSpinner
-	$(document).on "page:receive", stopSpinner
+startSpinner = ->
+  $("html").css "cursor", "progress"
+  return
+stopSpinner = ->
+  $("html").css "cursor", "auto"
+  return
+$(document).on "page:fetch", startSpinner
+$(document).on "page:receive", stopSpinner
