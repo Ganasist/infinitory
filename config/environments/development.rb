@@ -30,6 +30,7 @@ Infinitory::Application.configure do
 
   Paperclip.options[:command_path] = '/usr/local/bin/convert'
 
+  ENV['NEW_RELIC_AGENT_ENABLED'] = 'false'
   # ActionMailer::Base.smtp_settings = {
   #   :address        => 'smtp.gmail.com',
   #   :domain         => 'mail.google.com',
