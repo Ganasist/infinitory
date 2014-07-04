@@ -134,14 +134,14 @@
 
     <hr> <br><br> -->
   </div>
-  <div class="span6 pull-right" id="ajax_div">
+  <div class="span6 pull-right">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
       <li class="active"><a href="#nots" data-toggle="tab">Notifications</a></li>
       <li class="disabled"><a href="#messages" data-toggle="tab">Messages</a></li>
     </ul><br>
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content" id="ajax_div">
       <div class="tab-pane fade in active" id="nots">
       <% if @notifications.present? %>
         <div id="paginator-top">

@@ -126,7 +126,7 @@
     </div>
 <% end %>
 
-  <div class="span7 inline-block" id="ajax_div">
+  <div class="span7 inline-block">
     <!-- Nav panes -->
     <ul class="nav nav-pills nav-justified">
       <li class="<%= 'active' if !params[:tab] || params[:tab] == 'comments' %>"><a href="#comment" data-toggle="pill">Notifications</a></li>
@@ -134,7 +134,7 @@
       <li class="disabled"><a href="#message" data-toggle="pill">Messages</a></li>
     </ul><br>
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content" id="ajax_div">
       <div class="<%= if (params[:tab] == 'comments' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="comment">
         <% if @comments.present? %>
           <div id="paginator-comments-top">
