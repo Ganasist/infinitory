@@ -39,24 +39,24 @@
       <ul class="inline">
         <br>
         
-        <% if @lab.url? %>
+        <% if @lab.url.present? %>
         <li>          
           <%= link_to @lab.url, target: "_blank" do %>
-            <%= fa_icon "globe", title: "Website", class: "fa-lg fa-fw"  %>
+            <%= fa_icon "globe", title: "Website", class: "fa-2x fa-fw"  %>
           <% end %>
         </li>
         <% end %>
-        <% if @lab.twitter_url? %>
+        <% if @lab.twitter_url.present? %>
          <li>          
           <%= link_to @lab.twitter_url, target: "_blank"  do %>
-            <%= fa_icon "twitter", title: "Twitter", class: "fa-lg fa-fw" %>
+            <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw" %>
           <% end %>
         </li>          
         <% end %>
-        <% if @lab.facebook_url? %>
+        <% if @lab.facebook_url.present? %>
          <li>          
           <%= link_to @lab.facebook_url, target: "_blank"  do %>
-            <%= fa_icon "facebook", title: "Facebook", class: "fa-lg fa-fw" %>
+            <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw" %>
           <% end %>
         </li>          
         <% end %>       
@@ -64,10 +64,10 @@
     </span>       
     </h3>
     <hr>
-      <% if @lab.email? %>
+      <% if @lab.email.present? %>
         <h5>          
           <%= mail_to @lab.email do %>
-            <%= fa_icon "envelope-o", title: "Email", class: "fa-lg fa-fw"  %> <%= @lab.email %>
+            <%= fa_icon "envelope-o", title: "Email", class: "fa fa-lg fa-fw"  %> <%= @lab.email %>
           <% end %>
         </h5>
       <% end %>
@@ -75,6 +75,13 @@
       <h5>
         <%= link_to "#" do %>
           <%= fa_icon "compass", class: "fa fa-fw fa-lg" %> Room <%= @lab.room %>
+        <% end %>
+      </h5>
+      <% end %>
+      <% if @lab.building.present? %>
+      <h5>
+        <%= link_to "#" do %>
+          <%= fa_icon "building-o", class: "fa fa-fw fa-lg" %> <%= @lab.building %>
         <% end %>
       </h5>
       <% end %>
@@ -87,7 +94,7 @@
       <% end %>
       <h5>
       <%= link_to @lab.institute do %>
-        <%= fa_icon "building-o", class: "fa fa-fw fa-lg" %> <%= " #{ @institute.name }" %>
+        <%= fa_icon "university", class: "fa fa-fw fa-lg" %> <%= " #{ @institute.name }" %>
       <% end %>
       </h5>
       <hr>

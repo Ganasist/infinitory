@@ -33,4 +33,7 @@ Infinitory::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  
+  ENV['NEW_RELIC_AGENT_ENABLED'] = 'false'
 end

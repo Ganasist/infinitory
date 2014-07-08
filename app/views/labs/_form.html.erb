@@ -4,19 +4,17 @@
   <div class="row">
     <div class="span6">
       <%= f.input :room %>
+      <%= f.input :building %>
       <%= f.input :email, label: 'Lab email', disabled: true %>
       <%= f.input :url, label: 'Lab website' %>
       <%= f.input :twitter_url, label: 'Twitter', placeholder: 'https://twitter.com/lab' %>
       <%= f.input :facebook_url, label: 'Facebook', placeholder: 'https://www.facebook.com/lab' %>
-    </div>
-    <div class="span6">
-
+      <hr>
       <%= f.input :device_category_list, as: :text, input_html: { rows: 8 }, label: "Device categories:" %>
-
-      <%= f.input :reagent_category_list, as: :text, input_html: { rows: 8 }, label: "Reagent categories:" %>                            
-
-      <br>
-      <hr>                                 
+      <%= f.input :reagent_category_list, as: :text, input_html: { rows: 8 }, label: "Reagent categories:" %>
+      <br>  
+    </div>
+    <div class="span6">                                     
       <strong><h4>Lab picture</h4></strong>
       <p>.jpeg, .png or .gif images < 2 megabytes</p>
       <% if @lab.icon.present? %>

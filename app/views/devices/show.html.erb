@@ -75,11 +75,6 @@
           <dd><%= best_in_place @device, :price, display_with: :number_to_currency, helper_options: { unit: @device.currency } %></dd><br>
         <% end %>
 
-        <%# unless @device.tag_list.empty? %>
-          <dt><strong><%#= model_class.human_attribute_name(:tags) %></strong></dt>
-          <dd><%#= raw @device.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd><br>
-        <%# end %>
-
         <% if @device.product_url? %>
           <dt>Product website:</dt>
           <dd><%= link_to "#{@device.product_url}", url_with_protocol(@device.product_url), target: "_blank" %></dd><br>

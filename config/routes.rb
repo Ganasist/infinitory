@@ -30,7 +30,7 @@ Infinitory::Application.routes.draw do
     resources :departments
   end
 
-  resources :user, except: [:index, :show, :new, :create, :edit, :update, :delete] do
+  resources :user, only: [] do
     resources :reagents, only: [:index, :show]
     resources :devices,  only: [:index, :show]
     resources :bookings, only: [:index, :show]

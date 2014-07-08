@@ -51,7 +51,7 @@
           
           <ul class="inline">
             <br>
-            <% if @user.email? %>
+            <% if @user.email.present? %>
             <li>          
               <%= mail_to @user.email do %>
                 <%= fa_icon "envelope-o", title: "Email", class: "fa-2x fa-fw"  %>
@@ -59,7 +59,7 @@
             </li>
             <% end %>
 
-            <% if @user.linkedin_url? %>
+            <% if @user.linkedin_url.present? %>
              <li>          
               <%= link_to @user.linkedin_url, target: "_blank"  do %>
                 <%= fa_icon "linkedin", title: "LinkedIn", class: "fa-2x fa-fw", id: "linkedin" %>
@@ -67,7 +67,7 @@
             </li>          
             <% end %>
 
-            <% if @user.xing_url? %>
+            <% if @user.xing_url.present? %>
              <li>          
               <%= link_to @user.xing_url, target: "_blank"  do %>
                 <%= fa_icon "xing", title: "Xing", class: "fa-2x fa-fw", id: "xing" %>
@@ -75,7 +75,7 @@
             </li>          
             <% end %>
 
-            <% if @user.twitter_url? %>
+            <% if @user.twitter_url.present? %>
              <li>          
               <%= link_to @user.twitter_url, target: "_blank"  do %>
                 <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw", id: "twitter" %>
@@ -83,7 +83,7 @@
             </li>          
             <% end %>
 
-            <% if @user.facebook_url? %>
+            <% if @user.facebook_url.present? %>
              <li>          
               <%= link_to @user.facebook_url, target: "_blank"  do %>
                 <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw", id: "facebook" %>

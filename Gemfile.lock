@@ -439,7 +439,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    state_machine (1.2.0)
     temple (0.6.7)
     terminal-notifier (1.4.2)
     terminal-table (1.4.5)
@@ -571,7 +570,6 @@ DEPENDENCIES
   slim
   spring
   spring-commands-rspec
-  state_machine
   therubyracer
   thin
   turbolinks

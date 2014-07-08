@@ -93,11 +93,6 @@
           <dt><strong>Price</strong></dt>
           <dd><%= best_in_place @reagent, :price, display_with: :number_to_currency, helper_options: { unit: @reagent.currency } %></dd><br>
         <% end %>
-
-        <%# unless @reagent.tag_list.empty? %>
-          <dt><strong><%#= model_class.human_attribute_name(:tags) %></strong></dt>
-          <dd><%#= raw @reagent.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></dd><br>
-        <%# end %>
         
         <% if @reagent.product_url? %>
           <dt>Product website</dt>
