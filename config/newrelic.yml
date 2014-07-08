@@ -185,8 +185,6 @@ development:
   # turn the agent on in development mode.
   monitor_mode: false
 
-  agent_enabled: false
-
   # Rails Only - when running in Developer Mode, the New Relic Agent will
   # present performance information on the last 100 transactions you have
   # executed since starting the mongrel.

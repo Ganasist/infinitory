@@ -49,7 +49,7 @@ class Device < ActiveRecord::Base
                                     :message => 'only PDF files allowed'
                                     
   include PgSearch
-  pg_search_scope :pg_search, against: [:name, :uid, :serial],
+  pg_search_scope :pg_search, against: [:name, :uid, :serial, :location, :description],
                    				 		using: { tsearch: { prefix: true, dictionary: 'english' } }
 
 	scope :modified_recently, -> { order("updated_at DESC") }

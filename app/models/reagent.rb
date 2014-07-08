@@ -51,6 +51,13 @@ class Reagent < ActiveRecord::Base
                                     :content_type => 'application/pdf',
                                     :message => 'only PDF files allowed'
 
+  include PgSearch
+  pg_search_scope :pg_search, against: [:name, :uid, :serial, :location, :description],
+                              using: { tsearch: { prefix: true, dictionary: 'english' } }
+
+  scope :modified_recently, -> { order("updated_at Desc") }
+  scope :expired,           -> { where("expiration < ?", Date.today )}
+  
 	amoeba do
     enable
     customize(lambda { |original_reagent, new_reagent|
@@ -82,13 +89,6 @@ class Reagent < ActiveRecord::Base
       @pdf_remote_url = url_value
     end
   end
-
-	include PgSearch
-  pg_search_scope :pg_search, against: [:name, :uid, :serial, :location, :description],
-                   				 		using: { tsearch: { prefix: true, dictionary: 'english' } }
-
-	scope :modified_recently, -> { order("updated_at Desc") }
-	scope :expired, 					-> { where("expiration < ?", Date.today )}
 
   def gl
     User.find_by(email: self.lab.email)
