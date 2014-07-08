@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
     elsif params[:user_id]
       @user = User.find(params[:user_id])
       @bookings = @user.bookings.page(params[:page]).end_time_desc
-      @calendar_data = @user.bookings.end_time_desc.limit(100)
+      @calendar_data = @user.bookings.end_time_desc.limit(50)
     end
   end
 

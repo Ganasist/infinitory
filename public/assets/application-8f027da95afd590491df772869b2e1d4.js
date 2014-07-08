@@ -36266,16 +36266,19 @@ jQuery(document).on('best_in_place:error', function(event, request, error) {
 
 }).call(this);
 (function() {
-  jQuery(function() {
-    $(document).ajaxStart(function() {
-      $("#wrapper").fadeTo(75, 0.65);
-      return $("#ajax_spinner").fadeTo(75, 1);
-    });
-    return $(document).ajaxStop(function() {
-      $("#wrapper").fadeTo(100, 1);
-      return $("#ajax_spinner").fadeTo(100, 0);
-    });
-  });
+  var startSpinner, stopSpinner;
+
+  startSpinner = function() {
+    $('html').css('cursor', 'progress');
+  };
+
+  stopSpinner = function() {
+    $('html').css('cursor', 'auto');
+  };
+
+  $(document).on('page:fetch', startSpinner);
+
+  $(document).on('page:receive', stopSpinner);
 
 }).call(this);
 (function() {
