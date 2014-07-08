@@ -46,7 +46,7 @@ gem 'exception_notification'
 
 gem 'amoeba'
 
-gem 'state_machine'
+# gem 'state_machine'
 gem 'ruby-graphviz', :require => 'graphviz'
 
 gem 'active_attr'
