@@ -5,7 +5,7 @@
     <div class="span6 devices">
     <% if @device.icon.present? %>
       <% if @device.icon_processing? %>
-        <h4><%= fa_icon "spinner", title: "Edit", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
+        <h4><%= fa_icon 'spinner lg fw spin', title: "Edit" %> Processing image...</h4>
       <% else %>
         <span class="inline-block">
           <%= image_tag(@device.icon.url, class: 'img-rounded').html_safe %>
@@ -16,13 +16,10 @@
       <h3>        
         <%= fa_icon 'star-o', title: 'Shared device' if @device.shared? %>
         <%= best_in_place @device, :name %>
-        <% if @device.uid.present? %>
-          <%= best_in_place @device, :uid %>
-        <% end %>
-        
+        <%= best_in_place @device, :uid if @device.uid.present? %>        
         <% if @device.bookable? %>
           <%= link_to device_bookings_path(@device), class: 'btn btn-warning' do %>
-            <%= fa_icon 'book', class: 'fa fa-lg fa-fw' %>Booking Sheet
+            <%= fa_icon 'book lg fw' %>Booking Sheet
           <% end %>
         <% end %>
       </h3>
@@ -46,11 +43,6 @@
         <% unless @device.location.empty? %>
           <dt><strong>Location</strong></dt>
           <dd><%= best_in_place @device, :location %></dd><br>
-        <% end %>
-
-        <% if @device.uid? %>
-          <dt>Unique ID</dt>
-          <dd><%= best_in_place @device, :uid %></dd><br>
         <% end %>
 
         <% if @device.description? %>
@@ -93,16 +85,16 @@
       </dl>
       <div class="btn-group">
         <%= link_to lab_devices_path(@device.lab), class: 'btn' do %>
-          <%= fa_icon "rotate-left", class: "fa fa-lg fa-fw" %>Back
+          <%= fa_icon "rotate-left lg fw"%>Back
         <% end %>
         <%= link_to edit_device_path(@device), class: 'btn btn-warning' do %>
-          <%= fa_icon "edit", class: "fa fa-lg fa-fw" %>Edit
+          <%= fa_icon "edit lg fw" %>Edit
         <% end %>
         <%= link_to device_path(@device), method: 'delete', class: 'btn btn-danger' do %>
-          <%= fa_icon "trash-o", class: "fa fa-lg fa-fw" %>Destroy
+          <%= fa_icon "trash-o lg fw" %>Destroy
         <% end %>
         <%= link_to clone_device_path(@device), class: 'btn btn-info' do %>
-          <%= fa_icon "code-fork", class: "fa fa-lg fa-fw" %>Clone
+          <%= fa_icon "code-fork lg fw" %>Clone
         <% end %>
       </div>
       <hr>

@@ -5,25 +5,25 @@
       <% if current_user.lab.present? %>          
         <% if current_user.gl? %>
           <%= link_to lab_collaborations_path(current_user.lab), class: 'inline-block navbutton' do %>
-            <%= fa_icon 'link', title: 'Your collaborations', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.collaborations.count + current_user.lab.inverse_collaborations.count %></small>
+            <%= fa_icon 'link 2x fw', title: 'Your collaborations' %><br><small class="text-center"><%= current_user.lab.collaborations.count + current_user.lab.inverse_collaborations.count %></small>
           <% end %>
         <% end %>
 
         <%= link_to current_user.lab, class: 'inline-block navbutton' do %>
-          <%= fa_icon 'users', title: 'Your lab', class: 'fa-2x fa-fw'  %><br><small class="text-center"><%= current_user.lab.users.count %></small>
+          <%= fa_icon 'users 2x fw', title: 'Your lab' %><br><small class="text-center"><%= current_user.lab.users.count %></small>
         <% end %>      
         <%= link_to user_reagents_path(current_user), class: 'inline-block navbutton' do %>
-          <%= fa_icon 'flask', title: 'Your reagents', class: 'fa-2x fa-fw'  %><br><small><%= current_user.cached_reagent_count %></small>
+          <%= fa_icon 'flask 2x fw', title: 'Your reagents'  %><br><small><%= current_user.cached_reagent_count %></small>
         <% end %>
         <%= link_to user_devices_path(current_user), class: 'inline-block navbutton' do %>
-          <%= fa_icon 'cogs', title: 'Your devices', class: 'fa-2x fa-fw' %><br><small><%= current_user.cached_device_count %></small>
+          <%= fa_icon 'cogs 2x fw', title: 'Your devices' %><br><small><%= current_user.cached_device_count %></small>
         <% end %>        
         <%= link_to user_bookings_path(current_user), class: 'inline-block navbutton' do %>
-          <%= fa_icon 'calendar', title: 'Your bookings', class: 'fa-2x fa-fw'  %><br><small><%= current_user.cached_booking_count %></small>
+          <%= fa_icon 'calendar 2x fw', title: 'Your bookings'  %><br><small><%= current_user.cached_booking_count %></small>
         <% end %>
       <% end %>
       <%= link_to destroy_user_session_path, method: :delete, class: 'inline-block navbutton', id: 'sign-out-button' do %>
-        <%= fa_icon 'sign-out', class: 'fa-2x fa-fw' %><br><small>SIGN-OUT</small>
+        <%= fa_icon 'sign-out 2x fw' %><br><small>SIGN-OUT</small>
       <% end %>   
     </span>
     <% end %>

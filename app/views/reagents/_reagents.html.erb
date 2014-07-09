@@ -59,13 +59,13 @@
         <td><%= time_ago_in_words(reagent.updated_at) %> ago</td>
         <td>
           <%= link_to edit_reagent_path(reagent) do %>
-            <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
+            <%= fa_icon "edit lg fw" title: "Edit"  %>
           <% end %>
 
           <%= link_to reagent_path(reagent),
                       method: :delete,
                       remote: true do %>
-            <%= fa_icon "trash-o", class: "fa-lg fa-fw", title: "Delete", id: "delete_#{reagent.id}"  %>
+            <%= fa_icon "trash-o lg fw", title: "Delete", id: "delete_#{reagent.id}"  %>
           <% end %>
         </td>
       </tr>

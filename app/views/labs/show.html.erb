@@ -5,7 +5,7 @@
   <div class="span6">
   <% if @lab.icon.present? %>
     <% if @lab.icon_processing? %>
-      <h4><%= fa_icon "spinner", title: "Edit", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
+      <h4><%= fa_icon "spinner lg fw spin", title: "Edit"  %> Processing image...</h4>
     <% else %>
       <span class="inline-block">
         <%= image_tag(@lab.icon.url, class: 'img-rounded').html_safe %>
@@ -15,7 +15,7 @@
     <span class="inline-block">  
       <h4>
         <%= link_to @lab.gl do %>
-          <%= fa_icon "users", class: "fa fa-fw fa-lg fa-group" %><%= " The #{@lab.gl.fullname} Lab" %>
+          <%= fa_icon "users lg fw" %><%= " The #{@lab.gl.fullname} Lab" %>
         <% end %>
         <% if current_user.gl_lm_lab?(@lab) %>
           <div class="btn-group">
@@ -42,21 +42,21 @@
         <% if @lab.url.present? %>
         <li>          
           <%= link_to @lab.url, target: "_blank" do %>
-            <%= fa_icon "globe", title: "Website", class: "fa-2x fa-fw"  %>
+            <%= fa_icon "globe lg fw", title: "Website" %>
           <% end %>
         </li>
         <% end %>
         <% if @lab.twitter_url.present? %>
          <li>          
           <%= link_to @lab.twitter_url, target: "_blank"  do %>
-            <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw" %>
+            <%= fa_icon "twitter lg fw", title: "Twitter" %>
           <% end %>
         </li>          
         <% end %>
         <% if @lab.facebook_url.present? %>
          <li>          
           <%= link_to @lab.facebook_url, target: "_blank"  do %>
-            <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw" %>
+            <%= fa_icon "facebook lg fw", title: "Facebook" %>
           <% end %>
         </li>          
         <% end %>       
@@ -67,50 +67,50 @@
       <% if @lab.email.present? %>
         <h5>          
           <%= mail_to @lab.email do %>
-            <%= fa_icon "envelope-o", title: "Email", class: "fa fa-lg fa-fw"  %> <%= @lab.email %>
+            <%= fa_icon "envelope-o lg fw"  %> <%= @lab.email %>
           <% end %>
         </h5>
       <% end %>
       <% if @lab.room.present? %>
       <h5>
         <%= link_to "#" do %>
-          <%= fa_icon "compass", class: "fa fa-fw fa-lg" %> Room <%= @lab.room %>
-        <% end %>
-      </h5>
-      <% end %>
-      <% if @lab.building.present? %>
-      <h5>
-        <%= link_to "#" do %>
-          <%= fa_icon "building-o", class: "fa fa-fw fa-lg" %> <%= @lab.building %>
+          <%= fa_icon "compass lg fw" %> Room <%= @lab.room %>
         <% end %>
       </h5>
       <% end %>
       <% if @department.present? %>
       <h5>
         <%= link_to institute_department_path(@institute, @department) do %>
-          <%= fa_icon "sitemap", class: "fa fa-fw fa-lg" %> <%= " #{@department.name}" %>
+          <%= fa_icon "sitemap lg fw" %> <%= " #{@department.name}" %>
         <% end %>
       </h5>
       <% end %>
+      <% if @lab.building.present? %>
+      <h5>
+        <%= link_to "#" do %>
+          <%= fa_icon "building-o lg fw" %> <%= @lab.building %>
+        <% end %>
+      </h5>
+      <% end %>      
       <h5>
       <%= link_to @lab.institute do %>
-        <%= fa_icon "university", class: "fa fa-fw fa-lg" %> <%= " #{ @institute.name }" %>
+        <%= fa_icon "institution lg fw" %> <%= " #{ @institute.name }" %>
       <% end %>
       </h5>
       <hr>
       <h5>
       <%= link_to lab_users_path(@lab) do %>
-        <%= fa_icon "users", class: "fa fa-fw fa-lg" %> Members <small>(<%= @users.size %>)</small>
+        <%= fa_icon "users lg fw" %> Members <small>(<%= @users.size %>)</small>
       <% end %>
       </h5>
       <h5>
       <%= link_to lab_reagents_path(@lab) do %>
-        <%= fa_icon "flask", class: "fa fa-fw fa-lg" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
+        <%= fa_icon "flask lg fw" %> Reagents <small>(<%= @lab.reagents.size %>)</small>
       <% end %>
       </h5>
       <h5>
       <%= link_to lab_devices_path(@lab) do %>
-        <%= fa_icon "cogs", class: "fa fa-fw fa-lg"  %> Devices <small>(<%= @lab.devices.size %>)</small>
+        <%= fa_icon "cogs lg fw"  %> Devices <small>(<%= @lab.devices.size %>)</small>
       <% end %>
       </h5>   
     <hr>

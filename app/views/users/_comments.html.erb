@@ -9,8 +9,8 @@
 
 		<% if @user == current_user %>
 			<%= link_to comment, method: :delete, remote: true do %>
-		  	<%= fa_icon "minus-square-o", title: "Delete", 
-		  																class: "fa-lg fa-fw pull-right", 
+		  	<%= fa_icon "minus-square-o lg fw", title: "Delete", 
+		  																class: "pull-right", 
 		  																	 id: "delete_button_#{comment.id}" %>
 	  	<% end %>	
 	  <% end %>

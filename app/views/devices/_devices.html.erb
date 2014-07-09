@@ -37,19 +37,18 @@
           <td>
             <% if device.bookable? %>
               <%= link_to device_bookings_path(device) do %>
-                <%= fa_icon "calendar", class: "fa-lg fa-fw", title: "Schedule"  %>
+                <%= fa_icon "calendar lg fw", title: "Schedule"  %>
               <% end %>
             <% end %>
             
             <%= link_to edit_device_path(device) do %>
-              <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
+              <%= fa_icon "edit lg fw", title: "Edit"  %>
             <% end %>
             
             <%= link_to device_path(device),
                         method: :delete,
                         remote: true do %>
-              <%= fa_icon "trash-o", title: "Delete",
-                                     class: "fa-lg fa-fw", 
+              <%= fa_icon "trash-o lg fw", title: "Delete",
                                         id: "delete_button_#{device.id}"  %>
             <% end %>
           </td>

@@ -50,17 +50,16 @@
           <td>
           <% unless params[:device_id] %>            
               <%= link_to device_bookings_path(booking.device_id) do %>
-                <%= fa_icon "calendar", class: "fa-lg fa-fw", title: "Schedule"  %>
+                <%= fa_icon "calendar lg fw", title: "Schedule"  %>
               <% end %>            
           <% end %>
 
           <% if !booking.expired_one_day? %>            
               <%= link_to edit_booking_path(booking) do %>
-                <%= fa_icon "edit", class: "fa-lg fa-fw", title: "Edit"  %>
+                <%= fa_icon "edit lg fw", title: "Edit"  %>
               <% end %>
               <%= link_to booking, method: :delete do %>
-                <%= fa_icon "trash-o", title: "Delete",
-                                       class: "fa-lg fa-fw", 
+                <%= fa_icon "trash-o lg fw", title: "Delete",
                                           id: "delete_button_#{booking.id}"  %>
               <% end %>
             </td>

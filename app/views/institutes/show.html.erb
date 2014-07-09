@@ -6,7 +6,7 @@
   <% if @institute.icon.present? %>
       <% if @institute.icon_processing? %>
         <br>
-        <h4><%= fa_icon "spinner", title: "Edit", class: "fa-spin fa-lg fa-fw"  %> Processing image...</h4>
+        <h4><%= fa_icon "spinner lg fw spin", title: "Edit" %> Processing image...</h4>
         <br>
       <% else %>
         <span class="inline-block">
@@ -33,28 +33,28 @@
     <% if @institute.email? %>
     <li>          
       <%= mail_to @institute.email do %>
-        <%= fa_icon "envelope-o", title: "Email", class: "fa-2x fa-fw"  %>
+        <%= fa_icon "envelope-o lg fw", title: "Email"  %>
       <% end %>
     </li>
     <% end %>
     <% if @institute.url? %>
       <li>          
         <%= link_to @institute.url, target: "_blank" do %>
-          <%= fa_icon "globe", title: "Website", class: "fa-2x fa-fw"  %>
+          <%= fa_icon "globe lg fw", title: "Website" %>
         <% end %>
       </li>
     <% end %>
     <% if @institute.twitter_url? %>
      <li>          
       <%= link_to @institute.twitter_url, target: "_blank"  do %>
-        <%= fa_icon "twitter", title: "Twitter", class: "fa-2x fa-fw", id: "twitter" %>
+        <%= fa_icon "twitter lg fw", title: "Twitter", id: "twitter" %>
       <% end %>
     </li>          
     <% end %>
     <% if @institute.facebook_url? %>
      <li>          
       <%= link_to @institute.facebook_url, target: "_blank"  do %>
-        <%= fa_icon "facebook", title: "Facebook", class: "fa-2x fa-fw", id: "facebook" %>
+        <%= fa_icon "facebook lg fw", title: "Facebook", id: "facebook" %>
       <% end %>
     </li>          
     <% end %>      
@@ -64,13 +64,13 @@
   <% if @institute.address.present? %>
     <h5>
     <%= link_to "http://maps.google.com/?q=#{@institute.address}", target: "_blank" do %>
-      <%= fa_icon "map-marker", class: "fa fa-fw fa-lg" %> <%= @institute.address %>
+      <%= fa_icon "map-marker lg fw" %> <%= @institute.address %>
     <% end %>
     </h5>
   <% end %>
     <hr>
      <% if @institute.departments.present? %>
-      <h4><%= fa_icon "sitemap", class: "fa fa-fw fa-lg" %> Departments</h4><br>
+      <h4><%= fa_icon "sitemap lg fw" %> Departments</h4><br>
         <% @departments.each do |department| %>
             <div class="department">
               <p><%= link_to department.name, institute_department_path(@institute, department) %></p>
@@ -79,7 +79,7 @@
         <hr>
     <% end %>
     <% if @institute.labs.present? %>
-      <h4><%= fa_icon "group", class: "fa fa-fw fa-lg" %> Groups</h4><br>
+      <h4><%= fa_icon "group lg fw" %> Groups</h4><br>
         <% @institute.labs.each do |lab| %>
             <div class="lab">
               <p><%= link_to lab.gl.fullname, lab_path(lab) %></p>

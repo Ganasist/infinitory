@@ -6,9 +6,9 @@
           <td>            
             <% if !user.icon.present? %> 
             <h4 class="text-left"> 
-              <%= fa_icon "lightbulb-o", class: "fa-lg fa-fw" if user.gl? %>
-              <%= fa_icon "eye", class: "fa-lg fa-fw" if user.lm? %>
-              <%= fa_icon "user", class: "fa-lg fa-fw" if !user.gl_lm? %>
+              <%= fa_icon "lightbulb-o lg fw" if user.gl? %>
+              <%= fa_icon "eye lg fw" if user.lm? %>
+              <%= fa_icon "user lg fw" if !user.gl_lm? %>
             </h4>
             <% else %>
               <span class="text-center"><%= link_to image_tag(user.icon.url(:thumb), class: "img-rounded").html_safe, user %></span>
