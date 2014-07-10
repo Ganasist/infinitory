@@ -1,0 +1,50 @@
+<%= simple_form_for [@lab, @account], url: lab_account_path, html: { class: 'form-vertical', id: 'braintree-payment-form' } do |f| %>
+
+<%= f.error_notification %>
+  <div class="row">
+    <div class="span6 offset3 well">
+      <%= f.input :first_name, 
+                    input_html: { style: 'width: 225px' }, 
+                    wrapper_html: { class: 'inline-block' } %>
+      <%= f.input :last_name, 
+                    input_html: { style: 'width: 225px' }, 
+                    wrapper_html: { class: 'inline-block' }  %>
+      <%= f.input :cc_number,
+                    label: "Card number",
+                    input_html: { style: 'width: 200px', maxlength: 16, autocomplete: 'off', "data-encrypted-name" => 'number' } %>
+
+      <%= f.input :cc_exp_month, label: false, 
+                    placeholder: "Month",
+                    input_html: { style: 'width: 100px', maxlength: 2, autocomplete: 'off', "data-encrypted-name" => 'month' },
+                    wrapper_html: { class: 'inline-block' },
+                    tooltip: ['right', "Enter a 2-digit month code, e.g. '08' for August"],
+                    label: "Expiration date"  %>
+                      
+      <%= f.input :cc_exp_year, label: false, 
+                    placeholder: "Year",
+                    input_html: { style: 'width: 100px', maxlength: 4, autocomplete: 'off', "data-encrypted-name" => 'year' },
+                    tooltip: ['right', "Enter a 4-digit year code, e.g. '2018'"],
+                    wrapper_html: { class: 'inline-block' },
+                    label: false %>                  
+      <br>
+      <%= f.input :cvv, 
+                    label: "CVV", 
+                    input_html: { style: 'width: 100px', maxlength: 3, autocomplete: 'off', "data-encrypted-name" => 'cvv' },
+                    tooltip: ['right', "Enter the 3-digit CVV code on your credit card"] %>
+    </div>
+  </div>
+  <div class="row">  
+    <div class="span4 offset4">
+      <br>
+      <%= f.button :submit, "Create Account", class: 'btn btn-warning' %><br><br>
+      <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+                  lab_path(@lab), class: 'btn' %>
+    </div>
+  </div> 
+<% end %>
+
+<script src="https://js.braintreegateway.com/v1/braintree.js"></script>
+<script>
+  var braintree = Braintree.create("MIIBCgKCAQEAw4viWhiGstSkO5AnawZtAaWBjSRPSILXLhTlQFdC8VJXj18hfRJPEWnPDo5tQ92xLDz4qVpNZ");
+  braintree.onSubmitEncryptForm('braintree-payment-form');
+</script>

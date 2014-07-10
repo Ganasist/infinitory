@@ -20,6 +20,7 @@ Infinitory::Application.routes.draw do
       resources :devices do
         resources :bookings
       end
+      resource :account
       resources :reagents
       resources :users
       resources :collaborations

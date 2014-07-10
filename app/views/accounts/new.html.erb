@@ -1,0 +1,6 @@
+<%- model_class = Account -%>
+<div class="page-header text-center">
+  <h3>Account setup for the <%= @lab.gl.fullname %> lab*</h3><br>
+</div>
+<%= render :partial => 'form' %><br><hr>
+<p class="text-center">*<%= link_to "Braintree", "https://www.braintreepayments.com/", target: "_blank" %> is our 3rd party PCI compliant payment processor. Your credit card number is never stored on Infinitory's servers.</p>

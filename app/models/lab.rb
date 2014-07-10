@@ -13,6 +13,8 @@ class Lab < ActiveRecord::Base
 	validates_associated	:institute
 	validates :institute, presence: true
 
+  has_one :account
+
 	has_many :users
   has_many :reagents, dependent: :destroy
   has_many :devices, dependent: :destroy
@@ -37,11 +39,24 @@ class Lab < ActiveRecord::Base
   validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
   process_in_background :icon
 
-  before_update :reorder_categories
   before_create :set_default_categories
+  def set_default_categories
+    self.reagent_category_list.add(REAGENT_CATEGORIES)
+    self.device_category_list.add(DEVICE_CATEGORIES)
+  end
+
+  after_create :create_account
+  def create_account
+    Account.create!(lab_id: self.id)
+  end
+
+  before_update :reorder_categories
+  def reorder_categories
+    self.reagent_category_list.sort!
+    self.device_category_list.sort!
+  end
 
   before_destroy :remove_comments, unless: Proc.new { |l| l.comments.nil? }
-
   def remove_comments
     self.comments.destroy_all
   end
@@ -113,16 +128,6 @@ class Lab < ActiveRecord::Base
 
   def size
     users.count
-  end
-
-  def set_default_categories
-    self.reagent_category_list.add(REAGENT_CATEGORIES)
-    self.device_category_list.add(DEVICE_CATEGORIES)
-  end
-
-  def reorder_categories
-    self.reagent_category_list.sort!
-    self.device_category_list.sort!
   end
 
 	private   
