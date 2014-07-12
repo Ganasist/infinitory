@@ -1,5 +1,7 @@
 class Account < ActiveRecord::Base
 	belongs_to :lab
+	has_many 	 :receipts
+	
 	attr_accessor :first_name, :last_name, :cc_number, :cc_exp_month, :cc_exp_year, :cvv
 
 	before_create :set_billing_start_and_day

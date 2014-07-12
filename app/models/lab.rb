@@ -96,10 +96,6 @@ class Lab < ActiveRecord::Base
     users.where('role IN (?)', ['group_leader', 'lab_manager'])
   end
 
-	def city
-		institute.city
-	end
-
 	def location
 		if self.room.present? && self.department.present?
 			"#{self.room} #{department.address}"

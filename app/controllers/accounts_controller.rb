@@ -7,6 +7,8 @@ class AccountsController < ApplicationController
 
 	def new
 		@account = Account.new
+		@tr_data = Braintree::TransparentRedirect.create_customer_data(redirect_url: lab_account_path(@lab),
+																															     customer: { company: @user.name })
 	end
 
 	def edit

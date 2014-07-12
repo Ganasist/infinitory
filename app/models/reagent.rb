@@ -7,6 +7,7 @@ class Reagent < ActiveRecord::Base
 	belongs_to :lab, counter_cache: true, touch: true
 	validates_associated :lab
 	validates_presence_of :lab
+  delegate :gl, to: :lab, allow_nil: true
 
 	has_many :ownerships, dependent: :destroy
 	has_many :users, through: :ownerships
@@ -90,10 +91,6 @@ class Reagent < ActiveRecord::Base
     end
   end
 
-  def gl
-    User.find_by(email: self.lab.email)
-  end
-
   def fullname
     if self.uid.present? && self.location.present?
         "#{self.name}-#{self.uid} (#{self.location})"
@@ -131,7 +128,7 @@ class Reagent < ActiveRecord::Base
     end
 
     before_validation :smart_add_product_url_protocol,
-                      if: Proc.new { |r| r.product_url_changed? && r.product_url.present? }
+                      if: Proc.new { |r| r.product_url.present? && r.product_url_changed? }
     def smart_add_product_url_protocol
       unless self.product_url[/^http:\/\//] || self.product_url[/^https:\/\//]
         self.product_url = 'http://' + self.product_url
@@ -139,7 +136,7 @@ class Reagent < ActiveRecord::Base
     end
     
     before_validation :smart_add_purchasing_url_protocol,
-                      if: Proc.new { |r| r.purchasing_url_changed? && r.purchasing_url.present? }
+                      if: Proc.new { |r| r.purchasing_url.present? && r.purchasing_url_changed? }
     def smart_add_purchasing_url_protocol
       unless self.purchasing_url[/^http:\/\//] || self.purchasing_url[/^https:\/\//]
         self.purchasing_url = 'http://' + self.purchasing_url

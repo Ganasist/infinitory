@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   validates_associated :lab
   validates :lab, presence: { message: 'Your group leader must create an account first' },
                     unless: Proc.new{ |u| u.gl? || !u.new_record? }, allow_blank: true
+  delegate :gl, to: :lab, allow_nil: true
 
   has_many :ownerships, dependent: :destroy
   has_many :reagents, through: :ownerships
@@ -153,16 +154,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def retire_permissions?(user, lab)
-    gl_lm_lab?(lab) && !user.gl?
-  end
-
-  def location
-    if self.lab_id?
-      institute.city
-    end
-  end
-
   def fullname
     if self.first_name.blank? || self.last_name.blank?
       self.email
@@ -173,14 +164,6 @@ class User < ActiveRecord::Base
 
   def remove_comments
     self.comments.destroy_all
-  end
-
-  def gl
-    unless self.lab_id.blank?
-      User.find_by(email: self.lab.email)
-    else
-      "#{self.fullname} has no group leader"
-    end
   end
 
   def gl?
@@ -201,6 +184,10 @@ class User < ActiveRecord::Base
 
   def gl_lm_lab?(this_lab)
     (role == 'group_leader' || role == 'lab_manager') && self.lab == this_lab
+  end
+
+  def retire_permissions?(user, lab)
+    gl_lm_lab?(lab) && !user.gl?
   end
 
   def lab_email

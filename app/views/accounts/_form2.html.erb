@@ -1,7 +1,6 @@
-<%= simple_form_for :customer, url: Braintree::TransparentRedirect.url, html: { class: 'form-vertical', id: 'braintree-payment-form' } do |f| %>
-<%= f.error_notification %>
-<%= hidden_field_tag :tr_data, @tr_data %>
+<%= simple_form_for [@lab, @account], url: lab_account_path, html: { class: 'form-vertical', id: 'braintree-payment-form' } do |f| %>
 
+<%= f.error_notification %>
   <div class="row">
     <div class="span6 offset3 well">
       <%= f.input :first_name, 
