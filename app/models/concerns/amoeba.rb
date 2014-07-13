@@ -1,3 +1,4 @@
+# Included in Device, Reagent
 module Amoeba
 	extend ActiveSupport::Concern
 

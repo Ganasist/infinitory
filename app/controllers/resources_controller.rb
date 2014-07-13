@@ -42,7 +42,6 @@ class ResourcesController < ApplicationController
   end
 
   private
-
     def resource_params
       params.require(:resource).permit(:name, :delete)
     end

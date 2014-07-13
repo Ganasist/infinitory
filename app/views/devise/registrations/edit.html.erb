@@ -74,18 +74,17 @@
     <hr>
     <strong>
       <h4><%= fa_icon "paperclip lg fw"%>Attachment <small>(PDF under 3 megabytes)</small></h4>
-    </strong>
-        
-        <% if @user.pdf? %>
-          <%= link_to "#{ @user.pdf_file_name }", @user.pdf.url %>
-          <br><br>
-          <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
-        <% end %>
+    </strong>        
+      <% if @user.pdf? %>
+        <%= link_to "#{ @user.pdf_file_name }", @user.pdf.url %>
+        <br><br>
+        <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+      <% end %>
 
-        <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
-        <h4>or</h4>
-        <%= f.file_field :pdf %>      
-        <hr>
+      <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+      <h4>or</h4>
+      <%= f.file_field :pdf %>      
+      <hr>
     </div>
     <div class="span5 pull-right">
       <strong>

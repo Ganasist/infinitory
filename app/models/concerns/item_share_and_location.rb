@@ -1,3 +1,4 @@
+# Included in Device, Reagent
 module ItemShareAndLocation
 	extend ActiveSupport::Concern
 	extend ActiveModel::Naming

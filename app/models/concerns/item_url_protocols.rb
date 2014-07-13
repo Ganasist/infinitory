@@ -1,3 +1,4 @@
+# Included in Device, Reagent
 module ItemURLProtocols
 	extend ActiveSupport::Concern
 

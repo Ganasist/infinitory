@@ -1,3 +1,4 @@
+# Included in User, Lab, Department, Institute
 module URLProtocols
 	extend ActiveSupport::Concern
 

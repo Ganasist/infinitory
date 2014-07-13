@@ -1,3 +1,4 @@
+# Included in Device, Reagent, User, Lab, Department, Institute
 module Attachments
 	extend ActiveSupport::Concern
 

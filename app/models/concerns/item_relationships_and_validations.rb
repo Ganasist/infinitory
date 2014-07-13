@@ -1,14 +1,17 @@
+# Included in Device, Reagent
 module ItemRelationshipsAndValidations
 	extend ActiveSupport::Concern
 
 	CURRENCIES = %w[$ €]
 
 	included do
+	  delegate :gl, to: :lab, allow_nil: true
+
 		acts_as_taggable_on :category
+		
 		belongs_to :lab, counter_cache: true, touch: true
 		validates_associated :lab
 		validates_presence_of :lab
-	  delegate :gl, to: :lab, allow_nil: true
 
 	  has_many :ownerships, dependent: :destroy
 		has_many :users, through: :ownerships
@@ -30,8 +33,5 @@ module ItemRelationshipsAndValidations
     					allow_blank: true, 
     					uniqueness: { scope: [:lab_id, :name], 
     												message: "There is already another item in your lab of this type, name and UID" }
-	  
 	end
-
-
 end
