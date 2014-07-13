@@ -21,28 +21,6 @@ class ApplicationController < ActionController::Base
         tooltip: { textStyle: { fontSize: 15 }, text: 'value' } }
     end
 
-    helper_method :lab_scatter_options
-    def lab_scatter_options
-      {width: '100%', height: 400,
-       fontSize: 16,
-       sizeAxis: { maxSize: 40, minSize: 5 },
-       chartArea: { width: "85%", height: "85%" },
-       legend: { position: 'none'},
-       colorAxis: { colors: ['white', '#003399'] },
-       hAxis: { title: 'Linked devices',
-                titleTextStyle: { fontSize: 18 },
-                logScale: false,
-                textPosition: "none",
-                viewWindowMode: 'pretty',
-                gridlines: { color: 'white' } },
-       vAxis: { title: 'Linked reagents',
-                titleTextStyle: { fontSize: 18 },
-                logScale: false,
-                textPosition: 'none',
-                viewWindowMode: 'pretty',
-                gridlines: { color: 'white' } } }
-    end
-
     helper_method :fullname
     def fullname(item)
       if item.uid.present?

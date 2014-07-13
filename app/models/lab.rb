@@ -1,6 +1,6 @@
 class Lab < ActiveRecord::Base
 
-  include URLProtocols
+  include URLProtocolsAndValidations
   include Attachments
 
   has_merit
@@ -30,10 +30,6 @@ class Lab < ActiveRecord::Base
   has_many :inverse_collaborators, through: :inverse_collaborations, source: :lab
 
   validates :email, presence: true
-  validates :url,
-            :twitter_url,
-            :facebook_url,
-            url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
   before_create :set_default_categories
   def set_default_categories

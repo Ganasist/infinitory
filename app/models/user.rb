@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 
+  include PublicActivity::Common
   include Attachments
+  include URLProtocolsAndValidations
 
   has_merit
   acts_as_commentable
@@ -39,12 +41,6 @@ class User < ActiveRecord::Base
   validates :role, presence: true, inclusion: { in: ROLES }, if: Proc.new { |u| !u.gl? }
   validates :lab_email, on: :create, presence: true, inclusion: { in: User.where(role: 'group_leader').pluck(:email), message: 'There is currently no group leader with this email address on Infinitory' }, if: Proc.new { |f| !f.gl? }
 
-  validates :linkedin_url,
-            :xing_url,
-            :twitter_url,
-            :facebook_url,
-            url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
-
   before_create :skip_confirmation!, :skip_confirmation_notification!
   before_create :gl_signup, if: Proc.new { |f| f.gl? }  
   before_create :first_request, if: Proc.new { |f| !f.gl? && !f.confirmed? && !f.approved? && !f.lab.nil? }
@@ -60,27 +56,6 @@ class User < ActiveRecord::Base
   after_update  :update_lab_affiliations, if: Proc.new { |f| f.gl? && f.confirmed? && f.lab.present? }
   
   before_destroy :remove_comments, unless: Proc.new { |u| u.comments.nil? }
-
-  # attr_accessor :delete_icon
-  # attr_reader :icon_remote_url  
-  # before_validation { icon.clear if delete_icon == '1' }
-  # has_attached_file :icon, styles: { thumb: '50x50>', original: '450x450>' }
-  # validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
-  # validates_attachment_content_type :icon,
-  #                                   :content_type => /^image\/(png|gif|jpeg)/,
-  #                                   :message => 'only (png/gif/jpeg) images'
-  # process_in_background :icon
-  
-  # attr_accessor :delete_pdf
-  # attr_reader :pdf_remote_url
-  # before_validation { pdf.clear if delete_pdf == '1' }
-  # has_attached_file :pdf                
-  # validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be under 3 megabytes in size' }
-  # validates_attachment_content_type :pdf,
-  #                                   :content_type => 'application/pdf',
-  #                                   :message => 'only PDF files allowed'
-
-  include PublicActivity::Common
 
   scope :all_gls, -> { where(role: 'group_leader') }
   scope :lm,      -> { where(role:  'lab_manager') }

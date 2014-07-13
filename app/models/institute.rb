@@ -1,6 +1,6 @@
 class Institute < ActiveRecord::Base
 
-	include URLProtocols
+	include URLProtocolsAndValidations
 	include Attachments
 
   has_merit
@@ -16,11 +16,6 @@ class Institute < ActiveRecord::Base
   validates :name, presence: true, allow_blank: false
 
   validates :email, email: true, allow_blank: true, uniqueness: true
-
-	validates :url,
-						:twitter_url,
-						:facebook_url,
-						url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
 	include PgSearch
   pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],

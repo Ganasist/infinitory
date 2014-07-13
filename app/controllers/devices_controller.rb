@@ -31,15 +31,7 @@ class DevicesController < ApplicationController
                                           .per(7)
                                           .reverse_order
   
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column("number", "% Saturated" )
-
-    data_table.add_rows(60)
-    (0..59).each do |i|
-      data_table.set_cell(i,0,rand(100))
-    end
-    opts   = { width: 320, height: 60, showAxisLines: false,  showValueLabels: true, labelPosition: 'none' }
-    @chart = GoogleVisualr::Image::SparkLine.new(data_table, opts)
+    @chart = GoogleSparkliner.new(@device, 320).draw_random
   end
 
   def new

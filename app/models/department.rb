@@ -1,6 +1,6 @@
 class Department < ActiveRecord::Base
 
-	include URLProtocols
+	include URLProtocolsAndValidations
   include Attachments
 
   has_merit
@@ -12,11 +12,6 @@ class Department < ActiveRecord::Base
 
 	has_many :labs
 	has_many :users
-
-	validates :url,
-            :twitter_url,
-            :facebook_url,
-            url: { allow_blank: true, message: "Invalid URL, please include http:// or https://" }
 
 	validates :email, email: true, allow_blank: true, uniqueness: true
 
