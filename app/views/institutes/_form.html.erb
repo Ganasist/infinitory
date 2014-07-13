@@ -12,6 +12,22 @@
       <%= f.input :url, label: 'Website', placeholder: "Optional" %>
       <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/department" %>
       <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/department" %>
+      <hr>
+      <strong>
+        <h4><%= fa_icon "paperclip lg fw"%>Attachment <small>(PDF under 3 megabytes)</small>
+      </h4>
+      </strong>        
+        <% if @institute.pdf? %>
+          <%= link_to "#{ @institute.pdf_file_name }", @institute.pdf.url %>
+          <br><br>
+          <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+        <% end %>
+
+        <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+        <h4>or</h4>
+        <%= f.file_field :pdf %>
+        <hr>     
+      <br> 
     </div>
     <div class="span5 pull-right">
       <strong><h4>Institute icon</h4></strong>

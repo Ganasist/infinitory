@@ -78,7 +78,7 @@
         <% end %>
 
         <% if @device.pdf? %>
-          <dt>Attachment</dt>
+          <dt><%= fa_icon "paperclip lg fw"%> Attachment</dt>
           <dd><%= link_to "#{ @device.pdf_file_name }",@device.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@device.pdf_updated_at) %> ago</dd><br>
         <% end %>
          <br>

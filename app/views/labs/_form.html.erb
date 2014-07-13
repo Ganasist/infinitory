@@ -12,6 +12,21 @@
       <hr>
       <%= f.input :device_category_list, as: :text, input_html: { rows: 8 }, label: "Device categories:" %>
       <%= f.input :reagent_category_list, as: :text, input_html: { rows: 8 }, label: "Reagent categories:" %>
+      <hr>
+      <strong>
+        <h4><%= fa_icon "paperclip lg fw"%>Attachment <small>(PDF under 3 megabytes)</small>
+      </h4>
+      </strong>        
+        <% if @lab.pdf? %>
+          <%= link_to "#{ @lab.pdf_file_name }", @lab.pdf.url %>
+          <br><br>
+          <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+        <% end %>
+
+        <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+        <h4>or</h4>
+        <%= f.file_field :pdf %>
+        <hr>     
       <br>  
     </div>
     <div class="span6">                                     

@@ -25,26 +25,11 @@ class Department < ActiveRecord::Base
   								 							 case_sensitive: false,
   								 							 message: "A department with that name is already registered at this institute." }
 
-  # attr_accessor :delete_icon
-  # attr_reader :icon_remote_url
-  # before_validation { icon.clear if delete_icon == '1' }
-  # has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
-  # validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
-  # validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
-  # process_in_background :icon
-
   before_destroy :remove_comments, unless: Proc.new { |d| d.comments.nil? }
 
   def remove_comments
     self.comments.destroy_all
   end
-	
-	# def icon_remote_url=(url_value)
- #    if url_value.present?
- #      self.icon = URI.parse(url_value)
- #      @icon_remote_url = url_value
- #    end
- #  end
 
 	def location
 		if self.room.present?

@@ -37,8 +37,7 @@
 
 
       <ul class="inline">
-        <br>
-        
+        <br>        
         <% if @lab.url.present? %>
         <li>          
           <%= link_to @lab.url, target: "_blank" do %>
@@ -114,6 +113,12 @@
       <% end %>
       </h5>   
     <hr>
+      <% if @lab.pdf? %>
+        <h4><%= fa_icon "paperclip lg fw"%> Attachment</h4>
+        <h5><%= link_to "#{ @lab.pdf_file_name }", @lab.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@lab.pdf_updated_at) %> ago</span>
+        </h5>         
+        <hr> 
+      <% end %> 
 
     <% if @lab.size > 3 %>
       <h4 class="text-center">Member Overview</h4>

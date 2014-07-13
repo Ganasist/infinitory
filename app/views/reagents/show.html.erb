@@ -98,7 +98,7 @@
         <% end %>
 
         <% if @reagent.pdf? %>
-          <dt>Attachment</dt>
+          <dt><%= fa_icon "paperclip lg fw"%> Attachment</dt>
           <dd><%= link_to "#{ @reagent.pdf_file_name }",@reagent.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@reagent.pdf_updated_at) %> ago</dd><br>
         <% end %>
       </dl>

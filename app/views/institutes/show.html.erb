@@ -68,8 +68,14 @@
     <% end %>
     </h5>
   <% end %>
-    <hr>
-     <% if @institute.departments.present? %>
+  <hr>
+    <% if @institute.pdf? %>
+      <h4><%= fa_icon "paperclip lg fw"%> Attachment</h4>
+      <h5><%= link_to "#{ @institute.pdf_file_name }", @institute.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@institute.pdf_updated_at) %> ago</span>
+      </h5>         
+      <hr> 
+    <% end %> 
+    <% if @institute.departments.present? %>
       <h4><%= fa_icon "sitemap lg fw" %> Departments</h4><br>
         <% @departments.each do |department| %>
             <div class="department">

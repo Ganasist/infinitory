@@ -73,8 +73,7 @@
     <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/you" %>
     <hr>
     <strong>
-      <h4>Attachments</h4>
-      <p>.pdf file under 3 megabytes</p>
+      <h4><%= fa_icon "paperclip lg fw"%>Attachment <small>(PDF under 3 megabytes)</small></h4>
     </strong>
         
         <% if @user.pdf? %>

@@ -119,10 +119,11 @@
        </span> 
         <hr>
         <% if @user.pdf? %>
-          <h4>Attachment</h4>
-          <h5><%= link_to "#{ @user.pdf_file_name }", @user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</h5>         
+          <h4><%= fa_icon "paperclip lg fw"%> Attachment</h4>
+          <h5><%= link_to "#{ @user.pdf_file_name }", @user.pdf.url, target: "_blank"  %> - updated <%= time_ago_in_words(@user.pdf_updated_at) %> ago</span>
+          </h5>         
           <hr> 
-        <% end %>          
+        <% end %>       
     </div>
 <% end %>
 

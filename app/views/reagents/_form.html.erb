@@ -37,12 +37,12 @@
                                    placeholder: 'http://www.example.com',
                                    tooltip: ['right', "Enter a valid URL including http:// or https://"] %>  
       <hr>
-      <h4><strong>Attachment</strong> (.pdf < 5 megabytes)</h4>
+      <strong>
+        <h4><%= fa_icon "paperclip lg fw"%>Attachment<small> (PDF under 3 megabytes)</small></h4>
+      </strong>
       <br>
         <% if @reagent.pdf? %>
-          <%= link_to @reagent.pdf.url, target: "_blank"  do %>
-            <%= fa_icon "paperclip", text: "#{ @reagent.pdf_file_name }" %>
-          <% end %>
+          <%= link_to @reagent.pdf_file_name, @reagent.pdf.url, target: "_blank" %>
           <br><br>
           <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete this attachment", wrapper_html: { class: "form-inline"} %>
           <br>

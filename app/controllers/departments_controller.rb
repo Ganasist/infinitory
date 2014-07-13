@@ -73,6 +73,7 @@ class DepartmentsController < ApplicationController
     def department_params
       params.require(:department).permit(:name, :email, :address, :room, :url, :acronym, :institute,
                                          :linkedin_url, :xing_url, :twitter_url, :facebook_url,
-                                         :icon, :delete_icon, :icon_remote_url, :lock_version)
+                                         :pdf, :delete_pdf, :pdf_remote_url,
+                                         :icon, :delete_icon, :icon_remote_url)
     end
 end

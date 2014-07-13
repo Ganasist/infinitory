@@ -15,6 +15,21 @@
       <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/department" %>
       <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/department" %>
       <hr>
+      <strong>
+        <h4><%= fa_icon "paperclip lg fw"%>Attachment <small>(PDF under 3 megabytes)</small>
+      </h4>
+      </strong>        
+        <% if @department.pdf? %>
+          <%= link_to "#{ @department.pdf_file_name }", @department.pdf.url %>
+          <br><br>
+          <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+        <% end %>
+
+        <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
+        <h4>or</h4>
+        <%= f.file_field :pdf %>
+        <hr>     
+      <br>
       <%= f.button :submit, class: 'btn-warning' %><br><br>
       <%= link_to t('.cancel', default: t("helpers.links.cancel")),
                   institute_path(@institute), class: 'btn' %>
