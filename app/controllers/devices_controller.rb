@@ -75,7 +75,7 @@ class DevicesController < ApplicationController
         format.html { redirect_to @clone, notice: "#{ @clone.fullname } was successfully cloned." }
         format.json { render action: 'show', status: :created, location: @clone }
       else
-        format.html { render action: 'edit', notice: "There was a problem cloning" }
+        format.html { render action: 'show', error: "There was a problem cloning this device" }
         format.json { render json: @clone.errors, status: :unprocessable_entity }
       end
     end

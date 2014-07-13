@@ -5,7 +5,7 @@
     <div class="span6 devices">
     <% if @device.icon.present? %>
       <% if @device.icon_processing? %>
-        <h4><%= fa_icon 'spinner lg fw spin', title: "Edit" %> Processing image...</h4>
+        <br><h4 class="text-center"><%= fa_icon 'spinner lg fw spin', title: "Edit" %> Processing image...</h4><br>
       <% else %>
         <span class="inline-block">
           <%= image_tag(@device.icon.url, class: 'img-rounded').html_safe %>

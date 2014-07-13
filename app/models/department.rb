@@ -1,4 +1,8 @@
 class Department < ActiveRecord::Base
+
+	include URLProtocols
+  include Attachments
+
   has_merit
   acts_as_commentable
 
@@ -21,13 +25,13 @@ class Department < ActiveRecord::Base
   								 							 case_sensitive: false,
   								 							 message: "A department with that name is already registered at this institute." }
 
-  attr_accessor :delete_icon
-  attr_reader :icon_remote_url
-  before_validation { icon.clear if delete_icon == '1' }
-  has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
-  validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
-  validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
-  process_in_background :icon
+  # attr_accessor :delete_icon
+  # attr_reader :icon_remote_url
+  # before_validation { icon.clear if delete_icon == '1' }
+  # has_attached_file :icon, styles: { thumb: '50x50>', portrait: '300x300>' }
+  # validates_attachment :icon, :size => { :in => 0..2.megabytes, message: 'Picture must be under 2 megabytes in size' }
+  # validates_attachment_content_type :icon, :content_type => /^image\/(png|gif|jpeg)/, :message => 'only (png/gif/jpeg) images'
+  # process_in_background :icon
 
   before_destroy :remove_comments, unless: Proc.new { |d| d.comments.nil? }
 
@@ -35,12 +39,12 @@ class Department < ActiveRecord::Base
     self.comments.destroy_all
   end
 	
-	def icon_remote_url=(url_value)
-    if url_value.present?
-      self.icon = URI.parse(url_value)
-      @icon_remote_url = url_value
-    end
-  end
+	# def icon_remote_url=(url_value)
+ #    if url_value.present?
+ #      self.icon = URI.parse(url_value)
+ #      @icon_remote_url = url_value
+ #    end
+ #  end
 
 	def location
 		if self.room.present?
@@ -51,15 +55,6 @@ class Department < ActiveRecord::Base
 	end
 
 	protected
-
-		before_validation :smart_add_url_protocol,
-											if: Proc.new { |d| d.url.present? && d.url_changed? }
-		def smart_add_url_protocol
-		  unless self.url[/^http:\/\//] || self.url[/^https:\/\//]
-		    self.url = 'http://' + self.url
-		  end
-		end
-
 		before_validation :default_addresses,
 											if: Proc.new { |d| d.institute.present? && !d.address.present? && d.address_changed? }
 		def default_addresses

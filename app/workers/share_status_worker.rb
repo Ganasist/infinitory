@@ -3,9 +3,9 @@ class ShareStatusWorker
   sidekiq_options retry: false, backtrace: true
 
   def perform(type, item_id)
-  	if type == "reagent"
+  	if type == "Reagent"
 	  	item = Reagent.find(item_id)
-	  elsif type == "device"
+	  elsif type == "Device"
 	  	item = Device.find(item_id)
 	  end
 
