@@ -5,7 +5,7 @@ class Device < ActiveRecord::Base
   include ItemFullname
   include ItemRelationshipsAndValidations
   include ItemShareAndLocation
-  include ItemURLProtocols
+  include URLProtocolsAndValidations
   include PgSearch
   include PublicActivity::Common
 
