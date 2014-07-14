@@ -6,7 +6,7 @@ class DepartmentsController < ApplicationController
   def index
     if params[:term].present?
       @departments = @institute.departments
-      render json: @departments.map { |x| "#{x.name} @ #{x.institute.name}"}
+      render json: @departments.map { |d| "#{d.name} @ #{d.institute.name}"}
     else
       @departments = Department.where(institute_id: @institute)
     end
