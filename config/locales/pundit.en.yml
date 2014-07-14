@@ -1,0 +1,6 @@
+en:
+ pundit:
+   device_policy:
+     show?: 'You cannot access that device.'
+     update?: 'You cannot edit that device.'
+     create?: 'You cannot create that device.'

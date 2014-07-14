@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
+  include Pundit
 
   # protect_from_forgery with: :exception
   protect_from_forgery with: :null_session
@@ -11,7 +12,17 @@ class ApplicationController < ActionController::Base
   # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   protected
+
+    def user_not_authorized(exception)
+      policy_name = exception.policy.class.to_s.underscore
+
+      flash[:error] = I18n.t "pundit.#{policy_name}.#{exception.query}",
+                            default: 'You cannot access that page.'
+      redirect_to(current_user)
+    end
 
     helper_method :pie_options
     def pie_options

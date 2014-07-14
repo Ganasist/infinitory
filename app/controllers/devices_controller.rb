@@ -2,8 +2,10 @@ class DevicesController < ApplicationController
 	before_action :set_device, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
-  before_action :check_user_show!, only: :show
-  before_action :check_user_index!, only: :index
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+  # before_action :check_user_show!, only: :show
+  # before_action :check_user_index!, only: :index
 
   def index
     if params[:user_id].present?
@@ -23,6 +25,7 @@ class DevicesController < ApplicationController
   end
 
   def show
+    authorize @device  
     @lab = current_user.lab
     @activities = PublicActivity::Activity.includes(:trackable, :owner)
                                           .where('trackable_id=? AND trackable_type=?', params[:id], "Device")
@@ -30,7 +33,6 @@ class DevicesController < ApplicationController
                                           .page(params[:page])
                                           .per(7)
                                           .reverse_order
-  
     @chart = GoogleSparkliner.new(@device, 320).draw_random
   end
 
@@ -109,22 +111,22 @@ class DevicesController < ApplicationController
     end
     helper_method :device_sort_direction
 
-    def check_user_show!
-      unless current_user.lab == @device.lab
-        redirect_to current_user
-        flash[:alert] = "You can't access devices from that lab"
-      end
-    end
+    # def check_user_show!
+    #   unless current_user.lab == @device.lab
+    #     redirect_to current_user
+    #     flash[:alert] = "You can't access devices from that lab"
+    #   end
+    # end
 
-    def check_user_index!
-      if params[:user_id] && (current_user != User.find(params[:user_id]))
-        redirect_to current_user
-        flash[:alert] = "You can't access that member's device list"
-      elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
-        redirect_to current_user
-        flash[:alert] = "You can't access that lab's device list"
-      end
-    end
+    # def check_user_index!
+    #   if params[:user_id] && (current_user != User.find(params[:user_id]))
+    #     redirect_to current_user
+    #     flash[:alert] = "You can't access that member's device list"
+    #   elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
+    #     redirect_to current_user
+    #     flash[:alert] = "You can't access that lab's device list"
+    #   end
+    # end
 
     def set_device
       @device = Device.find(params[:id])
