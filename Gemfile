@@ -9,6 +9,8 @@ gem 'validates_overlap'
 
 gem 'bitly', '~> 0.9.0'
 
+gem 'pundit'
+
 gem 'newrelic_rpm'
 gem 'braintree'
 
