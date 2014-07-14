@@ -60,19 +60,6 @@ class User < ActiveRecord::Base
   scope :all_gls, -> { where(role: 'group_leader') }
   scope :lm,      -> { where(role:  'lab_manager') }
 
-  # def icon_remote_url=(url_value)
-  #    if url_value.present?
-  #     self.icon = URI.parse(url_value)
-  #     @icon_remote_url = url_value
-  #   end
-  # end
-
-  # def pdf_remote_url=(url_value)
-  #    if url_value.present?
-  #     self.pdf = URI.parse(url_value)
-  #     @pdf_remote_url = url_value
-  #   end
-  # end
 
   def reagents_category_count(category)
     self.reagents.where(category: category).count

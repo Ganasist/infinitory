@@ -39,7 +39,7 @@
       <strong><h4>Department icon</h4></strong>
       <p>.jpeg, .png or .gif images < 2 megabytes</p>
       <% if @department.icon.present? %>
-        <%= image_tag(@department.icon.url(:portrait), class: "img-rounded").html_safe %>
+        <%= image_tag(@department.icon.url, class: "img-rounded").html_safe %>
         <br><br>
         <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete icon", wrapper_html: { class: "form-inline"} %><br>
       <% end %>

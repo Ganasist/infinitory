@@ -57,7 +57,7 @@
       <div class="span5 pull-right">
         <h4><strong>Image</strong> (.jpg, .png, .gif < 2 megabytes)</h4>
           <% if @reagent.icon? %>
-            <%= image_tag(@reagent.icon.url, class: "img-rounded").html_safe %>
+            <%= image_tag(@reagent.icon.url(:medium), class: "img-rounded").html_safe %>
             <br><br>
             <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete this photo", wrapper_html: { class: "form-inline"} %><br>
           <% end %>

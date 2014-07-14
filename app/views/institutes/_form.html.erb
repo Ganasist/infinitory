@@ -32,8 +32,8 @@
     <div class="span5 pull-right">
       <strong><h4>Institute icon</h4></strong>
       <p>.jpeg, .png or .gif images < 2 megabytes</p>
-      <% if @institute.icon.present? %>
-        <%= image_tag(@institute.icon.url(:portrait), class: "img-rounded").html_safe %>
+      <% if @institute.icon? %>
+        <%= image_tag(@institute.icon.url, class: "img-rounded").html_safe %>
         <br><br>
         <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete icon", wrapper_html: { class: "form-inline"} %><br>
       <% end %>
