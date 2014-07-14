@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140713130205) do
     t.integer  "lab_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "payment_processor_subscription_id"
     t.date     "billing_start"
     t.integer  "billing_day"
     t.string   "vat_number"
