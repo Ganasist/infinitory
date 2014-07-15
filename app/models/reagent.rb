@@ -15,7 +15,6 @@ class Reagent < ActiveRecord::Base
   # validates_date :expiration, after: lambda { Date.today }, after_message: 'Expiration date must be set after today',
   # 														if: Proc.new { |reagent| reagent.expiration_changed? }
 
-  # before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
 
   pg_search_scope :pg_search, against: [:name, :uid, :serial, :location, :description],
                               using: { tsearch: { prefix: true, dictionary: 'english' } }
@@ -29,7 +28,7 @@ class Reagent < ActiveRecord::Base
     	new_reagent.uid        = SecureRandom.hex(2)
     	new_reagent.remaining  = 100
     	new_reagent.activities = []
-      if original_reagent.expiration.past?
+      if original_reagent.expiration? && original_reagent.expiration.past?
         new_reagent.expiration = Date.today + 5.years
       end
       if original_reagent.icon.present?
@@ -53,6 +52,11 @@ class Reagent < ActiveRecord::Base
     after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining_changed? && r.remaining < 21 }
     def reagent_depletion_worker
       ReagentDepletionWorker.delay_for(3.seconds).perform_async(self.id)
+    end
+
+    before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
+    def set_expiration
+      self.expiration  = Date.today + 5.years
     end
 
 	  def self.text_search(query)

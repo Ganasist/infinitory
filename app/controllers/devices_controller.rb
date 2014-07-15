@@ -3,9 +3,10 @@ class DevicesController < ApplicationController
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
   after_action :verify_authorized, except: :index
-  after_action :verify_policy_scoped, only: :index
+  # after_action :verify_policy_scoped, only: :index
+
   # before_action :check_user_show!, only: :show
-  # before_action :check_user_index!, only: :index
+  before_action :check_user_index!, only: :index
 
   def index
     if params[:user_id].present?
@@ -25,7 +26,7 @@ class DevicesController < ApplicationController
   end
 
   def show
-    authorize @device  
+    authorize @device
     @lab = current_user.lab
     @activities = PublicActivity::Activity.includes(:trackable, :owner)
                                           .where('trackable_id=? AND trackable_type=?', params[:id], "Device")
@@ -37,16 +38,17 @@ class DevicesController < ApplicationController
   end
 
   def new
-    @lab = current_user.lab
     @device = Device.new
+    authorize @lab, :own_item?
   end
 
   def edit
-    @device = Device.find(params[:id])
+    authorize @device
   end
 
   def create
     @device = @lab.devices.new(device_params)
+    authorize @lab, :own_item?
     respond_to do |format|
       if @device.save
         @device.create_activity :create, owner: current_user
@@ -61,6 +63,7 @@ class DevicesController < ApplicationController
   end
 
   def clone
+    authorize @device
     @clone = @device.amoeba_dup
     respond_to do |format|
       if @clone.save
@@ -76,6 +79,7 @@ class DevicesController < ApplicationController
   end
 
   def update
+    authorize @device
     respond_to do |format|
       if @device.update(device_params)
         @device.create_activity :update, owner: current_user
@@ -89,6 +93,7 @@ class DevicesController < ApplicationController
   end
 
   def destroy
+    authorize @device
     send_destroy_comment(@device, 'removed')
     @lab = @device.lab
     @device.create_activity :delete, owner: current_user
@@ -118,15 +123,15 @@ class DevicesController < ApplicationController
     #   end
     # end
 
-    # def check_user_index!
-    #   if params[:user_id] && (current_user != User.find(params[:user_id]))
-    #     redirect_to current_user
-    #     flash[:alert] = "You can't access that member's device list"
-    #   elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
-    #     redirect_to current_user
-    #     flash[:alert] = "You can't access that lab's device list"
-    #   end
-    # end
+    def check_user_index!
+      if params[:user_id] && (current_user != User.find(params[:user_id]))
+        redirect_to current_user
+        flash[:alert] = "You can't access that member's device list"
+      elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
+        redirect_to current_user
+        flash[:alert] = "You can't access that lab's device list"
+      end
+    end
 
     def set_device
       @device = Device.find(params[:id])

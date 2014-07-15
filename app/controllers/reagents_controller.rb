@@ -2,8 +2,10 @@ class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
-  before_action :check_user_show!, only: :show
   before_action :check_user_index!, only: :index
+
+  after_action :verify_authorized, except: :index
+  # after_action :verify_policy_scoped, only: :index
 
   def index    
     if params[:search].present?      
@@ -40,6 +42,7 @@ class ReagentsController < ApplicationController
   end
 
   def show
+    authorize @reagent
     @activities = PublicActivity::Activity.includes(:trackable, :owner)
                                           .where(trackable_id: params[:id])
                                           .where(trackable_type: "Reagent")
@@ -51,14 +54,17 @@ class ReagentsController < ApplicationController
 
   def new
     @reagent = Reagent.new
+    authorize @lab, :own_item?
   end
 
   def edit
     @reagent = Reagent.find(params[:id])
+    authorize @reagent
   end
 
   def create
     @reagent = @lab.reagents.new(reagent_params)
+    authorize @lab, :own_item?
     respond_to do |format|
       if @reagent.save
         @reagent.create_activity :create, owner: current_user
@@ -74,6 +80,7 @@ class ReagentsController < ApplicationController
   end
 
   def clone
+    authorize @reagent
     @clone = @reagent.amoeba_dup
     respond_to do |format|
       if @clone.save
@@ -89,6 +96,7 @@ class ReagentsController < ApplicationController
   end
 
   def update
+    authorize @reagent
     respond_to do |format|
       if @reagent.update(reagent_params)
         @reagent.create_activity :update, owner: current_user
@@ -102,6 +110,7 @@ class ReagentsController < ApplicationController
   end
 
   def destroy
+    authorize @reagent
     send_destroy_comment(@reagent, 'removed')
     @lab = @reagent.lab
     @reagent.create_activity :delete, owner: current_user
@@ -123,13 +132,6 @@ class ReagentsController < ApplicationController
       %w[asc desc].include?(params[:direction]) ?  params[:direction] : 'desc'
     end
     helper_method :reagent_sort_direction
-
-    def check_user_show!
-      unless current_user.lab == @reagent.lab
-        redirect_to current_user
-        flash[:alert] = "You cannot access devices from that lab"
-      end
-    end
 
     def check_user_index!
       if params[:user_id] && (current_user != User.find(params[:user_id]))

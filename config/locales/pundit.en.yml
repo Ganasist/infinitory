@@ -1,6 +1,21 @@
 en:
  pundit:
    device_policy:
+     index?: 'You cannot access that device list.'
      show?: 'You cannot access that device.'
-     update?: 'You cannot edit that device.'
+     new?: 'You cannot access that page.'
+     edit?: 'You cannot edit that device.'
      create?: 'You cannot create that device.'
+     clone?: 'You cannot clone that device.'
+     update?: 'You cannot edit that device.'
+     destroy?: 'You cannot destroy that device.'
+   reagent_policy:
+     index?: 'You cannot access that reagent list.'
+     show?: 'You cannot access that reagent.'
+     new?: 'You cannot access that page.'
+     edit?: 'You cannot edit that reagent.'
+     create?: 'You cannot create that reagent.'
+     clone?: 'You cannot clone that reagent.'
+     update?: 'You cannot edit that reagent.'
+     destroy?: 'You cannot destroy that reagent.'
+     

@@ -1,9 +1,9 @@
-class DevicePolicy < ApplicationPolicy
-  attr_reader :user, :device
+class LabPolicy < ApplicationPolicy
+  attr_reader :user, :lab
 
-  def initialize(user, device)
+  def initialize(user, lab)
     @user = user
-    @device = device
+    @lab = lab
   end
 
   # class Scope
@@ -19,27 +19,27 @@ class DevicePolicy < ApplicationPolicy
   # end
 
   def show?
-    user.lab == device.lab
+    user.lab == lab
   end
 
   def new?
-  	user == device
+  	show?
   end
 
   def edit?
-  	show?
+  	# user.gl_lm? and user.lab == lab
+  end
+
+  def own_item?
+    show?
   end
 
   def create?
   	
   end
 
-  def clone?
-  	show?
-  end
-
   def update?
-    show?
+    user.admin?
   end
 
   def destroy?
