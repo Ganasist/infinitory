@@ -2,21 +2,19 @@ class DevicesController < ApplicationController
 	before_action :set_device, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
-  after_action :verify_authorized, except: :index
-  # after_action :verify_policy_scoped, only: :index
-
-  # before_action :check_user_show!, only: :show
-  before_action :check_user_index!, only: :index
+  after_action :verify_authorized
 
   def index
     if params[:user_id].present?
       @user = User.find(params[:user_id])
+      authorize @user, :item_indexes?
       @devices = @user.device_ownerships
                       .order(device_sort_column + ' ' + device_sort_direction)
                       .modified_recently
                       .page(params[:page]).per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
+      authorize @lab, :item_indexes?
       @devices = @lab.devices
                      .order(device_sort_column + ' ' + device_sort_direction)
                      .modified_recently

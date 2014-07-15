@@ -6,18 +6,6 @@ class LabPolicy < ApplicationPolicy
     @lab = lab
   end
 
-  # class Scope
-  # 	attr_reader :user, :scope
-
-  #   def initialize(user, scope, params_sort, params_direction)
-  #     @user = user
-  #     @scope = scope
-  #   end
-
-  #   def resolve
-  #  	end
-  # end
-
   def show?
     user.lab == lab
   end
@@ -32,6 +20,10 @@ class LabPolicy < ApplicationPolicy
 
   def own_item?
     show?
+  end
+
+  def item_indexes?
+    user.lab == lab
   end
 
   def create?

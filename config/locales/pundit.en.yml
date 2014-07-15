@@ -7,7 +7,7 @@ en:
      edit?: 'You cannot edit that device.'
      create?: 'You cannot create that device.'
      clone?: 'You cannot clone that device.'
-     update?: 'You cannot edit that device.'
+     update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that device.'
    reagent_policy:
      index?: 'You cannot access that reagent list.'
@@ -16,6 +16,15 @@ en:
      edit?: 'You cannot edit that reagent.'
      create?: 'You cannot create that reagent.'
      clone?: 'You cannot clone that reagent.'
-     update?: 'You cannot edit that reagent.'
+     update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that reagent.'
+   lab_policy:
+     index?: 'You cannot access that lab list.'
+     show?: 'You cannot access that lab page.'
+     new?: 'You cannot access that page.'
+     edit?: 'You cannot edit that lab.'
+     create?: 'You cannot create that lab.'
+     item_indexes?: "You don't have access to that lab's inventory."
+     update?: 'You cannot perform that action.'
+     destroy?: 'You cannot destroy that lab.'
      

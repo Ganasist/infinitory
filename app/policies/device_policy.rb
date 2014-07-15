@@ -6,17 +6,18 @@ class DevicePolicy < ApplicationPolicy
     @device = device
   end
 
-  # class Scope
-  # 	attr_reader :user, :scope
+  class Scope
+  	attr_reader :user, :scope
 
-  #   def initialize(user, scope, params_sort, params_direction)
-  #     @user = user
-  #     @scope = scope
-  #   end
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
 
-  #   def resolve
-  #  	end
-  # end
+    def resolve
+    	scope.all
+   	end
+  end
 
   def show?
     user.lab == device.lab

@@ -3,11 +3,9 @@ class ReagentsController < ApplicationController
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
   before_action :check_user_index!, only: :index
+  after_action :verify_authorized
 
-  after_action :verify_authorized, except: :index
-  # after_action :verify_policy_scoped, only: :index
-
-  def index    
+  def index  
     if params[:search].present?      
       if params[:user_id].present?   
         @user = User.find(params[:user_id])
