@@ -26,6 +26,10 @@ class LabPolicy < ApplicationPolicy
     user.lab == lab
   end
 
+  def user_indexes?
+    user.lab == lab
+  end
+
   def create?
   	
   end

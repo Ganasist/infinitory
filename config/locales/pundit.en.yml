@@ -30,10 +30,10 @@ en:
    user_policy:
      item_indexes?: "You cannot access that person's index."
      index?: 'You cannot access that lab list.'
-     show?: 'You cannot access that lab page.'
+     show?: "You cannot access that user's page."
      new?: 'You cannot access that page.'
-     edit?: 'You cannot edit that lab.'
+     edit?: 'You cannot edit that user.'
      create?: 'You cannot create that lab.'
      update?: 'You cannot perform that action.'
-     destroy?: 'You cannot destroy that lab.'
+     destroy?: 'You cannot destroy that user.'
      

@@ -2,9 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :approve, :retire, :reject]
   before_action :set_lab, only: [:retire, :reject, :approve]
   before_action :authenticate_user!
+  after_action :verify_authorized
 
-  def index    
+  def index
     @lab = Lab.find(params[:lab_id])
+    authorize @lab, :user_indexes?
     @users = @lab.users
                  .includes(:sash)
                  .where(approved: true)
@@ -16,9 +18,8 @@ class UsersController < ApplicationController
     if request.path != user_path(@user)
       redirect_to @user, status: :moved_permanently
     end
-
+    authorize @user
     @chart = GoogleSparkliner.new(@user, 420).draw
-
     @activities = PublicActivity::Activity.includes(:trackable).where(owner_id: @user.id)
                                                                .group("activities.id")
                                                                .page(params[:activities])
