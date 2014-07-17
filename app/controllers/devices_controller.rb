@@ -114,23 +114,6 @@ class DevicesController < ApplicationController
     end
     helper_method :device_sort_direction
 
-    # def check_user_show!
-    #   unless current_user.lab == @device.lab
-    #     redirect_to current_user
-    #     flash[:alert] = "You can't access devices from that lab"
-    #   end
-    # end
-
-    def check_user_index!
-      if params[:user_id] && (current_user != User.find(params[:user_id]))
-        redirect_to current_user
-        flash[:alert] = "You can't access that member's device list"
-      elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
-        redirect_to current_user
-        flash[:alert] = "You can't access that lab's device list"
-      end
-    end
-
     def set_device
       @device = Device.find(params[:id])
     end

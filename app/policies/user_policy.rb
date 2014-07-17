@@ -7,8 +7,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def item_indexes?
-    user == current_user
+    current_user == user
   end
-
-
 end

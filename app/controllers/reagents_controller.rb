@@ -2,20 +2,21 @@ class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy, :clone]
   before_action :set_lab, only: [:new, :create]
   before_action :authenticate_user!
-  before_action :check_user_index!, only: :index
   after_action :verify_authorized
 
   def index  
     if params[:search].present?      
-      if params[:user_id].present?   
+      if params[:user_id].present?
         @user = User.find(params[:user_id])
+        authorize @user, :item_indexes?
         @reagents = @user.reagents
                          .text_search(params[:search])
                          .modified_recently
                          .page(params[:page])
                          .per(12)
       elsif params[:lab_id].present?
-        @lab = Lab.find(params[:lab_id]) 
+        @lab = Lab.find(params[:lab_id])
+        authorize @lab, :item_indexes?
         @reagents = @lab.reagents
                         .text_search(params[:search])
                         .modified_recently
@@ -24,13 +25,15 @@ class ReagentsController < ApplicationController
       end
     elsif params[:user_id].present?
       @user = User.find(params[:user_id])
+      authorize @user, :item_indexes?
       @reagents = @user.reagents
                        .order(reagent_sort_column + ' ' + reagent_sort_direction)
                        .modified_recently
                        .page(params[:page])
                        .per(12)
     elsif params[:lab_id].present?
-      @lab = Lab.find(params[:lab_id]) 
+      @lab = Lab.find(params[:lab_id])
+      authorize @lab, :item_indexes?
       @reagents = @lab.reagents
                       .order(reagent_sort_column + ' ' + reagent_sort_direction)
                       .modified_recently
@@ -130,16 +133,6 @@ class ReagentsController < ApplicationController
       %w[asc desc].include?(params[:direction]) ?  params[:direction] : 'desc'
     end
     helper_method :reagent_sort_direction
-
-    def check_user_index!
-      if params[:user_id] && (current_user != User.find(params[:user_id]))
-        redirect_to current_user
-        flash[:alert] = "You cannot access that member's device list"
-      elsif params[:lab_id] && (current_user.lab != Lab.find(params[:lab_id]))
-        redirect_to current_user
-        flash[:alert] = "You cannot access devices from that lab"
-      end
-    end
 
     def set_reagent
       @reagent = Reagent.find(params[:id])

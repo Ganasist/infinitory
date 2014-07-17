@@ -27,4 +27,13 @@ en:
      item_indexes?: "You don't have access to that lab's inventory."
      update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that lab.'
+   user_policy:
+     item_indexes?: "You cannot access that person's index."
+     index?: 'You cannot access that lab list.'
+     show?: 'You cannot access that lab page.'
+     new?: 'You cannot access that page.'
+     edit?: 'You cannot edit that lab.'
+     create?: 'You cannot create that lab.'
+     update?: 'You cannot perform that action.'
+     destroy?: 'You cannot destroy that lab.'
      
