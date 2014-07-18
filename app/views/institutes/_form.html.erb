@@ -31,7 +31,7 @@
     </div>
     <div class="span5 pull-right">
       <strong><h4>Institute icon</h4></strong>
-      <p>.jpeg, .png or .gif images < 2 megabytes</p>
+      <p>.jpeg, .png or .gif images < 3 megabytes</p>
       <% if @institute.icon? %>
         <%= image_tag(@institute.icon.url, class: "img-rounded").html_safe %>
         <br><br>
@@ -48,7 +48,7 @@
     <div class="span5">
       <%= f.button :submit, class: 'btn-warning' %><br><br>
       <%= link_to t('.cancel', default: t("helpers.links.cancel")),
-                  institute_path(@institute), :class => 'btn' %>
+                  root_path, :class => 'btn' %>
     </div>
   </div>
 <% end %>

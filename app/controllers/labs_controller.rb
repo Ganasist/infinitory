@@ -1,12 +1,13 @@
 class LabsController < ApplicationController
   before_action :set_lab, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  after_action :verify_authorized
   before_action :check_members_and_collaborators!, only: :show
-  before_action :block_outsiders!, except: :show
 
   def index
     @institute = Institute.find(params[:institute_id])
     @labs = @institute.labs
+    authorize @institute, :lab_indexes?
 
     if params[:department_id].present?
       @department = Department.find(params[:department_id])
@@ -18,6 +19,7 @@ class LabsController < ApplicationController
     if request.path != lab_path(@lab)
       redirect_to @lab, status: :moved_permanently
     end
+    authorize @lab
     @gl = User.where(lab_id: @lab, role: 'group_leader').first
     @users = @lab.users.includes(:sash)
     @department = @lab.department
@@ -33,6 +35,7 @@ class LabsController < ApplicationController
   end
 
   def edit
+    authorize @lab
   end
 
   def create
@@ -81,13 +84,6 @@ class LabsController < ApplicationController
         redirect_to current_user
         flash[:alert] = 'You cannot access that lab'
       end
-    end
-
-    def block_outsiders!
-      unless (current_user.lab == Lab.find(params[:id]))
-        redirect_to current_user
-        flash[:alert] = 'You cannot access that page'
-      end      
     end
 
     def set_lab

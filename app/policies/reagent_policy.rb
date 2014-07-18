@@ -1,5 +1,4 @@
 class ReagentPolicy < ApplicationPolicy
-
 	attr_reader :user, :reagent
 
   def initialize(user, reagent)
@@ -11,16 +10,8 @@ class ReagentPolicy < ApplicationPolicy
   	user.lab == reagent.lab  	
   end
 
-  def new?
-  	user == reagent
-  end
-
   def edit?
   	show?
-  end
-
-  def create?
-  	
   end
 
   def clone?
@@ -34,5 +25,4 @@ class ReagentPolicy < ApplicationPolicy
   def destroy?
   	show?
   end
-
 end

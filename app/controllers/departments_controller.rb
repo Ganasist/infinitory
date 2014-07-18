@@ -2,6 +2,7 @@ class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
   before_action :set_institute, only: [:index, :new, :create, :update, :destroy]
   before_action :authenticate_user!
+  after_action :verify_authorized
   
   def index
     if params[:term].present?
@@ -13,6 +14,7 @@ class DepartmentsController < ApplicationController
   end
 
   def show
+    authorize @department
     @labs = Lab.where(department_id: params[:id])
   end
 

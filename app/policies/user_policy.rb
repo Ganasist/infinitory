@@ -30,6 +30,18 @@ class UserPolicy < ApplicationPolicy
   	current_user == user
   end
 
+  def approve?
+  	current_user.gl_lm? and current_user.lab == user.lab
+  end
+
+  def reject?
+  	approve?
+  end
+   
+  def retire?
+  	approve?
+  end
+
   def item_indexes?
     current_user == user
   end

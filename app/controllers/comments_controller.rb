@@ -10,7 +10,6 @@ class CommentsController < ApplicationController
     @comment = Comment.destroy(params[:id])
     respond_to do |format|
       format.html { redirect_to user_path(current_user) }
-      format.xml  { head :ok }
       format.js
     end
   end

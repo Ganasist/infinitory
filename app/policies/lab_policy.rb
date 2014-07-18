@@ -15,7 +15,7 @@ class LabPolicy < ApplicationPolicy
   end
 
   def edit?
-  	# user.gl_lm? and user.lab == lab
+  	user.gl_lm? and user.lab == lab
   end
 
   def own_item?
@@ -29,6 +29,7 @@ class LabPolicy < ApplicationPolicy
   def user_indexes?
     user.lab == lab
   end
+
 
   def create?
   	

@@ -1,10 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
   
-  after_action :verify_authorized, only: :edit
+  # after_action :verify_authorized, only: :edit
 
-  def edit
-    authorize @user  
-  end
+  # def edit
+  #   authorize @user  
+  # end
 
   def update
     account_update_params = devise_parameter_sanitizer.sanitize(:account_update)

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if request.path != user_path(@user)
       redirect_to @user, status: :moved_permanently
     end
-    authorize @user
+    authorize @user    
     @chart = GoogleSparkliner.new(@user, 420).draw
     @activities = PublicActivity::Activity.includes(:trackable).where(owner_id: @user.id)
                                                                .group("activities.id")
@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   end
 
   def approve
+    authorize @user
     @user.approved = true
     @user.joined = Time.now
     if @user.save
@@ -49,6 +50,7 @@ class UsersController < ApplicationController
   end
 
   def reject
+    authorize @user
     @user.reject
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been rejected."
@@ -60,6 +62,7 @@ class UsersController < ApplicationController
   end
 
   def retire
+    authorize @user
     @user.retire
     if @user.save
       flash[:notice] = "#{ @user.fullname } has been retired."

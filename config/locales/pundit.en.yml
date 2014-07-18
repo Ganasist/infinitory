@@ -18,6 +18,18 @@ en:
      clone?: 'You cannot clone that reagent.'
      update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that reagent.'
+   user_policy:
+     item_indexes?: "You cannot access that person's index."
+     approve?: "You cannot approve that user."
+     reject?: "You cannot reject that user."
+     retire?: "You cannot retire that user."
+     index?: 'You cannot access that lab list.'
+     show?: "You cannot access that user's page."
+     new?: 'You cannot access that page.'
+     edit?: 'You cannot edit that user.'
+     create?: 'You cannot create that lab.'
+     update?: 'You cannot perform that action.'
+     destroy?: 'You cannot destroy that user.'
    lab_policy:
      index?: 'You cannot access that lab list.'
      show?: 'You cannot access that lab page.'
@@ -27,13 +39,22 @@ en:
      item_indexes?: "You don't have access to that lab's inventory."
      update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that lab.'
-   user_policy:
-     item_indexes?: "You cannot access that person's index."
-     index?: 'You cannot access that lab list.'
-     show?: "You cannot access that user's page."
+   department_policy:
+     index?: 'You cannot access that department list.'
+     show?: "You cannot access that department's page."
      new?: 'You cannot access that page.'
-     edit?: 'You cannot edit that user.'
-     create?: 'You cannot create that lab.'
+     edit?: 'You cannot edit that department.'
+     create?: 'You cannot create that department.'
      update?: 'You cannot perform that action.'
-     destroy?: 'You cannot destroy that user.'
+     destroy?: 'You cannot destroy that department.'
+   institute_policy:
+     index?: 'You cannot access that page.'
+     show?: "You cannot access that institute's page."
+     new?: 'You cannot access that page.'
+     edit?: 'You cannot edit that institute.'
+     create?: 'You cannot create that institute.'
+     update?: 'You cannot perform that action.'
+     destroy?: 'You cannot destroy that institute.'
+
+   
      

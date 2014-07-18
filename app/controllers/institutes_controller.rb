@@ -1,7 +1,7 @@
 class InstitutesController < ApplicationController
   before_action :set_institute, only: [:show, :edit, :update, :destroy]
-  before_action :find_institute, only: [:show]
   before_action :authenticate_user!
+  after_action :verify_authorized, except: :index
 
   def index
     if params[:search].present?
@@ -17,19 +17,23 @@ class InstitutesController < ApplicationController
   end
 
   def show
-    @departments = Department.where(institute_id: find_institute)
-    @labs = Lab.where(institute_id: find_institute).order("created_at ASC")
+    authorize @institute
+    @departments = Department.where(institute: @institute)
+    @labs = Lab.where(institute: @institute).order("created_at ASC")
   end
 
   def new
     @institute = Institute.new
+    authorize @institute
   end
 
   def edit
+    authorize @institute
   end
 
   def create
     @institute = Institute.new(institute_params)
+    authorize @institute
     respond_to do |format|
       if @institute.save
         format.html { redirect_to @institute }
@@ -42,6 +46,7 @@ class InstitutesController < ApplicationController
   end
 
   def update
+    authorize @institute
     respond_to do |format|
       if @institute.update(institute_params)
         format.html { redirect_to @institute }
@@ -53,8 +58,6 @@ class InstitutesController < ApplicationController
     end
   end
 
-  # DELETE /institutes/1
-  # DELETE /institutes/1.json
   def destroy
     @institute.destroy
     respond_to do |format|
@@ -73,12 +76,5 @@ class InstitutesController < ApplicationController
                                         :linkedin_url, :xing_url, :twitter_url, :facebook_url,
                                         :icon, :delete_icon, :icon_remote_url,
                                         :pdf, :delete_pdf, :pdf_remote_url)
-    end
-
-    def find_institute
-      @institute = Institute.find(params[:id])
-      # if request.path != institute_path(@institute)
-      #   return redirect_to @institute, :status => :moved_permanently
-      # end
     end
 end
