@@ -25,4 +25,8 @@ class DevicePolicy < ApplicationPolicy
   def destroy?
   	show?
   end
+
+  def bookings_index?
+    (user.lab == device.lab) and device.bookable? 
+  end
 end

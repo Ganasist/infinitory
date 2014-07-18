@@ -15,11 +15,11 @@ class DepartmentPolicy < ApplicationPolicy
   end
 
   def show?
-  	user.department == department
+  	user.institute == department.institute
   end
 
   def edit?
-  	show? and user.gl?
+  	(user.department == department) and user.gl?
   end
 
   def update?
@@ -28,5 +28,9 @@ class DepartmentPolicy < ApplicationPolicy
 
   def lab_indexes?
     user.department == department    
+  end
+
+  def destroy?
+    new?
   end
 end

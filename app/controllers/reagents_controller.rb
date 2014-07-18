@@ -8,7 +8,7 @@ class ReagentsController < ApplicationController
     if params[:search].present?      
       if params[:user_id].present?
         @user = User.find(params[:user_id])
-        authorize @user, :item_indexes?
+        authorize @user, :own_items?
         @reagents = @user.reagents
                          .text_search(params[:search])
                          .modified_recently
@@ -16,7 +16,7 @@ class ReagentsController < ApplicationController
                          .per(12)
       elsif params[:lab_id].present?
         @lab = Lab.find(params[:lab_id])
-        authorize @lab, :item_indexes?
+        authorize @lab, :own_items?
         @reagents = @lab.reagents
                         .text_search(params[:search])
                         .modified_recently
@@ -25,7 +25,7 @@ class ReagentsController < ApplicationController
       end
     elsif params[:user_id].present?
       @user = User.find(params[:user_id])
-      authorize @user, :item_indexes?
+      authorize @user, :own_items?
       @reagents = @user.reagents
                        .order(reagent_sort_column + ' ' + reagent_sort_direction)
                        .modified_recently
@@ -33,7 +33,7 @@ class ReagentsController < ApplicationController
                        .per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id])
-      authorize @lab, :item_indexes?
+      authorize @lab, :own_items?
       @reagents = @lab.reagents
                       .order(reagent_sort_column + ' ' + reagent_sort_direction)
                       .modified_recently
@@ -55,7 +55,7 @@ class ReagentsController < ApplicationController
 
   def new
     @reagent = Reagent.new
-    authorize @lab, :own_item?
+    authorize @lab, :own_items?
   end
 
   def edit

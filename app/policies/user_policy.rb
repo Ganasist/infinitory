@@ -7,31 +7,39 @@ class UserPolicy < ApplicationPolicy
   end
 
 	def show?
-  	current_user.lab == user.lab  	
+  	current_user.institute == user.institute  	
   end
 
-  def new?
+  # def new?
 
-  end
+  # end
 
   def edit?
   	current_user == user
   end
 
-  def create?
+  # def create?
   	
-  end
+  # end
 
   def update?
-  	current_user == user
+    edit?
   end
 
   def destroy?
-  	current_user == user
+    edit?
+  end
+
+  def own_items?
+    edit?
+  end
+
+  def bookings_index?
+    current_user == user
   end
 
   def approve?
-  	current_user.gl_lm? and current_user.lab == user.lab
+  	current_user.gl_lm? and (current_user.lab == user.lab)
   end
 
   def reject?
@@ -40,9 +48,5 @@ class UserPolicy < ApplicationPolicy
    
   def retire?
   	approve?
-  end
-
-  def item_indexes?
-    current_user == user
   end
 end

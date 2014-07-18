@@ -1,5 +1,13 @@
 en:
  pundit:
+   booking_policy:
+     index?: 'You cannot access that booking list.'
+     show?: 'You cannot access that booking.'
+     new?: 'You cannot access that page.'
+     edit?: 'You cannot edit that booking.'
+     create?: 'You cannot create that booking.'
+     update?: 'You cannot perform that booking.'
+     destroy?: 'You cannot destroy that booking.'
    device_policy:
      index?: 'You cannot access that device list.'
      show?: 'You cannot access that device.'
@@ -9,6 +17,7 @@ en:
      clone?: 'You cannot clone that device.'
      update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that device.'
+     bookings_index?: "You cannot access that device's booking index."
    reagent_policy:
      index?: 'You cannot access that reagent list.'
      show?: 'You cannot access that reagent.'
@@ -19,7 +28,8 @@ en:
      update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that reagent.'
    user_policy:
-     item_indexes?: "You cannot access that person's index."
+     item_indexes?: "You cannot access that person's indexes."
+     bookings_index?: "You cannot access that user's booking index."
      approve?: "You cannot approve that user."
      reject?: "You cannot reject that user."
      retire?: "You cannot retire that user."
@@ -36,7 +46,7 @@ en:
      new?: 'You cannot access that page.'
      edit?: 'You cannot edit that lab.'
      create?: 'You cannot create that lab.'
-     item_indexes?: "You don't have access to that lab's inventory."
+     item_indexes?: "You don't have access to that lab's indexes."
      update?: 'You cannot perform that action.'
      destroy?: 'You cannot destroy that lab.'
    department_policy:

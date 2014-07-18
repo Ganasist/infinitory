@@ -6,40 +6,36 @@ class LabPolicy < ApplicationPolicy
     @lab = lab
   end
 
-  def show?
-    user.lab == lab
+  def new?
+  	user.super_admin?
   end
 
-  def new?
-  	show?
+  def create?
+    new?  
+  end
+
+  def show?
+    user.lab == lab ||
+    Lab.where(id: user.lab.inverse_collaborations.pluck(:lab_id)).include?(lab)
   end
 
   def edit?
-  	user.gl_lm? and user.lab == lab
+  	user.gl_lm? and (user.lab == lab)
   end
 
-  def own_item?
-    show?
-  end
-
-  def item_indexes?
+  def own_items?
     user.lab == lab
   end
 
   def user_indexes?
-    user.lab == lab
-  end
-
-
-  def create?
-  	
+    own_items?
   end
 
   def update?
-    user.admin?
+    edit?
   end
 
   def destroy?
-  	show?
+    user.gl? and (user.lab == lab)
   end
 end

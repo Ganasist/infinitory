@@ -5,18 +5,16 @@
      Your group currently shares <%= pluralize(@lab.reagents.where(shared: true).count, "reagent") %>
      and <%= pluralize(@lab.devices.where(shared: true).count, "device") %>
    </h4><br>
-  <%= simple_form_for [@lab, @collaborator], html: { class: 'form-vertical', autocomplete: 'off', style: 'width: 300px' },
+  <%= simple_form_for [@collaborator, @lab], html: { class: 'form-vertical', autocomplete: 'off', style: 'width: 300px' },
                                              url: url_for(action: 'create', controller: 'collaborations'),
                                              method: 'post' do |f| %>
        <%= f.error_notification %>
-     
        <%= f.input :lab_email, as: :email, label: "Group leader's email address",
                                 placeholder: 'Enter an email',
                                 tooltip: ['right', 'This lab must already have an account on Infinitory!'] %>
 
       <%= f.button :button, class: 'btn-warning' do %>
-        <i class="fa fa-link fa-lg"></i> Initiate a collaboration!
-        
+        <i class="fa fa-link fa-lg"></i> Create collaboration!
       <% end %>
     <% end %>
     <br>  

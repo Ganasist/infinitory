@@ -7,14 +7,14 @@ class DevicesController < ApplicationController
   def index
     if params[:user_id].present?
       @user = User.find(params[:user_id])
-      authorize @user, :item_indexes?
+      authorize @user, :own_items?
       @devices = @user.device_ownerships
                       .order(device_sort_column + ' ' + device_sort_direction)
                       .modified_recently
                       .page(params[:page]).per(12)
     elsif params[:lab_id].present?
       @lab = Lab.find(params[:lab_id]) 
-      authorize @lab, :item_indexes?
+      authorize @lab, :own_items?
       @devices = @lab.devices
                      .order(device_sort_column + ' ' + device_sort_direction)
                      .modified_recently
@@ -37,7 +37,7 @@ class DevicesController < ApplicationController
 
   def new
     @device = Device.new
-    authorize @lab, :own_item?
+    authorize @lab, :own_items?
   end
 
   def edit

@@ -95,6 +95,10 @@ class Lab < ActiveRecord::Base
 		end
 	end
 
+  # def lab_email
+  #   self.try(:email)
+  # end
+
 	def department_name
     department.try(:name)
   end

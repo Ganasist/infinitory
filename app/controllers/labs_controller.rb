@@ -1,8 +1,8 @@
 class LabsController < ApplicationController
   before_action :set_lab, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  # before_action :check_members_and_collaborators!, only: :show
   after_action :verify_authorized
-  before_action :check_members_and_collaborators!, only: :show
 
   def index
     @institute = Institute.find(params[:institute_id])
@@ -19,11 +19,11 @@ class LabsController < ApplicationController
     if request.path != lab_path(@lab)
       redirect_to @lab, status: :moved_permanently
     end
-    authorize @lab
     @gl = User.where(lab_id: @lab, role: 'group_leader').first
     @users = @lab.users.includes(:sash)
     @department = @lab.department
     @institute = @lab.institute
+    authorize @lab
     @notifications = @lab.comments.recent.page(params[:page]).per(16)
 
     @sparkline_chart = GoogleSparkliner.new(@lab, 525).draw    
@@ -79,12 +79,12 @@ class LabsController < ApplicationController
   end
 
   private
-    def check_members_and_collaborators!
-      unless (current_user.lab == Lab.find(params[:id])) || Lab.where(id: current_user.lab.inverse_collaborations.pluck(:lab_id)).include?(Lab.find(params[:id]))
-        redirect_to current_user
-        flash[:alert] = 'You cannot access that lab'
-      end
-    end
+    # def check_members_and_collaborators!
+    #   unless (current_user.lab == Lab.find(params[:id])) || Lab.where(id: current_user.lab.inverse_collaborations.pluck(:lab_id)).include?(Lab.find(params[:id]))
+    #     redirect_to current_user
+    #     flash[:alert] = 'You cannot access that lab'
+    #   end
+    # end
 
     def set_lab
       @lab = Lab.find(params[:id])
