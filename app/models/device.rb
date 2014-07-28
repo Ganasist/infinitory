@@ -41,14 +41,14 @@ class Device < ActiveRecord::Base
   end
 
   private
-    after_save :online_status_worker, if: Proc.new { |d| d.status_changed? }
+    after_commit :online_status_worker, on: :update, if: Proc.new { |d| d.previous_changes.include?(:status) }
     def online_status_worker
-      OnlineStatusWorker.delay_for(3.seconds).perform_async(self.id)    
+      OnlineStatusWorker.perform_async(self.id)    
     end
 
-    after_save :bookable_status_worker, if: Proc.new { |d| d.bookable_changed? }
+    after_commit :bookable_status_worker, on: :update, if: Proc.new { |d| d.previous_changes.include?(:bookable) }
     def bookable_status_worker
-      BookableStatusWorker.delay_for(3.seconds).perform_async(self.id)    
+      BookableStatusWorker.perform_async(self.id)    
     end
 
 	  def self.text_search(query)

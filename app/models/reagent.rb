@@ -49,14 +49,15 @@ class Reagent < ActiveRecord::Base
   end
 
   private
-    after_save :reagent_depletion_worker, if: Proc.new { |r| r.remaining_changed? && r.remaining < 21 }
+    after_commit :reagent_depletion_worker, on: :update, if: Proc.new { |r| r.previous_changes.include?(:remaining) &&
+                                                               r.remaining < 21 }
     def reagent_depletion_worker
-      ReagentDepletionWorker.delay_for(3.seconds).perform_async(self.id)
+      ReagentDepletionWorker.perform_async(self.id)
     end
 
-    before_save :set_expiration, if: Proc.new { |r| r.expiration.blank? }
+    before_save :set_expiration, on: :update, if: Proc.new { |r| r.expiration.blank? }
     def set_expiration
-      self.expiration  = Date.today + 5.years
+      self.expiration = Date.today + 5.years
     end
 
 	  def self.text_search(query)
