@@ -6,8 +6,8 @@ jQuery ->
   $('#user_password').focus ->
     $('.user_password_confirmation').show()
 
-  $('.GLform').removeClass('hidden') if $('#user_role').val() is "group_leader"
-  $('.GLform').addClass('hidden') if $('#user_role').val() isnt "group_leader"
+  # $('.GLform').removeClass('hidden') if $('#user_role').val() is "group_leader"
+  # $('.GLform').addClass('hidden') if $('#user_role').val() isnt "group_leader"
 
   $('.lab_members_form').removeClass('hidden') if $('#user_role').val() isnt "group_leader"
   $('.lab_members_form').addClass('hidden') if $('#user_role').val() is "group_leader"

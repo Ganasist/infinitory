@@ -20,20 +20,20 @@
     <%= f.input :last_name %>
 
     <% if current_user.gl? %>
-      <p>If you need to downgrade your status please delete this account, sign-out and <%= link_to "Register", new_user_registration_path, class: "btn btn-warning" %> for a new account.</p>
+      <p>If you need to downgrade your status please delete this account, sign-out and <%= link_to "Register", new_user_registration_path, class: "btn-small btn-warning" %> for a new account.</p>
     <% elsif !current_user.gl? && current_user.lab.present? %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',
                                      required: false %>
 
+      <p>If you need to switch to Group Leader status, please RETIRE from your current lab first. You will be unlinked from all reagents and devices.</p>
+      <hr>
       <span class="lab_members_form">
         <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
                                 typeahead: User.all_gls.pluck(:email),
                                 placeholder: 'Link your account to your lab',
                                 tooltip: ['right', 'Your group leader must first create an account']  %>
-      </span>
-      <br><br>
-      <p>If you need to switch to Group Leader status, please RETIRE from your current lab first. You will be unlinked from all reagents and devices.</p>
+      </span>     
     <% else %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',
@@ -41,33 +41,34 @@
       <p class="lead">If you need are upgrading to group leader, please <%= link_to "Request", new_request_path, class: "btn btn-warning" %> an account.</p>
       <br>
     <% end %>
-      <br>
-      <hr>
     
-    <span class="GLform">
     <% if current_user.gl? %>
-      <%= f.input :institute_name, placeholder: 'Find or create your institute account',
-                                   typeahead: Institute.all.pluck(:name).uniq %>
-       <% if current_user.institute.present? %>                         
-        <span id="department_select">
-          <% if current_user.institute.departments.present? %>
-            <%= f.input :department_id, collection: Institute.where(id: current_user.institute.id), 
-                                        as: :grouped_select,
-                                        label_method: :name,
-                                        group_method: :departments,
-                                        required: false,
-                                        include_blank: 'None' %>
-            <br>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.lab.present? %>
-        <%= link_to "ADD NEW DEPARTMENT", new_institute_department_path(current_user.institute) %>
-      <% end %>
-      </span>
-      <br>
-    </span>
     <hr>
+      <span class="GLform">
+        <%= f.input :institute_name, placeholder: 'Find or create your institute account',
+                                       typeahead: Institute.all.pluck(:name).uniq %>
+        <% if current_user.institute.present? %>                         
+          <span id="department_select">
+            <% if current_user.institute.departments.present? %>
+              <%= f.input :department_id, collection: Institute.where(id: current_user.institute.id), 
+                                          as: :grouped_select,
+                                          label_method: :name,
+                                          group_method: :departments,
+                                          required: false,
+                                          include_blank: 'None' %>
+              <br>
+            <% end %>
+          </span>
+            <% if current_user.lab.present? %>
+              <span id="register_new_department">
+                <%= link_to "ADD NEW DEPARTMENT", new_institute_department_path(current_user.institute) %>
+              </span>
+            <% end %>
+        <% end %>
+      </span>
+    <% end %>
+    <hr>
+      
     <%= f.input :linkedin_url, label: "LinkedIn", placeholder: "http://www.linked.com/you" %>
     <%= f.input :xing_url, label: "Xing", placeholder: "https://www.xing.com/profile/you" %>
     <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/you" %>
