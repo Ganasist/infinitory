@@ -72,7 +72,7 @@ class InstitutesController < ApplicationController
         flash[:alert] = "Institute wasn't found."
         redirect_to current_user
       else
-        flash[:alert] = "You need to sign in or sign up before continuing."
+        flash[:alert] = 'You need to sign in or sign up before continuing.'
         redirect_to root_url
       end
     end
@@ -82,8 +82,9 @@ class InstitutesController < ApplicationController
     end
 
     def institute_params
-      params.require(:institute).permit(:name, :email, :alternate_name, :address, :url, :acronym, :time_zone,
-                                        :linkedin_url, :xing_url, :twitter_url, :facebook_url,
+      params.require(:institute).permit(:name, :email, :alternate_name, :address, 
+                                        :url, :acronym, :time_zone, :linkedin_url, 
+                                        :xing_url, :twitter_url, :facebook_url,
                                         :icon, :delete_icon, :icon_remote_url,
                                         :pdf, :delete_pdf, :pdf_remote_url)
     end

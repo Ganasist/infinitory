@@ -10,16 +10,21 @@ class Institute < ActiveRecord::Base
 	has_many :labs
 	has_many :users
 
-	validates :name, uniqueness: { scope: :address, case_sensitive: false, message: "This institute is already registered at that address" },
-									 							 if: Proc.new{ |f| f.address? }
+	validates :name, uniqueness: { scope: :address, 
+												case_sensitive: false, 
+															 message: 'This institute is already registered at that address' },
+									 							 		if: Proc.new{ |f| f.address? }
 
-  validates :name, presence: true, allow_blank: false
-  validates :email, email: true, allow_blank: true, uniqueness: true
+  validates :name, presence: true, 
+  							allow_blank: false
+  validates :email, email: true, 
+  						allow_blank: true, 
+  						 uniqueness: true
 
 	include PgSearch
   pg_search_scope :search, against: [:name, :acronym, :alternate_name, :city],
-                  using: { tsearch: { prefix: true,
-                  										dictionary: "english" }}
+                  					 using: { tsearch: { prefix: true,
+                  			dictionary: "english" }}
 
 
   before_destroy :remove_comments,
