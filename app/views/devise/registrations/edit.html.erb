@@ -20,13 +20,20 @@
     <%= f.input :last_name %>
 
     <% if current_user.gl? %>
-      <p class="lead">If you need to downgrade your status please delete this account, sign-out and <%= link_to "Register", new_user_registration_path, class: "btn btn-warning" %> for a new account.</p>
+      <p>If you need to downgrade your status please delete this account, sign-out and <%= link_to "Register", new_user_registration_path, class: "btn btn-warning" %> for a new account.</p>
     <% elsif !current_user.gl? && current_user.lab.present? %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',
                                      required: false %>
+
+      <span class="lab_members_form">
+        <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
+                                typeahead: User.all_gls.pluck(:email),
+                                placeholder: 'Link your account to your lab',
+                                tooltip: ['right', 'Your group leader must first create an account']  %>
+      </span>
       <br><br>
-      <p class="lead">If you need to switch to Group Leader status, please RETIRE from your current lab first. You will be unlinked from all reagents and devices.</p>
+      <p>If you need to switch to Group Leader status, please RETIRE from your current lab first. You will be unlinked from all reagents and devices.</p>
     <% else %>
       <%= f.collection_select :role, User::ROLES, :to_s, :humanize, 
                                      prompt: 'Choose your position',
@@ -36,12 +43,6 @@
     <% end %>
       <br>
       <hr>
-    <span class="lab_members_form">
-      <%= f.input :lab_email, as: :email, label: "Group leader's email address", 
-                              typeahead: User.all_gls.pluck(:email),
-                              placeholder: 'Link your account to your lab',
-                              tooltip: ['right', 'Your group leader must first create an account']  %>
-    </span>
     
     <span class="GLform">
     <% if current_user.gl? %>

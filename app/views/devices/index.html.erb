@@ -8,7 +8,7 @@
         My devices
         <%= link_to "", new_lab_device_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %>
       </h3>
-      <p><%= link_to "#{@user.lab.gl.fullname} lab's devices", lab_devices_path(current_user.lab) %></p>
+      <p><%= link_to "#{@user.lab.gl.fullname} group's devices", lab_devices_path(current_user.lab) %></p>
     <% end %>
     <% if params[:tag] %>
       <h3>Devices tagged with <%= "#{params[:tag]}" %></h3>

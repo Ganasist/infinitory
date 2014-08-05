@@ -8,7 +8,7 @@
         My reagents
         <%= link_to "", new_lab_reagent_path(current_user.lab), class: 'fa fa-plus-square btn btn-warning' %><br>
       </h3>
-      <p><%= link_to "#{@user.lab.gl.fullname} lab's reagents", lab_reagents_path(current_user.lab) %></p>
+      <p><%= link_to "#{@user.lab.gl.fullname} group's reagents", lab_reagents_path(current_user.lab) %></p>
     <% end %>
     <% if params[:tag] %>
       <h3>Reagents tagged with <%= "#{ params[:tag] }" %></h3>
