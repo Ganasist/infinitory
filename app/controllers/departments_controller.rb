@@ -20,15 +20,17 @@ class DepartmentsController < ApplicationController
 
   def new
     @department = Department.new
+    authorize @department
   end
 
   def edit
+    authorize @department
     @institute = @department.institute
   end
 
   def create
     @department = @institute.departments.new(department_params)
-
+    authorize @department
     respond_to do |format|
       if @department.save
         if current_user.department.nil?
@@ -44,6 +46,7 @@ class DepartmentsController < ApplicationController
   end
 
   def update
+    authorize @department
     respond_to do |format|
       if @department.update(department_params)
         format.html { redirect_to institute_department_path(@institute, @department) }
