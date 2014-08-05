@@ -1,7 +1,6 @@
 # Included in Device, Reagent, User, Lab, Department, Institute
 module Attachments
 	extend ActiveSupport::Concern
-
 	included do
 		attr_accessor :delete_icon
 	  attr_reader :icon_remote_url  
@@ -17,7 +16,7 @@ module Attachments
 	  attr_reader :pdf_remote_url
 	  before_validation { pdf.clear if delete_pdf == '1' }
 	  has_attached_file :pdf                
-	  validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be less than 3 megabytes' }
+	  validates_attachment :pdf, :size => { :in => 0..5.megabytes, message: 'File must be less than 5 megabytes' }
 	  validates_attachment_content_type :pdf,
 	                                    :content_type => 'application/pdf',
 	                                    :message => 'only PDF files allowed'
