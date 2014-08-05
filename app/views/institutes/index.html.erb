@@ -12,12 +12,12 @@
 </div>
 
 <% if params[:search].present? %>
-	<div class="span5">
+	<div class="span9">
 		<%= render @institutes %>
 	</div>
 	<br>
 <% else %>
-	<div class="span5">
+	<div class="span9">
 	<%= render @institutes %>
 	
 	<%= paginate @institutes, theme: 'twitter-bootstrap', 
