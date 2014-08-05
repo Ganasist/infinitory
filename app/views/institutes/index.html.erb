@@ -1,15 +1,15 @@
 <%- model_class = Institute -%>
-<div class="page-header">
 	<% if params[:search].present? %>
 		<h3 class="text-muted"><%= pluralize(@institutes.count, "institute".titleize) %> in <%= params[:search].titleize %></h3>
 		<br>
   <% end %>
   <% unless user_signed_in? %>
-  <div class="btn-group">
-		<%= link_to "Register your lab", new_user_registration_path, :class => 'btn-large' %>
-	</div>
+		<div class="page-header">
+		  <div class="btn-group">
+				<%= link_to "Register your lab", new_user_registration_path, :class => 'btn-large' %>
+			</div>
+		</div>
 	<% end %>
-</div>
 
 <% if params[:search].present? %>
 	<div class="span9">
