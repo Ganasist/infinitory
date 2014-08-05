@@ -1,19 +1,11 @@
 <div class="institute">
-	<table>
+	<table class="institute_index">
   	<% if institute.icon? %>
-    	<td><%= link_to image_tag(institute.icon.url(:thumb).to_s).html_safe, institute  %></td>
+    	<td><%= link_to image_tag(institute.icon.url.to_s).html_safe, institute  %></td>
         <td><%= link_to "#{institute.name}".html_safe, institute %></td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;
-            <%= pluralize(institute.labs.count, "group") %> / 
-            <%= pluralize(institute.users.count, "member") %>
-    	</td>
         <br>
     <% else %>
         <td><%= link_to "#{institute.name}".html_safe, institute %><td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;
-            <%= pluralize institute.labs.count, "group" %> /
-	    	<%= pluralize institute.users.count, "member" %>
-	    </td>
         <br>
  		<% end %>		    	 
 	</table>
