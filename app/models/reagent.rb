@@ -49,7 +49,8 @@ class Reagent < ActiveRecord::Base
   end
 
   private
-    after_commit :reagent_depletion_worker, on: :update, if: Proc.new { |r| r.previous_changes.include?(:remaining) &&
+    after_commit :reagent_depletion_worker, on: :update, 
+                                            if: Proc.new { |r| r.previous_changes.include?(:remaining) &&
                                                                r.remaining < 21 }
     def reagent_depletion_worker
       ReagentDepletionWorker.perform_async(self.id)

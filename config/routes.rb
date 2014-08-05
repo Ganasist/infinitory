@@ -3,13 +3,13 @@ require 'sidetiq/web'
 
 Infinitory::Application.routes.draw do
 
-  resources :blog
-
   authenticated :user do
     root to: 'users#show', as: :authenticated_root
   end
 
-  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
+  devise_for :users, path: '', path_names: { sign_in: 'login',
+                                             sign_out: 'logout',
+                                             sign_up: 'register' },
                                controllers: { registrations: 'registrations',
                                               invitations: 'users/invitations',
                                               confirmations: 'confirmations',
@@ -37,6 +37,7 @@ Infinitory::Application.routes.draw do
     resources :bookings, only: [:index, :show]
   end
 
+  resources :blog
   resources :requests, only: [:new, :create]
   resource :feedback, only: [:new, :create]
   resources :comments, only: :destroy
