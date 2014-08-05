@@ -15,7 +15,7 @@ class InstitutePolicy < ApplicationPolicy
   end
 
   def show?
-  	user.institute == institute
+  	user.institute == institute || new?
   end
 
   def edit?
@@ -27,6 +27,6 @@ class InstitutePolicy < ApplicationPolicy
   end
 
   def lab_indexes?
-    user.institute == institute    
+    user.institute == institute || new? 
   end
 end

@@ -67,6 +67,16 @@ class DepartmentsController < ApplicationController
   end
 
   private
+    rescue_from ActiveRecord::RecordNotFound do |exception|
+      if user_signed_in?
+        flash[:alert] = "Department wasn't found."
+        redirect_to current_user
+      else
+        flash[:alert] = 'You need to sign in or sign up before continuing.'
+        redirect_to root_url
+      end
+    end
+
     def set_institute
       @institute = Institute.find(params[:institute_id])
     end
