@@ -16,7 +16,9 @@ class LabPolicy < ApplicationPolicy
 
   def show?
     user.lab == lab ||
-    Lab.where(id: user.lab.inverse_collaborations.pluck(:lab_id)).include?(lab)
+    if user.lab.inverse_collaborations?
+      Lab.where(id: user.lab.inverse_collaborations.pluck(:lab_id)).include?(lab)
+    end
   end
 
   def edit?
