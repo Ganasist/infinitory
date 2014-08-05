@@ -15,7 +15,7 @@
     <span class="inline-block">  
       <h4>
         <%= link_to @lab.gl do %>
-          <%= fa_icon "users lg fw" %><%= " The #{@lab.gl.fullname} Lab" %>
+          <%= fa_icon "users lg fw" %><%= " The #{@lab.gl.fullname} Group" %>
         <% end %>
         <% if current_user.gl_lm_lab?(@lab) %>
           <div class="btn-group">

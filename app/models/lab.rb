@@ -66,11 +66,15 @@ class Lab < ActiveRecord::Base
   end
 
   def cached_total_points
-    Rails.cache.fetch([self.points, "cached_total_points"], expires_in: 1.hour) { self.points }
+    if self.points?
+      Rails.cache.fetch([self.points, "cached_total_points"], expires_in: 1.hour) { self.points }
+    end
   end
 
   def cached_daily_points
-    Rails.cache.fetch([self.daily_points, "cached_daily_scores"], expires_in: 1.day) { self.daily_points }
+    if self.daily_points?
+      Rails.cache.fetch([self.daily_points, "cached_daily_scores"], expires_in: 1.day) { self.daily_points }
+    end
   end
 
   def gl
