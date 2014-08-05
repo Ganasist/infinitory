@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
          :confirmable, :async, :recoverable, :rememberable,
          :trackable, :validatable, :timeoutable
 
-  validates_acceptance_of :terms, on: :create, allow_nil: false, acceptance: 1
+  validates_acceptance_of :terms, on: :create, allow_nil: false, acceptance: 1, if: Proc.new{ |u| !u.gl? }
 
   belongs_to :institute, counter_cache: true, touch: true
   validates_associated  :institute
