@@ -20,7 +20,8 @@
 	<div class="span5">
 	<%= render @institutes %>
 	
-	<%= will_paginate @institutes, class: 'text-center lead' %>
+	<%= paginate @institutes, theme: 'twitter-bootstrap', 
+                            pagination_class: 'pagination-small pagination-centered' %>
 	<br><br>
 	
 		<div class="span6">

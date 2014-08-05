@@ -7,12 +7,12 @@ class InstitutesController < ApplicationController
     if params[:search].present?
       @institutes = Institute.near(params[:search], 50)
     elsif params[:query].present?
-      @institutes = Institute.global_search(params[:query]).page(params[:page]).per_page(10)
+      @institutes = Institute.global_search(params[:query]).page(params[:page]).per(10)
     elsif params[:term].present?
       @institutes = Institute.order(:name).where("name ilike ?", "%#{params[:term]}%")
       render json: @institutes.map(&:name)
     else 
-      @institutes = Institute.order(updated_at: :desc).page(params[:page]).per_page(10)
+      @institutes = Institute.order(updated_at: :desc).page(params[:page]).per(10)
     end
   end
 
