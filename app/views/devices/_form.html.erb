@@ -1,27 +1,32 @@
-<%= simple_form_for [@lab, @device], html: { class: 'form-vertical', multipart: true, autocomplete: 'off' } do |f| %>
+<%= simple_form_for [@lab, @device], html: { class: 'form-vertical', 
+                                             multipart: true, 
+                                          autocomplete: 'off' } do |f| %>
 <%= f.error_notification %>
   
     <div class="row">
       <div class="span5"> 
       
-      <%= f.input :name, placeholder: 'Required', typeahead: current_user.lab.devices.all.pluck(:name).uniq %>
+      <%= f.input :name, placeholder: 'Required', 
+                           typeahead: current_user.lab.devices.all.pluck(:name).uniq %>
       <%= f.input :uid, label: 'Unique ID', 
                         tooltip: ['right', "If you have multiple copies of the same item, you can use a unique ID to distinguish them."] %>
       
       <%= f.collection_radio_buttons :status, [[true, 'Online'] ,[false, 'Offline']], :first, :last %><br>
 
-      <%= f.input :bookable, as: :boolean, inline_label: 'Bookable', label: false,
-                            input_html: { style: 'width: 23px'} %><br>
+      <%= f.input :bookable, as: :boolean, 
+                   inline_label: 'Bookable', 
+                          label: false,
+                     input_html: { style: 'width: 23px'} %><br>
 
       <%= f.input :serial, label: 'Serial number' %>
       <%= f.input :location, label: 'Location in lab',
-                             placeholder: "'Room 237' or 'Fz3S1B4'",
-                             tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
+                       placeholder: "'Room 237' or 'Fz3S1B4'",
+                           tooltip: ['right', "Use this if you have a location code in your lab, ex: 'Fz3S1B4' = 'Freezer 3, Shelf 1, Box 4'"]  %>
       <hr>
       <%= f.input :category_list, label: 'Category',
-                                  collection: current_user.lab.device_category_list.sort_by(&:downcase),
-                                  as: :check_boxes,
-                                  input_html: { style: 'width: 50px' } %>
+                             collection: current_user.lab.device_category_list.sort_by(&:downcase),
+                                     as: :check_boxes,
+                             input_html: { style: 'width: 50px' } %>
       <br>
 
       <label>Description</label><br>
@@ -39,18 +44,21 @@
       
       <hr>
       <strong>
-        <h4><%= fa_icon "paperclip lg fw"%>Attachment<small> (PDF under 3 megabytes)</small></h4>
+        <h4><%= fa_icon 'paperclip lg fw'%>Attachment<small> (PDF under 5 megabytes)</small></h4>
       </strong>
       <br>
         <% if @device.pdf? %>
-           <%= link_to @device.pdf_file_name, @device.pdf.url, target: "_blank" %>
+           <%= link_to @device.pdf_file_name, @device.pdf.url, target: '_blank' %>
           <br><br>
-          <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete this attachment", wrapper_html: { class: "form-inline"} %><br>
+          <%= f.input :delete_pdf, as: :boolean, 
+                                label: false, 
+                         inline_label: 'Delete this attachment', 
+                         wrapper_html: { class: 'form-inline' } %><br>
         <% end %>
 
         <%= f.file_field :pdf %>
         <h4>or</h4>
-        <%= f.input :pdf_remote_url, label: "Enter a PDF URL" %>           
+        <%= f.input :pdf_remote_url, label: 'Enter a PDF URL' %>           
         <hr>
       </div>
       <div class="span5 pull-right">
@@ -58,30 +66,35 @@
           <% if @device.icon? %>
             <%= image_tag(@device.icon.url(:medium), class: "img-rounded").html_safe %>
             <br><br>
-            <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete this photo", wrapper_html: { class: "form-inline"} %><br>
+            <%= f.input :delete_icon, as: :boolean, 
+                                   label: false, 
+                            inline_label: "Delete this photo", 
+                            wrapper_html: { class: "form-inline"} %><br>
           <% end %>
           
           <%= f.file_field :icon %>
           <h4>or</h4>
-          <%= f.input :icon_remote_url, label: "Enter an image URL" %>
+          <%= f.input :icon_remote_url, label: 'Enter an image URL' %>
           <hr>
-           <%= f.input :shared, as: :select, include_blank: false, label: "Shared with collaborators?" %>
+           <%= f.input :shared, as: :select, 
+                     include_blank: false, 
+                             label: "Shared with collaborators?" %>
            <hr>
 
       <% if params[:lab_id] %>    
         <%= f.association :users, label: 'Linked member(s):',
-                                            collection: User.where(lab: @lab).order(:first_name),
-                                            value_method: :id,
-                                            label_method: :fullname,
-                                            as: :check_boxes,
-                                            input_html: { style: 'width: 50px', class: 'linked_users' } %>
+                             collection: User.where(lab: @lab).order(:first_name),
+                           value_method: :id,
+                           label_method: :fullname,
+                                     as: :check_boxes,
+                             input_html: { style: 'width: 50px', class: 'linked_users' } %>
       <% else %>
         <%= f.association :users, label: 'Linked member(s):',
-                                            collection: User.where(lab: @device.lab).order(:first_name),
-                                            value_method: :id,
-                                            label_method: :fullname,
-                                            as: :check_boxes,
-                                            input_html: { style: 'width: 50px', class: 'linked_users' } %>
+                             collection: User.where(lab: @device.lab).order(:first_name),
+                           value_method: :id,
+                           label_method: :fullname,
+                                     as: :check_boxes,
+                             input_html: { style: 'width: 50px', class: 'linked_users' } %>
       <% end %>
         <div class="btn-group" data-toggle="buttons">
           <label class="btn btn-default btn-small">
@@ -102,7 +115,9 @@
           <%= link_to 'Cancel', lab_devices_path(@device.lab), class: 'btn' %>
         <% end %>
         <% unless @device.id.nil? %>
-          <%= link_to ' Destroy', device_path(@device), method: :delete, class: 'icon-trash btn btn-mini btn-danger' %>
+          <%= link_to ' Destroy', device_path(@device), 
+                                  method: :delete, 
+                                   class: 'icon-trash btn btn-mini btn-danger' %>
         <% end %>
       </div>
     </div>

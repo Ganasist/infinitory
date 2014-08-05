@@ -1,31 +1,38 @@
 <%= simple_form_for @institute, html: { class: 'form-vertical', multipart: true } do |f| %>
 <%= f.error_notification %>
-
   <div class="row">
     <div class="span5 pull-left">
       <%= f.input :name, label: 'Institute name' %>
       <%= f.input :alternate_name, placeholder: 'Optional' %>
-      <%= f.input :acronym, placeholder: 'Optional', label: 'Acronym' %>
-      <%= f.input :address, input_html: { rows: 4, class: "span5" }, as: :text %>
+      <%= f.input :acronym, label: 'Acronym',
+                      placeholder: 'Optional'  %>
+      <%= f.input :address, input_html: { rows: 4, class: "span5" }, 
+                                    as: :text %>
       <hr>
       <%= f.input :email, label: 'Institute email' %>
-      <%= f.input :url, label: 'Website', placeholder: "Optional" %>
-      <%= f.input :twitter_url, label: "Twitter", placeholder: "https://twitter.com/department" %>
-      <%= f.input :facebook_url, label: "Facebook", placeholder: "https://www.facebook.com/department" %>
+      <%= f.input :url, label: 'Website', 
+                  placeholder: 'Optional' %>
+      <%= f.input :twitter_url, label: 'Twitter', 
+                          placeholder: 'https://twitter.com/department' %>
+      <%= f.input :facebook_url, label: 'Facebook', 
+                           placeholder: 'https://www.facebook.com/department' %>
       <hr>
       <strong>
-        <h4><%= fa_icon "paperclip lg fw"%>Attachment <small>(PDF under 3 megabytes)</small>
-      </h4>
-      </strong>        
+        <h4><%= fa_icon 'paperclip lg fw'%>Attachment <small> (PDF under 5 megabytes)</small></h4>
+      </strong>
+      <br>
         <% if @institute.pdf? %>
-          <%= link_to "#{ @institute.pdf_file_name }", @institute.pdf.url %>
+          <%= link_to @institute.pdf_file_name, @institute.pdf.url, target: '_blank' %>
           <br><br>
-          <%= f.input :delete_pdf, as: :boolean, label: false, inline_label: "Delete attachment", wrapper_html: { class: "form-inline"} %><br>
+          <%= f.input :delete_pdf, as: :boolean, 
+                                label: false, 
+                         inline_label: 'Delete attachment', 
+                         wrapper_html: { class: 'form-inline' } %><br>
         <% end %>
 
-        <%= f.input :pdf_remote_url, label: "Enter attachment URL" %>
-        <h4>or</h4>
         <%= f.file_field :pdf %>
+        <h4>or</h4>
+        <%= f.input :pdf_remote_url, label: 'Enter a PDF URL' %>
         <hr>     
       <br> 
     </div>
@@ -33,11 +40,14 @@
       <strong><h4>Institute icon</h4></strong>
       <p>.jpeg, .png or .gif images < 3 megabytes</p>
       <% if @institute.icon? %>
-        <%= image_tag(@institute.icon.url, class: "img-rounded").html_safe %>
+        <%= image_tag(@institute.icon.url, class: 'img-rounded').html_safe %>
         <br><br>
-        <%= f.input :delete_icon, as: :boolean, label: false, inline_label: "Delete icon", wrapper_html: { class: "form-inline"} %><br>
+        <%= f.input :delete_icon, as: :boolean, 
+                               label: false, 
+                        inline_label: 'Delete icon', 
+                        wrapper_html: { class: 'form-inline'} %><br>
       <% end %>
-      <%= f.input :icon_remote_url, label: "Enter icon URL" %>
+      <%= f.input :icon_remote_url, label: 'Enter icon URL' %>
       <h4>or</h4>
       <%= f.file_field :icon %>
       <br>
@@ -47,8 +57,7 @@
   <div class="row">
     <div class="span5">
       <%= f.button :submit, class: 'btn-warning' %><br><br>
-      <%= link_to t('.cancel', default: t("helpers.links.cancel")),
-                  root_path, :class => 'btn' %>
+      <%= link_to t('.cancel', default: t('helpers.links.cancel')), root_path, class: 'btn' %>
     </div>
   </div>
 <% end %>
