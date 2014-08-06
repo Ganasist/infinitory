@@ -18,7 +18,7 @@ class DailyPointsWorker
       # Calculate points for Users (belonging to Labs)
       l.users.each do |u|
         # Calculate User's daily points Average since they joined the lab
-        u.daily_points     = (u.points / (today - u.joined.to_datetime).to_i)
+        u.daily_points     = (u.points / ((today - u.joined.to_datetime).to_i) + 1)
         lab_daily_average += u.daily_points        
         u.save        
         lab_total_points  += u.points      	
